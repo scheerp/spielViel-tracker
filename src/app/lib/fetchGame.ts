@@ -1,4 +1,4 @@
-import { parseStringPromise } from "xml2js";
+import { parseStringPromise } from 'xml2js';
 
 export interface BoardGame {
   id: string;
@@ -11,10 +11,10 @@ export interface BoardGame {
   minAge: string;
 }
 
-const BGG_API_URL = "https://boardgamegeek.com/xmlapi2/thing?id=";
+const BGG_API_URL = 'https://boardgamegeek.com/xmlapi2/thing?id=';
 
 export const fetchGameData = async (
-  gameId: string
+  gameId: string,
 ): Promise<BoardGame | null> => {
   try {
     const res = await fetch(`${BGG_API_URL}${gameId}`);
@@ -38,7 +38,7 @@ export const fetchGameData = async (
 
     return boardGame;
   } catch (error) {
-    console.error("Fehler beim Abrufen des Spiels:", error);
+    console.error('Fehler beim Abrufen des Spiels:', error);
     return null;
   }
 };

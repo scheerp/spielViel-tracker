@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -6,15 +6,7 @@ const nextConfig: NextConfig = {
 
 module.exports = {
   images: {
-    domains: ["cf.geekdo-images.com"],
-  },
-  typescript: {
-    // TODO: Ignoriert TypeScript-Fehler während des Builds
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    // TODO: Ignoriert ESLint-Warnungen während des Builds
-    ignoreDuringBuilds: true,
+    domains: ['cf.geekdo-images.com'],
   },
 };
 
