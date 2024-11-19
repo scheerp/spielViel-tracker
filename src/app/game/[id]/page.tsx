@@ -61,7 +61,7 @@ const GamePage = ({ params }: GamePageProps) => {
   }, [bggId, id]);
 
   if (loading) return <Loading />;
-  if (!bggGame || error) return <div>Spiel nicht gefunden.</div>;
+  if (!bggGame || !game || error) return <div>Spiel nicht gefunden.</div>;
 
   return (
     <div className="flex w-full flex-col items-center justify-center">

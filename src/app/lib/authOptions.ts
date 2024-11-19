@@ -30,6 +30,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         token.accessToken = (user as any).access_token;
       }
       return token;

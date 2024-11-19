@@ -1,6 +1,5 @@
 'use client';
 
-import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';

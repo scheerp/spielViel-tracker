@@ -54,7 +54,7 @@ const Games: React.FC = () => {
     };
 
     fetchGames();
-  }, []);
+  }, [showNotification]);
 
   useEffect(() => {
     if (!games) return;

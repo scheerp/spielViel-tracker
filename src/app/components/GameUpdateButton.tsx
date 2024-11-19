@@ -14,7 +14,7 @@ const GameUpdateButton = ({
   gameId: number;
   setAvailable: boolean;
   text: string;
-  updateFunction: any; //TODO;
+  updateFunction: (arg0: boolean) => void;
 }) => {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
