@@ -1,6 +1,6 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import MeepleIcon from './MeepleIcon';
 import Image from 'next/image';
@@ -19,9 +19,13 @@ const Header = () => {
             height={37}
           />
         </Link>
-        <Link href="/login">
-          <MeepleIcon tailwindColor={session ? 'text-white' : 'text-primary'} />
-        </Link>
+        {session ? (
+          <MeepleIcon tailwindColor="text-white" onClick={signOut} />
+        ) : (
+          <Link href="/login">
+            <MeepleIcon tailwindColor="text-primary" />
+          </Link>
+        )}
       </nav>
     </header>
   );

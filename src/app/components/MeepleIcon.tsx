@@ -1,9 +1,16 @@
-const MeepleIcon = ({ tailwindColor }: { tailwindColor: string }) => {
+const MeepleIcon = ({
+  tailwindColor,
+  onClick,
+}: {
+  tailwindColor: string;
+  onClick?: () => void;
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 512 512"
       className={`h-10 w-10 ${tailwindColor}`}
+      onClick={onClick}
     >
       <defs></defs>
       <g className="" transform="translate(0,0)">
