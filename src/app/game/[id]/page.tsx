@@ -10,8 +10,7 @@ import Loading from '@components/Loading';
 
 interface GamePageProps {
   params: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    id: string | Promise<any>;
+    id: string;
   };
 }
 
