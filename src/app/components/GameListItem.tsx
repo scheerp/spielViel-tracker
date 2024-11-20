@@ -18,9 +18,9 @@ const GameListItem: React.FC<GameListItemProps> = ({
 
   return (
     <li className="m-2">
-      <div className="flex h-24 items-center rounded-md bg-white shadow-md">
+      <div className="flex h-24 items-center justify-between rounded-md bg-white shadow-md">
         <Link
-          className={`${!isAvailable && 'opacity-40'} flex w-8/12 items-center`}
+          className={`${!isAvailable && 'opacity-40'} flex w-full items-center`}
           href={{
             pathname: `/game/${game.id}`,
             query: { bgg_id: game.bgg_id, is_available: isAvailable },
@@ -41,19 +41,18 @@ const GameListItem: React.FC<GameListItemProps> = ({
             <h2 className="text-md">{game.name}</h2>
           </div>
         </Link>
-
-        <GameUpdateButtonList
-          gameId={game.id}
-          setAvailable={false}
-          text="ausgeliehen"
-          updateFunction={setIsAvailable}
-        />
-        <GameUpdateButtonList
-          gameId={game.id}
-          setAvailable={true}
-          text="zurück gebracht"
-          updateFunction={setIsAvailable}
-        />
+        <div className="flex">
+          <GameUpdateButtonList
+            gameId={game.id}
+            setAvailable={false}
+            updateFunction={setIsAvailable}
+          />
+          <GameUpdateButtonList
+            gameId={game.id}
+            setAvailable={true}
+            updateFunction={setIsAvailable}
+          />
+        </div>
       </div>
     </li>
   );
