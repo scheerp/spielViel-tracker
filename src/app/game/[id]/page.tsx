@@ -61,27 +61,31 @@ const GamePage = ({ params }: GamePageProps) => {
   }, [bggId, id]);
 
   if (loading) return <Loading />;
-  if (!bggGame || !game || error) return <div>Spiel nicht gefunden.</div>;
+  if (!game || error) return <div>Spiel nicht gefunden.</div>;
 
   return (
-    <div className="flex w-full flex-col items-center justify-center">
+    <div className="mt-9 flex w-full flex-col items-center justify-center">
       <Image
-        className={`m-9 ${!isAvailable && 'opacity-40'}`}
-        src={bggGame.imageUrl}
-        alt={bggGame.name}
+        className={`${!isAvailable && 'opacity-40'}`}
+        src={bggGame?.imageUrl || game.img_url}
+        alt={game.name}
         width={330}
         height={330}
       />
-      <h1 className="text-xl">{bggGame.name}</h1>
+      <h1 className="mt-9 text-xl">{game.name}</h1>
       <table className="table w-full">
         <tbody className="w-full">
           <tr className="flex w-full justify-around">
             <td>Spielerzahl:</td>
-            <td>{`${bggGame.minPlayers} - ${bggGame.maxPlayers} Spieler`}</td>
+            <td>
+              {bggGame?.maxPlayers === bggGame?.minPlayers
+                ? `${bggGame?.minPlayers} Spieler`
+                : `${bggGame?.minPlayers} - ${bggGame?.maxPlayers} Spieler`}
+            </td>
           </tr>
           <tr className="flex w-full justify-around">
             <td className="text-right">Alter:</td>
-            <td>ab {bggGame.minAge} Jahren</td>
+            <td>ab {bggGame?.minAge} Jahren</td>
           </tr>
         </tbody>
       </table>

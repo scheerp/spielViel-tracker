@@ -25,6 +25,7 @@ export const fetchGameData = async (
 
     // Extrahieren der relevanten Spielinformationen
     const game = parsedData.items.item[0];
+
     const boardGame: BoardGame = {
       id: game.$.id,
       name: game.name[0].$.value,

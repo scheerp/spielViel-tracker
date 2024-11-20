@@ -3,7 +3,7 @@
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import MeepleIcon from './MeepleIcon';
-import Image from 'next/image';
+import Image from 'next/legacy/image';
 
 const Header = () => {
   const { data: session } = useSession();
@@ -17,6 +17,7 @@ const Header = () => {
             alt={'spielViel-logo'}
             width={158}
             height={37}
+            priority
           />
         </Link>
         {session ? (

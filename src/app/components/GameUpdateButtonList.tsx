@@ -5,15 +5,13 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/legacy/image';
 import { useState } from 'react';
 
-const GameUpdateButton = ({
+const GameUpdateButtonList = ({
   gameId,
   setAvailable,
-  text,
   updateFunction,
 }: {
   gameId: number;
   setAvailable: boolean;
-  text: string;
   updateFunction: (arg0: boolean) => void;
 }) => {
   const { data: session } = useSession();
@@ -40,10 +38,13 @@ const GameUpdateButton = ({
         );
 
         if (response.ok) {
+          const notificationMessage = setAvailable
+            ? 'Spiel erfolgreich zurück gegeben.'
+            : 'Spiel erfolgreich ausgeliehen.';
           showNotification({
-            message: 'Spiel erfolgreich aktualisiert!',
+            message: notificationMessage,
             type: 'success',
-            duration: 1000,
+            duration: 1500,
           });
           updateFunction(setAvailable);
         } else {
@@ -68,28 +69,27 @@ const GameUpdateButton = ({
     <button
       onClick={handleUpdateGame}
       disabled={isButtonDisabled}
-      className={`btn m-8 mt-4 flex min-h-36 min-w-36 flex-col items-center justify-center rounded-xl px-2 py-2.5 text-xl text-white ${!setAvailable ? 'bg-orange-500' : 'bg-cyan-600'} ${isButtonDisabled || isLoading ? 'cursor-not-allowed opacity-50' : ''}`}
+      className={`btnflex mr-1 h-16 w-16 flex-col items-center justify-center rounded-xl px-2 py-2.5 text-xl text-white ${!setAvailable ? 'bg-orange-500' : 'bg-cyan-600'} ${isButtonDisabled || isLoading ? 'cursor-not-allowed opacity-50' : ''}`}
     >
-      {text}
       {setAvailable ? (
         <Image
           className="mr-2"
           src="/return-icon.svg"
           alt={'return icon'}
-          width={40}
-          height={40}
+          width={20}
+          height={20}
         />
       ) : (
         <Image
           className="mr-2"
           src="/lend-icon.svg"
           alt={'lend icon'}
-          width={40}
-          height={40}
+          width={20}
+          height={20}
         />
       )}
     </button>
   ) : null;
 };
 
-export default GameUpdateButton;
+export default GameUpdateButtonList;

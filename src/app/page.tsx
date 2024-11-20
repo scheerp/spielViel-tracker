@@ -1,11 +1,10 @@
 'use client';
 
 import FilterCard from '@components/FilterCard';
+import GameListItem from '@components/GameListItem';
 import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
 import { filterGames, sortGames } from '@lib/utils';
-import Image from 'next/image';
-import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 export interface Game {
@@ -85,31 +84,7 @@ const Games: React.FC = () => {
       />
       <ul>
         {filteredGames?.map((game) => (
-          <li
-            key={game.id}
-            className={`m-2 ${!game.is_available && 'opacity-40'}`}
-          >
-            {/* <a href={`https://boardgamegeek.com/boardgame/${game.bgg_id}`}> */}
-            <Link
-              href={{
-                pathname: `/game/${game.id}`,
-                query: { bgg_id: game.bgg_id, is_available: game.is_available },
-              }}
-            >
-              <div className="flex items-center rounded-md bg-white shadow-md">
-                <div className="min-w-24">
-                  <Image
-                    className="mr-2"
-                    src={game.img_url}
-                    alt={game.name}
-                    width={80}
-                    height={80}
-                  />
-                </div>
-                <h2>{game.name}</h2>
-              </div>
-            </Link>
-          </li>
+          <GameListItem game={game} key={game.name} />
         ))}
       </ul>
     </div>
