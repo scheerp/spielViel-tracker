@@ -64,6 +64,14 @@ const Games: React.FC = () => {
     setFilteredGames(sorted);
   }, [filterText, sortOption, showAvailableOnly, games]);
 
+  const updateGameAvailability = (gameId: number, isAvailable: boolean) => {
+    setGames((prevGames) =>
+      prevGames.map((game) =>
+        game.id === gameId ? { ...game, is_available: isAvailable } : game,
+      ),
+    );
+  };
+
   if (loading) {
     return <Loading />;
   }
@@ -84,7 +92,11 @@ const Games: React.FC = () => {
       />
       <ul>
         {filteredGames?.map((game) => (
-          <GameListItem game={game} key={game.name} />
+          <GameListItem
+            game={game}
+            key={game.name}
+            updateGameAvailability={updateGameAvailability}
+          />
         ))}
       </ul>
     </div>

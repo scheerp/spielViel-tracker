@@ -1,7 +1,13 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import Notification from '@components/Notification';
 
-type NotificationType = 'success' | 'error' | 'warning' | 'status';
+export type NotificationType =
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'status'
+  | 'checkOut'
+  | 'checkIn';
 
 interface NotificationContextType {
   showNotification: ({

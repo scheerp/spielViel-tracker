@@ -5,89 +5,105 @@ import { useSession } from 'next-auth/react';
 import Image from 'next/legacy/image';
 import { useState } from 'react';
 
+type GameUpdateButtonProps = {
+  gameId: number;
+  setAvailable: boolean;
+  text?: string;
+  buttonType: 'list' | 'detail';
+  updateFunction: (isAvailable: boolean) => void;
+};
+
 const GameUpdateButton = ({
   gameId,
   setAvailable,
   text,
+  buttonType,
   updateFunction,
-}: {
-  gameId: number;
-  setAvailable: boolean;
-  text: string;
-  updateFunction: (arg0: boolean) => void;
-}) => {
+}: GameUpdateButtonProps) => {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
   const [isLoading, setIsLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleUpdateGame = async () => {
-    if (session) {
-      setIsLoading(true);
-      setIsButtonDisabled(true);
+    if (!session) return;
 
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/update_game/${gameId}`,
-          {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${session.accessToken}`,
-            },
-            body: JSON.stringify({ is_available: setAvailable }),
+    setIsLoading(true);
+    setIsButtonDisabled(true);
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/update_game/${gameId}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${session.accessToken}`,
           },
-        );
+          body: JSON.stringify({ is_available: setAvailable }),
+        },
+      );
 
-        if (response.ok) {
-          showNotification({
-            message: 'Spiel erfolgreich aktualisiert!',
-            type: 'success',
-            duration: 1000,
-          });
-          updateFunction(setAvailable);
-        } else {
-          showNotification({
-            message: 'Fehler beim Aktualisieren des Spiels.',
-            type: 'error',
-            duration: 1000,
-          });
-        }
-      } catch (error) {
-        console.error('Fehler beim Senden des PUT-Requests:', error);
-      } finally {
-        setTimeout(() => {
-          setIsLoading(false);
-          setIsButtonDisabled(false);
-        }, 500);
+      if (response.ok) {
+        const actionMessage = setAvailable
+          ? 'Spiel erfolgreich zurück gegeben.'
+          : 'Spiel erfolgreich ausgeliehen.';
+        const iconSrc = setAvailable ? '/return-icon.svg' : '/lend-icon.svg';
+
+        showNotification({
+          message: (
+            <div className="flex items-center">
+              <Image src={iconSrc} alt="status icon" width={20} height={20} />
+              <span className="ml-4">{actionMessage}</span>
+            </div>
+          ),
+          type: setAvailable ? 'checkIn' : 'checkOut',
+          duration: 1500,
+        });
+        updateFunction(setAvailable);
+      } else {
+        showNotification({
+          message: 'Fehler beim Aktualisieren des Spiels.',
+          type: 'error',
+          duration: 1000,
+        });
       }
+    } catch (error) {
+      console.error('Fehler beim Senden des PUT-Requests:', error);
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+        setIsButtonDisabled(false);
+      }, 500);
     }
+  };
+
+  const getButtonStyles = () => {
+    const baseStyles = 'rounded-xl px-2 py-2.5 text-xl text-white';
+    const sizeStyles =
+      buttonType === 'detail'
+        ? 'btn m-8 mt-4 min-h-36 min-w-36 flex flex-col items-center justify-center'
+        : 'btnflex mr-1 h-16 w-16 flex-col items-center justify-center';
+    const availabilityStyles = setAvailable ? 'bg-checkedIn' : 'bg-checkedOut';
+    const disabledStyles =
+      isButtonDisabled || isLoading ? 'cursor-not-allowed opacity-50' : '';
+
+    return `${baseStyles} ${sizeStyles} ${availabilityStyles} ${disabledStyles}`;
   };
 
   return session ? (
     <button
       onClick={handleUpdateGame}
       disabled={isButtonDisabled}
-      className={`btn m-8 mt-4 flex min-h-36 min-w-36 flex-col items-center justify-center rounded-xl px-2 py-2.5 text-xl text-white ${!setAvailable ? 'bg-orange-500' : 'bg-cyan-600'} ${isButtonDisabled || isLoading ? 'cursor-not-allowed opacity-50' : ''}`}
+      className={getButtonStyles()}
     >
-      {text}
-      {setAvailable ? (
-        <Image
-          className="mr-2"
-          src="/return-icon.svg"
-          alt={'return icon'}
-          width={40}
-          height={40}
-        />
-      ) : (
-        <Image
-          className="mr-2"
-          src="/lend-icon.svg"
-          alt={'lend icon'}
-          width={40}
-          height={40}
-        />
-      )}
+      {text && buttonType === 'detail' && <span>{text}</span>}
+      <Image
+        src={setAvailable ? '/return-icon.svg' : '/lend-icon.svg'}
+        alt={setAvailable ? 'return icon' : 'lend icon'}
+        width={buttonType === 'detail' ? 40 : 20}
+        height={buttonType === 'detail' ? 40 : 20}
+      />
     </button>
   ) : null;
 };

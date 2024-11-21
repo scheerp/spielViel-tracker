@@ -93,12 +93,14 @@ const GamePage = ({ params }: GamePageProps) => {
         <GameUpdateButton
           gameId={parseInt(id)}
           setAvailable={false}
+          buttonType="detail"
           text="ausgeliehen"
           updateFunction={setIsAvailable}
         />
         <GameUpdateButton
           gameId={parseInt(id)}
           setAvailable={true}
+          buttonType="detail"
           text="zurück gebracht"
           updateFunction={setIsAvailable}
         />

@@ -2,19 +2,23 @@ import Image from 'next/legacy/image';
 import { Game } from '../page';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import GameUpdateButtonList from './GameUpdateButtonList';
+import GameUpdateButton from './GameUpdateButton';
 
-type GameListItemProps = { game: Game };
+type GameListItemProps = {
+  game: Game;
+  updateGameAvailability: (gameId: number, isAvailable: boolean) => void;
+};
 
 const GameListItem: React.FC<GameListItemProps> = ({
   game,
+  updateGameAvailability,
 }: GameListItemProps) => {
-  const [isAvailable, setIsAvailable] = useState<boolean>(true);
+  const [isAvailable, setIsAvailable] = useState<boolean>(game.is_available);
 
   useEffect(() => {
     if (!game) return;
     setIsAvailable(game.is_available);
-  }, []);
+  }, [game]);
 
   return (
     <li className="m-2">
@@ -41,16 +45,25 @@ const GameListItem: React.FC<GameListItemProps> = ({
             <h2 className="text-md">{game.name}</h2>
           </div>
         </Link>
+
         <div className="flex">
-          <GameUpdateButtonList
+          <GameUpdateButton
             gameId={game.id}
             setAvailable={false}
-            updateFunction={setIsAvailable}
+            buttonType="list"
+            updateFunction={(value) => {
+              setIsAvailable(value);
+              updateGameAvailability(game.id, value);
+            }}
           />
-          <GameUpdateButtonList
+          <GameUpdateButton
             gameId={game.id}
             setAvailable={true}
-            updateFunction={setIsAvailable}
+            buttonType="list"
+            updateFunction={(value) => {
+              setIsAvailable(value);
+              updateGameAvailability(game.id, value);
+            }}
           />
         </div>
       </div>

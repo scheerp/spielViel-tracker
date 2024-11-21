@@ -1,8 +1,7 @@
 'use client';
 
+import { NotificationType } from '@context/NotificationContext';
 import React from 'react';
-
-type NotificationType = 'success' | 'error' | 'warning' | 'status';
 
 interface NotificationProps {
   message?: React.ReactNode;
@@ -23,6 +22,8 @@ const Notification: React.FC<NotificationProps> = ({
     error: 'bg-red-500 text-white',
     warning: 'bg-yellow-500 text-black',
     status: 'bg-blue-500 text-white',
+    checkOut: 'bg-checkedOut text-white',
+    checkIn: 'bg-checkedIn text-white',
   };
 
   return (

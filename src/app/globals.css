@@ -7,6 +7,8 @@
   --foreground: #171717;
   --primary: #e01474;
   --primary-light: #e27bab;
+  --checked-out: #f97316;
+  --checked-in: #0891b2;
 }
 
 body {

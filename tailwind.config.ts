@@ -14,6 +14,8 @@ export default {
         foreground: 'var(--foreground)',
         primary: 'var(--primary)',
         primaryLight: 'var(--primary-light)',
+        checkedOut: 'var(--checked-out)',
+        checkedIn: 'var(--checked-in)',
       },
     },
   },
