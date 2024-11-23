@@ -51,7 +51,7 @@ const FilterCard: React.FC<FilterCardProps> = ({
       <CustomSlider
         value={minPlayerCount}
         minValue={1}
-        maxValue={10}
+        maxValue={11}
         updateFunction={setMinPlayerCount}
         labelText={`min Spielerzahl: ${minPlayerCount > 10 ? '10+' : minPlayerCount} Spieler`}
       />
