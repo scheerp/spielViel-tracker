@@ -1,9 +1,7 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
 import GameUpdateButton from '@components/GameUpdateButton';
 import { use, useEffect, useState } from 'react';
-import { BoardGame, fetchGameData } from '@lib/fetchGame';
 import Image from 'next/image';
 import { Game } from '../../page';
 import Loading from '@components/Loading';
@@ -15,16 +13,12 @@ interface GamePageProps {
 }
 
 const GamePage = ({ params }: GamePageProps) => {
-  // @ts-expect-error fix this in a later react version
+  // @ts-expect-error --> fix this in a later react version
   const { id } = use(params);
-  const [bggGame, setBggGame] = useState<BoardGame | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [game, setGame] = useState<Game | null>(null);
   const [isAvailable, setIsAvailable] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const searchParams = useSearchParams();
-
-  const bggId = searchParams.get('bgg_id');
 
   useEffect(() => {
     const fetchGameDetails = async () => {
@@ -44,21 +38,13 @@ const GamePage = ({ params }: GamePageProps) => {
         if (err instanceof Error) {
           setError(err.message);
         }
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchGameDetails();
-
-    if (bggId) {
-      const fetchData = async () => {
-        const gameData = await fetchGameData(bggId as string);
-        setBggGame(gameData);
-        setLoading(false);
-      };
-
-      fetchData();
-    }
-  }, [bggId, id]);
+  }, []);
 
   if (loading) return <Loading />;
   if (!game || error) return <div>Spiel nicht gefunden.</div>;
@@ -67,28 +53,37 @@ const GamePage = ({ params }: GamePageProps) => {
     <div className="mt-9 flex w-full flex-col items-center justify-center">
       <Image
         className={`${!isAvailable && 'opacity-40'}`}
-        src={bggGame?.imageUrl || game.img_url}
+        src={game.img_url || 'fallbackImage'}
         alt={game.name}
         width={330}
         height={330}
       />
-      <h1 className="mt-9 text-xl">{game.name}</h1>
-      <table className="table w-full">
-        <tbody className="w-full">
-          <tr className="flex w-full justify-around">
-            <td>Spielerzahl:</td>
-            <td>
-              {bggGame?.maxPlayers === bggGame?.minPlayers
-                ? `${bggGame?.minPlayers} Spieler`
-                : `${bggGame?.minPlayers} - ${bggGame?.maxPlayers} Spieler`}
-            </td>
-          </tr>
-          <tr className="flex w-full justify-around">
-            <td className="text-right">Alter:</td>
-            <td>ab {bggGame?.minAge} Jahren</td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="mt-9 flex w-full flex-col items-center justify-center px-16">
+        <h1 className="text-xl">{game.name}</h1>
+        <p>{game.year_published}</p>
+        <table className="mt-9 table w-full">
+          <tbody className="w-full">
+            <tr className="flex w-full justify-between">
+              <td>Spielerzahl:</td>
+              <td>
+                {game.max_players === game.min_players
+                  ? `${game?.max_players} Spieler`
+                  : `${game?.min_players} - ${game?.max_players} Spieler`}
+              </td>
+            </tr>
+            {game.max_playtime && (
+              <tr className="flex w-full justify-between">
+                <td className="text-right">Spielzeit:</td>
+                <td>
+                  {game.max_players === game.min_players
+                    ? `ca. ${game.playing_time} Minuten`
+                    : `ca. ${game.min_playtime} - ${game.max_playtime} Minuten`}
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
       <div className="flex">
         <GameUpdateButton
           gameId={parseInt(id)}

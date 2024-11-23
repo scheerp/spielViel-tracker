@@ -10,9 +10,18 @@ import React, { useEffect, useState } from 'react';
 export interface Game {
   id: number;
   name: string;
-  img_url: string;
   bgg_id: number;
   is_available: boolean;
+  year_published: number;
+  min_players: number;
+  max_players: number;
+  min_playtime: number;
+  max_playtime: number;
+  playing_time: number;
+  rating: number;
+  img_url?: string;
+  thumbnail_url?: string;
+  ean?: string;
 }
 
 const Games: React.FC = () => {
@@ -23,6 +32,7 @@ const Games: React.FC = () => {
   const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [minPlayerCount, setMinPlayerCount] = useState<number>(1);
   const { showNotification } = useNotification();
 
   useEffect(() => {
@@ -58,11 +68,16 @@ const Games: React.FC = () => {
   useEffect(() => {
     if (!games) return;
 
-    const filtered = filterGames(games, filterText, showAvailableOnly);
+    const filtered = filterGames({
+      games,
+      filterText,
+      showAvailableOnly,
+      minPlayerCount,
+    });
     const sorted = sortGames(filtered, sortOption);
 
     setFilteredGames(sorted);
-  }, [filterText, sortOption, showAvailableOnly, games]);
+  }, [filterText, sortOption, showAvailableOnly, games, minPlayerCount]);
 
   const updateGameAvailability = (gameId: number, isAvailable: boolean) => {
     setGames((prevGames) =>
@@ -89,6 +104,8 @@ const Games: React.FC = () => {
         setSortOption={setSortOption}
         showAvailableOnly={showAvailableOnly}
         setShowAvailableOnly={setShowAvailableOnly}
+        minPlayerCount={minPlayerCount}
+        setMinPlayerCount={setMinPlayerCount}
       />
       <ul>
         {filteredGames?.map((game) => (

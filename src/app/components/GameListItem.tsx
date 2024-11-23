@@ -27,13 +27,12 @@ const GameListItem: React.FC<GameListItemProps> = ({
           className={`${!isAvailable && 'opacity-40'} flex w-full items-center`}
           href={{
             pathname: `/game/${game.id}`,
-            query: { bgg_id: game.bgg_id, is_available: isAvailable },
           }}
         >
           <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden truncate rounded-l-md">
-            {game.img_url && (
+            {game.thumbnail_url && (
               <Image
-                src={game.img_url}
+                src={game.thumbnail_url}
                 alt={game.name}
                 layout="fill"
                 objectFit="cover"

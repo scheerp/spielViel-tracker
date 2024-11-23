@@ -1,15 +1,27 @@
 import { Game } from '../page';
 
-export const filterGames = (
-  games: Game[],
-  filterText: string,
-  showAvailable: boolean,
-): Game[] => {
+type filterGamesType = {
+  games: Game[];
+  filterText: string;
+  showAvailableOnly: boolean;
+  minPlayerCount: number;
+};
+
+export const filterGames = ({
+  games,
+  filterText,
+  showAvailableOnly,
+  minPlayerCount,
+}: filterGamesType): Game[] => {
   let filtered = games.filter((item) =>
     item.name.toLowerCase().includes(filterText.toLowerCase()),
   );
 
-  if (showAvailable) {
+  filtered = filtered.filter((item) => {
+    return item.max_players >= minPlayerCount;
+  });
+
+  if (showAvailableOnly) {
     filtered = filtered.filter((item) => {
       return item.is_available;
     });
