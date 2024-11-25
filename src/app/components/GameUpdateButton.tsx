@@ -83,7 +83,7 @@ const GameUpdateButton = ({
     const sizeStyles =
       buttonType === 'detail'
         ? 'btn m-8 mt-4 min-h-36 min-w-36 flex flex-col items-center justify-center'
-        : 'btnflex mr-1 h-16 w-16 flex-col items-center justify-center';
+        : 'btnflex h-16 w-16 flex-col items-center justify-center';
     const availabilityStyles = setAvailable ? 'bg-checkedIn' : 'bg-checkedOut';
     const disabledStyles =
       isButtonDisabled || isLoading ? 'cursor-not-allowed opacity-50' : '';

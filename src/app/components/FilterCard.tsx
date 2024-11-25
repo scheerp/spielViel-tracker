@@ -6,26 +6,22 @@ import SearcheIcon from './SearchIcon';
 type FilterCardProps = {
   filterText: string;
   setFilterText: (text: string) => void;
-  sortOption: string;
-  setSortOption: (option: string) => void;
   showAvailableOnly: boolean;
   setShowAvailableOnly: (checked: boolean) => void;
-  minPlayerCount: number;
-  setMinPlayerCount: (value: number) => void;
+  playerCount: number[];
+  setPlayerCount: (value: number[]) => void;
 };
 
 const FilterCard: React.FC<FilterCardProps> = ({
   filterText,
   setFilterText,
-  sortOption,
-  setSortOption,
   showAvailableOnly,
   setShowAvailableOnly,
-  minPlayerCount,
-  setMinPlayerCount,
+  playerCount,
+  setPlayerCount,
 }) => {
   return (
-    <div className="relative z-[1] mx-[1.6em] -mt-[10px] mb-4 flex flex-col justify-around rounded-md bg-white p-[15px] pt-[10px] text-base shadow-md">
+    <div className="relative z-[1] mx-[1.6em] -mt-[10px] mb-4 flex flex-col justify-around rounded-md bg-white p-[15px] pt-[10px] text-base shadow-md lg:w-1/3 xl:w-1/4">
       <div className="mb-15 flex items-center">
         <SearcheIcon tailwindColor="text-primary" className="mr-2 h-5 w-5" />
         <input
@@ -49,21 +45,12 @@ const FilterCard: React.FC<FilterCardProps> = ({
       </div>
 
       <CustomSlider
-        value={minPlayerCount}
+        value={playerCount}
         minValue={1}
         maxValue={11}
-        updateFunction={setMinPlayerCount}
-        labelText={`min Spielerzahl: ${minPlayerCount > 10 ? '10+' : minPlayerCount} Spieler`}
+        updateFunction={setPlayerCount}
+        labelText={`Spielerzahl: ${playerCount[0]} bis ${playerCount[1] > 10 ? '10+' : playerCount[1]} Spieler`}
       />
-
-      <select
-        value={sortOption}
-        onChange={(e) => setSortOption(e.target.value)}
-        className="mt-1 rounded-[1px] border-0 py-2.5 outline-none focus:ring-0"
-      >
-        <option value="alphaAsc">Name (A-Z)</option>
-        <option value="alphaDesc">Name (Z-A)</option>
-      </select>
     </div>
   );
 };

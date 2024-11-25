@@ -75,7 +75,7 @@ const GamePage = ({ params }: GamePageProps) => {
               <tr className="flex w-full justify-between">
                 <td className="text-right">Spielzeit:</td>
                 <td>
-                  {game.max_players === game.min_players
+                  {game.max_playtime === game.min_playtime
                     ? `ca. ${game.playing_time} Minuten`
                     : `ca. ${game.min_playtime} - ${game.max_playtime} Minuten`}
                 </td>

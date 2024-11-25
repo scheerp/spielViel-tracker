@@ -1,11 +1,11 @@
 'use client';
 
+import React, { useEffect, useState } from 'react';
 import FilterCard from '@components/FilterCard';
 import GameListItem from '@components/GameListItem';
 import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
-import { filterGames, sortGames } from '@lib/utils';
-import React, { useEffect, useState } from 'react';
+import { filterGames } from '@lib/utils';
 
 export interface Game {
   id: number;
@@ -26,13 +26,12 @@ export interface Game {
 
 const Games: React.FC = () => {
   const [games, setGames] = useState<Game[]>([]);
-  const [filteredGames, setFilteredGames] = useState<Array<Game>>([]);
+  const [filteredGames, setFilteredGames] = useState<Game[]>([]);
   const [filterText, setFilterText] = useState<string>('');
-  const [sortOption, setSortOption] = useState<string>('');
   const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [minPlayerCount, setMinPlayerCount] = useState<number>(1);
+  const [playerCount, setPlayerCount] = useState<number[]>([1, 11]);
   const { showNotification } = useNotification();
 
   useEffect(() => {
@@ -48,12 +47,10 @@ const Games: React.FC = () => {
         setGames(data);
         setFilteredGames(data);
       } catch (error) {
-        let message;
-        if (error instanceof Error) message = error.message;
-        else message = String(error);
+        const message = error instanceof Error ? error.message : String(error);
         setError(message);
         showNotification({
-          message: <div>Login fehlgeschlagen: {message}</div>,
+          message: <div>Fehler: {message}</div>,
           type: 'error',
           duration: 3000,
         });
@@ -68,16 +65,15 @@ const Games: React.FC = () => {
   useEffect(() => {
     if (!games) return;
 
-    const filtered = filterGames({
-      games,
-      filterText,
-      showAvailableOnly,
-      minPlayerCount,
-    });
-    const sorted = sortGames(filtered, sortOption);
-
-    setFilteredGames(sorted);
-  }, [filterText, sortOption, showAvailableOnly, games, minPlayerCount]);
+    setFilteredGames(
+      filterGames({
+        games,
+        filterText,
+        showAvailableOnly,
+        playerCount,
+      }),
+    );
+  }, [filterText, showAvailableOnly, games, playerCount]);
 
   const updateGameAvailability = (gameId: number, isAvailable: boolean) => {
     setGames((prevGames) =>
@@ -87,35 +83,32 @@ const Games: React.FC = () => {
     );
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  if (loading) return <Loading />;
+  if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
+    <div className="mb-8 flex flex-col">
       <FilterCard
         filterText={filterText}
         setFilterText={setFilterText}
-        sortOption={sortOption}
-        setSortOption={setSortOption}
         showAvailableOnly={showAvailableOnly}
         setShowAvailableOnly={setShowAvailableOnly}
-        minPlayerCount={minPlayerCount}
-        setMinPlayerCount={setMinPlayerCount}
+        playerCount={playerCount}
+        setPlayerCount={setPlayerCount}
       />
-      <ul>
-        {filteredGames?.map((game) => (
-          <GameListItem
-            game={game}
-            key={game.name}
-            updateGameAvailability={updateGameAvailability}
-          />
-        ))}
-      </ul>
+      <div className="container mx-auto flex flex-col gap-8 px-4 lg:flex-row lg:px-8">
+        <div className="flex-grow">
+          <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {filteredGames?.map((game) => (
+              <GameListItem
+                game={game}
+                key={game.id}
+                updateGameAvailability={updateGameAvailability}
+              />
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
