@@ -89,7 +89,7 @@ const Games: React.FC = () => {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div className="mb-8 flex flex-col">
+    <div className="mb-8 flex flex-col items-center">
       <FilterCard
         filterText={filterText}
         setFilterText={setFilterText}
