@@ -34,37 +34,39 @@ const Games: React.FC = () => {
   const [playerCount, setPlayerCount] = useState<number[]>([1, 11]);
   const { showNotification } = useNotification();
 
-  useEffect(() => {
-    const fetchGames = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/games`,
-        );
-        if (!response.ok) {
-          throw new Error('Fehler beim Laden der Spiele');
-        }
-        const data = await response.json();
-        setGames(data);
-        setFilteredGames(data);
-      } catch (error) {
-        const message = error instanceof Error ? error.message : String(error);
-        setError(message);
-        showNotification({
-          message: <div>Fehler: {message}</div>,
-          type: 'error',
-          duration: 3000,
-        });
-      } finally {
-        setLoading(false);
+  const fetchGames = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/games`);
+      if (!response.ok) {
+        throw new Error('Fehler beim Laden der Spiele');
       }
-    };
+      const data = await response.json();
 
-    fetchGames();
-  }, []);
+      setGames((prevGames) => {
+        const isDifferent = JSON.stringify(prevGames) !== JSON.stringify(data);
+        return isDifferent ? data : prevGames;
+      });
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      setError(message);
+      showNotification({
+        message: <div>Fehler: {message}</div>,
+        type: 'error',
+        duration: 3000,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    if (!games) return;
+    fetchGames();
 
+    const interval = setInterval(fetchGames, 5000);
+    return () => clearInterval(interval);
+  }, [showNotification]);
+
+  useEffect(() => {
     setFilteredGames(
       filterGames({
         games,
@@ -73,7 +75,7 @@ const Games: React.FC = () => {
         playerCount,
       }),
     );
-  }, [filterText, showAvailableOnly, games, playerCount]);
+  }, [games, filterText, showAvailableOnly, playerCount]);
 
   const updateGameAvailability = (gameId: number, isAvailable: boolean) => {
     setGames((prevGames) =>
@@ -99,10 +101,10 @@ const Games: React.FC = () => {
       <div className="container mx-auto flex flex-col gap-8 px-4 lg:flex-row lg:px-8">
         <div className="flex-grow">
           <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {filteredGames?.map((game) => (
+            {filteredGames.map((game) => (
               <GameListItem
-                game={game}
                 key={game.id}
+                game={game}
                 updateGameAvailability={updateGameAvailability}
               />
             ))}

@@ -18,8 +18,12 @@ export const filterGames = ({
   );
 
   filtered = filtered.filter((item) => {
+    const { min_players, max_players } = item;
+
     return (
-      item.min_players >= playerCount[0] && item.max_players <= playerCount[1]
+      (min_players >= playerCount[0] && min_players <= playerCount[1]) ||
+      (max_players >= playerCount[0] && max_players <= playerCount[1]) ||
+      (min_players <= playerCount[0] && max_players >= playerCount[1])
     );
   });
 
