@@ -28,16 +28,14 @@ const GameListItem: React.FC<GameListItemProps> = memo(
           }`}
         >
           <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden truncate rounded-l-md">
-            {game.img_url && (
-              <Image
-                src={game.img_url}
-                alt={game.name}
-                layout="fill"
-                objectFit="cover"
-                sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
-                priority
-              />
-            )}
+            <Image
+              src={game.img_url ? game.img_url : '/noImage.jpg'}
+              alt={game.name}
+              layout="fill"
+              objectFit="cover"
+              sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
+              priority
+            />
           </div>
           <div className="ml-3 mt-2 flex-grow">
             <h2 className="text-md">{game.name}</h2>
