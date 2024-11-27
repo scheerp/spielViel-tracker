@@ -45,7 +45,7 @@ const FilterCard: React.FC<FilterCardProps> = ({
           </label>
         </div>
       </div>
-      <div className="md:ml-10 md:min-w-60">
+      <div className="md:ml-10 md:mr-2 md:min-w-60">
         <CustomSlider
           value={playerCount}
           minValue={1}
