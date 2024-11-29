@@ -52,7 +52,7 @@ const GamePage = ({ params }: GamePageProps) => {
 
   return (
     <div className="mt-9 flex flex-col items-center justify-center md:ml-9 md:flex-row md:items-start">
-      <div className="relative h-80 w-80 flex-shrink-0 overflow-hidden truncate rounded-l-md md:h-[700px] md:w-[700px]">
+      <div className="relative w-80 flex-shrink-0 overflow-hidden truncate rounded-l-md md:w-[700px]">
         <Image
           className={`${!isAvailable && 'opacity-60'}`}
           src={game.img_url ? game.img_url : '/noImage.jpg'}
@@ -63,7 +63,7 @@ const GamePage = ({ params }: GamePageProps) => {
 
         {!isAvailable && (
           <div
-            className="absolute -left-14 top-[105px] origin-top-left -rotate-45 transform bg-red-600 px-6 py-2 text-center text-sm font-bold text-white"
+            className="absolute -left-14 top-[105px] origin-top-left -rotate-45 transform bg-red-500 px-6 py-2 text-center text-sm font-bold text-white"
             style={{
               width: '230px',
               height: '40px',
