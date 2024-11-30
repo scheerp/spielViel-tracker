@@ -30,7 +30,7 @@
   "icons": [
     {
       "src": "spielViel-logo.png",
-      "sizes": "1200x301"
+      "sizes": "1200x512"
     },
     {
       "src": "android/android-launchericon-192-192.png",
