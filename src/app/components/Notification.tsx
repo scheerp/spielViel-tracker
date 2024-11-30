@@ -28,7 +28,7 @@ const Notification: React.FC<NotificationProps> = ({
 
   return (
     <div
-      className={`fixed top-16 z-[2] m-4 w-full max-w-sm rounded-md p-4 shadow-lg ${notificationStyles[type]}`}
+      className={`fixed bottom-4 z-[2] m-4 w-full max-w-sm rounded-md p-4 shadow-lg ${notificationStyles[type]}`}
     >
       <div className="flex items-center justify-between">
         {message}
