@@ -9,15 +9,15 @@
   "display": "standalone",
   "screenshots": [
     {
-      "src": "/screenshots/screenshot1.png",
-      "type": "image/png",
-      "sizes": "672x1426",
-      "form_factor": "narrow"
-    },
-    {
       "src": "/screenshots/screenshot2.png",
       "type": "image/png",
       "sizes": "678x1497",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/screenshots/screenshot1.png",
+      "type": "image/png",
+      "sizes": "672x1426",
       "form_factor": "narrow"
     },
     {
