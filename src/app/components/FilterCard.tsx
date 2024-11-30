@@ -25,13 +25,24 @@ const FilterCard: React.FC<FilterCardProps> = ({
       <div className="min-w-80 md:min-w-64 md:border-r-2">
         <div className="mb-15 flex items-center">
           <SearcheIcon tailwindColor="text-primary" className="mr-2 h-5 w-5" />
-          <input
-            type="text"
-            placeholder="Nach Namen filtern..."
-            value={filterText}
-            onChange={(e) => setFilterText(e.target.value)}
-            className="w-40 border-0 py-2.5 outline-none focus:ring-0"
-          />
+          <div className="relative flex items-center">
+            <input
+              type="text"
+              placeholder="Nach Namen filtern..."
+              value={filterText}
+              onChange={(e) => setFilterText(e.target.value)}
+              className="w-80 border-0 py-2.5 pr-8 outline-none focus:ring-0 md:w-56"
+            />
+            {filterText && (
+              <button
+                onClick={() => setFilterText('')}
+                className="absolute right-1 text-gray-500 hover:text-gray-800 focus:outline-none md:right-3"
+                aria-label="Clear search"
+              >
+                ✕
+              </button>
+            )}
+          </div>
         </div>
         <div className="flex items-center">
           <label className="mt-2 flex">
@@ -45,7 +56,7 @@ const FilterCard: React.FC<FilterCardProps> = ({
           </label>
         </div>
       </div>
-      <div className="md:ml-10 md:mr-2 md:min-w-60">
+      <div className="mx-4 md:ml-10 md:mr-2 md:min-w-60">
         <CustomSlider
           value={playerCount}
           minValue={1}
