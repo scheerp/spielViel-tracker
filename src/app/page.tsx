@@ -6,6 +6,7 @@ import GameListItem from '@components/GameListItem';
 import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
 import { filterGames } from '@lib/utils';
+import ScrollToTopButton from '@components/ScrollTopButton';
 
 export interface Game {
   id: number;
@@ -111,6 +112,7 @@ const Games: React.FC = () => {
           </ul>
         </div>
       </div>
+      <ScrollToTopButton />
     </div>
   );
 };

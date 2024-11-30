@@ -21,7 +21,7 @@ const FilterCard: React.FC<FilterCardProps> = ({
   setPlayerCount,
 }) => {
   return (
-    <div className="sticky top-2 z-10 mx-[1.6em] -mt-[10px] mb-4 flex flex-col justify-around rounded-md bg-white p-[15px] pt-[10px] text-base shadow-md md:flex-row md:pt-[15px]">
+    <div className="relative z-[1] mx-[1.6em] -mt-[10px] mb-4 flex flex-col justify-around rounded-md bg-white p-[15px] pt-[10px] text-base shadow-md md:flex-row md:pt-[15px]">
       <div className="min-w-80 md:min-w-64 md:border-r-2">
         <div className="mb-15 flex items-center">
           <SearcheIcon tailwindColor="text-primary" className="mr-2 h-5 w-5" />
