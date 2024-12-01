@@ -36,7 +36,7 @@ const FilterCard: React.FC<FilterCardProps> = ({
             {filterText && (
               <button
                 onClick={() => setFilterText('')}
-                className="absolute right-1 text-gray-500 hover:text-gray-800 focus:outline-none md:right-3"
+                className="absolute right-1 flex h-8 w-8 items-center justify-center rounded text-gray-500 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-white md:right-3"
                 aria-label="Clear search"
               >
                 ✕
