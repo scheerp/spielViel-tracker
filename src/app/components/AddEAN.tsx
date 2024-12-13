@@ -109,7 +109,7 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
           <h1 className="mb-6 text-xl font-bold md:text-2xl">{game.name}</h1>
           <div className="relative w-80 flex-shrink-0 overflow-hidden truncate rounded-l-md md:w-[500px]">
             <Image
-              src={game.img_url ? game.img_url : '/noImage.jpg'}
+              src={game.thumbnail_url ? game.thumbnail_url : '/noImage.jpg'}
               alt={game.name}
               width={900}
               height={900}

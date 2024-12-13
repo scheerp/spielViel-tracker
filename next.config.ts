@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
 module.exports = {
   images: {
     domains: ['cf.geekdo-images.com'],
+    unoptimized: true,
   },
   typescript: {
     // TODO: Ignoriert TypeScript-Fehler während des Builds
