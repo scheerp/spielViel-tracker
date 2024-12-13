@@ -12,7 +12,9 @@ export interface Game {
   id: number;
   name: string;
   bgg_id: number;
-  is_available: boolean;
+  available: number;
+  borrow_count: number;
+  total_copies: number;
   year_published: number;
   min_players: number;
   max_players: number;
@@ -78,14 +80,6 @@ const Games: React.FC = () => {
     );
   }, [games, filterText, showAvailableOnly, playerCount]);
 
-  const updateGameAvailability = (gameId: number, isAvailable: boolean) => {
-    setGames((prevGames) =>
-      prevGames.map((game) =>
-        game.id === gameId ? { ...game, is_available: isAvailable } : game,
-      ),
-    );
-  };
-
   if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
 
@@ -103,11 +97,7 @@ const Games: React.FC = () => {
         <div className="flex-grow">
           <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
             {filteredGames.map((game) => (
-              <GameListItem
-                key={game.id}
-                game={game}
-                updateGameAvailability={updateGameAvailability}
-              />
+              <GameListItem key={game.id} game={game} />
             ))}
           </ul>
         </div>

@@ -1,5 +1,5 @@
+import ArrowUpIcon from '@icons/ArrowUpIcon';
 import { useEffect, useState } from 'react';
-import ArrowUpIcon from '@components/ArrowUpIcon';
 
 const ScrollToTopButton: React.FC = () => {
   const [showScrollToTop, setShowScrollToTop] = useState<boolean>(false);

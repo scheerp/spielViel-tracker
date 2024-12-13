@@ -4,6 +4,7 @@ const MeepleIcon = ({
 }: {
   tailwindColor: string;
   onClick?: () => void;
+  className?: string;
 }) => {
   return (
     <svg

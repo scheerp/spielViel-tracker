@@ -1,111 +1,67 @@
 'use client';
 
-import { useNotification } from '@context/NotificationContext';
-import { useSession } from 'next-auth/react';
 import Image from 'next/legacy/image';
 import { useState } from 'react';
+import { Game } from '../page';
+import useUpdateGame from '@hooks/useUpdateGame';
 
 type GameUpdateButtonProps = {
-  gameId: number;
-  setAvailable: boolean;
+  game: Game;
+  operation: 'borrow' | 'return';
   text?: string;
-  buttonType: 'list' | 'detail';
-  updateFunction: (isAvailable: boolean) => void;
+  buttonType: 'list' | 'detail' | 'scan';
+  onSuccess?: (updatedGameData: Game | undefined) => void;
 };
 
 const GameUpdateButton = ({
-  gameId,
-  setAvailable,
+  game,
+  operation,
   text,
   buttonType,
-  updateFunction,
+  onSuccess,
 }: GameUpdateButtonProps) => {
-  const { data: session } = useSession();
-  const { showNotification } = useNotification();
-  const [isLoading, setIsLoading] = useState(false);
+  const { updateGame, isLoading } = useUpdateGame();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const handleUpdateGame = async () => {
-    if (!session) return;
-
-    setIsLoading(true);
     setIsButtonDisabled(true);
+    const result = await updateGame({ game, operation });
 
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/update_game/${gameId}`,
-        {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${session.accessToken}`,
-          },
-          body: JSON.stringify({ is_available: setAvailable }),
-        },
-      );
-
-      if (response.ok) {
-        const actionMessage = setAvailable
-          ? 'Spiel erfolgreich zurück gegeben.'
-          : 'Spiel erfolgreich ausgeliehen.';
-        const iconSrc = setAvailable ? '/return-icon.svg' : '/lend-icon.svg';
-
-        showNotification({
-          message: (
-            <div className="flex items-center">
-              <Image src={iconSrc} alt="status icon" width={20} height={20} />
-              <span className="ml-4">{actionMessage}</span>
-            </div>
-          ),
-          type: setAvailable ? 'checkIn' : 'checkOut',
-          duration: 1500,
-        });
-        updateFunction(setAvailable);
-      } else {
-        showNotification({
-          message: 'Fehler beim Aktualisieren des Spiels.',
-          type: 'error',
-          duration: 1000,
-        });
-      }
-    } catch (error) {
-      console.error('Fehler beim Senden des PUT-Requests:', error);
-    } finally {
-      setTimeout(() => {
-        setIsLoading(false);
-        setIsButtonDisabled(false);
-      }, 500);
+    if (result.success && onSuccess) {
+      onSuccess(result.gameData);
     }
+    setIsButtonDisabled(false);
   };
 
   const getButtonStyles = () => {
     const baseStyles = 'rounded-xl px-2 py-2.5 text-xl text-white';
     const sizeStyles =
-      buttonType === 'detail'
+      buttonType !== 'list'
         ? 'btn md:m-8 md:mt-4 min-h-32 min-w-32 md:min-h-36 md:min-w-36 flex flex-col items-center justify-center max-w-10'
         : 'btnflex h-16 w-16 flex-col items-center justify-center';
-    const availabilityStyles = setAvailable ? 'bg-checkedIn' : 'bg-checkedOut';
+    const availabilityStyles =
+      operation === 'borrow' ? 'bg-checkedOut' : 'bg-checkedIn';
     const disabledStyles =
       isButtonDisabled || isLoading ? 'cursor-not-allowed opacity-50' : '';
 
     return `${baseStyles} ${sizeStyles} ${availabilityStyles} ${disabledStyles}`;
   };
 
-  return session ? (
+  return (
     <button
       onClick={handleUpdateGame}
-      disabled={isButtonDisabled}
+      disabled={isButtonDisabled || isLoading}
       className={getButtonStyles()}
     >
-      {text && buttonType === 'detail' && <span>{text}</span>}
+      {text && buttonType !== 'list' && <span>{text}</span>}
       <Image
-        src={setAvailable ? '/return-icon.svg' : '/lend-icon.svg'}
-        alt={setAvailable ? 'return icon' : 'lend icon'}
-        width={buttonType === 'detail' ? 40 : 20}
-        height={buttonType === 'detail' ? 40 : 20}
+        src={operation === 'borrow' ? '/lend-icon.svg' : '/return-icon.svg'}
+        alt={operation === 'borrow' ? 'lend icon' : 'return icon'}
+        width={buttonType === 'list' ? 20 : 40}
+        height={buttonType === 'list' ? 20 : 40}
       />
     </button>
-  ) : null;
+  );
 };
 
 export default GameUpdateButton;

@@ -21,8 +21,8 @@
       "form_factor": "narrow"
     },
     {
-      "src": "/screenshots/screenshot3.jpg",
-      "type": "image/jpg",
+      "src": "/screenshots/screenshot3.png",
+      "type": "image/png",
       "sizes": "3718x1804",
       "form_factor": "wide"
     }

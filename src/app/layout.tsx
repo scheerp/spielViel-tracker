@@ -42,8 +42,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <SessionProvider>
-          <Header />
           <NotificationProvider>
+            <Header />
             {children}
             {notification && (
               <Notification

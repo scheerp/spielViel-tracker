@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Game } from '../../page';
 import Loading from '@components/Loading';
 import RatingHexagon from '@components/RatingHexagon';
+import { useNotification } from '@context/NotificationContext';
 
 interface GamePageProps {
   params: {
@@ -18,34 +19,38 @@ const GamePage = ({ params }: GamePageProps) => {
   const { id } = use(params);
   const [loading, setLoading] = useState<boolean>(true);
   const [game, setGame] = useState<Game | null>(null);
-  const [isAvailable, setIsAvailable] = useState<boolean>(true);
+  const [available, setAvailable] = useState<number>(1);
   const [error, setError] = useState<string | null>(null);
+  const { showNotification } = useNotification();
+
+  const fetchGameDetails = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/game/${id}`,
+      );
+
+      if (!response.ok) {
+        throw new Error('Spiel nicht gefunden');
+      }
+
+      const data: Game = await response.json();
+      setGame(data);
+      setAvailable(data?.available);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchGameDetails = async () => {
-      try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/game/${id}`,
-        );
-
-        if (!response.ok) {
-          throw new Error('Spiel nicht gefunden');
-        }
-
-        const data: Game = await response.json();
-        setGame(data);
-        setIsAvailable(data?.is_available);
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchGameDetails();
-  }, []);
+
+    const interval = setInterval(fetchGameDetails, 5000);
+    return () => clearInterval(interval);
+  }, [showNotification]);
 
   if (loading) return <Loading />;
   if (!game || error) return <div>Spiel nicht gefunden.</div>;
@@ -54,14 +59,14 @@ const GamePage = ({ params }: GamePageProps) => {
     <div className="mt-9 flex flex-col items-center justify-center md:ml-9 md:flex-row md:items-start">
       <div className="relative w-80 flex-shrink-0 overflow-hidden truncate rounded-l-md md:w-[700px]">
         <Image
-          className={`${!isAvailable && 'opacity-60'}`}
+          className={`${!available && 'opacity-60'}`}
           src={game.img_url ? game.img_url : '/noImage.jpg'}
           alt={game.name}
           width={900}
           height={900}
         />
 
-        {!isAvailable && (
+        {!available && (
           <div
             className="absolute -left-14 top-[105px] origin-top-left -rotate-45 transform bg-red-500 px-6 py-2 text-center text-sm font-bold text-white"
             style={{
@@ -103,18 +108,16 @@ const GamePage = ({ params }: GamePageProps) => {
         </div>
         <div className="mt-6 flex gap-4">
           <GameUpdateButton
-            gameId={parseInt(id)}
-            setAvailable={false}
+            game={game}
+            operation={'borrow'}
             buttonType="detail"
             text="ausgeliehen"
-            updateFunction={setIsAvailable}
           />
           <GameUpdateButton
-            gameId={parseInt(id)}
-            setAvailable={true}
+            game={game}
+            operation={'return'}
             buttonType="detail"
             text="zurück gebracht"
-            updateFunction={setIsAvailable}
           />
         </div>
       </div>

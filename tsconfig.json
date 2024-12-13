@@ -20,6 +20,8 @@
     ],
     "paths": {
       "@components/*": ["./src/app/components/*"],
+      "@hooks/*": ["./src/app/hooks/*"],
+      "@icons/*": ["./src/app/icons/*"],
       "@context/*": ["./src/app/context/*"],
       "@lib/*": ["./src/app/lib/*"]
     }

@@ -1,18 +1,20 @@
 import { Game } from '../page';
 
-type filterGamesType = {
+type FilterGamesType = {
   games: Game[];
   filterText: string;
   showAvailableOnly: boolean;
   playerCount: number[];
 };
 
+export type OperationType = 'borrow' | 'return' | 'inconclusive';
+
 export const filterGames = ({
   games,
   filterText,
   showAvailableOnly,
   playerCount,
-}: filterGamesType): Game[] => {
+}: FilterGamesType): Game[] => {
   let filtered = games.filter((item) =>
     item.name.toLowerCase().includes(filterText.toLowerCase()),
   );
@@ -29,9 +31,15 @@ export const filterGames = ({
 
   if (showAvailableOnly) {
     filtered = filtered.filter((item) => {
-      return item.is_available;
+      return item.available;
     });
   }
 
   return filtered;
+};
+
+export const getOperation = (game: Game): OperationType => {
+  if (game.available === 0) return 'return';
+  if (game.available === game.total_copies) return 'borrow';
+  return 'inconclusive';
 };
