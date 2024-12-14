@@ -39,6 +39,11 @@ const GamePage = ({ params }: GamePageProps) => {
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
+        showNotification({
+          message: err.message,
+          type: 'error',
+          duration: 2000,
+        });
       }
     } finally {
       setLoading(false);

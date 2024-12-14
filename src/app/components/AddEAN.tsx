@@ -11,12 +11,24 @@ type AddEANProps = {
   game: Game;
 };
 
+type BarcodeConflictError = {
+  error_code: 'BARCODE_CONFLICT';
+  existing_game: {
+    ean: number;
+    id: number;
+    name: string;
+  };
+  message: string;
+};
+
 const AddEAN: React.FC<AddEANProps> = ({ game }) => {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
   const [barCode, setBarCode] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<BarcodeConflictError | string | null>(
+    null,
+  );
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -42,10 +54,26 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        if (errorData.detail.error_code === 'BARCODE_CONFLICT') {
+          setError(errorData.detail);
+          showNotification({
+            message: (
+              <div className="flex items-center">
+                <span className="ml-4">
+                  {`${errorData.detail.message} an: ${errorData.detail.existing_game.name}`}
+                </span>
+              </div>
+            ),
+            type: 'error',
+            duration: 3000,
+          });
+        }
+
+        setBarCode('');
+        inputRef.current?.focus();
+
         throw new Error(errorData.detail || 'Ein Fehler ist aufgetreten');
       }
-
-      const updatedGame = await response.json();
 
       showNotification({
         message: (
@@ -67,10 +95,10 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
           </div>
         ),
         type: 'success',
-        duration: 2000,
+        duration: 3000,
       });
     } catch (err) {
-      if (err instanceof Error) {
+      if (err instanceof Error && error !== null) {
         setError(err.message);
       }
     } finally {
@@ -101,9 +129,16 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
         </div>
       </div>
 
-      <p>Barcode Scannen für:</p>
       {loading && <Loading />}
-      {error && <div>Spiel nicht gefunden.</div>}
+      {error &&
+        typeof error === 'object' &&
+        'error_code' in error &&
+        error.error_code === 'BARCODE_CONFLICT' && (
+          <div>{`${error.message} an: ${error.existing_game.name}`}</div>
+        )}
+
+      <p className="mt-2">Barcode Scannen für:</p>
+
       {game && (
         <div className="mt-9 flex flex-col items-center justify-center md:ml-9">
           <h1 className="mb-6 text-xl font-bold md:text-2xl">{game.name}</h1>

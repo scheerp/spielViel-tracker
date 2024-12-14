@@ -7,6 +7,7 @@ import Image from 'next/image';
 import useUpdateGame from '@hooks/useUpdateGame';
 import { getOperation, OperationType } from '@lib/utils';
 import GameUpdateButton from './GameUpdateButton';
+import { useNotification } from '@context/NotificationContext';
 
 const Scan: React.FC = () => {
   const [barCode, setBarCode] = useState<string>('');
@@ -14,6 +15,7 @@ const Scan: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [operation, setOperation] = useState<OperationType>();
   const { updateGame, isLoading: isUpdating } = useUpdateGame();
+  const { showNotification } = useNotification();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [lastScannedGame, setLastScannedGame] = useState<Game | undefined>(
     undefined,
@@ -85,6 +87,11 @@ const Scan: React.FC = () => {
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
+        showNotification({
+          message: err.message,
+          type: 'error',
+          duration: 2000,
+        });
       }
     } finally {
       setLoading(false);
