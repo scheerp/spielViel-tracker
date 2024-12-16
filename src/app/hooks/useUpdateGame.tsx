@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
 import { useState } from 'react';
 import { Game } from '../page';
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { AppError } from '../types/ApiError';
 
 type useUpdateGameArguments = {
@@ -56,11 +56,12 @@ const useUpdateGame = () => {
               <Image
                 src={game.thumbnail_url ? game.thumbnail_url : '/noImage.jpg'}
                 alt={game.name}
-                layout="fill"
-                objectFit="cover"
-                sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
                 priority
-              />
+                fill
+                sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
+                style={{
+                  objectFit: "cover"
+                }} />
             </div>
             <span className="ml-4">
               {game.name}

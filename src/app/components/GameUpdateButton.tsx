@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/legacy/image';
+import Image from "next/image";
 import { useState } from 'react';
 import { Game } from '../page';
 import useUpdateGame from '@hooks/useUpdateGame';
@@ -69,7 +69,10 @@ const GameUpdateButton = ({
         alt={operation === 'borrow' ? 'lend icon' : 'return icon'}
         width={buttonType === 'list' ? 20 : 40}
         height={buttonType === 'list' ? 20 : 40}
-      />
+        style={{
+          maxWidth: "100%",
+          height: "auto"
+        }} />
     </button>
   ) : null;
 };

@@ -2,7 +2,7 @@
 
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import Image from 'next/legacy/image';
+import Image from "next/image";
 import MeepleIcon from '@icons/MeepleIcon';
 import BarcodeIcon from '@icons/BarcodeIcon';
 import CustomModal from './CustomModal';
@@ -11,7 +11,7 @@ import Scan from './Scan';
 const Header = () => {
   const { data: session } = useSession();
   return (
-    <header className="bg-primary px-[30px] py-[15px]">
+    (<header className="bg-primary px-[30px] py-[15px]">
       <nav className="flex w-full justify-between">
         <Link href="/">
           <Image
@@ -21,7 +21,10 @@ const Header = () => {
             width={158}
             height={37}
             priority
-          />
+            style={{
+              maxWidth: "100%",
+              height: "auto"
+            }} />
         </Link>
         {session ? (
           <div className="flex gap-3">
@@ -37,7 +40,7 @@ const Header = () => {
           </Link>
         )}
       </nav>
-    </header>
+    </header>)
   );
 };
 

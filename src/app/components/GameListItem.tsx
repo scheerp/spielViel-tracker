@@ -2,7 +2,7 @@
 
 import React, { memo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/legacy/image';
+import Image from "next/image";
 import { Game } from '../page';
 import GameUpdateButton from './GameUpdateButton';
 import { useSession } from 'next-auth/react';
@@ -64,7 +64,7 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
   };
 
   return (
-    <li className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-4">
+    (<li className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-4">
       <Link
         href={`/game/${game.id}`}
         className={`mr-1 flex flex-grow items-center md:h-32 md:w-32 ${
@@ -75,11 +75,12 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
           <Image
             src={game.img_url ? game.img_url : '/noImage.jpg'}
             alt={game.name}
-            layout="fill"
-            objectFit="cover"
-            sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
             priority
-          />
+            fill
+            sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
+            style={{
+              objectFit: "cover"
+            }} />
         </div>
         <div className="ml-3 mt-2 flex-grow md:ml-5">
           <h2 className="text-md md:text-lg lg:text-xl">{game.name}</h2>
@@ -96,7 +97,7 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
         </div>
       </Link>
       {renderButtons()}
-    </li>
+    </li>)
   );
 });
 
