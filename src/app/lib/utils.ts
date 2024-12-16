@@ -1,10 +1,11 @@
 import { Game } from '../page';
+import { AppError, BarcodeConflictError } from '../types/ApiError';
 
 type FilterGamesType = {
   games: Game[];
   filterText: string;
   showAvailableOnly: boolean;
-  playerCount: number[];
+  minPlayerCount: number;
 };
 
 export type OperationType = 'borrow' | 'return' | 'inconclusive';
@@ -13,20 +14,14 @@ export const filterGames = ({
   games,
   filterText,
   showAvailableOnly,
-  playerCount,
+  minPlayerCount,
 }: FilterGamesType): Game[] => {
   let filtered = games.filter((item) =>
     item.name.toLowerCase().includes(filterText.toLowerCase()),
   );
 
   filtered = filtered.filter((item) => {
-    const { min_players, max_players } = item;
-
-    return (
-      (min_players >= playerCount[0] && min_players <= playerCount[1]) ||
-      (max_players >= playerCount[0] && max_players <= playerCount[1]) ||
-      (min_players <= playerCount[0] && max_players >= playerCount[1])
-    );
+    return item.max_players >= minPlayerCount;
   });
 
   if (showAvailableOnly) {
@@ -42,4 +37,16 @@ export const getOperation = (game: Game): OperationType => {
   if (game.available === 0) return 'return';
   if (game.available === game.total_copies) return 'borrow';
   return 'inconclusive';
+};
+
+export const isBarcodeConflictError = (
+  error: AppError,
+): error is BarcodeConflictError => {
+  console.log(error);
+
+  return (
+    error.detail.error_code === 'BARCODE_CONFLICT' &&
+    error.detail !== undefined &&
+    'details' in error.detail
+  );
 };

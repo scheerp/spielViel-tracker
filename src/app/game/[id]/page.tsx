@@ -7,6 +7,7 @@ import { Game } from '../../page';
 import Loading from '@components/Loading';
 import RatingHexagon from '@components/RatingHexagon';
 import { useNotification } from '@context/NotificationContext';
+import { AppError } from '../../types/ApiError';
 
 interface GamePageProps {
   params: {
@@ -30,21 +31,21 @@ const GamePage = ({ params }: GamePageProps) => {
       );
 
       if (!response.ok) {
-        throw new Error('Spiel nicht gefunden');
+        const errorData: AppError = await response.json();
+        throw errorData;
       }
 
       const data: Game = await response.json();
       setGame(data);
       setAvailable(data?.available);
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-        showNotification({
-          message: err.message,
-          type: 'error',
-          duration: 2000,
-        });
-      }
+      const error = err as AppError;
+      setError(error.detail.message);
+      showNotification({
+        message: <div>Fehler: {error.detail.message}</div>,
+        type: 'error',
+        duration: 3000,
+      });
     } finally {
       setLoading(false);
     }

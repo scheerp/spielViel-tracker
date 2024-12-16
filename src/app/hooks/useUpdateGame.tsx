@@ -3,6 +3,7 @@ import { useNotification } from '@context/NotificationContext';
 import { useState } from 'react';
 import { Game } from '../page';
 import Image from 'next/image';
+import { AppError } from '../types/ApiError';
 
 type useUpdateGameArguments = {
   game: Game;
@@ -37,7 +38,8 @@ const useUpdateGame = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Response ist nicht ok');
+        const errorData: AppError = await response.json();
+        throw errorData;
       }
 
       const data: Game = await response.json();
@@ -72,15 +74,13 @@ const useUpdateGame = () => {
       });
 
       return { success: true, gameData: data };
-    } catch (error) {
-      console.error('Fehler beim Server-Aufruf', error);
+    } catch (err) {
+      const error = err as AppError;
       showNotification({
-        message: 'Fehler beim Aktualisieren des Spiels.',
+        message: <div>Fehler: {error.detail.message}</div>,
         type: 'error',
-        duration: 1000,
+        duration: 3000,
       });
-
-      return { success: false, error };
     } finally {
       setIsLoading(false);
     }

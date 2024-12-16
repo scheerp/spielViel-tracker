@@ -6,6 +6,8 @@ import Loading from './Loading';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
+import { AppError } from '../types/ApiError';
+import { isBarcodeConflictError } from '@lib/utils';
 
 type AddEANProps = {
   game: Game;
@@ -53,26 +55,8 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
       );
 
       if (!response.ok) {
-        const errorData = await response.json();
-        if (errorData.detail.error_code === 'BARCODE_CONFLICT') {
-          setError(errorData.detail);
-          showNotification({
-            message: (
-              <div className="flex items-center">
-                <span className="ml-4">
-                  {`${errorData.detail.message} an: ${errorData.detail.existing_game.name}`}
-                </span>
-              </div>
-            ),
-            type: 'error',
-            duration: 3000,
-          });
-        }
-
-        setBarCode('');
-        inputRef.current?.focus();
-
-        throw new Error(errorData.detail || 'Ein Fehler ist aufgetreten');
+        const errorData: AppError = await response.json();
+        throw errorData;
       }
 
       showNotification({
@@ -98,8 +82,32 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
         duration: 3000,
       });
     } catch (err) {
-      if (err instanceof Error && error !== null) {
-        setError(err.message);
+      const error = err as AppError;
+
+      if (isBarcodeConflictError(error)) {
+        showNotification({
+          message: (
+            <div className="flex items-center">
+              <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden truncate">
+                <Image
+                  src={error.detail.details.thumbnail_url || '/noImage.jpg'}
+                  alt={error.detail.details.name || 'Unbekannt'}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <span className="ml-4">
+                {`Barcode bereits vergeben an:\n${error.detail.details.name}`}
+              </span>
+            </div>
+          ),
+          type: 'error',
+          duration: 3000,
+        });
+      } else {
+        setError(
+          error.detail.message || 'Ein unbekannter Fehler ist aufgetreten',
+        );
       }
     } finally {
       setLoading(false);

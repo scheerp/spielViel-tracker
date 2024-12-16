@@ -8,6 +8,7 @@ import useUpdateGame from '@hooks/useUpdateGame';
 import { getOperation, OperationType } from '@lib/utils';
 import GameUpdateButton from './GameUpdateButton';
 import { useNotification } from '@context/NotificationContext';
+import { AppError } from '../types/ApiError';
 
 const Scan: React.FC = () => {
   const [barCode, setBarCode] = useState<string>('');
@@ -42,7 +43,7 @@ const Scan: React.FC = () => {
             operation: 'borrow',
           });
 
-          if (updateGameResult.success) {
+          if (updateGameResult?.success) {
             setLastScannedGame(updateGameResult.gameData);
             setOperation(undefined);
           }
@@ -54,7 +55,7 @@ const Scan: React.FC = () => {
             operation: 'return',
           });
 
-          if (updateGameResult.success) {
+          if (updateGameResult?.success) {
             setLastScannedGame(updateGameResult.gameData);
             setOperation(undefined);
           }
@@ -78,21 +79,21 @@ const Scan: React.FC = () => {
       );
 
       if (!response.ok) {
-        throw new Error('Spiel nicht gefunden');
+        const errorData: AppError = await response.json();
+        throw errorData;
       }
 
       const data: Game = await response.json();
       setLastScannedGame(data);
       handleUpdateOperation(data);
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-        showNotification({
-          message: err.message,
-          type: 'error',
-          duration: 2000,
-        });
-      }
+      const error = err as AppError;
+      setError(error.detail.message);
+      showNotification({
+        message: <div>Fehler: {error.detail.message}</div>,
+        type: 'error',
+        duration: 3000,
+      });
     } finally {
       setLoading(false);
       setBarCode('');

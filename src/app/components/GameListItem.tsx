@@ -67,7 +67,7 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
       >
         <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden truncate rounded-l-md md:h-48 md:w-48">
           <Image
-            src={game.thumbnail_url ? game.thumbnail_url : '/noImage.jpg'}
+            src={game.img_url ? game.img_url : '/noImage.jpg'}
             alt={game.name}
             layout="fill"
             objectFit="cover"

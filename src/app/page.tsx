@@ -7,6 +7,7 @@ import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
 import { filterGames } from '@lib/utils';
 import ScrollToTopButton from '@components/ScrollTopButton';
+import { AppError } from './types/ApiError';
 
 export interface Game {
   id: number;
@@ -34,26 +35,29 @@ const Games: React.FC = () => {
   const [showAvailableOnly, setShowAvailableOnly] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [playerCount, setPlayerCount] = useState<number[]>([1, 11]);
+  const [minPlayerCount, setMinPlayerCount] = useState<number>(1);
   const { showNotification } = useNotification();
 
   const fetchGames = async () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/games`);
+
       if (!response.ok) {
-        throw new Error('Fehler beim Laden der Spiele');
+        const errorData: AppError = await response.json();
+        throw errorData;
       }
+
       const data = await response.json();
 
       setGames((prevGames) => {
         const isDifferent = JSON.stringify(prevGames) !== JSON.stringify(data);
         return isDifferent ? data : prevGames;
       });
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error);
-      setError(message);
+    } catch (err) {
+      const error = err as AppError;
+      setError(error.detail.message);
       showNotification({
-        message: <div>Fehler: {message}</div>,
+        message: <div>Fehler: {error.detail.message}</div>,
         type: 'error',
         duration: 3000,
       });
@@ -75,10 +79,10 @@ const Games: React.FC = () => {
         games,
         filterText,
         showAvailableOnly,
-        playerCount,
+        minPlayerCount,
       }),
     );
-  }, [games, filterText, showAvailableOnly, playerCount]);
+  }, [games, filterText, showAvailableOnly, minPlayerCount]);
 
   if (loading) return <Loading />;
   if (error) return <div>Error: {error}</div>;
@@ -90,8 +94,8 @@ const Games: React.FC = () => {
         setFilterText={setFilterText}
         showAvailableOnly={showAvailableOnly}
         setShowAvailableOnly={setShowAvailableOnly}
-        playerCount={playerCount}
-        setPlayerCount={setPlayerCount}
+        minPlayerCount={minPlayerCount}
+        setMinPlayerCount={setMinPlayerCount}
       />
       <div className="container mx-auto flex flex-col gap-8 px-4 lg:flex-row lg:px-8">
         <div className="flex-grow">

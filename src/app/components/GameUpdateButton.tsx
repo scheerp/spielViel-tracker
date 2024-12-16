@@ -4,6 +4,7 @@ import Image from 'next/legacy/image';
 import { useState } from 'react';
 import { Game } from '../page';
 import useUpdateGame from '@hooks/useUpdateGame';
+import { useSession } from 'next-auth/react';
 
 type GameUpdateButtonProps = {
   game: Game;
@@ -20,6 +21,7 @@ const GameUpdateButton = ({
   buttonType,
   onSuccess,
 }: GameUpdateButtonProps) => {
+  const { data: session } = useSession();
   const { updateGame, isLoading } = useUpdateGame();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -27,7 +29,7 @@ const GameUpdateButton = ({
     setIsButtonDisabled(true);
     const result = await updateGame({ game, operation });
 
-    if (result.success && onSuccess) {
+    if (result?.success && onSuccess) {
       onSuccess(result.gameData);
     }
     setIsButtonDisabled(false);
@@ -47,7 +49,7 @@ const GameUpdateButton = ({
     return `${baseStyles} ${sizeStyles} ${availabilityStyles} ${disabledStyles}`;
   };
 
-  return (
+  return session ? (
     <button
       onClick={handleUpdateGame}
       disabled={isButtonDisabled || isLoading}
@@ -61,7 +63,7 @@ const GameUpdateButton = ({
         height={buttonType === 'list' ? 20 : 40}
       />
     </button>
-  );
+  ) : null;
 };
 
 export default GameUpdateButton;

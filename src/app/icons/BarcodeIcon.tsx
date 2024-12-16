@@ -12,11 +12,11 @@ const BarcodeIcon = ({
       xmlns="http://www.w3.org/2000/svg"
       className={`h-12 w-10 ${tailwindColor} relative -top-1 ${className}`}
       onClick={onClick}
-      shape-rendering="geometricPrecision"
-      text-rendering="geometricPrecision"
-      image-rendering="optimizeQuality"
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      shapeRendering="geometricPrecision"
+      textRendering="geometricPrecision"
+      imageRendering="optimizeQuality"
+      fillRule="evenodd"
+      clipRule="evenodd"
       viewBox="0 0 478 512.01"
     >
       <defs></defs>

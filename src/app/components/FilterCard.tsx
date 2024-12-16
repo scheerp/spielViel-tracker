@@ -8,8 +8,8 @@ type FilterCardProps = {
   setFilterText: (text: string) => void;
   showAvailableOnly: boolean;
   setShowAvailableOnly: (checked: boolean) => void;
-  playerCount: number[];
-  setPlayerCount: (value: number[]) => void;
+  minPlayerCount: number;
+  setMinPlayerCount: (value: number) => void;
 };
 
 const FilterCard: React.FC<FilterCardProps> = ({
@@ -17,8 +17,8 @@ const FilterCard: React.FC<FilterCardProps> = ({
   setFilterText,
   showAvailableOnly,
   setShowAvailableOnly,
-  playerCount,
-  setPlayerCount,
+  minPlayerCount,
+  setMinPlayerCount,
 }) => {
   return (
     <div className="relative z-[1] mx-[1.6em] -mt-[10px] mb-4 flex flex-col justify-around rounded-md bg-white p-[15px] pt-[10px] text-base shadow-md md:flex-row md:pt-[15px]">
@@ -45,8 +45,9 @@ const FilterCard: React.FC<FilterCardProps> = ({
           </div>
         </div>
         <div className="flex items-center">
-          <label className="mt-2 flex">
+          <label htmlFor="available-only-checkbox" className="mt-2 flex">
             <input
+              id="available-only-checkbox"
               type="checkbox"
               checked={showAvailableOnly}
               onChange={(e) => setShowAvailableOnly(e.target.checked)}
@@ -56,13 +57,13 @@ const FilterCard: React.FC<FilterCardProps> = ({
           </label>
         </div>
       </div>
-      <div className="mx-4 md:ml-10 md:mr-2 md:min-w-60">
+      <div className="md:ml-10 md:mr-2 md:min-w-60">
         <CustomSlider
-          value={playerCount}
+          value={minPlayerCount}
           minValue={1}
-          maxValue={11}
-          updateFunction={setPlayerCount}
-          labelText={`Spielerzahl: ${playerCount[0]} bis ${playerCount[1] > 10 ? '10+' : playerCount[1]} Spieler`}
+          maxValue={10}
+          updateFunction={setMinPlayerCount}
+          labelText={`min Spielerzahl: ${minPlayerCount > 10 ? '10+' : minPlayerCount} Spieler`}
         />
       </div>
     </div>
