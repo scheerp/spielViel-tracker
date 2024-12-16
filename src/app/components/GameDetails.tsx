@@ -63,7 +63,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
     return () => {
       isCancelled = true;
     };
-  }, [gameId, showNotification]);
+  }, [showNotification]);
 
   if (loading) return <Loading />;
   if (!game || error) return <div>Spiel nicht gefunden.</div>;
