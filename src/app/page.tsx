@@ -57,7 +57,12 @@ const Games: React.FC = () => {
       const error = err as AppError;
       setError(error.detail.message);
       showNotification({
-        message: <div>Fehler: {error.detail.message}</div>,
+        message: (
+          <div>
+            Fehler:
+            <br /> {error.detail.message}
+          </div>
+        ),
         type: 'error',
         duration: 3000,
       });

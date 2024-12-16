@@ -4,8 +4,6 @@ import localFont from 'next/font/local';
 import './globals.css';
 import { SessionProvider } from 'next-auth/react';
 import Header from '@components/Header';
-import { useState } from 'react';
-import Notification from '@components/Notification';
 import { NotificationProvider } from '@context/NotificationContext';
 
 const geistSans = localFont({
@@ -24,15 +22,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [notification, setNotification] = useState<{
-    message: string;
-    type: 'success' | 'error' | 'warning' | 'status';
-  } | null>(null);
-
-  const closeNotification = () => {
-    setNotification(null);
-  };
-
   return (
     <html lang="en">
       <head>
@@ -44,14 +33,7 @@ export default function RootLayout({
         <SessionProvider>
           <NotificationProvider>
             <Header />
-            {children}
-            {notification && (
-              <Notification
-                message={notification.message}
-                type={notification.type}
-                onClose={closeNotification}
-              />
-            )}
+            <main>{children}</main>
           </NotificationProvider>
         </SessionProvider>
       </body>

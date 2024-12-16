@@ -26,7 +26,7 @@ const CustomSlider = ({
         min={minValue}
         max={maxValue}
         onChange={(e) => updateFunction(parseInt(e.target.value))}
-        className="h-3 w-full cursor-pointer appearance-none rounded-lg bg-gray-200 accent-primaryLight hover:bg-gray-300 focus:outline-none"
+        className="h-3 w-full cursor-pointer appearance-none rounded-xl bg-gray-200 accent-primaryLight hover:bg-gray-300 focus:outline-none"
       />
     </div>
   );

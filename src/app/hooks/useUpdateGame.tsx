@@ -77,7 +77,12 @@ const useUpdateGame = () => {
     } catch (err) {
       const error = err as AppError;
       showNotification({
-        message: <div>Fehler: {error.detail.message}</div>,
+        message: (
+          <div>
+            Fehler:
+            <br /> {error.detail.message}
+          </div>
+        ),
         type: 'error',
         duration: 3000,
       });

@@ -42,7 +42,7 @@ const CustomModal: React.FC<CustomModalProps> = ({ children, trigger }) => {
             onClick={closeModal}
           >
             <div
-              className="absolute inset-x-5 inset-y-10 rounded-lg bg-white"
+              className="absolute inset-x-5 inset-y-10 rounded-xl bg-white"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative h-full flex-col overflow-auto p-7 py-3">

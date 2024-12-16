@@ -64,7 +64,7 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
   };
 
   return (
-    <li className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-md bg-white pr-2 shadow-md md:h-48 md:gap-4">
+    <li className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-4">
       <Link
         href={`/game/${game.id}`}
         className={`mr-1 flex flex-grow items-center md:h-32 md:w-32 ${

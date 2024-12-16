@@ -56,7 +56,7 @@ const LoginPage = () => {
         type: 'error',
         duration: 3000,
       });
-      console.error('Login-Fehler:', error);
+      console.error('Login-Fehler:<br/>', error);
     } finally {
       setTimeout(() => {
         setIsLoading(false);
@@ -67,7 +67,7 @@ const LoginPage = () => {
 
   return (
     <div className="flex justify-center">
-      <div className="mt-60 flex flex-col items-center rounded-lg bg-white p-8 shadow-md">
+      <div className="mt-60 flex flex-col items-center rounded-xl bg-white p-8 shadow-md">
         <h1 className="text-xl font-semibold">Login</h1>
         <form
           onSubmit={handleLogin}
@@ -78,14 +78,14 @@ const LoginPage = () => {
             type="text"
             placeholder="Benutzername"
             required
-            className="rounded-md border-2 px-2 py-2.5"
+            className="rounded-xl border-2 px-2 py-2.5"
           />
           <input
             name="password"
             type="password"
             placeholder="Passwort"
             required
-            className="rounded-md border-2 px-2 py-2.5"
+            className="rounded-xl border-2 px-2 py-2.5"
           />
           <button
             type="submit"

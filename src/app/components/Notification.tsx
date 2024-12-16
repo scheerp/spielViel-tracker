@@ -1,18 +1,17 @@
 'use client';
 
-import { NotificationType } from '@context/NotificationContext';
 import React from 'react';
+import { NotificationType } from '@context/NotificationContext';
 
 interface NotificationProps {
+  id: string;
   message?: React.ReactNode;
   type: NotificationType;
-  onClose: () => void;
-  children?: Readonly<{
-    children?: React.ReactNode;
-  }>;
+  onClose: (id: string) => void;
 }
 
 const Notification: React.FC<NotificationProps> = ({
+  id,
   message,
   type,
   onClose,
@@ -28,11 +27,14 @@ const Notification: React.FC<NotificationProps> = ({
 
   return (
     <div
-      className={`fixed bottom-4 z-[25] m-4 w-full max-w-sm rounded-md p-4 shadow-lg ${notificationStyles[type]}`}
+      className={`relative w-full rounded-lg p-4 shadow-lg ${notificationStyles[type]}`}
     >
       <div className="flex items-center justify-between">
         {message}
-        <button onClick={onClose} className="ml-4 font-bold text-white">
+        <button
+          onClick={() => onClose(id)}
+          className="ml-4 font-bold text-white"
+        >
           &times;
         </button>
       </div>
