@@ -26,11 +26,17 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
     if (session) {
       if (!game.ean) {
         return (
-          <div className="flex items-center justify-center rounded-xl bg-primary p-2">
-            <CustomModal trigger={<BarcodeIcon tailwindColor="text-white" />}>
-              <AddEAN game={game} />
-            </CustomModal>
-          </div>
+          <>
+            <div className="md:text-md z-1 absolute bottom-1 left-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-sm text-white shadow-lg md:h-8 md:w-8 md:font-bold">
+              {available}
+            </div>
+
+            <div className="flex items-center justify-center rounded-xl bg-primary p-2">
+              <CustomModal trigger={<BarcodeIcon tailwindColor="text-white" />}>
+                <AddEAN game={game} />
+              </CustomModal>
+            </div>
+          </>
         );
       }
       return (

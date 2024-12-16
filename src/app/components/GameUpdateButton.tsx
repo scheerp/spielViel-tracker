@@ -35,6 +35,16 @@ const GameUpdateButton = ({
     setIsButtonDisabled(false);
   };
 
+  const getDisabledStyles = () => {
+    const isDisabled =
+      isButtonDisabled ||
+      isLoading ||
+      (operation === 'borrow' && game.available < 1) ||
+      (operation === 'return' && game.available >= game.total_copies);
+
+    return isDisabled ? 'cursor-not-allowed opacity-50' : '';
+  };
+
   const getButtonStyles = () => {
     const baseStyles = 'rounded-xl px-2 py-2.5 text-xl text-white';
     const sizeStyles =
@@ -43,10 +53,8 @@ const GameUpdateButton = ({
         : 'btnflex h-16 w-16 flex-col items-center justify-center';
     const availabilityStyles =
       operation === 'borrow' ? 'bg-checkedOut' : 'bg-checkedIn';
-    const disabledStyles =
-      isButtonDisabled || isLoading ? 'cursor-not-allowed opacity-50' : '';
 
-    return `${baseStyles} ${sizeStyles} ${availabilityStyles} ${disabledStyles}`;
+    return `${baseStyles} ${sizeStyles} ${availabilityStyles} ${getDisabledStyles()}`;
   };
 
   return session ? (
