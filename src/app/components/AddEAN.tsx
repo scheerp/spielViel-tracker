@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Game } from '../page';
 import Loading from './Loading';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
 import { AppError } from '../types/ApiError';

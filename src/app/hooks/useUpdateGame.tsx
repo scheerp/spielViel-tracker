@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
 import { useState } from 'react';
 import { Game } from '../page';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { AppError } from '../types/ApiError';
 
 type useUpdateGameArguments = {

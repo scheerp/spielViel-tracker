@@ -2,7 +2,7 @@
 
 import GameUpdateButton from '@components/GameUpdateButton';
 import { use, useEffect, useState } from 'react';
-import Image from 'next/image';
+import Image from "next/legacy/image";
 import { Game } from '../../page';
 import Loading from '@components/Loading';
 import RatingHexagon from '@components/RatingHexagon';
