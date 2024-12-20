@@ -41,7 +41,7 @@ const GameUpdateButton = ({
       isButtonDisabled ||
       isLoading ||
       (operation === 'borrow' && game.available < 1) ||
-      (operation === 'return' && game.available >= game.total_copies);
+      (operation === 'return' && game.available >= game.quantity);
 
     return isDisabled ? 'cursor-not-allowed opacity-50' : '';
   };

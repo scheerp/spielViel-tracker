@@ -15,7 +15,7 @@ export interface Game {
   bgg_id: number;
   available: number;
   borrow_count: number;
-  total_copies: number;
+  quantity: number;
   year_published: number;
   min_players: number;
   max_players: number;

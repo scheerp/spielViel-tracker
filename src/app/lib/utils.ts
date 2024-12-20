@@ -35,7 +35,7 @@ export const filterGames = ({
 
 export const getOperation = (game: Game): OperationType => {
   if (game.available === 0) return 'return';
-  if (game.available === game.total_copies) return 'borrow';
+  if (game.available === game.quantity) return 'borrow';
   return 'inconclusive';
 };
 
