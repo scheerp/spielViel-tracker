@@ -2,13 +2,14 @@
 
 import React, { memo, useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from "next/image";
+import Image from 'next/image';
 import { Game } from '../page';
 import GameUpdateButton from './GameUpdateButton';
 import { useSession } from 'next-auth/react';
 import CustomModal from './CustomModal';
 import BarcodeIcon from '@icons/BarcodeIcon';
 import AddEAN from './AddEAN';
+import ListUpdateButtons from './ListUpdateButtons';
 
 type GameListItemProps = {
   game: Game;
@@ -44,18 +45,7 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
           <div className="md:text-md z-1 absolute bottom-1 left-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-sm text-white shadow-lg md:h-8 md:w-8 md:font-bold">
             {available}
           </div>
-          <div className="flex gap-2 md:flex-col">
-            <GameUpdateButton
-              game={game}
-              operation={'borrow'}
-              buttonType="list"
-            />
-            <GameUpdateButton
-              game={game}
-              operation={'return'}
-              buttonType="list"
-            />
-          </div>
+          <ListUpdateButtons game={game} />
         </>
       );
     }
@@ -64,7 +54,7 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
   };
 
   return (
-    (<li className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-4">
+    <li className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-4">
       <Link
         href={`/game/${game.id}`}
         className={`mr-1 flex flex-grow items-center md:h-32 md:w-32 ${
@@ -79,8 +69,9 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
             fill
             sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
             style={{
-              objectFit: "cover"
-            }} />
+              objectFit: 'cover',
+            }}
+          />
         </div>
         <div className="ml-3 mt-2 flex-grow md:ml-5">
           <h2 className="text-md md:text-lg lg:text-xl">{game.name}</h2>
@@ -97,7 +88,7 @@ const GameListItem: React.FC<GameListItemProps> = memo(({ game }) => {
         </div>
       </Link>
       {renderButtons()}
-    </li>)
+    </li>
   );
 });
 

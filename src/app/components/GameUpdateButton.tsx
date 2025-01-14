@@ -4,7 +4,6 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Game } from '../page';
 import useUpdateGame from '@hooks/useUpdateGame';
-import { useSession } from 'next-auth/react';
 
 type GameUpdateButtonProps = {
   game: Game;
@@ -21,7 +20,6 @@ const GameUpdateButton = ({
   buttonType,
   onSuccess,
 }: GameUpdateButtonProps) => {
-  const { data: session } = useSession();
   const { updateGame, isLoading } = useUpdateGame();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -47,10 +45,11 @@ const GameUpdateButton = ({
   };
 
   const getButtonStyles = () => {
-    const baseStyles = 'rounded-xl px-2 py-2.5 text-xl text-white';
+    const baseStyles =
+      'rounded-xl px-2 py-2.5 text-xl text-white flex items-center justify-center';
     const sizeStyles =
       buttonType !== 'list'
-        ? 'btn md:m-8 md:mt-4 min-h-32 min-w-32 md:min-h-36 md:min-w-36 flex flex-col items-center justify-center max-w-10'
+        ? 'btn min-h-16 min-w-16 md:min-h-24 md:min-w-24 flex flex-col items-center justify-center max-w-10'
         : 'btnflex h-16 w-16 flex-col items-center justify-center';
     const availabilityStyles =
       operation === 'borrow' ? 'bg-checkedOut' : 'bg-checkedIn';
@@ -58,7 +57,7 @@ const GameUpdateButton = ({
     return `${baseStyles} ${sizeStyles} ${availabilityStyles} ${getDisabledStyles()}`;
   };
 
-  return session ? (
+  return (
     <button
       onClick={handleUpdateGame}
       disabled={isButtonDisabled || isLoading}
@@ -68,15 +67,15 @@ const GameUpdateButton = ({
       <Image
         src={operation === 'borrow' ? '/lend-icon.svg' : '/return-icon.svg'}
         alt={operation === 'borrow' ? 'lend icon' : 'return icon'}
-        width={buttonType === 'list' ? 20 : 40}
-        height={buttonType === 'list' ? 20 : 40}
+        width={buttonType === 'list' ? 20 : 30}
+        height={buttonType === 'list' ? 20 : 30}
         style={{
           maxWidth: '100%',
           height: 'auto',
         }}
       />
     </button>
-  ) : null;
+  );
 };
 
 export default GameUpdateButton;

@@ -13,6 +13,10 @@ export interface Game {
   id: number;
   name: string;
   bgg_id: number;
+  description: string;
+  german_description: string;
+  similar_games: string;
+  tags: string;
   available: number;
   borrow_count: number;
   quantity: number;
