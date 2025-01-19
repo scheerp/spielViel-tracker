@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
-  if (!relatedGames) return <div>Spiele nicht gefunden.</div>;
+  if (!relatedGames || !relatedGames.length) return null;
 
   return (
     <div className="m-4 my-8 md:m-8">

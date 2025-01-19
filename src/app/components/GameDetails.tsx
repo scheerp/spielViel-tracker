@@ -39,7 +39,9 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
       setGame(data);
 
       if (data.similar_games) {
-        const relatedIds = data.similar_games.split(',').map(Number);
+        const relatedIds = data.similar_games;
+        console.log('relatedIds', relatedIds);
+
         await fetchRelatedGames(relatedIds);
       }
     } catch (err) {

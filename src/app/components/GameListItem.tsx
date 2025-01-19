@@ -4,7 +4,6 @@ import React, { memo, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Game } from '../page';
-import GameUpdateButton from './GameUpdateButton';
 import { useSession } from 'next-auth/react';
 import CustomModal from './CustomModal';
 import BarcodeIcon from '@icons/BarcodeIcon';

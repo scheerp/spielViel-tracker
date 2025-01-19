@@ -15,7 +15,7 @@ export interface Game {
   bgg_id: number;
   description: string;
   german_description: string;
-  similar_games: string;
+  similar_games: number[];
   tags: string;
   available: number;
   borrow_count: number;
