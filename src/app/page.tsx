@@ -7,6 +7,7 @@ import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
 import ScrollToTopButton from '@components/ScrollTopButton';
 import { Game, useGames } from '@context/GamesContext';
+import { useFilter } from '@context/FilterContext';
 import { AppError } from './types/ApiError';
 
 const LIMIT = 20;
@@ -22,14 +23,24 @@ const Games: React.FC = () => {
     loading,
     setLoading,
   } = useGames();
+  const { filter } = useFilter();
   const { showNotification } = useNotification();
   const observer = useRef<IntersectionObserver | null>(null);
 
   const fetchGames = async (newOffset: number) => {
     try {
       setLoading(true);
+
+      const queryParams = new URLSearchParams({
+        limit: String(LIMIT),
+        offset: String(newOffset),
+        filter_text: filter.filterText,
+        show_available_only: String(filter.showAvailableOnly),
+        min_player_count: String(filter.minPlayerCount),
+      });
+
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/games?limit=${LIMIT}&offset=${newOffset}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/games?${queryParams.toString()}`,
       );
 
       if (!response.ok) {
@@ -40,6 +51,7 @@ const Games: React.FC = () => {
       const data = await response.json();
 
       setGames((prevGames) => {
+        if (newOffset === 0) return data;
         const newGames = data.filter(
           (game: Game) => !prevGames.some((g) => g.id === game.id),
         );
@@ -66,7 +78,6 @@ const Games: React.FC = () => {
     }
   };
 
-  // Infinite Scrolling
   const lastGameRef = useCallback(
     (node: HTMLLIElement | null) => {
       if (loading) return;
@@ -84,23 +95,17 @@ const Games: React.FC = () => {
   );
 
   useEffect(() => {
-    if (offset === 0 && games.length === 0) {
-      fetchGames(offset);
-    } else if (offset > 0) {
-      fetchGames(offset);
-    }
-  }, [offset]);
+    setOffset(0);
+    setHasMore(true);
+  }, [filter]);
+
+  useEffect(() => {
+    fetchGames(offset);
+  }, [offset, filter]);
 
   return (
     <div className="mb-16 flex flex-col items-center">
-      <FilterCard
-        filterText=""
-        setFilterText={() => {}}
-        showAvailableOnly={false}
-        setShowAvailableOnly={() => {}}
-        minPlayerCount={1}
-        setMinPlayerCount={() => {}}
-      />
+      <FilterCard />
       <div className="container mx-auto flex flex-col gap-8 px-4 lg:flex-row lg:px-8">
         <div className="flex-grow">
           <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
