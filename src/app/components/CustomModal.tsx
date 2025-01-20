@@ -45,7 +45,7 @@ const CustomModal: React.FC<CustomModalProps> = ({ children, trigger }) => {
               className="absolute inset-x-5 inset-y-10 rounded-xl bg-white"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="relative h-full flex-col overflow-auto p-7 py-3">
+              <div className="relative h-full flex-col overflow-auto p-10 py-3">
                 <button
                   onClick={closeModal}
                   className="absolute -right-0 -top-0 flex h-12 w-12 items-center justify-center self-end rounded text-xl text-gray-500 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-white md:right-2 md:top-2 md:text-3xl"
@@ -53,7 +53,9 @@ const CustomModal: React.FC<CustomModalProps> = ({ children, trigger }) => {
                 >
                   ✕
                 </button>
-                {children}
+                <div className="contaienr mx-auto max-w-screen-lg">
+                  {children}
+                </div>
               </div>
             </div>
           </div>

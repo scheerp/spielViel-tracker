@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { Game } from '../page';
+import { Game } from '@context/GamesContext';
 import useUpdateGame from '@hooks/useUpdateGame';
 
 type GameUpdateButtonProps = {
@@ -10,7 +10,7 @@ type GameUpdateButtonProps = {
   operation: 'borrow' | 'return';
   text?: string;
   buttonType: 'list' | 'detail' | 'scan';
-  onSuccess?: (updatedGameData: Game | undefined) => void;
+  onSuccess?: (updatedGame: Game) => void; // Optionaler Callback für ein erfolgreiches Update
 };
 
 const GameUpdateButton = ({
@@ -27,8 +27,8 @@ const GameUpdateButton = ({
     setIsButtonDisabled(true);
     const result = await updateGame({ game, operation });
 
-    if (result?.success && onSuccess) {
-      onSuccess(result.gameData);
+    if (result.success && result.gameData && onSuccess) {
+      onSuccess(result.gameData); // Erfolgreiches Update weitergeben
     }
 
     setIsButtonDisabled(false);

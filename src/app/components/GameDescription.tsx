@@ -1,7 +1,7 @@
 import he from 'he';
 import CustomModal from './CustomModal';
-import { Game } from '../page';
 import { useEffect, useRef, useState } from 'react';
+import { Game } from '@context/GamesContext';
 
 const GameDescription = ({ game }: { game: Game }): JSX.Element => {
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -10,8 +10,10 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
   const textContainerRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
-    if (game.german_description) {
-      const decodedText = he.decode(game.german_description);
+    if (game.german_description || game.description) {
+      const decodedText = he.decode(
+        game.german_description || game.description,
+      );
       const lines = decodedText.split('\n');
 
       setFormattedDescription(
@@ -27,7 +29,7 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
     } else {
       <>keine Beschreibung verfügbar</>;
     }
-  }, [game.german_description]);
+  }, [game.german_description, game.description]);
 
   useEffect(() => {
     const container = textContainerRef.current;

@@ -2,9 +2,8 @@
 
 import localFont from 'next/font/local';
 import './globals.css';
-import { SessionProvider } from 'next-auth/react';
 import Header from '@components/Header';
-import { NotificationProvider } from '@context/NotificationContext';
+import AppProviders from '@context/AppProviders';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -30,12 +29,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <SessionProvider>
-          <NotificationProvider>
-            <Header />
-            <main>{children}</main>
-          </NotificationProvider>
-        </SessionProvider>
+        <AppProviders>
+          <Header />
+          <main>{children}</main>
+        </AppProviders>
       </body>
     </html>
   );

@@ -1,4 +1,4 @@
-import { Game } from '../page';
+import { Game } from '@context/GamesContext';
 import { AppError, BarcodeConflictError } from '../types/ApiError';
 
 type FilterGamesType = {

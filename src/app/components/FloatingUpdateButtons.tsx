@@ -1,12 +1,12 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { Game } from '../page';
 import GameUpdateButton from './GameUpdateButton';
+import { Game } from '@context/GamesContext';
 
 type FloatingGameUpdateButtonsProps = {
   game: Game;
-  handleSuccess?: (updatedGameData: Game | undefined) => void;
+  handleSuccess: (updatedGameData: Game) => void;
 };
 
 const FloatingUpdateButtons = ({
