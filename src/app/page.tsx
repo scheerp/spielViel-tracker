@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 import FilterCard from '@components/FilterCard';
 import GameListItem from '@components/GameListItem';
 import Loading from '@components/Loading';
@@ -26,10 +26,12 @@ const Games: React.FC = () => {
   const { filter } = useFilter();
   const { showNotification } = useNotification();
   const observer = useRef<IntersectionObserver | null>(null);
+  const [noGames, setNoGames] = useState<boolean>(false);
 
   const fetchGames = async (newOffset: number) => {
     try {
       setLoading(true);
+      setNoGames(false);
 
       const queryParams = new URLSearchParams({
         limit: String(LIMIT),
@@ -45,6 +47,16 @@ const Games: React.FC = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        if (response.status === 404) {
+          setNoGames(true);
+          showNotification({
+            message: `Keine Spiele gefunden. Bitte passe deine Filter an.`,
+            type: 'status',
+            duration: 3000,
+          });
+          setGames([]);
+          return;
+        }
         throw new Error(errorData.detail.message);
       }
 
@@ -108,16 +120,25 @@ const Games: React.FC = () => {
       <FilterCard />
       <div className="container mx-auto flex flex-col gap-8 px-4 lg:flex-row lg:px-8">
         <div className="flex-grow">
-          <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {games.map((game, index) => {
-              if (index === games.length - 1) {
-                return (
-                  <GameListItem ref={lastGameRef} key={game.id} game={game} />
-                );
-              }
-              return <GameListItem key={game.id} game={game} />;
-            })}
-          </ul>
+          {noGames && !loading && (
+            <div className="px-4 pt-8 text-center text-gray-500">
+              <p>
+                Es wurden keine Spiele gefunden. Bitte passe deine Filter an.
+              </p>
+            </div>
+          )}
+          {!noGames && (
+            <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+              {games.map((game, index) => {
+                if (index === games.length - 1) {
+                  return (
+                    <GameListItem ref={lastGameRef} key={game.id} game={game} />
+                  );
+                }
+                return <GameListItem key={game.id} game={game} />;
+              })}
+            </ul>
+          )}
           {loading && <Loading />}
         </div>
       </div>
