@@ -63,9 +63,11 @@ const GameListItem = memo(
                 objectFit: 'cover',
               }}
             />
-            <div className="md:text-md z-1 absolute bottom-1 left-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-sm text-white shadow-lg md:h-8 md:w-8 md:font-bold">
-              {game.available}
-            </div>
+            {session && (
+              <div className="md:text-md z-1 absolute bottom-1 left-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-sm text-white shadow-lg md:h-8 md:w-8 md:font-bold">
+                {game.available}
+              </div>
+            )}
           </div>
           <div className="ml-3 mt-2 flex-grow md:ml-5">
             <h2 className="text-md md:text-lg lg:text-xl">{game.name}</h2>

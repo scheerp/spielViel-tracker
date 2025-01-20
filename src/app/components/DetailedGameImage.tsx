@@ -1,7 +1,10 @@
 import { Game } from '@context/GamesContext';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 
 const DetailedGameImage = ({ game }: { game: Game }) => {
+  const { data: session } = useSession();
+
   return (
     <div className="relative w-80 flex-shrink-0 overflow-hidden truncate rounded-l-md md:w-[500px]">
       <Image
@@ -22,9 +25,11 @@ const DetailedGameImage = ({ game }: { game: Game }) => {
           Verliehen
         </div>
       )}
-      <div className="text-md z-1 absolute bottom-1 left-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-white shadow-lg">
-        {game.available}
-      </div>
+      {session && (
+        <div className="text-md z-1 text-md absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary font-bold text-white shadow-lg">
+          {game.available}
+        </div>
+      )}
     </div>
   );
 };

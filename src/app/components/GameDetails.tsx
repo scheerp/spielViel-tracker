@@ -10,6 +10,8 @@ import GameSimilarGames from './GameSimilarGames';
 import FloatingUpdateButtons from './FloatingUpdateButtons';
 import { Game } from '@context/GamesContext';
 import DetailedGameImage from './DetailedGameImage';
+import { useRouter } from 'next/navigation';
+import ArrowLeftIcon from '@icons/ArrowLeftIcon';
 
 interface GameDetailsProps {
   gameId: string;
@@ -21,6 +23,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
   const [relatedGames, setRelatedGames] = useState<Game[]>([]);
   const [error, setError] = useState<string | null>(null);
   const { showNotification } = useNotification();
+  const router = useRouter();
 
   const fetchGameDetails = async () => {
     setLoading(true);
@@ -96,8 +99,17 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
 
   return (
     <>
+      <div className="pt-4 2xl:hidden">
+        <button
+          onClick={() => router.back()}
+          className="flex items-center gap-2 rounded-lg px-4 text-primary"
+        >
+          <ArrowLeftIcon />
+          <span className="text-md font-semibold md:text-lg">Zurück</span>
+        </button>
+      </div>
       <div className="container mx-auto">
-        <div className="mt-9 flex flex-col items-center justify-center md:ml-9 md:flex-row md:items-start">
+        <div className="mt-4 flex flex-col items-center justify-center md:ml-9 md:flex-row md:items-start 2xl:mt-10">
           <DetailedGameImage game={game} />
           <div className="mt-9 flex flex-col px-12 md:mt-20 md:items-start md:justify-start">
             <div className="flex items-center justify-center">
