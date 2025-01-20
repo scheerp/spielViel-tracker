@@ -1,6 +1,6 @@
 'use client';
 
-import { Game } from '../page';
+import { Game } from '@context/GamesContext';
 import Image from 'next/image';
 import Link from 'next/link';
 
