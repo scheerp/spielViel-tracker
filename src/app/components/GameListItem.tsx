@@ -71,12 +71,16 @@ const GameListItem = memo(
           </div>
           <div className="ml-3 mt-2 flex-grow md:ml-5">
             <h2 className="text-md md:text-lg lg:text-xl">{game.name}</h2>
-            <p className="hidden text-sm text-gray-500 md:block">
-              {game.min_players} - {game.max_players} Spieler
-            </p>
-            <p className="hidden text-sm text-gray-500 md:block">
-              {game.min_playtime} - {game.max_playtime} Minuten
-            </p>
+            {game.min_players && game.max_players && (
+              <p className="hidden text-sm text-gray-500 md:block">
+                {game.min_players} - {game.max_players} Spieler
+              </p>
+            )}
+            {game.min_playtime && game.max_playtime && (
+              <p className="hidden text-sm text-gray-500 md:block">
+                {game.min_playtime} - {game.max_playtime} Minuten
+              </p>
+            )}
           </div>
         </Link>
         {renderButtons()}

@@ -44,6 +44,7 @@ export const GamesProvider: React.FC<{ children: ReactNode }> = ({
   const [offset, setOffset] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [loading, setLoading] = useState<boolean>(false);
+
   const updateGame = (updatedGame: Game) => {
     setGames((prevGames) =>
       prevGames.map((game) =>

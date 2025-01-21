@@ -41,9 +41,15 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
       const data: Game = await response.json();
       setGame(data);
 
-      if (data.similar_games) {
+      if (data.similar_games && data.similar_games.length > 0) {
         const relatedIds = data.similar_games;
         await fetchRelatedGames(relatedIds);
+      } else {
+        showNotification({
+          message: `Keine ähnlichen Spiele vorhanden.`,
+          type: 'status',
+          duration: 1500,
+        });
       }
     } catch (err) {
       const error = err as AppError;
@@ -113,7 +119,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
           <DetailedGameImage game={game} />
           <div className="mt-9 flex flex-col px-12 md:mt-20 md:items-start md:justify-start">
             <div className="flex items-center justify-center">
-              <RatingHexagon rating={game.rating} />
+              <RatingHexagon rating={game.rating} bggId={game.bgg_id} />
               <div>
                 <h1 className="text-xl font-bold md:text-4xl">{game.name}</h1>
                 <p>{game.year_published}</p>

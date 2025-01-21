@@ -58,7 +58,7 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
       {isOverflowing && (
         <CustomModal
           trigger={
-            <span className="mt-2 block cursor-pointer font-bold text-neutral-400 underline">
+            <span className="mt-0 block cursor-pointer font-bold text-neutral-400 underline">
               ...mehr
             </span>
           }

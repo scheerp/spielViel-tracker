@@ -28,10 +28,26 @@ const Games: React.FC = () => {
   const observer = useRef<IntersectionObserver | null>(null);
   const [noGames, setNoGames] = useState<boolean>(false);
 
-  const fetchGames = async (newOffset: number) => {
+  /**
+   * Fetches games from the API.
+   */
+  const fetchGames = async (newOffset: number, reset: boolean = false) => {
+    if (loading) {
+      console.debug('[DEBUG] Fetch blocked: already loading');
+      return;
+    }
+
+    console.debug(
+      `[DEBUG] Fetching games at offset: ${newOffset}, Reset: ${reset}`,
+    );
+    setLoading(true);
+
     try {
-      setLoading(true);
-      setNoGames(false);
+      if (reset) {
+        setNoGames(false);
+        setHasMore(true);
+        setGames([]);
+      }
 
       const queryParams = new URLSearchParams({
         limit: String(LIMIT),
@@ -50,7 +66,7 @@ const Games: React.FC = () => {
         if (response.status === 404) {
           setNoGames(true);
           showNotification({
-            message: `Keine Spiele gefunden. Bitte passe deine Filter an.`,
+            message: 'Keine Spiele gefunden. Bitte passe deine Filter an.',
             type: 'status',
             duration: 3000,
           });
@@ -63,57 +79,77 @@ const Games: React.FC = () => {
       const data = await response.json();
 
       setGames((prevGames) => {
-        if (newOffset === 0) return data;
+        if (reset) {
+          console.debug('[DEBUG] Resetting games');
+          return data;
+        }
+
         const newGames = data.filter(
           (game: Game) => !prevGames.some((g) => g.id === game.id),
         );
+        console.debug(`[DEBUG] Adding ${newGames.length} new games`);
         return [...prevGames, ...newGames];
       });
 
       if (data.length < LIMIT) {
+        console.debug('[DEBUG] No more games to load');
         setHasMore(false);
       }
     } catch (err) {
       const error = err as AppError;
+      console.error('[ERROR] Fetch failed:', error);
       showNotification({
-        message: (
-          <div>
-            Fehler:
-            <br /> {error.detail.message}
-          </div>
-        ),
+        message: `Fehler: ${error.detail.message}`,
         type: 'error',
         duration: 3000,
       });
     } finally {
       setLoading(false);
+      console.debug('[DEBUG] Fetch complete');
     }
   };
 
+  /**
+   * Handles the IntersectionObserver for infinite scrolling.
+   */
   const lastGameRef = useCallback(
     (node: HTMLLIElement | null) => {
-      if (loading) return;
+      if (loading || !hasMore) return;
+
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
+        if (entries[0].isIntersecting) {
+          console.debug('[DEBUG] lastGameRef triggered, loading more games');
           setOffset((prevOffset) => prevOffset + LIMIT);
         }
       });
 
       if (node) observer.current.observe(node);
     },
-    [loading, hasMore],
+    [loading, hasMore, setOffset],
   );
 
+  /**
+   * Resets the state when the filter changes.
+   */
   useEffect(() => {
+    console.debug('[DEBUG] Filter changed, resetting state');
     setOffset(0);
-    setHasMore(true);
+    fetchGames(0, true);
   }, [filter]);
 
+  /**
+   * Fetches additional games when the offset changes.
+   */
   useEffect(() => {
-    fetchGames(offset);
-  }, [offset, filter]);
+    if (offset === 0 && !games.length) {
+      console.debug('[DEBUG] Initial fetch at offset 0');
+    } else if (offset > 0) {
+      console.debug(`[DEBUG] Offset changed to ${offset}, loading more games`);
+      fetchGames(offset);
+    }
+  }, [offset]);
 
   return (
     <div className="mb-16 flex flex-col items-center">
