@@ -7,7 +7,7 @@ import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
 import ScrollToTopButton from '@components/ScrollTopButton';
 import { Game, useGames } from '@context/GamesContext';
-import { useFilter } from '@context/FilterContext';
+import { FilterState, useFilter } from '@context/FilterContext';
 import { AppError } from './types/ApiError';
 
 const LIMIT = 20;
@@ -24,13 +24,12 @@ const Games: React.FC = () => {
     setLoading,
   } = useGames();
   const { filter } = useFilter();
+  const [oldFilter, setOldFilter] = useState<FilterState>(filter);
+  const [pendingFilterChange, setPendingFilterChange] = useState(false);
   const { showNotification } = useNotification();
   const observer = useRef<IntersectionObserver | null>(null);
   const [noGames, setNoGames] = useState<boolean>(false);
 
-  /**
-   * Fetches games from the API.
-   */
   const fetchGames = async (newOffset: number, reset: boolean = false) => {
     if (loading) {
       console.debug('[DEBUG] Fetch blocked: already loading');
@@ -109,9 +108,6 @@ const Games: React.FC = () => {
     }
   };
 
-  /**
-   * Handles the IntersectionObserver for infinite scrolling.
-   */
   const lastGameRef = useCallback(
     (node: HTMLLIElement | null) => {
       if (loading || !hasMore) return;
@@ -130,26 +126,34 @@ const Games: React.FC = () => {
     [loading, hasMore, setOffset],
   );
 
-  /**
-   * Resets the state when the filter changes.
-   */
   useEffect(() => {
-    console.debug('[DEBUG] Filter changed, resetting state');
-    setOffset(0);
-    fetchGames(0, true);
-  }, [filter]);
+    const hasFilterChanged =
+      JSON.stringify(oldFilter) !== JSON.stringify(filter);
 
-  /**
-   * Fetches additional games when the offset changes.
-   */
-  useEffect(() => {
-    if (offset === 0 && !games.length) {
-      console.debug('[DEBUG] Initial fetch at offset 0');
-    } else if (offset > 0) {
-      console.debug(`[DEBUG] Offset changed to ${offset}, loading more games`);
-      fetchGames(offset);
+    if (hasFilterChanged) {
+      // Filter has changed
+      setOldFilter(filter);
+      setPendingFilterChange(true);
+      if (offset !== 0) {
+        setOffset(0);
+        return;
+      }
+      // reload if offset was 0
+      fetchGames(0, true);
+      setPendingFilterChange(false);
+    } else {
+      // Filter has not changed.
+      if (pendingFilterChange && offset === 0) {
+        fetchGames(0, true);
+        setPendingFilterChange(false);
+      } else if (offset > 0) {
+        fetchGames(offset, false);
+      } else if (offset === 0 && games.length === 0 && !loading) {
+        // Initial-Fetch
+        fetchGames(0, true);
+      }
     }
-  }, [offset]);
+  }, [filter, offset]);
 
   return (
     <div className="mb-16 flex flex-col items-center">

@@ -76,3 +76,10 @@ input[type='range']::-ms-thumb {
 .animate-slide-out {
   animation: slide-out 0.3s ease-in forwards;
 }
+
+.clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

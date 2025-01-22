@@ -44,11 +44,11 @@ const GameListItem = memo(
     return (
       <li
         ref={ref}
-        className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-4"
+        className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-2"
       >
         <Link
           href={`/game/${game.id}`}
-          className={`mr-1 flex flex-grow items-center md:h-32 md:w-32 ${
+          className={`flex flex-grow items-center md:h-32 md:w-32 ${
             game.available <= 0 ? 'opacity-40' : ''
           }`}
         >
@@ -69,8 +69,10 @@ const GameListItem = memo(
               </div>
             )}
           </div>
-          <div className="ml-3 mt-2 flex-grow md:ml-5">
-            <h2 className="text-md md:text-lg lg:text-xl">{game.name}</h2>
+          <div className="ml-3 mt-2 flex-grow md:ml-4">
+            <h2 className="text-md clamp-3 md:text-lg lg:text-xl">
+              {game.name}
+            </h2>
             {game.min_players && game.max_players && (
               <p className="hidden text-sm text-gray-500 md:block">
                 {game.min_players} - {game.max_players} Spieler
