@@ -11,6 +11,10 @@ const FilterCard: React.FC = () => {
   const [sliderValue, setSliderValue] = useState<number>(filter.minPlayerCount);
 
   useEffect(() => {
+    if (searchTerm === '') {
+      setFilter((prev) => ({ ...prev, filterText: searchTerm }));
+      return;
+    }
     const timeout = setTimeout(() => {
       setFilter((prev) => ({ ...prev, filterText: searchTerm }));
     }, 500);
