@@ -32,13 +32,9 @@ const Games: React.FC = () => {
 
   const fetchGames = async (newOffset: number, reset: boolean = false) => {
     if (loading) {
-      console.debug('[DEBUG] Fetch blocked: already loading');
       return;
     }
 
-    console.debug(
-      `[DEBUG] Fetching games at offset: ${newOffset}, Reset: ${reset}`,
-    );
     setLoading(true);
 
     try {
@@ -79,19 +75,16 @@ const Games: React.FC = () => {
 
       setGames((prevGames) => {
         if (reset) {
-          console.debug('[DEBUG] Resetting games');
           return data;
         }
 
         const newGames = data.filter(
           (game: Game) => !prevGames.some((g) => g.id === game.id),
         );
-        console.debug(`[DEBUG] Adding ${newGames.length} new games`);
         return [...prevGames, ...newGames];
       });
 
       if (data.length < LIMIT) {
-        console.debug('[DEBUG] No more games to load');
         setHasMore(false);
       }
     } catch (err) {
@@ -104,7 +97,6 @@ const Games: React.FC = () => {
       });
     } finally {
       setLoading(false);
-      console.debug('[DEBUG] Fetch complete');
     }
   };
 
@@ -116,7 +108,6 @@ const Games: React.FC = () => {
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          console.debug('[DEBUG] lastGameRef triggered, loading more games');
           setOffset((prevOffset) => prevOffset + LIMIT);
         }
       });
