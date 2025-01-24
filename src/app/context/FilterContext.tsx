@@ -1,20 +1,29 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useMemo,
+} from 'react';
 
 export type FilterState = {
   filterText: string;
   showAvailableOnly: boolean;
   minPlayerCount: number;
+  minAge: number;
 };
 
-const defaultFilterState: FilterState = {
+export const defaultFilterState: FilterState = {
   filterText: '',
   showAvailableOnly: false,
   minPlayerCount: 1,
+  minAge: 5,
 };
 
 type FilterContextType = {
   filter: FilterState;
   setFilter: React.Dispatch<React.SetStateAction<FilterState>>;
+  isFilterActive: boolean;
 };
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
@@ -24,8 +33,18 @@ export const FilterProvider: React.FC<{ children: ReactNode }> = ({
 }) => {
   const [filter, setFilter] = useState<FilterState>(defaultFilterState);
 
+  // Check if a filter is active
+  const isFilterActive = useMemo(() => {
+    return (
+      filter.filterText !== defaultFilterState.filterText ||
+      filter.showAvailableOnly !== defaultFilterState.showAvailableOnly ||
+      filter.minPlayerCount !== defaultFilterState.minPlayerCount ||
+      filter.minAge !== defaultFilterState.minAge
+    );
+  }, [filter]);
+
   return (
-    <FilterContext.Provider value={{ filter, setFilter }}>
+    <FilterContext.Provider value={{ filter, setFilter, isFilterActive }}>
       {children}
     </FilterContext.Provider>
   );

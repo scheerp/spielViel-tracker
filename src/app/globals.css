@@ -3,13 +3,18 @@
 @tailwind utilities;
 
 :root {
-  --background: #eeeeee;
+  --white: #fff;
+  --background: #ebebeb;
   --foreground: #171717;
   --primary: #e01474;
   --primary-light: #e27bab;
   --primary-dark: #9b0e50;
-  --checked-out: #f97316;
-  --checked-in: #0891b2;
+  --secondary: #3bceac;
+  --tertiary: #540d6e;
+  --quaternary: #0ead69;
+  --quinary: #ffd23f;
+  --status: #0197f6;
+  --error: #fe5d26;
 }
 
 body {
@@ -77,9 +82,9 @@ input[type='range']::-ms-thumb {
   animation: slide-out 0.3s ease-in forwards;
 }
 
-.clamp-3 {
+.clamp-custom {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

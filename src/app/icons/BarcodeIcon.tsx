@@ -10,7 +10,7 @@ const BarcodeIcon = ({
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-12 w-10 ${tailwindColor} relative -top-1 ${className}`}
+      className={`h-12 w-10 ${tailwindColor} relative top-1 ${className}`}
       onClick={onClick}
       shapeRendering="geometricPrecision"
       textRendering="geometricPrecision"

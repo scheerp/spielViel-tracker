@@ -34,11 +34,11 @@ const CustomModal: React.FC<CustomModalProps> = ({ children, trigger }) => {
 
   return (
     <>
-      <div onClick={openModal}>{trigger}</div>
+      <button onClick={openModal}>{trigger}</button>
       {showModal ? (
         <>
           <div
-            className="fixed inset-0 z-20 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-60 outline-none focus:outline-none"
+            className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-60 outline-none focus:outline-none"
             onClick={closeModal}
           >
             <div
@@ -46,13 +46,15 @@ const CustomModal: React.FC<CustomModalProps> = ({ children, trigger }) => {
               onClick={(e) => e.stopPropagation()}
             >
               <div className="relative h-full flex-col overflow-auto p-10 py-3">
-                <button
-                  onClick={closeModal}
-                  className="absolute -right-0 -top-0 flex h-12 w-12 items-center justify-center self-end rounded text-xl text-gray-500 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-white md:right-2 md:top-2 md:text-3xl"
-                  aria-label="Close modal"
-                >
-                  ✕
-                </button>
+                <div className="bg-white pt-4">
+                  <button
+                    onClick={closeModal}
+                    className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-xl text-gray-500 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-white md:text-3xl"
+                    aria-label="Close modal"
+                  >
+                    ✕
+                  </button>
+                </div>
                 <div className="contaienr mx-auto max-w-screen-lg">
                   {children}
                 </div>

@@ -17,12 +17,12 @@ const Notification: React.FC<NotificationProps> = ({
   onClose,
 }) => {
   const notificationStyles = {
-    success: 'bg-green-500 text-white',
-    error: 'bg-red-500 text-white',
-    warning: 'bg-yellow-500 text-black',
-    status: 'bg-blue-500 text-white',
-    checkOut: 'bg-checkedOut text-white',
-    checkIn: 'bg-checkedIn text-white',
+    success: 'bg-quaternary text-white',
+    error: 'bg-error text-white',
+    warning: 'bg-quinary text-black',
+    status: 'bg-status text-white',
+    checkOut: 'bg-secondary text-white',
+    checkIn: 'bg-tertiary text-white',
   };
 
   return (

@@ -43,7 +43,6 @@ const Scan: React.FC = () => {
     if (updateGameResult?.success) {
       setLastScannedGame(updateGameResult.gameData);
       setShowFloatingButtons(false);
-      setBarCode('');
       inputRef.current?.focus();
     }
   };
@@ -82,6 +81,7 @@ const Scan: React.FC = () => {
       });
     } finally {
       setLoading(false);
+      setBarCode('');
     }
   };
 
@@ -115,21 +115,26 @@ const Scan: React.FC = () => {
         </div>
       </div>
       <p>Zuletzt gefunden:</p>
-      {(loading || isUpdating) && <Loading />}
-      {error && <div>Spiel nicht gefunden.</div>}
-      {lastScannedGame && (
-        <div className="mt-9 flex flex-col items-center justify-center md:ml-9">
-          <h1 className="mb-6 text-xl font-bold md:text-2xl">
-            {lastScannedGame.name}
-          </h1>
-          <DetailedGameImage game={lastScannedGame} />
-        </div>
-      )}
-      {lastScannedGame && showFloatingButtons && (
-        <FloatingUpdateButtons
-          game={lastScannedGame}
-          handleSuccess={handleGameUpdate}
-        />
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          {error && <div>Spiel nicht gefunden.</div>}
+          {lastScannedGame && (
+            <div className="mt-9 flex flex-col items-center justify-center md:ml-9">
+              <h1 className="mb-6 text-xl font-bold md:text-2xl">
+                {lastScannedGame.name}
+              </h1>
+              <DetailedGameImage game={lastScannedGame} />
+            </div>
+          )}
+          {lastScannedGame && showFloatingButtons && (
+            <FloatingUpdateButtons
+              game={lastScannedGame}
+              handleSuccess={handleGameUpdate}
+            />
+          )}
+        </>
       )}
     </>
   );

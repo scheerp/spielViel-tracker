@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useCallback, useState } from 'react';
-import FilterCard from '@components/FilterCard';
+import SearchBar from '@components/SearchBar';
 import GameListItem from '@components/GameListItem';
 import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
@@ -20,6 +20,7 @@ const Games: React.FC = () => {
     setOffset,
     hasMore,
     setHasMore,
+    setTotalCount,
     loading,
     setLoading,
   } = useGames();
@@ -42,6 +43,7 @@ const Games: React.FC = () => {
         setNoGames(false);
         setHasMore(true);
         setGames([]);
+        setTotalCount(0);
       }
 
       const queryParams = new URLSearchParams({
@@ -50,6 +52,7 @@ const Games: React.FC = () => {
         filter_text: filter.filterText,
         show_available_only: String(filter.showAvailableOnly),
         min_player_count: String(filter.minPlayerCount),
+        player_age: String(filter.minAge),
       });
 
       const response = await fetch(
@@ -66,6 +69,7 @@ const Games: React.FC = () => {
             duration: 3000,
           });
           setGames([]);
+          setTotalCount(0);
           return;
         }
         throw new Error(errorData.detail.message);
@@ -75,16 +79,17 @@ const Games: React.FC = () => {
 
       setGames((prevGames) => {
         if (reset) {
-          return data;
+          return data.games;
         }
 
-        const newGames = data.filter(
+        const newGames = data.games.filter(
           (game: Game) => !prevGames.some((g) => g.id === game.id),
         );
         return [...prevGames, ...newGames];
       });
+      setTotalCount(data.total);
 
-      if (data.length < LIMIT) {
+      if (data.games.length < LIMIT) {
         setHasMore(false);
       }
     } catch (err) {
@@ -148,8 +153,8 @@ const Games: React.FC = () => {
 
   return (
     <div className="mb-16 flex flex-col items-center">
-      <FilterCard />
-      <div className="container mx-auto flex flex-col gap-8 px-4 lg:flex-row lg:px-8">
+      <SearchBar />
+      <div className="container mx-auto mt-20 flex flex-col gap-8 px-2 lg:flex-row lg:px-8">
         <div className="flex-grow">
           {noGames && !loading && (
             <div className="px-4 pt-8 text-center text-gray-500">
@@ -159,7 +164,7 @@ const Games: React.FC = () => {
             </div>
           )}
           {!noGames && (
-            <ul className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            <ul className="md:gap4 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
               {games.map((game, index) => {
                 if (index === games.length - 1) {
                   return (

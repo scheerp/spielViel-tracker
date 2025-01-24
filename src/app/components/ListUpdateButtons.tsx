@@ -3,6 +3,9 @@
 import { useSession } from 'next-auth/react';
 import GameUpdateButton from './GameUpdateButton';
 import { Game } from '@context/GamesContext';
+import CustomModal from './CustomModal';
+import BarcodeIcon from '@icons/BarcodeIcon';
+import AddEAN from './AddEAN';
 
 type ListUpdateButtonsProps = {
   game: Game;
@@ -10,13 +13,29 @@ type ListUpdateButtonsProps = {
 
 const ListUpdateButtons = ({ game }: ListUpdateButtonsProps) => {
   const { data: session } = useSession();
+  if (session) {
+    if (!game.ean) {
+      return (
+        <CustomModal
+          trigger={
+            <div className="flex min-h-16 min-w-16 items-center justify-center rounded-xl bg-status p-2">
+              <BarcodeIcon tailwindColor="text-white" />
+            </div>
+          }
+        >
+          <AddEAN game={game} />
+        </CustomModal>
+      );
+    }
+    return (
+      <div className="flex flex-col gap-1 md:gap-3">
+        <GameUpdateButton game={game} operation={'borrow'} buttonType="list" />
+        <GameUpdateButton game={game} operation={'return'} buttonType="list" />
+      </div>
+    );
+  }
 
-  return session ? (
-    <div className="flex gap-2 md:flex-col">
-      <GameUpdateButton game={game} operation={'borrow'} buttonType="list" />
-      <GameUpdateButton game={game} operation={'return'} buttonType="list" />
-    </div>
-  ) : null;
+  return null;
 };
 
 export default ListUpdateButtons;

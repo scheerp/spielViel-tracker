@@ -4,11 +4,9 @@ import React, { memo, forwardRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
-import CustomModal from './CustomModal';
-import BarcodeIcon from '@icons/BarcodeIcon';
-import AddEAN from './AddEAN';
 import { Game } from '@context/GamesContext';
 import ListUpdateButtons from './ListUpdateButtons';
+import ComplexityPill from './ComplexityPill';
 
 type GameListItemProps = {
   game: Game;
@@ -18,33 +16,10 @@ const GameListItem = memo(
   forwardRef<HTMLLIElement, GameListItemProps>(({ game }, ref) => {
     const { data: session } = useSession();
 
-    const renderButtons = () => {
-      if (session) {
-        if (!game.ean) {
-          return (
-            <>
-              <CustomModal
-                trigger={
-                  <div className="flex items-center justify-center rounded-xl bg-primary p-2">
-                    <BarcodeIcon tailwindColor="text-white" />
-                  </div>
-                }
-              >
-                <AddEAN game={game} />
-              </CustomModal>
-            </>
-          );
-        }
-
-        return <ListUpdateButtons game={game} />;
-      }
-      return null;
-    };
-
     return (
       <li
         ref={ref}
-        className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-2"
+        className="relative flex h-36 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-3 shadow-md md:h-48 md:gap-2"
       >
         <Link
           href={`/game/${game.id}`}
@@ -52,7 +27,7 @@ const GameListItem = memo(
             game.available <= 0 ? 'opacity-40' : ''
           }`}
         >
-          <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden truncate rounded-l-md md:h-48 md:w-48">
+          <div className="relative h-36 w-36 flex-shrink-0 overflow-hidden truncate md:h-48 md:w-48">
             <Image
               src={game.img_url ? game.img_url : '/noImage.jpg'}
               alt={game.name}
@@ -69,23 +44,60 @@ const GameListItem = memo(
               </div>
             )}
           </div>
-          <div className="ml-3 mt-2 flex-grow md:ml-4">
-            <h2 className="text-md clamp-3 md:text-lg lg:text-xl">
+          <div className="ml-3 flex h-[7.5rem] flex-col justify-between md:mx-4 md:h-36">
+            <h2 className="clamp-custom mb-1 text-xl/6 md:text-lg lg:text-xl">
               {game.name}
             </h2>
-            {game.min_players && game.max_players && (
-              <p className="hidden text-sm text-gray-500 md:block">
-                {game.min_players} - {game.max_players} Spieler
-              </p>
-            )}
-            {game.min_playtime && game.max_playtime && (
-              <p className="hidden text-sm text-gray-500 md:block">
-                {game.min_playtime} - {game.max_playtime} Minuten
-              </p>
-            )}
+            <div>
+              {game.min_players && game.max_players && (
+                <p className="mb-1 text-sm text-gray-500 md:block">
+                  {game.min_players === game.max_players
+                    ? `${game?.max_players} Spieler`
+                    : `${game?.min_players} - ${game?.max_players} Spieler`}{' '}
+                  | {game.player_age}+ <br />
+                  {game.min_playtime === game.max_playtime
+                    ? `${game?.max_playtime} Min`
+                    : `${game?.min_playtime} - ${game?.max_playtime} Min`}
+                </p>
+              )}
+              <ComplexityPill complexity={game.complexity} />
+            </div>
+            {/* <div className="items-star flex flex-col">
+              <div className="flex w-56 justify-around text-sm text-gray-500 md:block">
+                <GameDetailsProperty
+                  value={game.player_age}
+                  icon="/player-age.webp"
+                  property="player age"
+                  context="list"
+                />
+
+                <GameDetailsProperty
+                  value={
+                    game.min_players === game.max_players
+                      ? `${game?.max_players}`
+                      : `${game?.min_players} - ${game?.max_players}`
+                  }
+                  icon="/player-count.webp"
+                  property="player count"
+                  context="list"
+                />
+
+                <GameDetailsProperty
+                  value={
+                    game.min_playtime === game.max_playtime
+                      ? `${game?.max_playtime}`
+                      : `${game?.min_playtime} - ${game?.max_playtime}`
+                  }
+                  icon="/playtime.webp"
+                  property="playtime"
+                  context="list"
+                />
+              </div>
+              <ComplexityPill complexity={game.complexity} />
+            </div> */}
           </div>
         </Link>
-        {renderButtons()}
+        {session && <ListUpdateButtons game={game} />}
       </li>
     );
   }),

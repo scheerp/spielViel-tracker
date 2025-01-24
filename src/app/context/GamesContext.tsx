@@ -18,9 +18,11 @@ export interface Game {
   max_playtime: number;
   playing_time: number;
   rating: number;
+  complexity: number;
   img_url?: string;
   thumbnail_url?: string;
   ean?: string;
+  player_age: string;
 }
 
 interface GamesContextType {
@@ -30,6 +32,8 @@ interface GamesContextType {
   setOffset: React.Dispatch<React.SetStateAction<number>>;
   hasMore: boolean;
   setHasMore: React.Dispatch<React.SetStateAction<boolean>>;
+  totalCount: number;
+  setTotalCount: React.Dispatch<React.SetStateAction<number>>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   updateGame: (updatedGame: Game) => void;
@@ -43,6 +47,7 @@ export const GamesProvider: React.FC<{ children: ReactNode }> = ({
   const [games, setGames] = useState<Game[]>([]);
   const [offset, setOffset] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
+  const [totalCount, setTotalCount] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
 
   const updateGame = (updatedGame: Game) => {
@@ -62,6 +67,8 @@ export const GamesProvider: React.FC<{ children: ReactNode }> = ({
         setOffset,
         hasMore,
         setHasMore,
+        totalCount,
+        setTotalCount,
         loading,
         setLoading,
         updateGame,

@@ -51,22 +51,28 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
           />
         </form>
       </div>
-      {isLoading && <Loading />}
       <p className="mt-2">Barcode Scannen für:</p>
       {game && (
         <div className="mt-9 flex flex-col items-center justify-center md:ml-9">
           <h1 className="mb-6 text-xl font-bold md:text-2xl">{game.name}</h1>
           <div className="relative w-80 flex-shrink-0 overflow-hidden truncate rounded-l-md md:w-[500px]">
-            <Image
-              src={game.img_url ? game.img_url : '/noImage.jpg'}
-              alt={game.name}
-              width={900}
-              height={900}
-              style={{
-                maxWidth: '100%',
-                height: 'auto',
-              }}
-            />
+            <div className={`relative ${isLoading ? 'opacity-70' : ''}`}>
+              <Image
+                src={game.img_url ? game.img_url : '/noImage.jpg'}
+                alt={game.name}
+                width={900}
+                height={900}
+                style={{
+                  maxWidth: '100%',
+                  height: 'auto',
+                }}
+              />
+            </div>
+            {isLoading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-white/70">
+                <Loading />
+              </div>
+            )}
             <div className="text-md z-1 absolute bottom-1 left-1 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-sm font-bold text-white shadow-lg">
               {game.available}
             </div>

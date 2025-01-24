@@ -90,7 +90,7 @@ const LoginPage = () => {
           <button
             type="submit"
             disabled={isButtonDisabled}
-            className={`btn mt-4 rounded-full bg-primary py-2.5 text-white ${
+            className={`btn mt-4 rounded-full bg-primary py-2.5 text-white shadow-sm ${
               isButtonDisabled ? 'cursor-not-allowed opacity-50' : ''
             }`}
           >

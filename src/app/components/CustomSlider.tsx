@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 type CustomSliderProps = {
   value: number;
@@ -17,8 +17,12 @@ const CustomSlider = ({
 }: CustomSliderProps) => {
   const [tempValue, setTempValue] = useState<number>(value);
 
+  useEffect(() => {
+    setTempValue(value);
+  }, [value]);
+
   const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTempValue(parseInt(e.target.value));
+    setTempValue(parseInt(e.target.value, 10));
   };
 
   const handleMouseUpOrTouchEnd = () => {

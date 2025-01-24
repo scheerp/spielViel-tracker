@@ -10,7 +10,7 @@ type GameUpdateButtonProps = {
   operation: 'borrow' | 'return';
   text?: string;
   buttonType: 'list' | 'detail' | 'scan';
-  onSuccess?: (updatedGame: Game) => void; // Optionaler Callback für ein erfolgreiches Update
+  onSuccess?: (updatedGame: Game) => void;
 };
 
 const GameUpdateButton = ({
@@ -27,8 +27,8 @@ const GameUpdateButton = ({
     setIsButtonDisabled(true);
     const result = await updateGame({ game, operation });
 
-    if (result.success && result.gameData && onSuccess) {
-      onSuccess(result.gameData); // Erfolgreiches Update weitergeben
+    if (result?.success && result.gameData && onSuccess) {
+      onSuccess(result.gameData);
     }
 
     setIsButtonDisabled(false);
@@ -52,7 +52,7 @@ const GameUpdateButton = ({
         ? 'btn min-h-16 min-w-16 md:min-h-24 md:min-w-24 flex flex-col items-center justify-center max-w-10'
         : 'btnflex h-16 w-16 flex-col items-center justify-center';
     const availabilityStyles =
-      operation === 'borrow' ? 'bg-checkedOut' : 'bg-checkedIn';
+      operation === 'borrow' ? 'bg-secondary' : 'bg-tertiary';
 
     return `${baseStyles} ${sizeStyles} ${availabilityStyles} ${getDisabledStyles()}`;
   };

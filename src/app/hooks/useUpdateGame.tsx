@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
 import { useState } from 'react';
 import Image from 'next/image';
-import { AppError } from '../types/ApiError';
+import { AppError, BarcodeConflictError } from '../types/ApiError';
 import { Game, useGames } from '@context/GamesContext';
 
 export type useUpdateGameArguments = {
@@ -105,6 +105,42 @@ const useUpdateGame = () => {
       return { success: true, gameData: updatedGame };
     } catch (err) {
       const error = err as AppError;
+      if (
+        error.detail.error_code === 'BARCODE_CONFLICT' &&
+        error.detail.details
+      ) {
+        const error = err as BarcodeConflictError;
+        return showNotification({
+          message: (
+            <div className="flex items-center">
+              <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden truncate">
+                <Image
+                  src={
+                    error.detail.details.thumbnail_url
+                      ? error.detail.details.thumbnail_url
+                      : '/noImage.jpg'
+                  }
+                  alt={error.detail.details.name}
+                  priority
+                  fill
+                  sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
+                  style={{
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
+              <span className="ml-4">
+                {'Barcode bereits vorhanden bei:'}
+                <br />
+                {error.detail.details.name}
+              </span>
+            </div>
+          ),
+          type: 'error',
+          duration: 4000,
+        });
+      }
+
       showNotification({
         message: (
           <div>

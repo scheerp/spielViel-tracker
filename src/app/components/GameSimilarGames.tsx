@@ -3,6 +3,7 @@
 import { Game } from '@context/GamesContext';
 import Image from 'next/image';
 import Link from 'next/link';
+import ComplexityPill from './ComplexityPill';
 
 const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
   if (!relatedGames || !relatedGames.length) return null;
@@ -14,15 +15,15 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
         {relatedGames.map((relatedGame) => (
           <div
             key={relatedGame.id + relatedGame.name}
-            className="relative flex h-24 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-4"
+            className="relative flex h-36 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-3 shadow-md md:h-48 md:gap-2"
           >
             <Link
               href={`/game/${relatedGame.id}`}
-              className={`mr-1 flex flex-grow items-center md:h-32 md:w-32 ${
-                !relatedGame.available ? 'opacity-40' : ''
+              className={`flex flex-grow items-center md:h-32 md:w-32 ${
+                relatedGame.available <= 0 ? 'opacity-40' : ''
               }`}
             >
-              <div className="relative h-24 w-24 flex-shrink-0 overflow-hidden truncate rounded-l-md md:h-48 md:w-48">
+              <div className="relative h-36 w-36 flex-shrink-0 overflow-hidden truncate md:h-48 md:w-48">
                 <Image
                   src={
                     relatedGame.img_url ? relatedGame.img_url : '/noImage.jpg'
@@ -36,20 +37,24 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
                   }}
                 />
               </div>
-              <div className="ml-3 mt-2 flex-grow md:ml-5">
-                <h2 className="text-md md:text-lg lg:text-xl">
+              <div className="ml-3 flex h-[7.5rem] flex-col justify-between md:mx-4 md:h-36">
+                <h2 className="clamp-custom mb-1 text-xl/6 md:text-lg lg:text-xl">
                   {relatedGame.name}
                 </h2>
-                <p className="hidden text-sm text-gray-500 md:block">
-                  {relatedGame.max_players === relatedGame.min_players
-                    ? `${relatedGame?.max_players} Spieler`
-                    : `${relatedGame?.min_players} - ${relatedGame?.max_players} Spieler`}
-                </p>
-                <p className="hidden text-sm text-gray-500 md:block">
-                  {relatedGame.max_playtime === relatedGame.min_playtime
-                    ? `ca. ${relatedGame.playing_time} Minuten`
-                    : `ca. ${relatedGame.min_playtime} - ${relatedGame.max_playtime} Minuten`}
-                </p>
+                <div>
+                  {relatedGame.min_players && relatedGame.max_players && (
+                    <p className="mb-1 text-sm text-gray-500 md:block">
+                      {relatedGame.min_players === relatedGame.max_players
+                        ? `${relatedGame?.max_players} Spieler`
+                        : `${relatedGame?.min_players} - ${relatedGame?.max_players} Spieler`}{' '}
+                      | {relatedGame.player_age}+ <br />
+                      {relatedGame.min_playtime === relatedGame.max_playtime
+                        ? `${relatedGame?.max_playtime} Min`
+                        : `${relatedGame?.min_playtime} - ${relatedGame?.max_playtime} Min`}
+                    </p>
+                  )}
+                  <ComplexityPill complexity={relatedGame.complexity} />
+                </div>
               </div>
             </Link>
           </div>
