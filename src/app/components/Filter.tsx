@@ -57,6 +57,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
     }));
 
     closeDrawer();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handlePlayercountSliderChange = (value: number) => {
@@ -77,6 +78,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
 
   const clearFilter = () => {
     closeDrawer();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
     setLocalFilterstate(defaultFilterState);
     setFilter(defaultFilterState);
   };
