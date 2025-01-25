@@ -21,6 +21,7 @@ const SearchBar: React.FC = () => {
       setFilter((prev) => ({ ...prev, filterText: searchTerm }));
     }, 500);
 
+    window.scrollTo({ top: 0 });
     return () => clearTimeout(timeout);
   }, [searchTerm]);
 
