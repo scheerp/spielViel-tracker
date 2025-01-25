@@ -38,7 +38,7 @@ const CustomModal: React.FC<CustomModalProps> = ({ children, trigger }) => {
       {showModal ? (
         <>
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-60 outline-none focus:outline-none"
+            className="fixed inset-0 z-40 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-60 outline-none focus:outline-none"
             onClick={closeModal}
           >
             <div

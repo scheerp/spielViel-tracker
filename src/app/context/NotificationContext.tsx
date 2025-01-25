@@ -76,7 +76,7 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
       value={{ showNotification, closeNotification }}
     >
       {children}
-      <div className="fixed bottom-4 left-1/2 z-[25] flex w-full max-w-sm -translate-x-1/2 transform flex-col space-y-3 sm:bottom-6 sm:left-4 sm:translate-x-0">
+      <div className="fixed bottom-4 left-1/2 z-50 flex w-full max-w-sm -translate-x-1/2 transform flex-col space-y-3 sm:bottom-6 sm:left-4 sm:translate-x-0">
         {notifications.map((notification) => (
           <div
             key={notification.id}

@@ -95,7 +95,7 @@ const Scan: React.FC = () => {
   return (
     <>
       <div className="mb-8 flex flex-col items-center">
-        <div className="z-[1] mt-8 flex w-full flex-col justify-around rounded-xl bg-white text-base shadow-md">
+        <div className="z-[1] mt-12 flex w-full flex-col justify-around rounded-xl bg-white text-base shadow-md">
           <form
             onSubmit={(event) => {
               event.preventDefault();
