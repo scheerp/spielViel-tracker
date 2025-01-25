@@ -11,7 +11,7 @@ type DrawerProps = {
 const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, children }) => {
   return (
     <div
-      className={`fixed inset-0 z-50 pt-20 transition-all ${
+      className={`fixed inset-0 z-40 pt-20 transition-all ${
         isOpen ? 'pointer-events-auto' : 'pointer-events-none'
       }`}
     >

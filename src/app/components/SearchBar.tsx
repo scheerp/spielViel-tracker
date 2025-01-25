@@ -24,6 +24,10 @@ const SearchBar: React.FC = () => {
     return () => clearTimeout(timeout);
   }, [searchTerm]);
 
+  useEffect(() => {
+    setSearchTerm(filter.filterText);
+  }, [filter]);
+
   const handleSearchChange = (text: string) => {
     setSearchTerm(text);
   };
@@ -31,10 +35,6 @@ const SearchBar: React.FC = () => {
   const toggleDrawer = () => {
     setDrawerOpen(!isDrawerOpen);
   };
-
-  const filterStyles =
-    'flex h-12 w-12 items-center justify-center rounded-full' +
-    (isFilterActive ? 'bg-primary' : 'bg-white');
 
   return (
     <>
