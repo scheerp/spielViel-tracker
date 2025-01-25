@@ -40,7 +40,7 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
   }, [formattedDescription]);
 
   return (
-    <div className="mt-8">
+    <div className="mb-8 mt-8">
       <div className="relative overflow-hidden">
         <div ref={textContainerRef} className="relative z-10 max-h-60">
           {formattedDescription}
