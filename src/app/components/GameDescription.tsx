@@ -5,31 +5,7 @@ import { Game } from '@context/GamesContext';
 
 const GameDescription = ({ game }: { game: Game }): JSX.Element => {
   const [isOverflowing, setIsOverflowing] = useState(false);
-  const [formattedDescription, setFormattedDescription] =
-    useState<JSX.Element | null>(null);
   const textContainerRef = useRef<HTMLParagraphElement>(null);
-
-  useEffect(() => {
-    if (game.german_description || game.description) {
-      const decodedText = he.decode(
-        game.german_description || game.description,
-      );
-      const lines = decodedText.split('\n');
-
-      setFormattedDescription(
-        <>
-          {lines.map((paragraph, index) => (
-            <span key={index}>
-              {paragraph}
-              {index < lines.length - 2 && <br />}
-            </span>
-          ))}
-        </>,
-      );
-    } else {
-      <>keine Beschreibung verfügbar</>;
-    }
-  }, [game.german_description, game.description]);
 
   useEffect(() => {
     const container = textContainerRef.current;
@@ -37,13 +13,16 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
     if (container) {
       setIsOverflowing(container.scrollHeight > container.clientHeight);
     }
-  }, [formattedDescription]);
+  }, [game.german_description, game.description]);
 
   return (
     <div className="mb-8 mt-8">
       <div className="relative overflow-hidden">
-        <div ref={textContainerRef} className="relative z-10 max-h-60">
-          {formattedDescription}
+        <div
+          ref={textContainerRef}
+          className="relative z-10 max-h-60 whitespace-pre-line"
+        >
+          {game.german_description || game.description}
           {isOverflowing && (
             <div
               className="pointer-events-none absolute inset-x-0 bottom-0 h-12"
@@ -66,7 +45,9 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
           <h1 className="mb-4 mt-6 text-xl font-bold md:text-4xl">
             {game.name}
           </h1>
-          <p>{formattedDescription}</p>
+          <p className="whitespace-pre-line">
+            {game.german_description || game.description}
+          </p>
         </CustomModal>
       )}
     </div>
