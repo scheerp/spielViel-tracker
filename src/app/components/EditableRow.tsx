@@ -100,7 +100,9 @@ const EditableRow: React.FC<EditableRowProps> = ({
               <SaveIcon tailwindColor="text-white" className="h-6 w-6" />
             </button>
           </td>
-          <td className="p-3"></td>
+          <td className="hidden p-3 md:block">
+            {formatDate(participant.created_at)}
+          </td>
         </>
       ) : (
         <>
