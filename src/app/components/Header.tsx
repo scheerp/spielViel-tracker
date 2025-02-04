@@ -1,6 +1,6 @@
 'use client';
 
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import MeepleIcon from '@icons/MeepleIcon';
@@ -27,7 +27,9 @@ const Header = () => {
         </Link>
         {session ? (
           <div className="flex items-center gap-3">
-            <MeepleIcon tailwindColor="text-white" onClick={signOut} />
+            <Link href="/helper">
+              <MeepleIcon tailwindColor="text-white" />
+            </Link>
 
             <CustomModal trigger={<BarcodeIcon tailwindColor="text-white" />}>
               <Scan />
