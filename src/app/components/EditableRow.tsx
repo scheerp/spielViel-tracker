@@ -48,7 +48,6 @@ const EditableRow: React.FC<EditableRowProps> = ({
     <tr className="border-b border-gray-200 hover:bg-gray-50">
       {isEditing ? (
         <>
-          {/* Eingabefelder im Edit-Modus */}
           <td className="w-1/3 p-3 md:w-1/4">
             <input
               type="text"
@@ -78,7 +77,6 @@ const EditableRow: React.FC<EditableRowProps> = ({
             />
           </td>
           <td className="w-1/3 pt-3 md:w-1/4">
-            {/* Abbrechen */}
             <button
               onClick={() => {
                 setEditedEntry({
@@ -93,7 +91,6 @@ const EditableRow: React.FC<EditableRowProps> = ({
               <CloseIcon tailwindColor="text-white" className="h-6 w-6" />
             </button>
 
-            {/* Speichern */}
             <button
               onClick={() => {
                 updateSession(participant.id, editedEntry);
@@ -107,11 +104,12 @@ const EditableRow: React.FC<EditableRowProps> = ({
         </>
       ) : (
         <>
-          {/* Standard-Ansicht */}
-          <td className="w-1/3 truncate p-3 md:w-1/4">{`${participant.vorname} ${participant.nachname}`}</td>
+          <td className="w-1/3 truncate p-3 md:w-1/4">
+            {participant.vorname}
+            <span className="block md:hidden"></span> {participant.nachname}
+          </td>
           <td className="w-1/3 truncate p-3 md:w-1/4">{participant.email}</td>
           <td className="w-1/3 pt-3 md:w-1/4">
-            {/* Bearbeiten */}
             <button
               onClick={() => setIsEditing(true)}
               className="mb-2 mr-2 rounded-xl bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
@@ -119,7 +117,6 @@ const EditableRow: React.FC<EditableRowProps> = ({
               <EditIcon tailwindColor="text-white" className="h-6 w-6" />
             </button>
 
-            {/* Löschen */}
             <button
               onClick={() => deleteSession(participant.id)}
               className="rounded-xl bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
