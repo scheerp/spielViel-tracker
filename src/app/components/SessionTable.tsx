@@ -49,16 +49,10 @@ const SessionTable: React.FC<SessionTableProps> = ({
         <table className="w-full table-fixed border-collapse bg-white shadow-sm">
           <thead>
             <tr className="border-b-2 border-gray-300 bg-gray-100">
-              <th className="w-1/3 p-3 text-left font-semibold md:w-1/4">
-                Name
-              </th>
-              <th className="w-1/3 p-3 text-left font-semibold md:w-1/4">
-                E-Mail
-              </th>
-              <th className="w-1/3 p-3 text-left font-semibold md:w-1/4">
-                Aktion
-              </th>
-              <th className="hidden w-1/3 p-3 text-left font-semibold md:block md:w-1/4">
+              <th className="p-3 text-left font-semibold">Name</th>
+              <th className="p-3 text-left font-semibold">E-Mail</th>
+              <th className="p-3 text-left font-semibold">Aktion</th>
+              <th className="hidden p-3 text-left font-semibold md:block">
                 Anmeldedatum
               </th>
             </tr>
@@ -75,11 +69,11 @@ const SessionTable: React.FC<SessionTableProps> = ({
 
             {displayNewEntry ? (
               <tr className="h-32">
-                <td className="w-1/3 p-3 md:w-1/4">
+                <td className="p-3 pl-0">
                   <input
                     type="text"
                     placeholder="Vorname"
-                    className="mb-2 mr-2 max-w-[80px] rounded-full border p-2 pl-4 outline-none focus:ring-0 md:max-w-[180px]"
+                    className="mb-2 mr-2 w-full rounded-full border p-2 pl-3 outline-none focus:ring-0"
                     value={newEntry.vorname}
                     onChange={(e) =>
                       setNewEntry({ ...newEntry, vorname: e.target.value })
@@ -88,25 +82,25 @@ const SessionTable: React.FC<SessionTableProps> = ({
                   <input
                     type="text"
                     placeholder="Nachname"
-                    className="max-w-[80px] rounded-full border p-2 pl-4 outline-none focus:ring-0 md:max-w-[180px]"
+                    className="w-full rounded-full border p-2 pl-3 outline-none focus:ring-0"
                     value={newEntry.nachname}
                     onChange={(e) =>
                       setNewEntry({ ...newEntry, nachname: e.target.value })
                     }
                   />
                 </td>
-                <td className="w-1/3 p-3 md:w-1/4">
+                <td className="p-3 pl-0">
                   <input
                     type="email"
                     placeholder="E-Mail"
-                    className="max-w-[80px] rounded-full border p-2 pl-4 outline-none focus:ring-0 md:max-w-[180px]"
+                    className="w-full rounded-full border p-2 pl-3 outline-none focus:ring-0"
                     value={newEntry.email}
                     onChange={(e) =>
                       setNewEntry({ ...newEntry, email: e.target.value })
                     }
                   />
                 </td>
-                <td className="w-1/3 pt-3 md:w-1/4">
+                <td className="pt-3">
                   <button
                     onClick={() => setDisplayNewEntry(false)}
                     className="mb-2 mr-2 rounded-xl bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
@@ -125,7 +119,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
               </tr>
             ) : (
               <tr className="h-32">
-                <td className="h-8 w-1/3 p-3 md:w-1/4">
+                <td className="h-8 p-3">
                   <button
                     onClick={() => setDisplayNewEntry(true)}
                     className="rounded-xl bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"

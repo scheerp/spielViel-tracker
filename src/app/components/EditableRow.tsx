@@ -48,10 +48,10 @@ const EditableRow: React.FC<EditableRowProps> = ({
     <tr className="border-b border-gray-200 hover:bg-gray-50">
       {isEditing ? (
         <>
-          <td className="w-1/3 p-3 md:w-1/4">
+          <td className="p-3 pl-0">
             <input
               type="text"
-              className="mb-2 w-full max-w-[100px] rounded-full border p-2 outline-none focus:ring-0 md:max-w-[180px]"
+              className="mb-2 w-full rounded-full border p-2 pl-3 outline-none focus:ring-0"
               value={editedEntry.vorname}
               onChange={(e) =>
                 setEditedEntry({ ...editedEntry, vorname: e.target.value })
@@ -59,24 +59,24 @@ const EditableRow: React.FC<EditableRowProps> = ({
             />
             <input
               type="text"
-              className="w-full max-w-[100px] rounded-full border p-2 outline-none focus:ring-0 md:max-w-[180px]"
+              className="w-full rounded-full border p-2 pl-3 outline-none focus:ring-0"
               value={editedEntry.nachname}
               onChange={(e) =>
                 setEditedEntry({ ...editedEntry, nachname: e.target.value })
               }
             />
           </td>
-          <td className="w-1/3 p-3 md:w-1/4">
+          <td className="p-3 pl-0">
             <input
               type="email"
-              className="w-full max-w-[160px] rounded-full border p-2 outline-none focus:ring-0"
+              className="w-full rounded-full border p-2 pl-3 outline-none focus:ring-0"
               value={editedEntry.email}
               onChange={(e) =>
                 setEditedEntry({ ...editedEntry, email: e.target.value })
               }
             />
           </td>
-          <td className="w-1/3 pt-3 md:w-1/4">
+          <td className="pt-3">
             <button
               onClick={() => {
                 setEditedEntry({
@@ -100,16 +100,16 @@ const EditableRow: React.FC<EditableRowProps> = ({
               <SaveIcon tailwindColor="text-white" className="h-6 w-6" />
             </button>
           </td>
-          <td className="w-1/3 p-3 md:w-1/4"></td>
+          <td className="p-3"></td>
         </>
       ) : (
         <>
-          <td className="w-1/3 truncate p-3 md:w-1/4">
+          <td className="truncate p-3">
             {participant.vorname}
             <span className="block md:hidden"></span> {participant.nachname}
           </td>
-          <td className="w-1/3 truncate p-3 md:w-1/4">{participant.email}</td>
-          <td className="w-1/3 pt-3 md:w-1/4">
+          <td className="truncate p-3">{participant.email}</td>
+          <td className="pt-3">
             <button
               onClick={() => setIsEditing(true)}
               className="mb-2 mr-2 rounded-xl bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
@@ -124,7 +124,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
               <TrashIcon tailwindColor="text-white" className="h-6 w-6" />
             </button>
           </td>
-          <td className="hidden w-1/3 p-3 md:block md:w-1/4">
+          <td className="hidden p-3 md:block">
             {formatDate(participant.created_at)}
           </td>
         </>
