@@ -34,7 +34,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   useEffect(() => {
-    registerServiceWorker();
+    if (typeof window !== 'undefined') {
+      registerServiceWorker();
+    }
   }, []);
 
   return (
