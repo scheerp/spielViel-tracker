@@ -4,9 +4,11 @@ const STATIC_ASSETS = [
   '/manifest.json',
   '/spielViel-logo.png',
   '/android/android-launchericon-192-192.png',
-  '/screenshots/screenshot1.png',
-  '/screenshots/screenshot2.png',
-  '/screenshots/screenshot3.png',
+  '/screenshots/screenshot1-v2.png',
+  '/screenshots/screenshot2-v2.png',
+  '/screenshots/screenshot3-v2.png',
+  '/screenshots/screenshot4-v2.png',
+  '/screenshots/screenshot5-v2.png',
 ];
 
 self.addEventListener('install', (event) => {
