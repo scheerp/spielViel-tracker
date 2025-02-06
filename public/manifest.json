@@ -178,5 +178,10 @@
       "sizes": "256x256",
       "purpose": "any maskable"
     }
-  ]
+  ],
+  "serviceworker": {
+    "src": "/sw.js",
+    "scope": "/",
+    "update_via_cache": "all"
+  }
 }

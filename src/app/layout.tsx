@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@components/Header';
 import AppProviders from '@context/AppProviders';
+import { useEffect } from 'react';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -16,11 +17,26 @@ const geistMono = localFont({
   weight: '100 900',
 });
 
+const registerServiceWorker = async () => {
+  if ('serviceWorker' in navigator) {
+    try {
+      const registration = await navigator.serviceWorker.register('/sw.js');
+      console.log('Service Worker registriert:', registration);
+    } catch (error) {
+      console.error('Service Worker Registrierung fehlgeschlagen:', error);
+    }
+  }
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  useEffect(() => {
+    registerServiceWorker();
+  }, []);
+
   return (
     <html lang="en">
       <head>
