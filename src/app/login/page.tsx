@@ -78,19 +78,19 @@ const LoginPage = () => {
             type="text"
             placeholder="Benutzername"
             required
-            className="rounded-xl border-2 px-2 py-2.5"
+            className="rounded-full border-2 px-3 py-2.5"
           />
           <input
             name="password"
             type="password"
             placeholder="Passwort"
             required
-            className="rounded-xl border-2 px-2 py-2.5"
+            className="rounded-full border-2 px-3 py-2.5"
           />
           <button
             type="submit"
             disabled={isButtonDisabled}
-            className={`btn mt-4 rounded-full bg-primary py-2.5 text-white shadow-sm ${
+            className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
               isButtonDisabled ? 'cursor-not-allowed opacity-50' : ''
             }`}
           >

@@ -42,7 +42,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
   return (
     <div
       key={sessionName}
-      className="mb-8 rounded-lg border border-gray-300 bg-white p-4 shadow-md"
+      className="mb-8 rounded-xl border border-gray-300 bg-white p-4 shadow-md"
     >
       <h3 className="mb-3 text-lg font-semibold">{sessionName}</h3>
       <div className="overflow-x-auto">

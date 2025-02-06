@@ -21,6 +21,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
   const { showNotification } = useNotification();
   const [newTotalCount, setNewTotalCount] = useState<number>(totalCount);
   const [loclFilterState, setLocalFilterstate] = useState<FilterState>(filter);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchGamesTotalCount = async () => {
     const queryParams = new URLSearchParams({
@@ -30,6 +31,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
     });
 
     try {
+      setLoading(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/games/count?${queryParams.toString()}`,
       );
@@ -43,6 +45,8 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
         type: 'error',
         duration: 3000,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,7 +91,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
     <>
       <button
         onClick={clearFilter}
-        className="absolute left-2 top-4 mt-20 rounded-full bg-background px-2 py-2.5 font-bold text-primary shadow-sm"
+        className="absolute left-2 top-4 mt-20 rounded-full bg-background px-3.5 py-2.5 font-bold text-primary shadow-sm"
         aria-label="Close modal"
       >
         filter löschen
@@ -128,10 +132,11 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
           Nur verfügbare zeigen
         </label>
         <button
-          className="mt-10 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm"
+          className={`mt-10 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${loading && 'cursor-not-allowed opacity-50'}`}
           onClick={applyFilter}
+          disabled={loading}
         >
-          {newTotalCount} Spiele anzeigen{' '}
+          {loading ? 'lädt...' : `${newTotalCount} Spiele anzeigen`}
         </button>
       </div>
     </>
