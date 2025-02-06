@@ -2,7 +2,7 @@
   "name": "Spiel Viel Tracker",
   "short_name": "Spiel Viel",
   "description": "App zum verwalten der Spiel Viel Spiele",
-  "start_url": "./",
+  "start_url": "/",
   "scope": "/",
   "lang": "de-DE",
   "theme_color": "#e01474",
