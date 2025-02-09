@@ -132,7 +132,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
           Nur verfügbare zeigen
         </label>
         <button
-          className={`mt-10 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${loading && 'cursor-not-allowed opacity-50'}`}
+          className={`mt-10 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm transition-opacity ${loading && 'cursor-not-allowed opacity-20'}`}
           onClick={applyFilter}
           disabled={loading}
         >
