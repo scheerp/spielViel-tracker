@@ -60,7 +60,10 @@ const GameListItem = memo(
                     : `${game?.min_playtime} - ${game?.max_playtime} Min`}
                 </p>
               )}
-              <ComplexityPill complexity={game.complexity} />
+              <ComplexityPill
+                complexityName={game.complexity_label}
+                className="py-1"
+              />
             </div>
             {/* <div className="items-star flex flex-col">
               <div className="flex w-56 justify-around text-sm text-gray-500 md:block">
@@ -93,7 +96,8 @@ const GameListItem = memo(
                   context="list"
                 />
               </div>
-              <ComplexityPill complexity={game.complexity} />
+              <ComplexityPill 
+                      complexityName={game.complexity_label} />
             </div> */}
           </div>
         </Link>

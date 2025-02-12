@@ -29,7 +29,7 @@ const Drawer: React.FC<DrawerProps> = ({ isOpen, onClose, children }) => {
           isOpen
             ? 'transform-none'
             : 'translate-y-full md:-translate-y-0 md:translate-x-full'
-        } ${'bottom-0 right-0 h-full w-full'} ${'md:right-0 md:top-0 md:h-full md:w-96'}`}
+        } ${'bottom-0 right-0 h-full w-full'} ${'md:right-0 md:top-0 md:h-full md:w-1/4'}`}
       >
         <div className="mt-20 h-full bg-white">
           <button

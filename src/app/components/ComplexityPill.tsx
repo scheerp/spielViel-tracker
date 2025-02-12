@@ -1,13 +1,17 @@
-import { getComplexity } from '@lib/utils';
+import { ComplexityMapping, ComplexityType } from '@lib/utils';
 
-const ComplexityPill = ({ complexity }: { complexity: number }) => {
-  const complexityData = getComplexity(complexity);
-  if (complexity === 0) return null;
+type ComplexityPillType = {
+  complexityName?: ComplexityType;
+  className?: string;
+};
+
+const ComplexityPill = ({ complexityName, className }: ComplexityPillType) => {
+  if (!complexityName) return null;
   return (
     <p
-      className={`${complexityData?.color} w-[6.7rem] rounded-full text-center text-sm`}
+      className={`${className} ${ComplexityMapping[complexityName].color} w-[7rem] rounded-full text-center text-sm`}
     >
-      {complexityData?.complexity}
+      {ComplexityMapping[complexityName].label}
     </p>
   );
 };

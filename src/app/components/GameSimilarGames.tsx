@@ -10,7 +10,7 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
 
   return (
     <div className="m-4 mb-8 md:m-8">
-      <p className="text-md mb-4 font-bold">Ähnliche Spiele</p>
+      <p className="text-md mb-4 font-bold">Das könnte dir auch gefallen:</p>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {relatedGames.map((relatedGame) => (
           <div
@@ -53,7 +53,10 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
                         : `${relatedGame?.min_playtime} - ${relatedGame?.max_playtime} Min`}
                     </p>
                   )}
-                  <ComplexityPill complexity={relatedGame.complexity} />
+                  <ComplexityPill
+                    complexityName={relatedGame.complexity_label}
+                    className="py-1"
+                  />
                 </div>
               </div>
             </Link>

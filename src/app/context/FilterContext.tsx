@@ -1,3 +1,4 @@
+import { ComplexityMapping, ComplexityType } from '@lib/utils';
 import React, {
   createContext,
   useContext,
@@ -9,15 +10,19 @@ import React, {
 export type FilterState = {
   filterText: string;
   showAvailableOnly: boolean;
+  showMissingEanOnly: boolean;
   minPlayerCount: number;
   minAge: number;
+  complexity: ComplexityType[];
 };
 
 export const defaultFilterState: FilterState = {
   filterText: '',
   showAvailableOnly: false,
+  showMissingEanOnly: false,
   minPlayerCount: 1,
   minAge: 5,
+  complexity: Object.keys(ComplexityMapping) as ComplexityType[],
 };
 
 type FilterContextType = {
@@ -38,8 +43,10 @@ export const FilterProvider: React.FC<{ children: ReactNode }> = ({
     return (
       filter.filterText !== defaultFilterState.filterText ||
       filter.showAvailableOnly !== defaultFilterState.showAvailableOnly ||
+      filter.showMissingEanOnly !== defaultFilterState.showMissingEanOnly ||
       filter.minPlayerCount !== defaultFilterState.minPlayerCount ||
-      filter.minAge !== defaultFilterState.minAge
+      filter.minAge !== defaultFilterState.minAge ||
+      filter.complexity !== defaultFilterState.complexity
     );
   }, [filter]);
 

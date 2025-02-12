@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { ComplexityType } from '@lib/utils';
 
 export interface Game {
   id: number;
@@ -19,6 +20,7 @@ export interface Game {
   playing_time: number;
   rating: number;
   complexity: number;
+  complexity_label?: ComplexityType;
   img_url?: string;
   thumbnail_url?: string;
   ean?: string;

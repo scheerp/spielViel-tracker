@@ -51,27 +51,27 @@ export const isBarcodeConflictError = (
   );
 };
 
-export const getComplexity = (
-  complexity: number,
-): null | { complexity: string; color: string } => {
-  if (complexity === 0) return null;
-  if (complexity <= 2)
-    return {
-      complexity: 'Einsteiger',
-      color: 'bg-status text-white',
-    };
-  if (complexity <= 3)
-    return {
-      complexity: 'Fortgeschritten',
-      color: 'bg-secondary text-white ',
-    };
-  if (complexity <= 4)
-    return {
-      complexity: 'Kenner',
-      color: 'bg-quinary text-black',
-    };
-  return {
-    complexity: 'Experte',
+export const ComplexityMapping = {
+  Family: {
+    label: 'Familie',
+    color: 'bg-status text-white',
+  },
+  Beginner: {
+    label: 'Einsteiger',
+    color: 'bg-secondary text-white',
+  },
+  Intermediate: {
+    label: 'Fortgeschritten',
+    color: 'bg-quinary text-black',
+  },
+  Advanced: {
+    label: 'Kenner',
     color: 'bg-error text-white',
-  };
+  },
+  Expert: {
+    label: 'Experte',
+    color: 'bg-tertiary text-white',
+  },
 };
+
+export type ComplexityType = keyof typeof ComplexityMapping;

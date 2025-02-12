@@ -46,12 +46,6 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
       if (data.similar_games && data.similar_games.length > 0) {
         const relatedIds = data.similar_games;
         await fetchRelatedGames(relatedIds);
-      } else {
-        showNotification({
-          message: `Keine ähnlichen Spiele vorhanden.`,
-          type: 'status',
-          duration: 1500,
-        });
       }
     } catch (err) {
       const error = err as AppError;
@@ -130,11 +124,13 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
       <div className="container mx-auto">
         <div className="mt-4 flex flex-col items-center justify-center md:ml-9 md:flex-row md:items-start 2xl:mt-10">
           <DetailedGameImage game={game} />
-          <div className="mt-9 flex flex-col items-start justify-start px-12 md:mt-20">
-            <div className="flex justify-center">
+          <div className="mt-9 flex flex-col justify-start px-12 md:mt-20">
+            <div className="flex justify-center md:justify-start">
               <RatingHexagon rating={game.rating} bggId={game.bgg_id} />
               <div>
-                <h1 className="text-xl font-bold md:text-4xl">{game.name}</h1>
+                <h1 className="text-wrap text-xl font-bold md:text-4xl">
+                  {game.name}
+                </h1>
                 <div className="mb-2 flex flex-col justify-between md:mt-2 md:text-lg">
                   <div>
                     {game.min_players && game.max_players && (
@@ -148,7 +144,10 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
                           : `${game?.min_playtime} - ${game?.max_playtime} Min`}
                       </p>
                     )}
-                    <ComplexityPill complexity={game.complexity} />
+                    <ComplexityPill
+                      complexityName={game.complexity_label}
+                      className="py-2"
+                    />
                   </div>
                   {/* <div className="items-star flex flex-col">
               <div className="flex w-56 justify-around text-sm text-gray-500 md:block">
@@ -181,7 +180,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
                   context="list"
                 />
               </div>
-              <ComplexityPill complexity={game.complexity} />
+                      complexityName={game.complexity_label}
             </div> */}
                 </div>
               </div>

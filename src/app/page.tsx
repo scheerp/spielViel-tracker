@@ -9,6 +9,7 @@ import ScrollToTopButton from '@components/ScrollTopButton';
 import { Game, useGames } from '@context/GamesContext';
 import { FilterState, useFilter } from '@context/FilterContext';
 import { AppError } from './types/ApiError';
+import { ComplexityMapping } from '@lib/utils';
 
 const LIMIT = 20;
 
@@ -51,9 +52,19 @@ const Games: React.FC = () => {
         offset: String(newOffset),
         filter_text: filter.filterText,
         show_available_only: String(filter.showAvailableOnly),
+        show_missing_ean_only: String(filter.showMissingEanOnly),
         min_player_count: String(filter.minPlayerCount),
         player_age: String(filter.minAge),
       });
+
+      if (
+        filter.complexity.length > 0 &&
+        filter.complexity.length < Object.keys(ComplexityMapping).length
+      ) {
+        filter.complexity.forEach((complexity) => {
+          queryParams.append('complexities', complexity);
+        });
+      }
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/games?${queryParams.toString()}`,

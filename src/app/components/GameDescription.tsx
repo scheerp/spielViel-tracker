@@ -1,4 +1,3 @@
-import he from 'he';
 import CustomModal from './CustomModal';
 import { useEffect, useRef, useState } from 'react';
 import { Game } from '@context/GamesContext';
@@ -16,7 +15,7 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
   }, [game.german_description, game.description]);
 
   return (
-    <div className="mb-8 mt-8">
+    <div className="mb-6 mt-6">
       <div className="relative overflow-hidden">
         <div
           ref={textContainerRef}
