@@ -11,7 +11,7 @@ import { FilterState, useFilter } from '@context/FilterContext';
 import { AppError } from './types/ApiError';
 import { ComplexityMapping } from '@lib/utils';
 
-const LIMIT = 20;
+export const GAMES_LIST_LIMIT = 20;
 
 const Games: React.FC = () => {
   const {
@@ -48,7 +48,7 @@ const Games: React.FC = () => {
       }
 
       const queryParams = new URLSearchParams({
-        limit: String(LIMIT),
+        limit: String(GAMES_LIST_LIMIT),
         offset: String(newOffset),
         filter_text: filter.filterText,
         show_available_only: String(filter.showAvailableOnly),
@@ -100,7 +100,7 @@ const Games: React.FC = () => {
       });
       setTotalCount(data.total);
 
-      if (data.games.length < LIMIT) {
+      if (data.games.length < GAMES_LIST_LIMIT) {
         setHasMore(false);
       }
     } catch (err) {
@@ -124,7 +124,7 @@ const Games: React.FC = () => {
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting) {
-          setOffset((prevOffset) => prevOffset + LIMIT);
+          setOffset((prevOffset) => prevOffset + GAMES_LIST_LIMIT);
         }
       });
 

@@ -3,6 +3,8 @@
 import Loading from '@components/Loading';
 import SessionTable from '@components/SessionTable';
 import { useNotification } from '@context/NotificationContext';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 
 export type SessionEntry = {
@@ -24,10 +26,17 @@ type NewSessionEntry = {
 };
 
 const Sessions: React.FC = () => {
+  const { data: session } = useSession();
   const { showNotification } = useNotification();
-  const [sessions, setSessions] = useState<SessionsResponse | null>(null);
+  const [gameSessions, setGameSessions] = useState<SessionsResponse | null>(
+    null,
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
+  if (!session) {
+    redirect('/');
+  }
 
   const API_URL = process.env.NEXT_PUBLIC_SUPABASE_API_URL;
   const API_KEY = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;
@@ -46,7 +55,7 @@ const Sessions: React.FC = () => {
 
       if (!response.ok) throw new Error('Fehler beim Laden der Sessions.');
       const data = await response.json();
-      setSessions(data);
+      setGameSessions(data);
     } catch (err) {
       console.error('Fehler:', err);
       setError('Fehler beim Laden der Sessions.');
@@ -175,8 +184,8 @@ const Sessions: React.FC = () => {
   return (
     <div className="mx-auto p-6">
       <h2 className="mb-6 text-2xl font-bold">Verfügbare Brettspielsessions</h2>
-      {sessions &&
-        Object.entries(sessions).map(([sessionName, participants]) => (
+      {gameSessions &&
+        Object.entries(gameSessions).map(([sessionName, participants]) => (
           <SessionTable
             key={sessionName}
             sessionName={sessionName}
