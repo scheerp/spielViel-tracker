@@ -6,12 +6,10 @@ import GameListItem from '@components/GameListItem';
 import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
 import ScrollToTopButton from '@components/ScrollTopButton';
-import { Game, useGames } from '@context/GamesContext';
+import { Game, GAMES_LIST_LIMIT, useGames } from '@context/GamesContext';
 import { FilterState, useFilter } from '@context/FilterContext';
 import { AppError } from './types/ApiError';
 import { ComplexityMapping } from '@lib/utils';
-
-export const GAMES_LIST_LIMIT = 20;
 
 const Games: React.FC = () => {
   const {

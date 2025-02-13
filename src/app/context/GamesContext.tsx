@@ -42,6 +42,7 @@ interface GamesContextType {
 }
 
 const GamesContext = createContext<GamesContextType | undefined>(undefined);
+export const GAMES_LIST_LIMIT = 20;
 
 export const GamesProvider: React.FC<{ children: ReactNode }> = ({
   children,

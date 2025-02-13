@@ -5,8 +5,7 @@ import { useNotification } from '@context/NotificationContext';
 import { useState } from 'react';
 import { AppError } from '../types/ApiError';
 import { defaultFilterState, useFilter } from '@context/FilterContext';
-import { useGames } from '@context/GamesContext';
-import { GAMES_LIST_LIMIT } from '../page';
+import { GAMES_LIST_LIMIT, useGames } from '@context/GamesContext';
 import { LoadingButton } from './LoadingButton';
 
 const ImportButton = () => {
