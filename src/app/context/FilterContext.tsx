@@ -1,4 +1,4 @@
-import { ComplexityMapping, ComplexityType } from '@lib/utils';
+import { ComplexityType } from '@lib/utils';
 import React, {
   createContext,
   useContext,
@@ -22,7 +22,7 @@ export const defaultFilterState: FilterState = {
   showMissingEanOnly: false,
   minPlayerCount: 1,
   minAge: 5,
-  complexity: Object.keys(ComplexityMapping) as ComplexityType[],
+  complexity: [] as ComplexityType[],
 };
 
 type FilterContextType = {

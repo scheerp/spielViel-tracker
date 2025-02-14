@@ -77,7 +77,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
       }
 
       const relatedGamesData: Game[] = await response.json();
-      setRelatedGames(relatedGamesData);
+      setRelatedGames([...relatedGamesData].sort(() => Math.random() - 0.5));
     } catch (err) {
       const error = err as AppError;
       showNotification({

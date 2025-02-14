@@ -19,15 +19,11 @@ const ComplexityFilter = ({
     useState<ComplexityType[]>(selectedComplexities);
 
   useEffect(() => {
-    if (selectedComplexities.length !== activeComplexities.length) {
-      setActiveComplexities(selectedComplexities);
-    }
+    setActiveComplexities(selectedComplexities);
   }, [selectedComplexities]);
 
   const handlePillClick = (complexityName: ComplexityType) => {
     const isSelected = activeComplexities.includes(complexityName);
-
-    if (isSelected && activeComplexities.length === 1) return;
 
     const updatedSelection = isSelected
       ? activeComplexities.filter((c) => c !== complexityName)
