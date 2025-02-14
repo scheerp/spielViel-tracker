@@ -5,6 +5,7 @@ import Loading from './Loading';
 import Image from 'next/image';
 import { Game } from '@context/GamesContext';
 import useUpdateGame from '@hooks/useUpdateGame';
+import { useModal } from '@context/ModalContext';
 
 type AddEANProps = {
   game: Game;
@@ -14,6 +15,7 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
   const [barCode, setBarCode] = useState<string>('');
   const { updateGame, isLoading } = useUpdateGame();
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const { closeModal } = useModal();
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -28,6 +30,7 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
       ean: barCode,
     });
 
+    closeModal();
     setBarCode('');
   };
 

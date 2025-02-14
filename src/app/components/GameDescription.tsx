@@ -1,10 +1,11 @@
-import CustomModal from './CustomModal';
 import { useEffect, useRef, useState } from 'react';
 import { Game } from '@context/GamesContext';
+import { useModal } from '@context/ModalContext';
 
 const GameDescription = ({ game }: { game: Game }): JSX.Element => {
   const [isOverflowing, setIsOverflowing] = useState(false);
   const textContainerRef = useRef<HTMLParagraphElement>(null);
+  const { openModal } = useModal();
 
   useEffect(() => {
     const container = textContainerRef.current;
@@ -34,20 +35,23 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
       </div>
 
       {isOverflowing && (
-        <CustomModal
-          trigger={
-            <span className="mt-0 block cursor-pointer font-bold text-neutral-400 underline">
-              ...mehr
-            </span>
+        <button
+          onClick={() =>
+            openModal(
+              <>
+                <h1 className="mb-4 mt-6 text-xl font-bold md:text-4xl">
+                  {game.name}
+                </h1>
+                <p className="whitespace-pre-line">
+                  {game.german_description || game.description}
+                </p>
+              </>,
+            )
           }
+          className="mt-0 block cursor-pointer font-bold text-neutral-400 underline"
         >
-          <h1 className="mb-4 mt-6 text-xl font-bold md:text-4xl">
-            {game.name}
-          </h1>
-          <p className="whitespace-pre-line">
-            {game.german_description || game.description}
-          </p>
-        </CustomModal>
+          ...mehr
+        </button>
       )}
     </div>
   );

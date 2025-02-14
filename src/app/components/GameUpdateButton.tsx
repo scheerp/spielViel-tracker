@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Game } from '@context/GamesContext';
 import useUpdateGame from '@hooks/useUpdateGame';
 import TrashIcon from '@icons/TrashIcon';
-import BarcodeIcon from '@icons/BarcodeIcon';
+import { useModal } from '@context/ModalContext';
 
 type GameUpdateButtonProps = {
   game: Game;
@@ -24,6 +24,7 @@ const GameUpdateButton = ({
 }: GameUpdateButtonProps) => {
   const { updateGame, isLoading } = useUpdateGame();
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const { openModal, closeModal } = useModal();
 
   const handleUpdateGame = async () => {
     setIsButtonDisabled(true);
@@ -32,8 +33,8 @@ const GameUpdateButton = ({
     if (result?.success && result.gameData && onSuccess) {
       onSuccess(result.gameData);
     }
-
     setIsButtonDisabled(false);
+    closeModal();
   };
 
   const getDisabledStyles = () => {
@@ -76,12 +77,33 @@ const GameUpdateButton = ({
   if (operation === 'removeEAN') {
     return (
       <button
-        onClick={handleUpdateGame}
-        disabled={isButtonDisabled || isLoading}
-        className={getButtonStyles()}
+        onClick={() =>
+          openModal(
+            <div className="mt-6 flex flex-col justify-center text-center">
+              <p className="mt-10">
+                Barcode <b>{game.ean}</b> wirklich enfernen?
+              </p>
+
+              <button
+                onClick={handleUpdateGame}
+                disabled={isButtonDisabled || isLoading}
+                className={`btn mt-6 rounded-full bg-primary px-3 py-2.5 font-bold text-white shadow-sm ${
+                  isButtonDisabled || isLoading
+                    ? 'cursor-not-allowed opacity-50'
+                    : ''
+                }`}
+              >
+                enfernen!
+              </button>
+            </div>,
+          )
+        }
+        className="flex min-h-16 min-w-16 items-center justify-center rounded-xl"
       >
-        {text && buttonType !== 'list' && <span>{text}</span>}
-        <TrashIcon />
+        <div className={getButtonStyles()}>
+          {text && buttonType !== 'list' && <span>{text}</span>}
+          <TrashIcon />
+        </div>
       </button>
     );
   }

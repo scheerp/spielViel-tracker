@@ -5,11 +5,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import MeepleIcon from '@icons/MeepleIcon';
 import BarcodeIcon from '@icons/BarcodeIcon';
-import CustomModal from './CustomModal';
 import Scan from './Scan';
+import { useModal } from '@context/ModalContext';
 
 const Header = () => {
   const { data: session } = useSession();
+  const { openModal } = useModal();
   return (
     <header className="fixed z-40 flex h-20 w-full items-center bg-primary px-[30px] py-[15px]">
       <nav className="flex w-full items-center justify-between">
@@ -31,9 +32,9 @@ const Header = () => {
               <MeepleIcon tailwindColor="text-white" />
             </Link>
 
-            <CustomModal trigger={<BarcodeIcon tailwindColor="text-white" />}>
-              <Scan />
-            </CustomModal>
+            <button onClick={() => openModal(<Scan />)}>
+              <BarcodeIcon tailwindColor="text-white" />
+            </button>
           </div>
         ) : (
           <Link href="/login">
