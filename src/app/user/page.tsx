@@ -14,7 +14,10 @@ const HelperPage = () => {
 
   return (
     <div className="mx-auto mt-20 flex max-w-5xl flex-col items-center gap-4 p-6 text-xl">
-      <Link className="font-semibold underline" href="/gameSessions">
+      <Link className="font-semibold underline" href="/stats">
+        Statistik
+      </Link>
+      <Link className="mb-12 font-semibold underline" href="/gameSessions">
         Brettspiel Sessions
       </Link>
       <ImportButton />

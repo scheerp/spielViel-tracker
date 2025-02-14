@@ -192,7 +192,7 @@ const Sessions: React.FC = () => {
             participants={participants}
             addSession={addSession}
             deleteSession={deleteSession}
-            updateSession={updateSession} // ✅ Neu hinzugefügt!
+            updateSession={updateSession}
           />
         ))}
     </div>
