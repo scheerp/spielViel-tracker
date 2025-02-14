@@ -7,7 +7,7 @@ import { Game, useGames } from '@context/GamesContext';
 
 export type useUpdateGameArguments = {
   game: Game;
-  operation: 'borrow' | 'return' | 'addEAN';
+  operation: 'borrow' | 'return' | 'removeEAN' | 'addEAN';
   ean?: string;
 };
 
@@ -33,14 +33,21 @@ const useUpdateGame = () => {
       let endpoint = '';
       let body: Record<string, unknown> = {};
 
-      if (operation === 'borrow') {
-        endpoint = `${process.env.NEXT_PUBLIC_API_URL}/borrow_game/${game.id}`;
-      } else if (operation === 'return') {
-        endpoint = `${process.env.NEXT_PUBLIC_API_URL}/return_game/${game.id}`;
-      } else if (operation === 'addEAN') {
-        if (!ean) throw new Error('EAN is required for addEAN operation');
-        endpoint = `${process.env.NEXT_PUBLIC_API_URL}/add_ean/${game.id}`;
-        body = { ean };
+      switch (operation) {
+        case 'borrow':
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/borrow_game/${game.id}`;
+          break;
+        case 'return':
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/return_game/${game.id}`;
+          break;
+        case 'addEAN':
+          if (!ean) throw new Error('EAN is required for addEAN operation');
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/add_ean/${game.id}`;
+          body = { ean };
+          break;
+        case 'removeEAN':
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/remove_ean/${game.id}`;
+          break;
       }
 
       const response = await fetch(endpoint, {
@@ -65,6 +72,7 @@ const useUpdateGame = () => {
         borrow: 'erfolgreich ausgeliehen.',
         return: 'erfolgreich zurückgegeben.',
         addEAN: 'Barcode erfolgreich hinzugefügt.',
+        removeEAN: 'Barcode erfolgreich entfernt.',
       }[operation];
 
       showNotification({
@@ -94,7 +102,7 @@ const useUpdateGame = () => {
           </div>
         ),
         type:
-          operation === 'addEAN'
+          operation === 'addEAN' || 'removeEAN'
             ? 'success'
             : operation === 'borrow'
               ? 'checkOut'

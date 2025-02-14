@@ -4,10 +4,12 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Game } from '@context/GamesContext';
 import useUpdateGame from '@hooks/useUpdateGame';
+import TrashIcon from '@icons/TrashIcon';
+import BarcodeIcon from '@icons/BarcodeIcon';
 
 type GameUpdateButtonProps = {
   game: Game;
-  operation: 'borrow' | 'return';
+  operation: 'borrow' | 'return' | 'removeEAN' | 'addEAN';
   text?: string;
   buttonType: 'list' | 'detail' | 'scan';
   onSuccess?: (updatedGame: Game) => void;
@@ -51,11 +53,38 @@ const GameUpdateButton = ({
       buttonType !== 'list'
         ? 'btn min-h-16 min-w-16 md:min-h-24 md:min-w-24 flex flex-col items-center justify-center max-w-10'
         : 'btnflex h-16 w-16 flex-col items-center justify-center';
-    const availabilityStyles =
-      operation === 'borrow' ? 'bg-secondary' : 'bg-tertiary';
+
+    let availabilityStyles;
+    switch (operation) {
+      case 'borrow':
+        availabilityStyles = 'bg-secondary';
+        break;
+      case 'return':
+        availabilityStyles = 'bg-tertiary';
+        break;
+      case 'removeEAN':
+        availabilityStyles = 'bg-error';
+        break;
+      case 'addEAN':
+        availabilityStyles = 'bg-status';
+        break;
+    }
 
     return `${baseStyles} ${sizeStyles} ${availabilityStyles} ${getDisabledStyles()}`;
   };
+
+  if (operation === 'removeEAN') {
+    return (
+      <button
+        onClick={handleUpdateGame}
+        disabled={isButtonDisabled || isLoading}
+        className={getButtonStyles()}
+      >
+        {text && buttonType !== 'list' && <span>{text}</span>}
+        <TrashIcon />
+      </button>
+    );
+  }
 
   return (
     <button
