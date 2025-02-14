@@ -14,7 +14,7 @@ type ListUpdateButtonsProps = {
 const ListUpdateButtons = ({ game }: ListUpdateButtonsProps) => {
   const { data: session } = useSession();
   if (session) {
-    if (!game.ean) {
+    if (game.ean === null) {
       return (
         <CustomModal
           trigger={

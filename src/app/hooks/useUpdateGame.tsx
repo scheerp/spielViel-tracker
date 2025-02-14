@@ -8,7 +8,7 @@ import { Game, useGames } from '@context/GamesContext';
 export type useUpdateGameArguments = {
   game: Game;
   operation: 'borrow' | 'return' | 'addEAN';
-  ean?: number;
+  ean?: string;
 };
 
 const useUpdateGame = () => {

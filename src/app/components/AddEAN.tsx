@@ -25,7 +25,7 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
     await updateGame({
       game,
       operation: 'addEAN',
-      ean: Number(barCode),
+      ean: barCode,
     });
 
     setBarCode('');
