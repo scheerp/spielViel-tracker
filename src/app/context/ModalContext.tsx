@@ -1,6 +1,13 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from 'react';
+import { usePathname } from 'next/navigation';
 
 interface ModalContextType {
   openModal: (content: ReactNode) => void;
@@ -21,6 +28,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [modalContent, setModalContent] = useState<ReactNode | null>(null);
+  const pathname = usePathname();
 
   const openModal = (content: ReactNode) => {
     setModalContent(content);
@@ -29,6 +37,10 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   const closeModal = () => {
     setModalContent(null);
   };
+
+  useEffect(() => {
+    closeModal();
+  }, [pathname]);
 
   return (
     <ModalContext.Provider value={{ openModal, closeModal }}>
@@ -39,7 +51,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
           onClick={closeModal}
         >
           <div
-            className="absolute inset-x-5 inset-y-10 rounded-xl bg-white p-6 pt-10"
+            className="absolute inset-x-5 inset-y-10 overflow-scroll rounded-xl bg-white p-6 pt-10"
             onClick={(e) => e.stopPropagation()}
           >
             <button
