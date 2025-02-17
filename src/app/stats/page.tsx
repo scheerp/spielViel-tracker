@@ -27,7 +27,7 @@ const Stats = () => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/borrowed-games`,
+        `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games`,
         {
           method: 'GET',
           headers: {

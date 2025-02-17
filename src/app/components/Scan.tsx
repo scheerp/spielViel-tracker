@@ -55,7 +55,7 @@ const Scan: React.FC = () => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/game_by_ean/${String(barCode)}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/games/game/by_ean/${String(barCode)}`,
       );
 
       if (!response.ok) {

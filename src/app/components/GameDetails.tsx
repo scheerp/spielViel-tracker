@@ -32,7 +32,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/game/${gameId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/games/game/${gameId}`,
       );
 
       if (!response.ok) {

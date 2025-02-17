@@ -12,14 +12,17 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         // Beispiel: POST an deine FastAPI-Route
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/token`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams({
-            username: credentials?.username || '',
-            password: credentials?.password || '',
-          }),
-        });
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/token`,
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({
+              username: credentials?.username || '',
+              password: credentials?.password || '',
+            }),
+          },
+        );
         const data = await res.json();
 
         if (res.ok && data.access_token) {

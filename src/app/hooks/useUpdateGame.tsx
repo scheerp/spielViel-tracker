@@ -35,18 +35,18 @@ const useUpdateGame = () => {
 
       switch (operation) {
         case 'borrow':
-          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/borrow_game/${game.id}`;
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/games/game/borrow/${game.id}`;
           break;
         case 'return':
-          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/return_game/${game.id}`;
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/games/game/return/${game.id}`;
           break;
         case 'addEAN':
           if (!ean) throw new Error('EAN is required for addEAN operation');
-          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/add_ean/${game.id}`;
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/games/game/add_ean/${game.id}`;
           body = { ean };
           break;
         case 'removeEAN':
-          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/remove_ean/${game.id}`;
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/games/game/remove_ean/${game.id}`;
           break;
       }
 

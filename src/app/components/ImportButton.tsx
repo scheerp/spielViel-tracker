@@ -79,7 +79,7 @@ const ImportButton = () => {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}${mode === 'quick' ? '/fetch_private_collection_quick' : '/fetch_complete_collection'}`,
+        `${process.env.NEXT_PUBLIC_API_URL}${mode === 'quick' ? '/admin/import_collection_quick' : '/admin/import_collection_complete'}`,
         {
           method: 'POST',
           headers: {
