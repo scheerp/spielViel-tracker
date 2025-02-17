@@ -21,8 +21,8 @@ const Notification: React.FC<NotificationProps> = ({
     error: 'bg-error text-white',
     warning: 'bg-quinary text-black',
     status: 'bg-status text-white',
-    checkOut: 'bg-secondary text-white',
-    checkIn: 'bg-tertiary text-white',
+    borrow: 'bg-secondary text-white',
+    return: 'bg-tertiary text-white',
   };
 
   return (

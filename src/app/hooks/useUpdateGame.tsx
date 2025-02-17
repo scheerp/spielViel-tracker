@@ -75,6 +75,8 @@ const useUpdateGame = () => {
         removeEAN: 'Barcode erfolgreich entfernt.',
       }[operation];
 
+      console.log(operation);
+
       showNotification({
         message: (
           <div className="flex items-center">
@@ -102,11 +104,9 @@ const useUpdateGame = () => {
           </div>
         ),
         type:
-          operation === 'addEAN' || 'removeEAN'
+          operation === 'addEAN' || operation === 'removeEAN'
             ? 'success'
-            : operation === 'borrow'
-              ? 'checkOut'
-              : 'checkIn',
+            : operation,
         duration: 2000,
       });
 

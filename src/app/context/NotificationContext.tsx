@@ -6,8 +6,8 @@ export type NotificationType =
   | 'error'
   | 'warning'
   | 'status'
-  | 'checkOut'
-  | 'checkIn';
+  | 'borrow'
+  | 'return';
 
 interface NotificationContextType {
   showNotification: ({
@@ -50,6 +50,8 @@ export const NotificationProvider: React.FC<{ children: React.ReactNode }> = ({
     type: NotificationType;
     duration?: number;
   }) => {
+    console.log(type);
+
     const id = Math.random().toString(36).substr(2, 9);
     const newNotification: NotificationState = { id, message, type, duration };
 
