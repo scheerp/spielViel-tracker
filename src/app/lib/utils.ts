@@ -61,7 +61,7 @@ export const ComplexityMapping = {
     color: 'bg-secondary text-white',
   },
   Intermediate: {
-    label: 'Fortgeschritten',
+    label: 'Erfahren',
     color: 'bg-quinary text-black',
   },
   Advanced: {

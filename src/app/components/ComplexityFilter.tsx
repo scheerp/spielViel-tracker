@@ -43,7 +43,7 @@ const ComplexityFilter = ({
           return (
             <button
               key={complexityName}
-              className={`mx-1 mb-2 transition-opacity md:mx-1 md:mb-3 ${
+              className={`mx-0.5 mb-2 transition-opacity md:mx-1 md:mb-3 ${
                 !isActive && 'opacity-50'
               }`}
               onClick={() => handlePillClick(complexityName)}
