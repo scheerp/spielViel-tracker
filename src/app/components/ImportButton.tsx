@@ -2,7 +2,6 @@
 
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
-import { useEffect, useState } from 'react';
 import { AppError } from '../types/ApiError';
 import { defaultFilterState, useFilter } from '@context/FilterContext';
 import { GAMES_LIST_LIMIT, useGames } from '@context/GamesContext';
@@ -14,18 +13,12 @@ const ImportButton = () => {
   const { closeModal, updateModalLoading, modalLoading } = useModal();
   const { setFilter } = useFilter();
   const { showNotification } = useNotification();
-  const [loading, setLoading] = useState(false);
   const {
     setGames,
     setHasMore,
     setTotalCount,
-    loading: gamesLoading,
     setLoading: SetGamesLoading,
   } = useGames();
-
-  useEffect(() => {
-    console.log({ loading, gamesLoading });
-  }, [loading, gamesLoading]);
 
   const fetchGames = async () => {
     SetGamesLoading(true);
@@ -83,7 +76,6 @@ const ImportButton = () => {
       return;
     }
 
-    setLoading(true);
     updateModalLoading(true);
 
     try {
@@ -133,7 +125,6 @@ const ImportButton = () => {
         duration: 4000,
       });
     } finally {
-      setLoading(false);
       updateModalLoading(false);
       closeModal();
     }
