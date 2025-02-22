@@ -37,7 +37,7 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
       {isOverflowing && (
         <button
           onClick={() =>
-            openModal(
+            openModal(() => (
               <>
                 <h1 className="mb-4 mt-6 text-xl font-bold md:text-4xl">
                   {game.name}
@@ -45,8 +45,8 @@ const GameDescription = ({ game }: { game: Game }): JSX.Element => {
                 <p className="whitespace-pre-line">
                   {game.german_description || game.description}
                 </p>
-              </>,
-            )
+              </>
+            ))
           }
           className="mt-0 block cursor-pointer font-bold text-neutral-400 underline"
         >

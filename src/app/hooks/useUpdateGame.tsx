@@ -75,8 +75,6 @@ const useUpdateGame = () => {
         removeEAN: 'Barcode erfolgreich entfernt.',
       }[operation];
 
-      console.log(operation);
-
       showNotification({
         message: (
           <div className="flex items-center">

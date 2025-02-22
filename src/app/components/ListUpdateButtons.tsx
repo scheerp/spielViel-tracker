@@ -6,6 +6,7 @@ import { Game } from '@context/GamesContext';
 import BarcodeIcon from '@icons/BarcodeIcon';
 import AddEAN from './AddEAN';
 import { useModal } from '@context/ModalContext';
+import Loading from './Loading';
 
 type ListUpdateButtonsProps = {
   game: Game;
@@ -18,7 +19,14 @@ const ListUpdateButtons = ({ game }: ListUpdateButtonsProps) => {
     if (game.ean === null) {
       return (
         <button
-          onClick={() => openModal(<AddEAN game={game} />)}
+          onClick={() =>
+            openModal((loadingFromContext) => (
+              <>
+                <AddEAN game={game} />
+                {loadingFromContext && <Loading />}
+              </>
+            ))
+          }
           className="flex min-h-16 min-w-16 items-center justify-center rounded-xl bg-status p-2"
         >
           <BarcodeIcon tailwindColor="text-white" />

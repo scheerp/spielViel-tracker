@@ -10,8 +10,10 @@ import React, {
 import { usePathname } from 'next/navigation';
 
 interface ModalContextType {
-  openModal: (content: ReactNode) => void;
+  openModal: (content: (loading: boolean) => ReactNode) => void;
   closeModal: () => void;
+  updateModalLoading: (loading: boolean) => void;
+  modalLoading: boolean;
 }
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
@@ -27,15 +29,22 @@ export const useModal = () => {
 export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [modalContent, setModalContent] = useState<ReactNode | null>(null);
+  const [modalContent, setModalContent] = useState<
+    ((loading: boolean) => ReactNode) | null
+  >(null);
+  const [modalLoading, setModalLoading] = useState(false);
   const pathname = usePathname();
 
-  const openModal = (content: ReactNode) => {
-    setModalContent(content);
+  const openModal = (content: (loading: boolean) => ReactNode) => {
+    setModalContent(() => content);
   };
 
   const closeModal = () => {
     setModalContent(null);
+  };
+
+  const updateModalLoading = (loading: boolean) => {
+    setModalLoading(loading);
   };
 
   useEffect(() => {
@@ -43,11 +52,13 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
   }, [pathname]);
 
   return (
-    <ModalContext.Provider value={{ openModal, closeModal }}>
+    <ModalContext.Provider
+      value={{ openModal, closeModal, updateModalLoading, modalLoading }}
+    >
       {children}
       {modalContent && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-60 pt-10 outline-none focus:outline-none"
+          className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-black bg-opacity-60 pt-10"
           onClick={closeModal}
         >
           <div
@@ -61,7 +72,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
             >
               ✕
             </button>
-            {modalContent}
+            {modalContent(modalLoading)}
           </div>
         </div>
       )}

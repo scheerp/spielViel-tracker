@@ -6,6 +6,7 @@ import { Game } from '@context/GamesContext';
 import useUpdateGame from '@hooks/useUpdateGame';
 import TrashIcon from '@icons/TrashIcon';
 import { useModal } from '@context/ModalContext';
+import Loading from './Loading';
 
 type GameUpdateButtonProps = {
   game: Game;
@@ -78,7 +79,7 @@ const GameUpdateButton = ({
     return (
       <button
         onClick={() =>
-          openModal(
+          openModal((loadingFromContext) => (
             <div className="mt-6 flex flex-col justify-center text-center">
               <p className="mt-10">
                 Barcode <b>{game.ean}</b> wirklich enfernen?
@@ -93,10 +94,11 @@ const GameUpdateButton = ({
                     : ''
                 }`}
               >
-                enfernen!
+                entfernen!
               </button>
-            </div>,
-          )
+              {loadingFromContext && <Loading />}
+            </div>
+          ))
         }
         className="flex min-h-16 min-w-16 items-center justify-center rounded-xl"
       >

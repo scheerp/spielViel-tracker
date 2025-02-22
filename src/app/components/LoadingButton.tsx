@@ -1,22 +1,44 @@
+import { useModal } from '@context/ModalContext';
 import React from 'react';
+import Loading from './Loading';
 
 type LoadingButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  loading?: boolean;
+  loading: boolean;
   buttonText: string;
-  // Weitere Props oder Styling-Varianten nach Bedarf
+  onClickFunction?: () => void;
+  modalText?: React.ReactNode;
+  modalButtonText?: string;
 };
 
 export const LoadingButton: React.FC<LoadingButtonProps> = ({
   loading = false,
   buttonText,
-  disabled,
   className,
-  ...props
+  onClickFunction,
+  modalText,
+  modalButtonText,
 }) => {
+  const { openModal } = useModal();
   return (
     <button
-      {...props}
-      disabled={disabled || loading}
+      onClick={() =>
+        openModal((loadingFromContext) => (
+          <div className="mt-6 flex flex-col justify-center text-center">
+            {modalText}
+            <button
+              onClick={onClickFunction}
+              disabled={loadingFromContext}
+              className={`btn mt-6 rounded-full bg-primary px-3 py-2.5 font-bold text-white shadow-sm ${
+                loadingFromContext ? 'cursor-not-allowed opacity-50' : ''
+              }`}
+            >
+              {modalButtonText}
+            </button>
+            {loadingFromContext && <Loading />}
+          </div>
+        ))
+      }
+      disabled={loading}
       className={`relative inline-flex items-center justify-center rounded-full bg-primary px-4 py-2.5 font-bold text-white shadow-sm transition-transform disabled:cursor-not-allowed disabled:opacity-50 ${className || ''} `}
     >
       {loading ? (

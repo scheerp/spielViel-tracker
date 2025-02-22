@@ -2,14 +2,16 @@
 
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AppError } from '../types/ApiError';
 import { defaultFilterState, useFilter } from '@context/FilterContext';
 import { GAMES_LIST_LIMIT, useGames } from '@context/GamesContext';
 import { LoadingButton } from './LoadingButton';
+import { useModal } from '@context/ModalContext';
 
 const ImportButton = () => {
   const { data: session } = useSession();
+  const { closeModal, updateModalLoading, modalLoading } = useModal();
   const { setFilter } = useFilter();
   const { showNotification } = useNotification();
   const [loading, setLoading] = useState(false);
@@ -21,8 +23,13 @@ const ImportButton = () => {
     setLoading: SetGamesLoading,
   } = useGames();
 
+  useEffect(() => {
+    console.log({ loading, gamesLoading });
+  }, [loading, gamesLoading]);
+
   const fetchGames = async () => {
     SetGamesLoading(true);
+    updateModalLoading(true);
 
     try {
       const queryParams = new URLSearchParams({
@@ -62,6 +69,7 @@ const ImportButton = () => {
       });
     } finally {
       SetGamesLoading(false);
+      updateModalLoading(false);
     }
   };
 
@@ -76,6 +84,7 @@ const ImportButton = () => {
     }
 
     setLoading(true);
+    updateModalLoading(true);
 
     try {
       const response = await fetch(
@@ -125,15 +134,17 @@ const ImportButton = () => {
       });
     } finally {
       setLoading(false);
+      updateModalLoading(false);
+      closeModal();
     }
   };
 
-  const fetchCollectionFull = () => {
-    fetchCollection('full');
+  const fetchCollectionFull = async () => {
+    await fetchCollection('full');
   };
 
-  const fetchCollectionQuick = () => {
-    fetchCollection('quick');
+  const fetchCollectionQuick = async () => {
+    await fetchCollection('quick');
   };
   return (
     <>
@@ -144,9 +155,20 @@ const ImportButton = () => {
         </p>
 
         <LoadingButton
-          loading={loading || gamesLoading}
+          loading={modalLoading}
           buttonText="Schneller Import"
-          onClick={fetchCollectionQuick}
+          onClickFunction={fetchCollectionQuick}
+          modalText={
+            <p className="mt-10">
+              Import starten?
+              <br />
+              <b>
+                Hinweis: Der Vorgeng kann einige Sekunden dauern, und holt nicht
+                alle Details der neuen Spiele!
+              </b>
+            </p>
+          }
+          modalButtonText="Abfahrt!"
         />
       </div>
 
@@ -155,11 +177,18 @@ const ImportButton = () => {
           <p className="mb-2 text-center text-sm text-gray-500">
             Hinweis: Der Vorgeng kann einige Minuten dauern!
           </p>
-
           <LoadingButton
-            loading={loading || gamesLoading}
+            loading={modalLoading}
             buttonText="Voller Import"
-            onClick={fetchCollectionFull}
+            onClickFunction={fetchCollectionFull}
+            modalText={
+              <p className="mt-10">
+                Import starten?
+                <br />
+                <b>Hinweis: Der Vorgeng kann einige Minuten dauern!</b>
+              </p>
+            }
+            modalButtonText="Abfahrt!"
           />
         </div>
       )}

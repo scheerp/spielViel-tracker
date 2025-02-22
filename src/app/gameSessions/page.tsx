@@ -2,6 +2,7 @@
 
 import Loading from '@components/Loading';
 import SessionTable from '@components/SessionTable';
+import { useModal } from '@context/ModalContext';
 import { useNotification } from '@context/NotificationContext';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
@@ -28,6 +29,7 @@ type NewSessionEntry = {
 const Sessions: React.FC = () => {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
+  const { closeModal, updateModalLoading } = useModal();
   const [gameSessions, setGameSessions] = useState<SessionsResponse | null>(
     null,
   );
@@ -65,6 +67,7 @@ const Sessions: React.FC = () => {
   };
 
   const deleteSession = async (id: number) => {
+    updateModalLoading(true);
     try {
       const response = await fetch(`${API_URL}?id=${id}`, {
         method: 'DELETE',
@@ -84,6 +87,9 @@ const Sessions: React.FC = () => {
       fetchSessions();
     } catch (err) {
       console.error('Fehler beim Löschen:', err);
+    } finally {
+      updateModalLoading(false);
+      closeModal();
     }
   };
 

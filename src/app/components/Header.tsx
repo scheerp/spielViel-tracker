@@ -7,6 +7,7 @@ import MeepleIcon from '@icons/MeepleIcon';
 import BarcodeIcon from '@icons/BarcodeIcon';
 import Scan from './Scan';
 import { useModal } from '@context/ModalContext';
+import Loading from './Loading';
 
 const Header = () => {
   const { data: session } = useSession();
@@ -32,7 +33,16 @@ const Header = () => {
               <MeepleIcon tailwindColor="text-white" />
             </Link>
 
-            <button onClick={() => openModal(<Scan />)}>
+            <button
+              onClick={() =>
+                openModal((loadingFromContext) => (
+                  <>
+                    <Scan />
+                    {loadingFromContext && <Loading />}
+                  </>
+                ))
+              }
+            >
               <BarcodeIcon tailwindColor="text-white" />
             </button>
           </div>

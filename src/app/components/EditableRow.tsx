@@ -5,6 +5,8 @@ import CloseIcon from '@icons/CancelIcon';
 import TrashIcon from '@icons/TrashIcon';
 import SaveIcon from '@icons/SaveIcon';
 import EditIcon from '@icons/EditIcon';
+import { useModal } from '@context/ModalContext';
+import Loading from './Loading';
 
 type EditableRowProps = {
   participant: {
@@ -37,6 +39,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
   deleteSession,
   updateSession,
 }) => {
+  const { openModal } = useModal();
   const [isEditing, setIsEditing] = useState(false);
   const [editedEntry, setEditedEntry] = useState({
     vorname: participant.vorname,
@@ -120,7 +123,29 @@ const EditableRow: React.FC<EditableRowProps> = ({
             </button>
 
             <button
-              onClick={() => deleteSession(participant.id)}
+              onClick={() =>
+                openModal((loadingFromContext) => (
+                  <div className="mt-6 flex flex-col justify-center text-center">
+                    Session Anmeldung von
+                    <b>
+                      {participant.vorname} {participant.nachname}
+                    </b>
+                    wirklich löschen?
+                    <button
+                      onClick={() => deleteSession(participant.id)}
+                      disabled={loadingFromContext}
+                      className={`btn mt-6 rounded-full bg-primary px-3 py-2.5 font-bold text-white shadow-sm ${
+                        loadingFromContext
+                          ? 'cursor-not-allowed opacity-50'
+                          : ''
+                      }`}
+                    >
+                      löschen!
+                    </button>
+                    {loadingFromContext && <Loading />}
+                  </div>
+                ))
+              }
               className="rounded-xl bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
             >
               <TrashIcon tailwindColor="text-white" className="h-6 w-6" />
