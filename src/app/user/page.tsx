@@ -14,6 +14,14 @@ const HelperPage = () => {
 
   return (
     <div className="mx-auto mt-20 flex max-w-5xl flex-col items-center gap-4 p-6 text-xl">
+      <a
+        href={`https://www.youtube.com/watch?v=dQw4w9WgXcQ`} // TODO add the real link here
+        target="_blank"
+        rel="noopener noreferrer"
+        className="font-semibold underline"
+      >
+        Helfereinteilung
+      </a>
       <Link className="font-semibold underline" href="/stats">
         Statistik
       </Link>
