@@ -5,7 +5,6 @@ import { Game } from '@context/GamesContext';
 import { useNotification } from '@context/NotificationContext';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 const Stats = () => {
@@ -51,10 +50,6 @@ const Stats = () => {
   useEffect(() => {
     fetchStats();
   }, []);
-
-  if (!session) {
-    redirect('/');
-  }
 
   if (loading) return <Loading />;
   if (error || !games) return <div>Statistik nicht gefunden.</div>;

@@ -11,7 +11,6 @@ export const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        // Beispiel: POST an deine FastAPI-Route
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/token`,
           {
@@ -24,14 +23,15 @@ export const authOptions: NextAuthOptions = {
           },
         );
         const data = await res.json();
+        console.log({ data });
 
         if (res.ok && data.access_token) {
-          // Diese Felder werden im "jwt" Callback als "user" übergeben
           return {
-            id: data.user_id || data.username || 'fallback-id',
+            id: data.id || data.username || 'fallback-id',
+            username: data.username || 'fallback-username',
             accessToken: data.access_token,
             role: data.role,
-            // evtl. noch: name, email, ...
+            // Weitere Felder wie name, email etc. können hier hinzugefügt werden
           };
         }
         return null;
@@ -40,10 +40,10 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // "user" kommt von authorize() zurück (nur beim 1. Mal)
       if (user) {
         token.accessToken = user.accessToken;
         token.role = user.role;
+        token.username = user.username;
       }
       return token;
     },
@@ -51,8 +51,15 @@ export const authOptions: NextAuthOptions = {
       session.accessToken = token.accessToken;
       if (session.user) {
         session.user.role = token.role;
+        session.user.username = token.username;
       }
       return session;
     },
+  },
+  session: {
+    strategy: 'jwt',
+  },
+  pages: {
+    signIn: '/',
   },
 };

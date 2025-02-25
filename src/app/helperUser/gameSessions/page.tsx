@@ -4,8 +4,6 @@ import Loading from '@components/Loading';
 import SessionTable from '@components/SessionTable';
 import { useModal } from '@context/ModalContext';
 import { useNotification } from '@context/NotificationContext';
-import { useSession } from 'next-auth/react';
-import { redirect } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 
 export type SessionEntry = {
@@ -27,7 +25,6 @@ type NewSessionEntry = {
 };
 
 const Sessions: React.FC = () => {
-  const { data: session } = useSession();
   const { showNotification } = useNotification();
   const { closeModal, updateModalLoading } = useModal();
   const [gameSessions, setGameSessions] = useState<SessionsResponse | null>(
@@ -35,10 +32,6 @@ const Sessions: React.FC = () => {
   );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-
-  if (!session) {
-    redirect('/');
-  }
 
   const API_URL = process.env.NEXT_PUBLIC_SUPABASE_API_URL;
   const API_KEY = process.env.NEXT_PUBLIC_SUPABASE_API_KEY;

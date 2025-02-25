@@ -77,7 +77,8 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
       }
 
       const relatedGamesData: Game[] = await response.json();
-      setRelatedGames([...relatedGamesData].sort(() => Math.random() - 0.5));
+      setRelatedGames([...relatedGamesData]);
+      //setRelatedGames([...relatedGamesData].sort(() => Math.random() - 0.5));
     } catch (err) {
       const error = err as AppError;
       showNotification({
@@ -149,39 +150,6 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
                       className="py-2"
                     />
                   </div>
-                  {/* <div className="items-star flex flex-col">
-              <div className="flex w-56 justify-around text-sm text-gray-500 md:block">
-                <GameDetailsProperty
-                  value={game.player_age}
-                  icon="/player-age.webp"
-                  property="player age"
-                  context="list"
-                />
-
-                <GameDetailsProperty
-                  value={
-                    game.min_players === game.max_players
-                      ? `${game?.max_players}`
-                      : `${game?.min_players} - ${game?.max_players}`
-                  }
-                  icon="/player-count.webp"
-                  property="player count"
-                  context="list"
-                />
-
-                <GameDetailsProperty
-                  value={
-                    game.min_playtime === game.max_playtime
-                      ? `${game?.max_playtime}`
-                      : `${game?.min_playtime} - ${game?.max_playtime}`
-                  }
-                  icon="/playtime.webp"
-                  property="playtime"
-                  context="list"
-                />
-              </div>
-                      complexityName={game.complexity_label}
-            </div> */}
                 </div>
               </div>
             </div>

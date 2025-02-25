@@ -29,7 +29,7 @@ const Header = () => {
         </Link>
         {session ? (
           <div className="flex items-center gap-3">
-            <Link href="/user">
+            <Link href="/helperUser">
               <MeepleIcon tailwindColor="text-white" />
             </Link>
 

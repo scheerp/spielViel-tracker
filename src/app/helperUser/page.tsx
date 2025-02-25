@@ -3,17 +3,13 @@
 import ImportButton from '@components/ImportButton';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 
 const HelperPage = () => {
   const { data: session } = useSession();
 
-  if (!session) {
-    redirect('/');
-  }
-
   return (
     <div className="mx-auto mt-20 flex max-w-5xl flex-col items-center gap-4 p-6 text-xl">
+      <p>eingeloggt als: {session?.user?.username}</p>
       <a
         href={`https://www.youtube.com/watch?v=dQw4w9WgXcQ`} // TODO add the real link here
         target="_blank"
@@ -22,10 +18,13 @@ const HelperPage = () => {
       >
         Helfereinteilung
       </a>
-      <Link className="font-semibold underline" href="/stats">
+      <Link className="font-semibold underline" href="/helperUser/stats">
         Statistik
       </Link>
-      <Link className="mb-12 font-semibold underline" href="/gameSessions">
+      <Link
+        className="mb-12 font-semibold underline"
+        href="/helperUser/gameSessions"
+      >
         Brettspiel Sessions
       </Link>
       <ImportButton />
