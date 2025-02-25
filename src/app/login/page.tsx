@@ -76,7 +76,7 @@ const LoginPage = () => {
           <input
             name="username"
             type="text"
-            placeholder="Benutzername"
+            placeholder="E-Mail / Username"
             required
             className="rounded-full border-2 px-3 py-2.5"
           />
