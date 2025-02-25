@@ -1,13 +1,13 @@
 'use client';
 
 import { useNotification } from '@context/NotificationContext';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { AppError } from '../types/ApiError';
 import Loading from '@components/Loading';
+import { signOut } from 'next-auth/react';
 
 const Register = () => {
-  const router = useRouter();
   const { showNotification } = useNotification();
   const [loading, setLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -58,7 +58,10 @@ const Register = () => {
         duration: 3000,
       });
 
-      router.push('/login');
+      signOut({
+        redirect: true,
+        callbackUrl: '/login',
+      });
     } catch (err) {
       const error = err as AppError;
       showNotification({
@@ -116,9 +119,12 @@ const Register = () => {
   );
 };
 
-const RegisterPage = () => (
-  <Suspense>
-    <Register />
-  </Suspense>
-);
+const RegisterPage = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Register />
+    </Suspense>
+  );
+};
+
 export default RegisterPage;
