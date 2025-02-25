@@ -2,16 +2,24 @@
 
 import { useNotification } from '@context/NotificationContext';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import { AppError } from '../types/ApiError';
+import Loading from '@components/Loading';
 
 const RegisterPage = () => {
   const searchParams = useSearchParams();
+  const registrationKey = searchParams.get('registrationKey');
+
+  <Suspense fallback={<Loading />}>
+    {<Register registrationKey={String(registrationKey)} />}
+  </Suspense>;
+};
+
+const Register = ({ registrationKey }: { registrationKey: string }) => {
   const router = useRouter();
   const { showNotification } = useNotification();
   const [loading, setLoading] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-  const registrationKey = searchParams.get('registrationKey');
 
   const handleRegistration = async (
     event: React.FormEvent<HTMLFormElement>,
