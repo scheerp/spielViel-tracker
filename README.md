@@ -1,36 +1,62 @@
+SpielViel-Tracker
+
+## Overview
+
+The SpielViel-Tracker App allows visitors to view, in real time, the availability status of board games at the event. Helpers and admins can authenticate via NextAuth to manage game checkouts and returns, updating the availability in the database.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## Features
 
-First, run the development server:
+- **Real-Time Status:** Visitors can see which games are available or checked out in real time.
+- **Authentication:** Helpers and admins sign in via NextAuth.
+- **Game Management:** Authenticated users can check out (loan) or return games.
+- **Responsive UI:** Built using React and Next.js (App Router).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Technology Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Framework:** React, Next.js (App Router)
+- **Authentication:** NextAuth
+- **Deployment:** Vercel
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Setup and Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **Clone the repository:**
 
-## Learn More
+   ```bash
+   git clone <repository-url>
+   cd frontend
 
-To learn more about Next.js, take a look at the following resources:
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   npm install
 
-## Deploy on Vercel
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. **Configure environment variables: Create a .env.local file in the root directory with the following variables:**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```bash
+   NEXT_PUBLIC_API_URL=<your-backend-url>
+   NEXT_PUBLIC_SUPABASE_API_URL=<your-supabase-api-url>
+   NEXT_PUBLIC_SUPABASE_API_KEY=<your-supabase-api-key>
+   NEXTAUTH_SECRET=<next-auth-secret>
+   # Other NextAuth or app-specific configurations as needed
+   ```
+
+4. **Start the development server:**
+
+   ```bash
+   npm run dev
+
+   ```
+
+5. **Build and Deployment: The project is configured for Vercel. Each push to the repository triggers an automatic deployment on Vercel.**
+
+## Usage
+
+- Visitors: View the live status of the board games.
+- Helpers/Admins: Sign in via the authentication page to check out or return games.
+- Navigation: Utilizes Next.js App Router for dynamic and optimized routing.
