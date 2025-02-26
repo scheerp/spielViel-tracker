@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
 import { AppError } from '../types/ApiError';
 import Loading from '@components/Loading';
-import { signOut } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Register = () => {
   const { showNotification } = useNotification();
@@ -50,17 +50,17 @@ const Register = () => {
         throw error;
       }
 
-      const data = await response.json();
-
-      showNotification({
-        message: `${data.username} erfolgreich registriert`,
-        type: 'success',
-        duration: 3000,
+      await signIn('credentials', {
+        username,
+        password,
+        redirect: true,
+        callbackUrl: '/',
       });
 
-      signOut({
-        redirect: true,
-        callbackUrl: '/login',
+      showNotification({
+        message: `${username} erfolgreich registriert und angemeldet`,
+        type: 'success',
+        duration: 3000,
       });
     } catch (err) {
       const error = err as AppError;
@@ -69,7 +69,8 @@ const Register = () => {
         message: (
           <div>
             {error.detail.message}
-            <br /> {error.detail.detailed_message}
+            <br />
+            {error.detail.detailed_message}
           </div>
         ),
         type: 'error',
@@ -126,6 +127,9 @@ const Register = () => {
 };
 
 const RegisterPage = () => {
+  const { data: session } = useSession();
+
+  if (session) signOut();
   return (
     <Suspense fallback={<Loading />}>
       <Register />
