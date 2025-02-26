@@ -24,13 +24,16 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
   const handleAddEAN = async () => {
     if (!barCode) return;
 
-    await updateGame({
+    const updateResponse = await updateGame({
       game,
       operation: 'addEAN',
       ean: barCode,
     });
 
-    closeModal();
+    if (updateResponse) {
+      closeModal();
+    }
+
     setBarCode('');
   };
 

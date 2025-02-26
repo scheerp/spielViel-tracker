@@ -64,8 +64,14 @@ const Register = () => {
       });
     } catch (err) {
       const error = err as AppError;
+
       showNotification({
-        message: `Fehler beider Registrierung: ${error.detail.message}`,
+        message: (
+          <div>
+            {error.detail.message}
+            <br /> {error.detail.detailed_message}
+          </div>
+        ),
         type: 'error',
         duration: 3000,
       });

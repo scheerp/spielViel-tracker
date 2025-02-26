@@ -2,7 +2,7 @@ export interface ApiError {
   detail: {
     error_code: string;
     message: string;
-    details?: Record<string, unknown>;
+    detailed_message?: string;
   };
 }
 
@@ -10,11 +10,12 @@ export interface BarcodeConflictError extends ApiError {
   detail: {
     error_code: 'BARCODE_CONFLICT';
     message: string;
-    details: {
+    detailed_message?: string;
+    ean_details: {
       id: number;
       name: string;
       ean: string;
-      thumbnail_url?: string;
+      thumbnail_url: string;
     };
   };
 }

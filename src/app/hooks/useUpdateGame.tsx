@@ -110,10 +110,10 @@ const useUpdateGame = () => {
 
       return { success: true, gameData: updatedGame };
     } catch (err) {
-      const error = err as AppError;
+      const error = err as BarcodeConflictError;
       if (
         error.detail.error_code === 'BARCODE_CONFLICT' &&
-        error.detail.details
+        error.detail.ean_details
       ) {
         const error = err as BarcodeConflictError;
         return showNotification({
@@ -122,11 +122,11 @@ const useUpdateGame = () => {
               <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden truncate">
                 <Image
                   src={
-                    error.detail.details.thumbnail_url
-                      ? error.detail.details.thumbnail_url
+                    error.detail.ean_details.thumbnail_url
+                      ? error.detail.ean_details.thumbnail_url
                       : '/noImage.jpg'
                   }
-                  alt={error.detail.details.name}
+                  alt={error.detail.ean_details.name}
                   priority
                   fill
                   sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
@@ -138,12 +138,12 @@ const useUpdateGame = () => {
               <span className="ml-4">
                 {'Barcode bereits vorhanden bei:'}
                 <br />
-                {error.detail.details.name}
+                {error.detail.ean_details.name}
               </span>
             </div>
           ),
           type: 'error',
-          duration: 4000,
+          duration: 5000,
         });
       }
 
