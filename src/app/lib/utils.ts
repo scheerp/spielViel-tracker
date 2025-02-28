@@ -78,21 +78,25 @@ export const FamiliarityMapping = {
   UNKNOWN: {
     label: 'Unbekannt',
     color: 'bg-status text-white',
+    border: 'border-status',
     value: 0,
   },
   NEULING: {
     label: 'Neuling',
     color: 'bg-secondary text-white',
+    border: 'border-secondary',
     value: 1,
   },
   KENNER: {
     label: 'Kenner',
     color: 'bg-error text-white',
+    border: 'border-error',
     value: 2,
   },
   GURU: {
     label: 'Guru',
     color: 'bg-tertiary text-white',
+    border: 'border-tertiary',
     value: 3,
   },
 };
@@ -105,5 +109,12 @@ export const FamiliarityValueMapping = Object.values(FamiliarityMapping).reduce(
     acc[item.value] = item;
     return acc;
   },
-  {} as { [key: number]: { label: string; color: string; value: number } },
+  {} as {
+    [key: number]: {
+      label: string;
+      color: string;
+      border: string;
+      value: number;
+    };
+  },
 );

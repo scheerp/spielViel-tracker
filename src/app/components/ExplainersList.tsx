@@ -21,6 +21,8 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
   const [explainers, setExplainers] = useState<Explainers[]>([]);
   const [initailLoad, setInitialLoad] = useState<boolean>(true);
 
+  const userId = session?.user?.id;
+
   useEffect(() => {
     fetchExplainers();
   }, []);
@@ -42,8 +44,8 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
       }
 
       const data: ExplainersResponse = await response.json();
-      if (currentFamiliarity === null) {
-        setCurrentFamiliarity(data.my_familiarity);
+      if (initailLoad) {
+        setCurrentFamiliarity(data.my_familiarity ?? 0);
       }
       setExplainers(data.explainers);
     } catch (err) {
@@ -74,7 +76,7 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
           body: JSON.stringify({
             game_id: gameId,
             familiarity: value,
-            user_id: session?.user?.id,
+            user_id: userId,
           }),
         },
       );
@@ -126,42 +128,54 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
                 <div className="mb-2 flex items-center gap-2">
                   <FamiliarityPill familiarity={group.familiarity} />:
                 </div>
-                <ul className="space-y-2">
-                  {group.users.map((user) => (
-                    <li
-                      key={user.id}
-                      className="my-4 mb-2 flex items-center space-x-3 p-2 hover:bg-gray-50"
-                    >
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-200">
-                        <span className="text-sm font-medium text-gray-700">
-                          {user.username.charAt(0).toUpperCase()}
+                <div className="mb-6 pl-4">
+                  <ul
+                    className={`space-y-2 border-l-4 ${FamiliarityValueMapping[group.familiarity].border}`}
+                  >
+                    {group.users.map((user) => (
+                      <li
+                        key={user.id}
+                        className="my-4 mb-2 flex items-center space-x-3 p-2 hover:bg-gray-50"
+                      >
+                        <div
+                          className={`flex h-10 w-10 items-center justify-center rounded-full bg-gray-200 text-gray-700 ${user.id === Number(userId) && 'bg-primary text-white'}`}
+                        >
+                          <span className="text-md font-semibold">
+                            {user.username.charAt(0).toUpperCase()}
+                          </span>
+                        </div>
+                        <span
+                          className={`text-base ${user.id === Number(userId) && 'font-bold'}`}
+                        >
+                          {user.username}
                         </span>
-                      </div>
-                      <span className="text-base">{user.username}</span>
-                    </li>
-                  ))}
-                </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             ))
           ) : (
             <p className="text-center">Keine Erklärer verfügbar.</p>
           )}
         </div>
-
-        <form onSubmit={(event) => event.preventDefault()} className="mt-4">
-          <CustomSlider
-            value={currentFamiliarity}
-            labelText={(value) => (
-              <div className="mb-4">
-                Mein Erklärerstatus:{' '}
-                <FamiliarityPill className="mt-2" familiarity={value} />
-              </div>
-            )}
-            minValue={0}
-            maxValue={3}
-            updateFunction={updateFamiliarity}
-          />
-        </form>
+        {session?.user?.username !== 'admin' &&
+          session?.user?.username !== 'helper' && (
+            <form onSubmit={(event) => event.preventDefault()} className="mt-4">
+              <CustomSlider
+                value={currentFamiliarity}
+                labelText={(value) => (
+                  <div className="mb-4">
+                    Mein Erklärerstatus:{' '}
+                    <FamiliarityPill className="mt-2" familiarity={value} />
+                  </div>
+                )}
+                minValue={0}
+                maxValue={3}
+                updateFunction={updateFamiliarity}
+              />
+            </form>
+          )}
       </div>
     </div>
   );
