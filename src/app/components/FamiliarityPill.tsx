@@ -11,7 +11,7 @@ const FamiliarityPill = ({ familiarity, className }: FamiliarityPillType) => {
   if (!mapping) return null;
   return (
     <p
-      className={`${className} ${mapping.color} w-36 rounded-full text-center text-lg font-semibold`}
+      className={`w-36 rounded-full text-center text-lg font-semibold ${className} ${mapping.color}`}
     >
       {mapping.label}
     </p>

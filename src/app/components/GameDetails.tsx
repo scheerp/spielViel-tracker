@@ -133,7 +133,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
               onClick={() =>
                 openModal((loadingFromContext) => (
                   <>
-                    <ExplainersList gameId={game.id} />
+                    <ExplainersList game={game} />
                     {loadingFromContext && <Loading />}
                   </>
                 ))
@@ -158,7 +158,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
               <RatingHexagon rating={game.rating} bggId={game.bgg_id} />
               <div>
                 <h1 className="text-wrap text-xl font-bold md:text-4xl">
-                  {game.name}
+                  {game.name}{' '}
                 </h1>
                 <div className="mb-2 flex flex-col justify-between md:mt-2 md:text-lg">
                   <div>

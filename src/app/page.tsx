@@ -10,8 +10,10 @@ import { Game, GAMES_LIST_LIMIT, useGames } from '@context/GamesContext';
 import { FilterState, useFilter } from '@context/FilterContext';
 import { AppError } from './types/ApiError';
 import { ComplexityMapping } from '@lib/utils';
+import { useSession } from 'next-auth/react';
 
 const Games: React.FC = () => {
+  const { data: session } = useSession();
   const {
     games,
     setGames,
@@ -53,6 +55,7 @@ const Games: React.FC = () => {
         show_missing_ean_only: String(filter.showMissingEanOnly),
         min_player_count: String(filter.minPlayerCount),
         player_age: String(filter.minAge),
+        user_id: String(session?.user?.id ?? 0),
       });
 
       if (
@@ -132,6 +135,8 @@ const Games: React.FC = () => {
   );
 
   useEffect(() => {
+    if (session === undefined) return;
+
     const hasFilterChanged =
       JSON.stringify(oldFilter) !== JSON.stringify(filter);
 
@@ -158,7 +163,7 @@ const Games: React.FC = () => {
         fetchGames(0, true);
       }
     }
-  }, [filter, offset]);
+  }, [filter, offset, session, session?.user?.id]); // session als Dependency hinzufügen
 
   return (
     <div className="mb-16 flex flex-col items-center">

@@ -36,6 +36,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
       show_missing_ean_only: String(loclFilterState.showMissingEanOnly),
       min_player_count: String(loclFilterState.minPlayerCount),
       player_age: String(loclFilterState.minAge),
+      user_id: String(session?.user?.id ?? 0),
     });
 
     if (

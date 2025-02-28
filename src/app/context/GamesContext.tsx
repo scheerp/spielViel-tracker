@@ -39,6 +39,7 @@ export interface Game {
   thumbnail_url?: string;
   ean?: string;
   player_age: string;
+  my_familiarity?: number | null;
 }
 
 interface GamesContextType {

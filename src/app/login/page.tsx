@@ -31,7 +31,8 @@ const LoginPage = () => {
 
     try {
       const result = await signIn('credentials', {
-        redirect: false,
+        redirect: true,
+        callbackUrl: '/',
         username,
         password,
       });
@@ -48,7 +49,6 @@ const LoginPage = () => {
           type: 'success',
           duration: 3000,
         });
-        router.push('/');
       }
     } catch (error) {
       showNotification({

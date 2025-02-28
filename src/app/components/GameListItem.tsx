@@ -46,7 +46,7 @@ const GameListItem = memo(
           </div>
           <div className="ml-3 flex h-[7.8rem] flex-col justify-between md:mx-4 md:h-[9.3rem]">
             <h2 className="clamp-custom mb-1 text-xl/6 md:text-lg lg:text-xl">
-              {game.name}
+              {game.name} {game.my_familiarity}
             </h2>
             <div>
               {game.min_players && game.max_players && (
@@ -65,40 +65,6 @@ const GameListItem = memo(
                 className="py-1"
               />
             </div>
-            {/* <div className="items-star flex flex-col">
-              <div className="flex w-56 justify-around text-sm text-gray-500 md:block">
-                <GameDetailsProperty
-                  value={game.player_age}
-                  icon="/player-age.webp"
-                  property="player age"
-                  context="list"
-                />
-
-                <GameDetailsProperty
-                  value={
-                    game.min_players === game.max_players
-                      ? `${game?.max_players}`
-                      : `${game?.min_players} - ${game?.max_players}`
-                  }
-                  icon="/player-count.webp"
-                  property="player count"
-                  context="list"
-                />
-
-                <GameDetailsProperty
-                  value={
-                    game.min_playtime === game.max_playtime
-                      ? `${game?.max_playtime}`
-                      : `${game?.min_playtime} - ${game?.max_playtime}`
-                  }
-                  icon="/playtime.webp"
-                  property="playtime"
-                  context="list"
-                />
-              </div>
-              <ComplexityPill 
-                      complexityName={game.complexity_label} />
-            </div> */}
           </div>
         </Link>
         {session && <ListUpdateButtons game={game} />}

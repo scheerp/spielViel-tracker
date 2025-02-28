@@ -7,8 +7,9 @@ import { Game, useGames } from '@context/GamesContext';
 
 export type useUpdateGameArguments = {
   game: Game;
-  operation: 'borrow' | 'return' | 'removeEAN' | 'addEAN';
+  operation: 'borrow' | 'return' | 'removeEAN' | 'addEAN' | 'updateFamiliarity';
   ean?: string;
+  familiarity?: number;
 };
 
 const useUpdateGame = () => {
@@ -21,6 +22,7 @@ const useUpdateGame = () => {
     game,
     operation,
     ean,
+    familiarity,
   }: useUpdateGameArguments) => {
     if (!session) {
       console.error('Keine Sitzung gefunden.');
@@ -48,6 +50,9 @@ const useUpdateGame = () => {
         case 'removeEAN':
           endpoint = `${process.env.NEXT_PUBLIC_API_URL}/games/game/remove_ean/${game.id}`;
           break;
+        case 'updateFamiliarity':
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/helper/${game.id}/familiarity`;
+          break;
       }
 
       const response = await fetch(endpoint, {
@@ -57,6 +62,13 @@ const useUpdateGame = () => {
           Authorization: `Bearer ${session.accessToken}`,
         },
         ...(operation === 'addEAN' && { body: JSON.stringify(body) }),
+        ...(operation === 'updateFamiliarity' && {
+          body: JSON.stringify({
+            game_id: game.id,
+            familiarity,
+            user_id: session?.user?.id,
+          }),
+        }),
       });
 
       if (!response.ok) {
@@ -65,6 +77,7 @@ const useUpdateGame = () => {
       }
 
       const updatedGame: Game = await response.json();
+      console.log('Updated game:', updatedGame);
 
       updateGlobalGame(updatedGame);
 
@@ -73,6 +86,7 @@ const useUpdateGame = () => {
         return: 'erfolgreich zurückgegeben.',
         addEAN: 'Barcode erfolgreich hinzugefügt.',
         removeEAN: 'Barcode erfolgreich entfernt.',
+        updateFamiliarity: 'Familiarity erfolgreich aktualisiert.',
       }[operation];
 
       showNotification({
@@ -102,7 +116,9 @@ const useUpdateGame = () => {
           </div>
         ),
         type:
-          operation === 'addEAN' || operation === 'removeEAN'
+          operation === 'addEAN' ||
+          operation === 'removeEAN' ||
+          operation === 'updateFamiliarity'
             ? 'success'
             : operation,
         duration: 2000,

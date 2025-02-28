@@ -33,6 +33,7 @@ const ImportButton = () => {
         show_missing_ean_only: String(defaultFilterState.showMissingEanOnly),
         min_player_count: String(defaultFilterState.minPlayerCount),
         player_age: String(defaultFilterState.minAge),
+        user_id: String(session?.user?.id ?? 0),
       });
 
       const response = await fetch(
