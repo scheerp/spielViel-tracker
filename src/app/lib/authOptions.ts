@@ -1,4 +1,3 @@
-// @lib/authOptions.ts
 import CredentialsProvider from 'next-auth/providers/credentials';
 import type { NextAuthOptions } from 'next-auth';
 
@@ -23,15 +22,13 @@ export const authOptions: NextAuthOptions = {
           },
         );
         const data = await res.json();
-        console.log({ data });
 
         if (res.ok && data.access_token) {
           return {
-            id: data.id || data.username || 'fallback-id',
+            id: data.id ?? 'fallback-id',
             username: data.username || 'fallback-username',
             accessToken: data.access_token,
             role: data.role,
-            // Weitere Felder wie name, email etc. können hier hinzugefügt werden
           };
         }
         return null;
@@ -44,6 +41,7 @@ export const authOptions: NextAuthOptions = {
         token.accessToken = user.accessToken;
         token.role = user.role;
         token.username = user.username;
+        token.id = user.id;
       }
       return token;
     },
@@ -52,6 +50,7 @@ export const authOptions: NextAuthOptions = {
       if (session.user) {
         session.user.role = token.role;
         session.user.username = token.username;
+        session.user.id = token.id;
       }
       return session;
     },

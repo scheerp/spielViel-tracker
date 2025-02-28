@@ -5,8 +5,8 @@ import { useNotification } from '@context/NotificationContext';
 import { AppError } from '../types/ApiError';
 import { defaultFilterState, useFilter } from '@context/FilterContext';
 import { GAMES_LIST_LIMIT, useGames } from '@context/GamesContext';
-import { LoadingButton } from './LoadingButton';
 import { useModal } from '@context/ModalContext';
+import { LoadingModalButton } from './LoadingModalButton';
 
 const ImportButton = () => {
   const { data: session } = useSession();
@@ -145,7 +145,7 @@ const ImportButton = () => {
           Details der neuen Spiele!
         </p>
 
-        <LoadingButton
+        <LoadingModalButton
           loading={modalLoading}
           buttonText="Schneller Import"
           onClickFunction={fetchCollectionQuick}
@@ -168,7 +168,7 @@ const ImportButton = () => {
           <p className="mb-2 text-center text-sm text-gray-500">
             Hinweis: Der Vorgeng kann einige Minuten dauern!
           </p>
-          <LoadingButton
+          <LoadingModalButton
             loading={modalLoading}
             buttonText="Voller Import"
             onClickFunction={fetchCollectionFull}

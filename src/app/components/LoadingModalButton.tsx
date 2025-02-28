@@ -2,7 +2,7 @@ import { useModal } from '@context/ModalContext';
 import React from 'react';
 import Loading from './Loading';
 
-type LoadingButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+type LoadingModalButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading: boolean;
   buttonText: string;
   onClickFunction?: () => void;
@@ -10,7 +10,7 @@ type LoadingButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   modalButtonText?: string;
 };
 
-export const LoadingButton: React.FC<LoadingButtonProps> = ({
+export const LoadingModalButton: React.FC<LoadingModalButtonProps> = ({
   loading = false,
   buttonText,
   className,

@@ -74,4 +74,36 @@ export const ComplexityMapping = {
   },
 };
 
+export const FamiliarityMapping = {
+  UNKNOWN: {
+    label: 'Unbekannt',
+    color: 'bg-error text-white',
+    value: 0,
+  },
+  NEULING: {
+    label: 'Neuling',
+    color: 'bg-status text-white',
+    value: 1,
+  },
+  KENNER: {
+    label: 'Kenner',
+    color: 'bg-quinary text-black',
+    value: 2,
+  },
+  GURU: {
+    label: 'Guru',
+    color: 'bg-tertiary text-white',
+    value: 3,
+  },
+};
+
 export type ComplexityType = keyof typeof ComplexityMapping;
+export type FamiliarityType = keyof typeof FamiliarityMapping;
+
+export const FamiliarityValueMapping = Object.values(FamiliarityMapping).reduce(
+  (acc, item) => {
+    acc[item.value] = item;
+    return acc;
+  },
+  {} as { [key: number]: { label: string; color: string; value: number } },
+);

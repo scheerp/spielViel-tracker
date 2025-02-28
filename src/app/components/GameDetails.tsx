@@ -14,18 +14,24 @@ import { useRouter } from 'next/navigation';
 import ArrowLeftIcon from '@icons/ArrowLeftIcon';
 import BGGIcon from '@icons/BGGIcon';
 import ComplexityPill from './ComplexityPill';
+import { useSession } from 'next-auth/react';
+import { useModal } from '@context/ModalContext';
+import ExplainersList from './ExplainersList';
+import LightbulbIcon from '@icons/LightbulbIcon';
 
 interface GameDetailsProps {
   gameId: string;
 }
 
 const GameDetails = ({ gameId }: GameDetailsProps) => {
+  const { showNotification } = useNotification();
+  const router = useRouter();
+  const { data: session } = useSession();
+  const { openModal } = useModal();
   const [loading, setLoading] = useState<boolean>(true);
   const [game, setGame] = useState<Game | null>(null);
   const [relatedGames, setRelatedGames] = useState<Game[]>([]);
   const [error, setError] = useState<string | null>(null);
-  const { showNotification } = useNotification();
-  const router = useRouter();
 
   const fetchGameDetails = async () => {
     setLoading(true);
@@ -102,7 +108,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
 
   return (
     <>
-      <div className="flex w-full justify-between px-2 pt-3 2xl:hidden">
+      <div className="flex w-full justify-between px-2 pt-3">
         <button
           onClick={() => router.back()}
           className="flex items-center gap-2 rounded-full text-primary"
@@ -111,16 +117,38 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
             <ArrowLeftIcon tailwindColor="text-primary" className="h-7 w-7" />
           </div>
         </button>
-        <a
-          href={`https://boardgamegeek.com/boardgame/${game.bgg_id}`}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-2 rounded-full text-primary"
-        >
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
-            <BGGIcon tailwindColor="text-primary" className="h-6 w-6" />
-          </div>
-        </a>
+        <div className="flex items-center gap-2">
+          <a
+            href={`https://boardgamegeek.com/boardgame/${game.bgg_id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-full text-primary"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+              <BGGIcon tailwindColor="text-primary" className="h-6 w-6" />
+            </div>
+          </a>
+          {session && session.user?.role !== 'user' && (
+            <button
+              onClick={() =>
+                openModal((loadingFromContext) => (
+                  <>
+                    <ExplainersList gameId={game.id} />
+                    {loadingFromContext && <Loading />}
+                  </>
+                ))
+              }
+              className="flex items-center gap-2 rounded-full text-primary"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+                <LightbulbIcon
+                  tailwindColor="text-primary"
+                  className="h-7 w-7"
+                />
+              </div>
+            </button>
+          )}
+        </div>
       </div>
       <div className="container mx-auto">
         <div className="mt-4 flex flex-col items-center justify-center md:ml-9 md:flex-row md:items-start 2xl:mt-10">

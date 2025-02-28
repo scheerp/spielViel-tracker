@@ -5,7 +5,7 @@ type CustomSliderProps = {
   minValue: number;
   maxValue: number;
   updateFunction: (value: number) => void;
-  labelText: (value: number) => string;
+  labelText?: (value: number) => React.ReactNode;
 };
 
 const CustomSlider = ({
@@ -31,7 +31,9 @@ const CustomSlider = ({
 
   return (
     <div className="relative mt-4 flex flex-col space-y-2">
-      <label htmlFor="custom-slider">{labelText(tempValue)}</label>
+      {labelText && (
+        <label htmlFor="custom-slider">{labelText(tempValue)}</label>
+      )}
       <input
         id="custom-slider"
         type="range"

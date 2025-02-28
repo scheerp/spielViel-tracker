@@ -1,6 +1,20 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { ComplexityType } from '@lib/utils';
 
+export type Explainers = {
+  familiarity: number;
+  users: {
+    id: number;
+    username: string;
+    familiarity: number;
+  }[];
+};
+
+export type ExplainersResponse = {
+  my_familiarity: number;
+  explainers: Explainers[];
+};
+
 export interface Game {
   id: number;
   name: string;
