@@ -19,17 +19,13 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
   const { showNotification } = useNotification();
   const [currentFamiliarity, setCurrentFamiliarity] = useState<number>(0);
   const [explainers, setExplainers] = useState<Explainers[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
   const [initailLoad, setInitialLoad] = useState<boolean>(true);
 
   useEffect(() => {
     fetchExplainers();
-    setInitialLoad(false);
   }, []);
 
   const fetchExplainers = async () => {
-    setLoading(true);
-
     try {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/helper/${gameId}/explainers?game_id=${gameId}&user_id=${session?.user?.id}`;
       const response = await fetch(url, {
@@ -58,7 +54,7 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
         duration: 3000,
       });
     } finally {
-      setLoading(false);
+      setInitialLoad(false);
     }
   };
 
@@ -67,7 +63,6 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
 
     setCurrentFamiliarity(value);
     try {
-      setLoading(true);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/helper/${gameId}/familiarity`,
         {
@@ -110,7 +105,6 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
         duration: 3000,
       });
     } finally {
-      setLoading(false);
     }
   };
 
@@ -121,10 +115,7 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
   return (
     <div className="fixed inset-16 mt-12 flex items-center justify-center">
       <div className="flex h-full w-full flex-col bg-white pb-10 md:w-[70%] md:pb-16">
-        {/* Header (optional) */}
         <h1 className="mb-4 text-xl font-semibold">Erklärer:</h1>
-
-        {/* Scrollbarer Content-Bereich */}
         <div className="flex-grow overflow-y-auto">
           {explainers && explainers.length > 0 ? (
             explainers.map((group) => (
@@ -157,7 +148,6 @@ const ExplainersList: React.FC<ExplainersProps> = ({ gameId }) => {
           )}
         </div>
 
-        {/* Formular immer am unteren Rand */}
         <form onSubmit={(event) => event.preventDefault()} className="mt-4">
           <CustomSlider
             value={currentFamiliarity}

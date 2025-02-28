@@ -77,17 +77,17 @@ export const ComplexityMapping = {
 export const FamiliarityMapping = {
   UNKNOWN: {
     label: 'Unbekannt',
-    color: 'bg-error text-white',
+    color: 'bg-status text-white',
     value: 0,
   },
   NEULING: {
     label: 'Neuling',
-    color: 'bg-status text-white',
+    color: 'bg-secondary text-white',
     value: 1,
   },
   KENNER: {
     label: 'Kenner',
-    color: 'bg-quinary text-black',
+    color: 'bg-error text-white',
     value: 2,
   },
   GURU: {
