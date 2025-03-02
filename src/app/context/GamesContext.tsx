@@ -1,6 +1,20 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { ComplexityType } from '@lib/utils';
 
+export type PlayerSearch = {
+  can_edit: boolean;
+  created_at: string;
+  game_id: number;
+  id: number;
+  name: string;
+  player_id: number;
+  location: string;
+  current_players: number;
+  details?: string;
+  expires_at: string;
+  players_needed: number;
+};
+
 export type Explainers = {
   familiarity: number;
   users: {
@@ -40,6 +54,7 @@ export interface Game {
   ean?: string;
   player_age: string;
   my_familiarity?: number | null;
+  player_searches: PlayerSearch[];
 }
 
 interface GamesContextType {

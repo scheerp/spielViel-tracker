@@ -18,6 +18,7 @@ import { useSession } from 'next-auth/react';
 import { useModal } from '@context/ModalContext';
 import ExplainersList from './ExplainersList';
 import LightbulbIcon from '@icons/LightbulbIcon';
+import PlayerSearches from './PlayerSearch';
 
 interface GameDetailsProps {
   gameId: string;
@@ -184,6 +185,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
             <GameDescription game={game} />
           </div>
         </div>
+        <PlayerSearches playerSearches={game.player_searches} game={game} />
         <GameSimilarGames relatedGames={relatedGames} />
       </div>
       <FloatingUpdateButtons game={game} handleSuccess={handleGameUpdate} />

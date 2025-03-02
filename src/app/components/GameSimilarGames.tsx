@@ -10,7 +10,9 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
 
   return (
     <div className="m-4 mb-8 md:m-8">
-      <p className="text-md mb-4 font-bold">Das könnte dir auch gefallen:</p>
+      <h3 className="text-md mb-4 text-lg font-semibold">
+        Das könnte dir auch gefallen:
+      </h3>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {relatedGames.map((relatedGame) => (
           <div
