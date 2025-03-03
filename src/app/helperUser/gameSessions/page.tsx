@@ -80,6 +80,11 @@ const Sessions: React.FC = () => {
       fetchSessions();
     } catch (err) {
       console.error('Fehler beim Löschen:', err);
+      showNotification({
+        message: `Fehler beim Löschen des Eintrags.`,
+        type: 'error',
+        duration: 1500,
+      });
     } finally {
       updateModalLoading(false);
       closeModal();

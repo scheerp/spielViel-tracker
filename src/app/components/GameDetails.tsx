@@ -8,7 +8,7 @@ import { AppError } from '../types/ApiError';
 import GameDescription from './GameDescription';
 import GameSimilarGames from './GameSimilarGames';
 import FloatingUpdateButtons from './FloatingUpdateButtons';
-import { Game } from '@context/GamesContext';
+import { Game, PlayerSearch } from '@context/GamesContext';
 import DetailedGameImage from './DetailedGameImage';
 import { useRouter } from 'next/navigation';
 import ArrowLeftIcon from '@icons/ArrowLeftIcon';
@@ -18,7 +18,7 @@ import { useSession } from 'next-auth/react';
 import { useModal } from '@context/ModalContext';
 import ExplainersList from './ExplainersList';
 import LightbulbIcon from '@icons/LightbulbIcon';
-import PlayerSearches from './PlayerSearch';
+import PlayerSearchList from './PlayerSearchList';
 
 interface GameDetailsProps {
   gameId: string;
@@ -32,14 +32,24 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [game, setGame] = useState<Game | null>(null);
   const [relatedGames, setRelatedGames] = useState<Game[]>([]);
+  const [playerSearches, setPlayerSearches] = useState<PlayerSearch[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const fetchGameDetails = async () => {
     setLoading(true);
 
+    const storedTokens = JSON.parse(
+      localStorage.getItem('edit_tokens') || '[]',
+    );
+
+    const queryParams = new URLSearchParams();
+    storedTokens.forEach((token: string) => {
+      queryParams.append('edit_tokens', token);
+    });
+
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/games/game/${gameId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/games/game/${gameId}?${queryParams.toString()}`,
       );
 
       if (!response.ok) {
@@ -49,6 +59,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
 
       const data: Game = await response.json();
       setGame(data);
+      setPlayerSearches(data.player_searches);
 
       if (data.similar_games && data.similar_games.length > 0) {
         const relatedIds = data.similar_games;
@@ -94,6 +105,21 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
         duration: 3000,
       });
     }
+  };
+
+  const handlePlayerSearchUpdate = (updatedPlayerSearch: PlayerSearch) => {
+    setPlayerSearches((prevPlayerSearches) =>
+      prevPlayerSearches.map((ps) =>
+        ps.id === updatedPlayerSearch.id ? updatedPlayerSearch : ps,
+      ),
+    );
+  };
+
+  const handlePlayerSearchCreate = (newPlayerSearch: PlayerSearch) => {
+    setPlayerSearches((prevPlayerSearches) => [
+      ...prevPlayerSearches,
+      { ...newPlayerSearch, can_edit: true },
+    ]);
   };
 
   const handleGameUpdate = (updatedGame: Game) => {
@@ -185,7 +211,12 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
             <GameDescription game={game} />
           </div>
         </div>
-        <PlayerSearches playerSearches={game.player_searches} game={game} />
+        <PlayerSearchList
+          playerSearches={playerSearches}
+          game={game}
+          onUpdateSuccess={handlePlayerSearchUpdate}
+          onCreateSuccess={handlePlayerSearchCreate}
+        />
         <GameSimilarGames relatedGames={relatedGames} />
       </div>
       <FloatingUpdateButtons game={game} handleSuccess={handleGameUpdate} />

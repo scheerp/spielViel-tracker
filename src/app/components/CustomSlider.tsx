@@ -4,6 +4,7 @@ type CustomSliderProps = {
   value: number;
   minValue: number;
   maxValue: number;
+  disabled?: boolean;
   updateFunction: (value: number) => void;
   labelText?: (value: number) => React.ReactNode;
 };
@@ -12,6 +13,7 @@ const CustomSlider = ({
   value,
   minValue,
   maxValue,
+  disabled = false,
   updateFunction,
   labelText,
 }: CustomSliderProps) => {
@@ -40,6 +42,7 @@ const CustomSlider = ({
         value={tempValue}
         min={minValue}
         max={maxValue}
+        disabled={disabled}
         onChange={handleSliderChange}
         onMouseUp={handleMouseUpOrTouchEnd}
         onTouchEnd={handleMouseUpOrTouchEnd}

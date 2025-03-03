@@ -79,10 +79,10 @@ const ExplainersList: React.FC<ExplainersProps> = ({ game }) => {
   }
 
   return (
-    <div className="fixed mt-8 flex h-[80vh] w-[78vw] items-center justify-center">
+    <div className="fixed mt-8 flex h-[80vh] w-[78vw] items-center justify-center md:w-[95%]">
       <div className="flex h-full w-full flex-col bg-white pb-4 md:w-[70%] md:pb-16">
         <div className="flex-grow overflow-y-auto">
-          <h1 className="mb-4 text-xl font-semibold">Erklärer:</h1>
+          <h2 className="mb-4 text-lg font-semibold">Erklärer:</h2>
           <div className="mx-6">
             {explainers && explainers.length > 0 ? (
               explainers.map((group) => (

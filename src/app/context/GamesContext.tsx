@@ -10,9 +10,10 @@ export type PlayerSearch = {
   player_id: number;
   location: string;
   current_players: number;
-  details?: string;
+  details: string | null;
   expires_at: string;
   players_needed: number;
+  edit_token: string | null;
 };
 
 export type Explainers = {
