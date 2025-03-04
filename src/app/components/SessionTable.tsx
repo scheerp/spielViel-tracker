@@ -3,8 +3,8 @@
 import AddIcon from '@icons/AddIcon';
 import { SessionEntry } from '../helperUser/gameSessions/page';
 import { useState } from 'react';
-import CloseIcon from '@icons/CancelIcon';
 import EditableRow from './EditableRow';
+import CloseIcon from '@icons/CancelIcon';
 import SaveIcon from '@icons/SaveIcon';
 
 type SessionTableProps = {

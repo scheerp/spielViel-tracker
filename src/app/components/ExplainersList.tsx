@@ -133,6 +133,7 @@ const ExplainersList: React.FC<ExplainersProps> = ({ game }) => {
           session?.user?.username !== 'helper' && (
             <form onSubmit={(event) => event.preventDefault()} className="mt-4">
               <CustomSlider
+                className="mt-4"
                 value={currentFamiliarity}
                 labelText={(value) => (
                   <div className="mb-4">

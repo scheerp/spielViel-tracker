@@ -5,6 +5,7 @@ type CustomSliderProps = {
   minValue: number;
   maxValue: number;
   disabled?: boolean;
+  className?: string;
   updateFunction: (value: number) => void;
   labelText?: (value: number) => React.ReactNode;
 };
@@ -14,6 +15,7 @@ const CustomSlider = ({
   minValue,
   maxValue,
   disabled = false,
+  className,
   updateFunction,
   labelText,
 }: CustomSliderProps) => {
@@ -32,7 +34,7 @@ const CustomSlider = ({
   };
 
   return (
-    <div className="relative mt-4 flex flex-col space-y-2">
+    <div className={`relative flex flex-col space-y-2 ${className}`}>
       {labelText && (
         <label htmlFor="custom-slider">{labelText(tempValue)}</label>
       )}

@@ -144,29 +144,36 @@ const EditablePlayerSearch = ({
 
   return (
     <div className="flex justify-center">
-      <div className="mt-10 flex w-full flex-col items-center">
-        <h2 className="self-start text-xl font-semibold">
-          {mode === 'create'
-            ? 'Neue Mitspielersuche erstellen'
-            : 'Mitspielersuche bearbeiten'}
-        </h2>
-        <form
-          onSubmit={handleSubmit}
-          className="mt-4 flex w-full flex-col gap-4"
-        >
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            disabled={mode === 'view'}
-            required
-            placeholder="Name"
-            className="max-w-80 rounded-full border-2 px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary"
-          />
-          <div className="max-w-80">
+      <div className="mt-6 flex w-full flex-col md:flex-row md:items-start md:gap-8">
+        {/* Hauptbereich mit Formular und LocationPicker */}
+        <div className="flex w-full flex-col md:flex-row md:gap-8">
+          {/* Formular links */}
+          <form
+            onSubmit={handleSubmit}
+            className="flex w-full flex-col md:w-1/2"
+          >
+            <h2 className="mb-4 self-start text-xl font-semibold md:mb-4 md:mt-4">
+              {mode === 'create' && 'Neue Mitspielersuche erstellen'}
+              {mode === 'edit' && 'Mitspielersuche bearbeiten'}
+              {mode === 'view' && 'Mitspielersuche'}
+            </h2>
+
+            {/* Name Eingabefeld */}
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              disabled={mode === 'view'}
+              required
+              placeholder="Name"
+              className="rounded-full border-2 px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
+            />
+
+            {/* Slider für Mitspieleranzahl */}
             <CustomSlider
+              className="mt-4 md:mb-4"
               value={formData.players_needed || 1}
               minValue={1}
               disabled={mode === 'view'}
@@ -174,8 +181,51 @@ const EditablePlayerSearch = ({
               updateFunction={handlePlayersNeededSliderChange}
               labelText={(value) => `Ich suche: ${value} Mitspieler`}
             />
-          </div>
-          <div className="mt-4 w-full">
+
+            <div className="mt-4 block md:hidden">
+              <label className="mb-3 block font-medium">
+                Raumplan (Ort auswählen)
+              </label>
+              <LocationPicker
+                initialLocation={formData.location}
+                onLocationChange={(location) =>
+                  setFormData((prev) => ({ ...prev, location }))
+                }
+                isEditable={mode === 'view' ? false : true}
+                imageUrl={'/EG.png'}
+              />
+            </div>
+
+            <input
+              id="details"
+              name="details"
+              value={formData.details || ''}
+              onChange={handleChange}
+              disabled={mode === 'view'}
+              placeholder="Details (optional)"
+              className="mt-4 rounded-full border-2 px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
+            />
+
+            {mode !== 'view' && (
+              <button
+                type="submit"
+                disabled={!formData.location || isLoading || !formData.name}
+                className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
+                  !formData.location || isLoading || !formData.name
+                    ? 'cursor-not-allowed opacity-50'
+                    : ''
+                }`}
+              >
+                {isLoading
+                  ? 'Speichern...'
+                  : mode === 'create'
+                    ? 'Mitspielersuche erstellen!'
+                    : 'Änderungen speichern!'}
+              </button>
+            )}
+          </form>
+
+          <div className="mt-6 hidden w-full md:block">
             <label className="mb-3 block font-medium">
               Raumplan (Ort auswählen)
             </label>
@@ -188,34 +238,7 @@ const EditablePlayerSearch = ({
               imageUrl={'/EG.png'}
             />
           </div>
-          <textarea
-            id="details"
-            name="details"
-            value={formData.details || ''}
-            onChange={handleChange}
-            disabled={mode === 'view'}
-            placeholder="Details (optional)"
-            className="mt-4 max-w-80 rounded-xl border-2 px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary"
-          />
-
-          {mode !== 'view' && (
-            <button
-              type="submit"
-              disabled={!formData.location || isLoading || !formData.name}
-              className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
-                !formData.location || isLoading || !formData.name
-                  ? 'cursor-not-allowed opacity-50'
-                  : ''
-              }`}
-            >
-              {isLoading
-                ? 'Speichern...'
-                : mode === 'create'
-                  ? 'Mitspielersuche erstellen!'
-                  : 'Änderungen speichern!'}
-            </button>
-          )}
-        </form>
+        </div>
       </div>
     </div>
   );

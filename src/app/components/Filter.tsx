@@ -124,6 +124,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
 
       <div className="mt-12 flex flex-col">
         <CustomSlider
+          className="mt-4"
           value={loclFilterState.minPlayerCount}
           minValue={1}
           maxValue={10}
@@ -134,6 +135,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
         />
 
         <CustomSlider
+          className="mt-4"
           value={loclFilterState.minAge}
           minValue={5}
           maxValue={18}

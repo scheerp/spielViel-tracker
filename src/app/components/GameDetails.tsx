@@ -18,7 +18,7 @@ import { useSession } from 'next-auth/react';
 import { useModal } from '@context/ModalContext';
 import ExplainersList from './ExplainersList';
 import LightbulbIcon from '@icons/LightbulbIcon';
-import PlayerSearchList from './PlayerSearchList';
+import PlayerSearchTable from './PlayerSearchTable';
 
 interface GameDetailsProps {
   gameId: string;
@@ -113,6 +113,29 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
         ps.id === updatedPlayerSearch.id ? updatedPlayerSearch : ps,
       ),
     );
+  };
+
+  const handlePlayerSearchDelete = (deletedPlayerSearch: PlayerSearch) => {
+    setPlayerSearches((prevPlayerSearches) => {
+      const updatedSearches = prevPlayerSearches.filter(
+        (ps) => ps.id !== deletedPlayerSearch.id,
+      );
+
+      const storedTokens = JSON.parse(
+        localStorage.getItem('edit_tokens') || '[]',
+      );
+
+      if (deletedPlayerSearch.edit_token) {
+        const updatedTokens = storedTokens.filter(
+          (token: string | null) =>
+            token && token !== deletedPlayerSearch.edit_token,
+        );
+
+        localStorage.setItem('edit_tokens', JSON.stringify(updatedTokens));
+      }
+
+      return updatedSearches;
+    });
   };
 
   const handlePlayerSearchCreate = (newPlayerSearch: PlayerSearch) => {
@@ -211,11 +234,16 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
             <GameDescription game={game} />
           </div>
         </div>
-        <PlayerSearchList
+        <h3 className="m-4 self-start text-lg font-semibold md:m-8 md:mb-4">
+          Mitspieler Gesucht:
+        </h3>
+        <PlayerSearchTable
           playerSearches={playerSearches}
           game={game}
+          tableDescription="Hier findest du Leute die bereits nach Mitspielern suchen:"
           onUpdateSuccess={handlePlayerSearchUpdate}
           onCreateSuccess={handlePlayerSearchCreate}
+          onDeleteSuccess={handlePlayerSearchDelete}
         />
         <GameSimilarGames relatedGames={relatedGames} />
       </div>

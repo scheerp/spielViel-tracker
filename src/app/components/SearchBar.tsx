@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import SearcheIcon from '@icons/SearchIcon';
+import SearchIcon from '@icons/SearchIcon';
 import { useFilter } from '@context/FilterContext';
 import FilterIcon from '@icons/FilterIcon';
 import Drawer from './Drawer';
@@ -42,10 +42,7 @@ const SearchBar: React.FC = () => {
       <div className="fixed z-20 mb-4 flex h-20 w-full bg-background px-2 py-4 md:min-w-64">
         <div className="mr-2 flex flex-grow items-center rounded-full bg-white px-3">
           <div className="relative flex w-full items-center pr-3">
-            <SearcheIcon
-              tailwindColor="text-primary"
-              className="mr-2 h-5 w-5"
-            />
+            <SearchIcon tailwindColor="text-primary" className="mr-2 h-5 w-5" />
             <input
               type="text"
               placeholder="Nach Namen filtern..."
