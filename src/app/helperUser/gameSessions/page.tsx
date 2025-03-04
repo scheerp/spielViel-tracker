@@ -174,7 +174,7 @@ const Sessions: React.FC = () => {
       fetchSessions();
     } catch (err) {
       showNotification({
-        message: `Fehler beim Aktualisieren des Eintrags.`,
+        message: `Fehler beim Aktualisieren des Eintrags: ${err}`,
         type: 'error',
         duration: 1500,
       });

@@ -132,6 +132,7 @@ const EditablePlayerSearch = ({
       localStorage.setItem('edit_tokens', JSON.stringify(storedTokens));
     } catch (err) {
       const error = err as AppError;
+      setError(error.detail.message);
       showNotification({
         message: `Fehler: ${error.detail.message}`,
         type: 'error',
