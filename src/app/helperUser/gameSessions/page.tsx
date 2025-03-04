@@ -11,6 +11,7 @@ export type SessionEntry = {
   vorname: string;
   nachname: string;
   email: string;
+  handynummer: string | number;
   created_at: string;
 };
 
@@ -22,6 +23,7 @@ type NewSessionEntry = {
   vorname: string;
   nachname: string;
   email: string;
+  handynummer: string | number;
 };
 
 const Sessions: React.FC = () => {
@@ -92,9 +94,9 @@ const Sessions: React.FC = () => {
   };
 
   const addSession = async (sessionName: string, newEntry: NewSessionEntry) => {
-    if (!newEntry?.vorname || !newEntry?.nachname) {
+    if (!newEntry?.vorname) {
       showNotification({
-        message: 'Bitte alle Felder ausfüllen.',
+        message: 'Bitte Vorname angeben.',
         type: 'error',
         duration: 1500,
       });
@@ -113,6 +115,7 @@ const Sessions: React.FC = () => {
           vorname: newEntry.vorname,
           nachname: newEntry.nachname,
           email: newEntry.email,
+          handynummer: Number(newEntry.handynummer),
           session: sessionName,
         }),
       });

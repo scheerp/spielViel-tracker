@@ -161,7 +161,10 @@ const PlayerSearchTable = ({
               {displayGame && (
                 <th className="p-3 text-left font-semibold">Spiel</th>
               )}
-              <th className="p-3 text-left font-semibold">gesucht</th>
+              <th className="p-3 text-left font-semibold">Gesucht</th>
+              <th className="hidden p-3 text-left font-semibold md:block">
+                Details
+              </th>
               <th className="p-3 text-left font-semibold">Aktion</th>
             </tr>
           </thead>
@@ -179,7 +182,11 @@ const PlayerSearchTable = ({
                   </td>
                   {displayGame && <td className="p-3">{game.name}</td>}
                   <td className="p-3">{playerSearch.players_needed} Spieler</td>
-
+                  <td className="hidden p-3 align-middle md:table-cell">
+                    <span className="clamp-custom block break-words leading-tight">
+                      {playerSearch.details}
+                    </span>
+                  </td>
                   <td className="pt-3">
                     <button
                       onClick={() =>
@@ -262,6 +269,11 @@ const PlayerSearchTable = ({
                     {displayGame && <td className="p-3">{game.name}</td>}
                     <td className="p-3">
                       {playerSearch.players_needed} Spieler
+                    </td>
+                    <td className="hidden items-center p-3 md:flex">
+                      <span className="clamp-custom flex break-words leading-tight">
+                        {playerSearch.details}
+                      </span>
                     </td>
                   </tr>
                 );

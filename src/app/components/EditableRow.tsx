@@ -14,6 +14,7 @@ type EditableRowProps = {
     vorname: string;
     nachname: string;
     email: string;
+    handynummer: number | string;
     created_at: string;
   };
   deleteSession: (id: number) => void;
@@ -45,6 +46,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
     vorname: participant.vorname,
     nachname: participant.nachname,
     email: participant.email,
+    handynummer: participant.handynummer,
   });
 
   return (
@@ -54,7 +56,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
           <td className="p-3 pl-0">
             <input
               type="text"
-              className="mb-2 w-full rounded-full border p-2 pl-3 outline-none focus:ring-0"
+              className="mb-2 ml-1 mr-2 w-full rounded-full border p-2 pl-4 outline-none focus:ring-2 focus:ring-primary"
               value={editedEntry.vorname}
               onChange={(e) =>
                 setEditedEntry({ ...editedEntry, vorname: e.target.value })
@@ -62,7 +64,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
             />
             <input
               type="text"
-              className="w-full rounded-full border p-2 pl-3 outline-none focus:ring-0"
+              className="ml-1 mr-2 w-full rounded-full border p-2 pl-4 outline-none focus:ring-2 focus:ring-primary"
               value={editedEntry.nachname}
               onChange={(e) =>
                 setEditedEntry({ ...editedEntry, nachname: e.target.value })
@@ -72,10 +74,18 @@ const EditableRow: React.FC<EditableRowProps> = ({
           <td className="p-3 pl-0">
             <input
               type="email"
-              className="w-full rounded-full border p-2 pl-3 outline-none focus:ring-0"
+              className="mb-2 ml-1 mr-2 w-full rounded-full border p-2 pl-4 outline-none focus:ring-2 focus:ring-primary"
               value={editedEntry.email}
               onChange={(e) =>
                 setEditedEntry({ ...editedEntry, email: e.target.value })
+              }
+            />
+            <input
+              type="number"
+              className="ml-1 w-full rounded-full border p-2 pl-4 outline-none [appearance:textfield] focus:ring-2 focus:ring-primary [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              value={editedEntry.handynummer || ''}
+              onChange={(e) =>
+                setEditedEntry({ ...editedEntry, handynummer: e.target.value })
               }
             />
           </td>
@@ -86,6 +96,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
                   vorname: participant.vorname,
                   nachname: participant.nachname,
                   email: participant.email,
+                  handynummer: participant.handynummer,
                 });
                 setIsEditing(false);
               }}
@@ -113,7 +124,10 @@ const EditableRow: React.FC<EditableRowProps> = ({
             {participant.vorname}
             <span className="block md:hidden"></span> {participant.nachname}
           </td>
-          <td className="truncate p-3">{participant.email}</td>
+          <td className="truncate p-3">
+            {participant.email}
+            <br /> {participant.handynummer}
+          </td>
           <td className="pt-3">
             <button
               onClick={() => setIsEditing(true)}
