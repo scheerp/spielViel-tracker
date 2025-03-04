@@ -58,6 +58,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
           <td className="p-3 pl-0">
             <input
               type="text"
+              placeholder="Vorname"
               className="mb-2 ml-1 mr-2 w-full rounded-full border p-2 pl-4 outline-none focus:ring-2 focus:ring-primary"
               value={editedEntry.vorname}
               onChange={(e) =>
@@ -66,6 +67,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
             />
             <input
               type="text"
+              placeholder="Nachname"
               className="ml-1 mr-2 w-full rounded-full border p-2 pl-4 outline-none focus:ring-2 focus:ring-primary"
               value={editedEntry.nachname}
               onChange={(e) =>
@@ -76,6 +78,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
           <td className="p-3 pl-0">
             <input
               type="email"
+              placeholder="E-Mail"
               className="mb-2 ml-1 mr-2 w-full rounded-full border p-2 pl-4 outline-none focus:ring-2 focus:ring-primary"
               value={editedEntry.email}
               onChange={(e) =>
@@ -84,6 +87,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
             />
             <input
               type="number"
+              placeholder="Handynummer"
               className="ml-1 w-full rounded-full border p-2 pl-4 outline-none [appearance:textfield] focus:ring-2 focus:ring-primary [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               value={editedEntry.handynummer || ''}
               onChange={(e) =>
