@@ -107,7 +107,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
                     }
                   />
                   <input
-                    type="handynummer"
+                    type="number"
                     placeholder="Handynummer"
                     className="ml-1 w-full rounded-full border p-2 pl-4 outline-none [appearance:textfield] focus:ring-2 focus:ring-primary [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                     value={newEntry.handynummer}
