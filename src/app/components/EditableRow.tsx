@@ -7,6 +7,7 @@ import SaveIcon from '@icons/SaveIcon';
 import EditIcon from '@icons/EditIcon';
 import { useModal } from '@context/ModalContext';
 import Loading from './Loading';
+import { NewSessionEntry, SessionEntry } from '../helperUser/gameSessions/page';
 
 type EditableRowProps = {
   participant: {
@@ -14,13 +15,14 @@ type EditableRowProps = {
     vorname: string;
     nachname: string;
     email: string;
-    handynummer: number | string;
+    handynummer: string;
     created_at: string;
   };
   deleteSession: (id: number) => void;
   updateSession: (
     id: number,
-    updatedEntry: { vorname: string; nachname: string; email: string },
+    updatedEntry: NewSessionEntry,
+    originalEntry: SessionEntry,
   ) => void;
 };
 
@@ -107,7 +109,7 @@ const EditableRow: React.FC<EditableRowProps> = ({
 
             <button
               onClick={() => {
-                updateSession(participant.id, editedEntry);
+                updateSession(participant.id, editedEntry, participant);
               }}
               className="rounded-xl bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"
             >
@@ -125,8 +127,8 @@ const EditableRow: React.FC<EditableRowProps> = ({
             <span className="block md:hidden"></span> {participant.nachname}
           </td>
           <td className="truncate p-3">
-            {participant.email}
-            <br /> {participant.handynummer}
+            {participant.email && participant.email}
+            {participant.handynummer && <p>{participant.handynummer}</p>}
           </td>
           <td className="pt-3">
             <button

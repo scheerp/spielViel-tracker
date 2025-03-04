@@ -1,7 +1,7 @@
 'use client';
 
 import AddIcon from '@icons/AddIcon';
-import { SessionEntry } from '../helperUser/gameSessions/page';
+import { NewSessionEntry, SessionEntry } from '../helperUser/gameSessions/page';
 import { useState } from 'react';
 import EditableRow from './EditableRow';
 import CloseIcon from '@icons/CancelIcon';
@@ -13,17 +13,10 @@ type SessionTableProps = {
   deleteSession: (id: number) => void;
   updateSession: (
     id: number,
-    updatedEntry: { vorname: string; nachname: string; email: string },
+    updatedEntry: NewSessionEntry,
+    originalEntry: SessionEntry,
   ) => void;
-  addSession: (
-    sessionName: string,
-    newEntry: {
-      vorname: string;
-      nachname: string;
-      email: string;
-      handynummer: string | number;
-    },
-  ) => void;
+  addSession: (sessionName: string, newEntry: NewSessionEntry) => void;
 };
 
 const SessionTable: React.FC<SessionTableProps> = ({
@@ -34,12 +27,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
   updateSession,
 }) => {
   const [displayNewEntry, setDisplayNewEntry] = useState<boolean>(false);
-  const [newEntry, setNewEntry] = useState<{
-    vorname: string;
-    nachname: string;
-    email: string;
-    handynummer: number | string;
-  }>({
+  const [newEntry, setNewEntry] = useState<NewSessionEntry>({
     vorname: '',
     nachname: '',
     email: '',

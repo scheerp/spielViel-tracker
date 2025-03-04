@@ -11,7 +11,7 @@ export type SessionEntry = {
   vorname: string;
   nachname: string;
   email: string;
-  handynummer: string | number;
+  handynummer: string;
   created_at: string;
 };
 
@@ -19,11 +19,11 @@ type SessionsResponse = {
   [sessionName: string]: SessionEntry[];
 };
 
-type NewSessionEntry = {
+export type NewSessionEntry = {
   vorname: string;
   nachname: string;
   email: string;
-  handynummer: string | number;
+  handynummer: string;
 };
 
 const Sessions: React.FC = () => {
@@ -115,7 +115,7 @@ const Sessions: React.FC = () => {
           vorname: newEntry.vorname,
           nachname: newEntry.nachname,
           email: newEntry.email,
-          handynummer: Number(newEntry.handynummer),
+          handynummer: newEntry.handynummer,
           session: sessionName,
         }),
       });
@@ -134,16 +134,12 @@ const Sessions: React.FC = () => {
 
   const updateSession = async (
     id: number,
-    updatedEntry: { vorname: string; nachname: string; email: string },
+    updatedEntry: NewSessionEntry,
+    originalEntry: SessionEntry,
   ) => {
-    if (
-      !id ||
-      !updatedEntry.vorname ||
-      !updatedEntry.nachname ||
-      !updatedEntry.email
-    ) {
+    if (!id || !updatedEntry.vorname || !updatedEntry.nachname) {
       showNotification({
-        message: 'Bitte alle Felder ausfüllen.',
+        message: 'Bitte Vor- und Nachnamen ausfüllen.',
         type: 'error',
         duration: 1500,
       });
@@ -158,7 +154,12 @@ const Sessions: React.FC = () => {
           apikey: API_KEY!,
           Authorization: `Bearer ${API_KEY}`,
         },
-        body: JSON.stringify({ ...updatedEntry, id }),
+        body: JSON.stringify({
+          ...updatedEntry,
+          id,
+          email: updatedEntry.email || originalEntry.email,
+          handynummer: updatedEntry.handynummer || originalEntry.handynummer,
+        }),
       });
 
       if (!response.ok)
@@ -172,7 +173,6 @@ const Sessions: React.FC = () => {
 
       fetchSessions();
     } catch (err) {
-      console.error('Fehler beim Aktualisieren:', err);
       showNotification({
         message: `Fehler beim Aktualisieren des Eintrags.`,
         type: 'error',
