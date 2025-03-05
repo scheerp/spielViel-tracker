@@ -1,14 +1,25 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import SearchIcon from '@icons/SearchIcon';
 import { useFilter } from '@context/FilterContext';
 import FilterIcon from '@icons/FilterIcon';
 import Drawer from './Drawer';
 import Filter from './Filter';
+import LightbulbIcon from '@icons/LightbulbIcon';
+import { useSession } from 'next-auth/react';
 
-const SearchBar: React.FC = () => {
+type SearchBarType = {
+  editFamiliarity: boolean;
+  setEditFamiliarity: Dispatch<SetStateAction<boolean>>;
+};
+
+const SearchBar: React.FC<SearchBarType> = ({
+  editFamiliarity,
+  setEditFamiliarity,
+}) => {
   const { filter, isFilterActive, setFilter } = useFilter();
+  const { data: session } = useSession();
   const [searchTerm, setSearchTerm] = useState<string>(filter.filterText);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
 
@@ -61,8 +72,19 @@ const SearchBar: React.FC = () => {
             )}
           </div>
         </div>
+        {session && (
+          <button
+            className={`mr-2 flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300 ${editFamiliarity ? 'bg-primary' : 'bg-white'}`}
+            onClick={() => setEditFamiliarity(!editFamiliarity)}
+          >
+            <LightbulbIcon
+              tailwindColor={`${editFamiliarity ? 'text-white' : 'text-primary'}`}
+              className="h-7 w-7"
+            />
+          </button>
+        )}
         <button
-          className={`flex h-12 w-12 items-center justify-center rounded-full ${isFilterActive ? 'bg-primary' : 'bg-white'}`}
+          className={`flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 ${isFilterActive ? 'bg-primary' : 'bg-white'}`}
           onClick={toggleDrawer}
         >
           <FilterIcon

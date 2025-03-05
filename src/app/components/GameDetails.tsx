@@ -168,16 +168,6 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
           </div>
         </button>
         <div className="flex items-center gap-2">
-          <a
-            href={`https://boardgamegeek.com/boardgame/${game.bgg_id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-full text-primary"
-          >
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
-              <BGGIcon tailwindColor="text-primary" className="h-6 w-6" />
-            </div>
-          </a>
           {session && session.user?.role !== 'user' && (
             <button
               onClick={() =>
@@ -198,6 +188,16 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
               </div>
             </button>
           )}
+          <a
+            href={`https://boardgamegeek.com/boardgame/${game.bgg_id}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-2 rounded-full text-primary"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+              <BGGIcon tailwindColor="text-primary" className="h-6 w-6" />
+            </div>
+          </a>
         </div>
       </div>
       <div className="container mx-auto">

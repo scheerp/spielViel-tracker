@@ -176,14 +176,14 @@ const PlayerSearchTable = ({
                   className={`border-t border-gray-200 hover:bg-gray-50 ${playerSearch.can_edit && 'font-semibold'}`}
                 >
                   <td className="p-3">
-                    <span className="clamp-custom flex items-center break-words leading-tight">
+                    <span className="clamp-custom-2 flex items-center break-words leading-tight">
                       {playerSearch.name}
                     </span>
                   </td>
                   {displayGame && <td className="p-3">{game.name}</td>}
                   <td className="p-3">{playerSearch.players_needed} Spieler</td>
                   <td className="hidden p-3 align-middle md:table-cell">
-                    <span className="clamp-custom block break-words leading-tight">
+                    <span className="clamp-custom-2 block break-words leading-tight">
                       {playerSearch.details}
                     </span>
                   </td>
@@ -262,7 +262,7 @@ const PlayerSearchTable = ({
                     className={`border-t border-gray-200 text-gray-400 hover:bg-gray-50 ${playerSearch.can_edit && 'font-semibold'}`}
                   >
                     <td className="flex items-center p-3">
-                      <span className="clamp-custom align-center break-words leading-tight">
+                      <span className="clamp-custom-2 align-center break-words leading-tight">
                         {playerSearch.name}
                       </span>
                     </td>
@@ -271,7 +271,7 @@ const PlayerSearchTable = ({
                       {playerSearch.players_needed} Spieler
                     </td>
                     <td className="hidden items-center p-3 md:flex">
-                      <span className="clamp-custom flex break-words leading-tight">
+                      <span className="clamp-custom-2 flex break-words leading-tight">
                         {playerSearch.details}
                       </span>
                     </td>

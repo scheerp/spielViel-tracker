@@ -31,6 +31,7 @@ const Games: React.FC = () => {
   const { showNotification } = useNotification();
   const observer = useRef<IntersectionObserver | null>(null);
   const [noGames, setNoGames] = useState<boolean>(false);
+  const [editFamiliarity, setEditFamiliarity] = useState<boolean>(false);
 
   const fetchGames = async (newOffset: number, reset: boolean = false) => {
     if (loading) {
@@ -167,7 +168,10 @@ const Games: React.FC = () => {
 
   return (
     <div className="mb-16 flex flex-col items-center">
-      <SearchBar />
+      <SearchBar
+        editFamiliarity={editFamiliarity}
+        setEditFamiliarity={setEditFamiliarity}
+      />
       <div className="container mx-auto mt-20 flex flex-col gap-8 px-2 lg:flex-row lg:px-8">
         <div className="flex-grow">
           {noGames && !loading && (
@@ -182,10 +186,21 @@ const Games: React.FC = () => {
               {games.map((game, index) => {
                 if (index === games.length - 1) {
                   return (
-                    <GameListItem ref={lastGameRef} key={game.id} game={game} />
+                    <GameListItem
+                      ref={lastGameRef}
+                      key={game.id}
+                      editFamiliarity={editFamiliarity}
+                      game={game}
+                    />
                   );
                 }
-                return <GameListItem key={game.id} game={game} />;
+                return (
+                  <GameListItem
+                    key={game.id}
+                    editFamiliarity={editFamiliarity}
+                    game={game}
+                  />
+                );
               })}
             </ul>
           )}

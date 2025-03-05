@@ -13,9 +13,13 @@ import useUpdateGame from '@hooks/useUpdateGame';
 
 type ExplainersProps = {
   game: Game;
+  displaySlider?: boolean;
 };
 
-const ExplainersList: React.FC<ExplainersProps> = ({ game }) => {
+const ExplainersList: React.FC<ExplainersProps> = ({
+  game,
+  displaySlider = true,
+}) => {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
   const { updateGame } = useUpdateGame();
@@ -93,7 +97,7 @@ const ExplainersList: React.FC<ExplainersProps> = ({ game }) => {
                   <div className="mb-2 flex items-center gap-2">
                     <FamiliarityPill
                       familiarity={group.familiarity}
-                      className="w-28"
+                      className="mt-2 w-36 py-1 text-lg font-semibold"
                     />
                     :
                   </div>
@@ -129,9 +133,13 @@ const ExplainersList: React.FC<ExplainersProps> = ({ game }) => {
             )}
           </div>
         </div>
-        {session?.user?.username !== 'admin' &&
+        {displaySlider &&
+          session?.user?.username !== 'admin' &&
           session?.user?.username !== 'helper' && (
-            <form onSubmit={(event) => event.preventDefault()} className="mt-4">
+            <form
+              onSubmit={(event) => event.preventDefault()}
+              className="mt-4 min-w-72 self-center sm:w-80"
+            >
               <CustomSlider
                 className="mt-4"
                 value={currentFamiliarity}
@@ -139,13 +147,13 @@ const ExplainersList: React.FC<ExplainersProps> = ({ game }) => {
                   <div className="mb-4">
                     Mein Erklärerstatus:{' '}
                     <FamiliarityPill
-                      className="mt-2 py-1"
+                      className="mt-2 py-1 text-lg font-semibold"
                       familiarity={value}
                     />
                   </div>
                 )}
                 minValue={0}
-                maxValue={3}
+                maxValue={2}
                 updateFunction={updateFamiliarity}
               />
             </form>

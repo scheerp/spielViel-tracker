@@ -16,7 +16,7 @@ const LightbulbIcon = ({
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 362.027 362.027"
       stroke="currentColor"
-      strokeWidth="7.24054"
+      strokeWidth="16"
     >
       <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
       <g

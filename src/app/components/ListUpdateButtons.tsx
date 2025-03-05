@@ -34,7 +34,7 @@ const ListUpdateButtons = ({ game }: ListUpdateButtonsProps) => {
       );
     }
     return (
-      <div className="z-10 flex flex-col gap-1 md:gap-3">
+      <div className="z-[9] flex flex-col gap-1 md:gap-3">
         <GameUpdateButton game={game} operation={'borrow'} buttonType="list" />
         <GameUpdateButton game={game} operation={'return'} buttonType="list" />
       </div>

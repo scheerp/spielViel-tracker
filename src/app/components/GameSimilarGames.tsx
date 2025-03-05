@@ -40,7 +40,7 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
                 />
               </div>
               <div className="ml-3 flex h-[7.5rem] flex-col justify-between md:mx-4 md:h-36">
-                <h2 className="clamp-custom mb-1 text-xl/6 md:text-lg lg:text-xl">
+                <h2 className="clamp-custom-2 mb-1 text-xl/6 md:text-lg lg:text-xl">
                   {relatedGame.name}
                 </h2>
                 <div>
