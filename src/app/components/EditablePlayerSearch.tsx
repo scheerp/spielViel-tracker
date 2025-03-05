@@ -146,9 +146,7 @@ const EditablePlayerSearch = ({
   return (
     <div className="flex justify-center">
       <div className="mt-6 flex w-full flex-col md:flex-row md:items-start md:gap-8">
-        {/* Hauptbereich mit Formular und LocationPicker */}
-        <div className="flex w-full flex-col md:flex-row md:gap-8">
-          {/* Formular links */}
+        <div className="flex w-full flex-col md:flex-row-reverse md:gap-8">
           <form
             onSubmit={handleSubmit}
             className="flex w-full flex-col md:w-1/2"
@@ -159,7 +157,6 @@ const EditablePlayerSearch = ({
               {mode === 'view' && 'Mitspielersuche'}
             </h2>
 
-            {/* Name Eingabefeld */}
             <input
               type="text"
               id="name"
@@ -172,7 +169,6 @@ const EditablePlayerSearch = ({
               className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
             />
 
-            {/* Slider für Mitspieleranzahl */}
             <CustomSlider
               className="mt-4 md:mb-4"
               value={formData.players_needed || 1}
@@ -193,7 +189,7 @@ const EditablePlayerSearch = ({
                   setFormData((prev) => ({ ...prev, location }))
                 }
                 isEditable={mode === 'view' ? false : true}
-                imageUrl={'/EG.png'}
+                imageUrl={'/floorplan.png'}
               />
             </div>
 
@@ -236,7 +232,7 @@ const EditablePlayerSearch = ({
                 setFormData((prev) => ({ ...prev, location }))
               }
               isEditable={mode === 'view' ? false : true}
-              imageUrl={'/EG.png'}
+              imageUrl={'/floorplan.png'}
             />
           </div>
         </div>

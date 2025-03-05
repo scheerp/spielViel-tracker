@@ -142,7 +142,7 @@ const ImportButton = () => {
     <>
       <div className="flex max-w-72 flex-col items-center overflow-hidden rounded-xl bg-white p-5 shadow-md md:gap-2">
         <p className="mb-2 text-center text-sm text-gray-500">
-          Hinweis: Der Vorgeng kann einige Sekunden dauern, und holt nicht alle
+          Hinweis: Der Vorgang kann einige Sekunden dauern, und holt nicht alle
           Details der neuen Spiele!
         </p>
 
@@ -155,7 +155,7 @@ const ImportButton = () => {
               Import starten?
               <br />
               <b>
-                Hinweis: Der Vorgeng kann einige Sekunden dauern, und holt nicht
+                Hinweis: Der Vorgang kann einige Sekunden dauern, und holt nicht
                 alle Details der neuen Spiele!
               </b>
             </p>
@@ -167,7 +167,7 @@ const ImportButton = () => {
       {session?.user?.role === 'admin' && (
         <div className="flex max-w-72 flex-col items-center overflow-hidden rounded-xl bg-white p-5 shadow-md md:gap-2">
           <p className="mb-2 text-center text-sm text-gray-500">
-            Hinweis: Der Vorgeng kann einige Minuten dauern!
+            Hinweis: Der Vorgang kann einige Minuten dauern!
           </p>
           <LoadingModalButton
             loading={modalLoading}
@@ -177,7 +177,7 @@ const ImportButton = () => {
               <p className="mt-10">
                 Import starten?
                 <br />
-                <b>Hinweis: Der Vorgeng kann einige Minuten dauern!</b>
+                <b>Hinweis: Der Vorgang kann einige Minuten dauern!</b>
               </p>
             }
             modalButtonText="Abfahrt!"

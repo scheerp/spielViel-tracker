@@ -78,7 +78,7 @@ const LocationPicker: React.FC<RoomPlanPickerProps> = ({
           className="absolute -translate-x-1/2 -translate-y-1/2"
           style={{ top: `${marker.y}%`, left: `${marker.x}%` }}
         >
-          <LocationIcon className="h-8 w-8 text-primary" />
+          <LocationIcon className="h-6 w-6 text-primary md:h-8 md:w-8" />
         </div>
       )}
     </div>

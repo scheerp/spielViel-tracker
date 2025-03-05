@@ -2,6 +2,7 @@
 
 import ChangePassword from '@components/ChangePassword';
 import ImportButton from '@components/ImportButton';
+import ResetUserPassword from '@components/ResetUserPassword';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
@@ -33,6 +34,7 @@ const HelperPage = () => {
         </Link>
         <ImportButton />
         <ChangePassword />
+        {session?.user?.role === 'admin' && <ResetUserPassword />}
         <button
           onClick={() =>
             signOut({
