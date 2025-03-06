@@ -133,7 +133,7 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative mx-auto w-full max-w-4xl touch-none bg-gray-200"
+      className="relative mx-auto w-full max-w-4xl touch-none select-none bg-gray-200"
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
       onPointerDown={(e) => {
@@ -195,7 +195,7 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
           width: `${MAGNIFIER_WIDTH}px`,
           height: `${MAGNIFIER_HEIGHT}px`,
         }}
-        className="pointer-events-none absolute z-50 overflow-hidden"
+        className="pointer-events-none absolute z-50 select-none overflow-hidden"
       >
         {/* Marker innerhalb der Lupe – hier wird der Offset anhand des Breakpoints und Zooms gesetzt */}
         {markerInMagnifier && (
