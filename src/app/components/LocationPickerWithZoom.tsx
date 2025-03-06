@@ -55,9 +55,9 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
   const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches;
   const currentZoom = isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL;
 
-  const MAGNIFIER_WIDTH = isDesktop ? 400 : 250;
-  const MAGNIFIER_HEIGHT = isDesktop ? 300 : 200;
-  const MAGNIFIER_OFFSET_TOP = !isTouchDevice() ? 0 : MAGNIFIER_HEIGHT / 2 - 20;
+  const MAGNIFIER_WIDTH = isDesktop ? 500 : 300;
+  const MAGNIFIER_HEIGHT = isDesktop ? 400 : 200;
+  const MAGNIFIER_OFFSET_TOP = !isTouchDevice() ? 0 : MAGNIFIER_HEIGHT / 2;
 
   const updateMarkerOffsetX = (e: React.PointerEvent) => {
     const container = containerRef.current;
@@ -68,36 +68,12 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
     const relativeCursorPositionX = e.clientX - rect.left;
     const containerWidth = rect.width;
 
-    // Berechne den Ziel-Offset basierend auf den Schwellen
-    let targetOffset = 0;
-    const threshold = 5; // Toleranzbereich in Pixeln
+    // Berechne den Ziel-Offset permanent basierend auf der Cursor-Position
+    // Die Lupe bewegt sich immer entgegengesetzt zur Mausbewegung
+    const targetOffset = (relativeCursorPositionX - containerWidth / 2) / 2;
 
-    if (relativeCursorPositionX > containerWidth * 0.66 + threshold) {
-      targetOffset = MAGNIFIER_WIDTH / 2;
-    } else if (relativeCursorPositionX < containerWidth * 0.33 - threshold) {
-      targetOffset = -MAGNIFIER_WIDTH / 2;
-    } else if (
-      relativeCursorPositionX > containerWidth * 0.33 + threshold &&
-      relativeCursorPositionX < containerWidth * 0.66 - threshold
-    ) {
-      targetOffset = 0;
-    }
-
-    if (!isDragging) {
-      setMagnifierXOffset(targetOffset); // Sofortige Position beim ersten Klick
-    } else {
-      // Sanfte Interpolation für das Verschieben
-      const smoothOffset = (current: number, target: number) => {
-        return current + (target - current) * 0.05; // Geschwindigkeit der Anpassung
-      };
-
-      // Verwende requestAnimationFrame für flüssige Animation
-      requestAnimationFrame(() => {
-        setMagnifierXOffset((prevOffset) =>
-          smoothOffset(prevOffset, targetOffset),
-        );
-      });
-    }
+    // Setze den neuen Offset ohne Interpolation für sofortige Reaktion
+    setMagnifierXOffset(targetOffset);
   };
 
   const handleDragLeave = (e: React.PointerEvent) => {
