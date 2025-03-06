@@ -3,7 +3,6 @@
 import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import LocationIcon from '@icons/LocationIcon';
-
 // TODO: Fix this component
 
 // Konstanten für das Zoomfenster
