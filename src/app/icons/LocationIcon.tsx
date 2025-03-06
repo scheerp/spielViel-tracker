@@ -1,12 +1,15 @@
 const LocationIcon = ({
   tailwindColor,
   className,
+  style,
 }: {
   tailwindColor?: string;
   className?: string;
+  style?: React.CSSProperties;
 }) => {
   return (
     <svg
+      style={style}
       className={`h-10 w-10 ${tailwindColor} relative ${className}`}
       fill="currentColor"
       version="1.1"

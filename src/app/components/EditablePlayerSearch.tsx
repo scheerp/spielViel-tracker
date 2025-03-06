@@ -2,12 +2,12 @@
 
 import { Game, PlayerSearch } from '@context/GamesContext';
 import { useState } from 'react';
-import LocationPicker from './LocationPicker';
 import { useNotification } from '@context/NotificationContext';
 import Image from 'next/image';
 import { useModal } from '@context/ModalContext';
 import { AppError } from '../types/ApiError';
 import CustomSlider from './CustomSlider';
+import LocationPickerWithZoom from './LocationPickerWithZoom';
 
 type EditablePlayerSearchType = {
   game: Game;
@@ -145,13 +145,13 @@ const EditablePlayerSearch = ({
 
   return (
     <div className="flex justify-center">
-      <div className="mt-6 flex w-full flex-col md:flex-row md:items-start md:gap-8">
-        <div className="flex w-full flex-col md:flex-row-reverse md:gap-8">
+      <div className="mt-6 flex w-full flex-col lg:flex-row lg:items-start lg:gap-8">
+        <div className="flex w-full flex-col lg:flex-row-reverse lg:gap-8">
           <form
             onSubmit={handleSubmit}
-            className="flex w-full flex-col md:w-1/2"
+            className="flex w-full flex-col lg:w-1/2"
           >
-            <h2 className="mb-4 self-start text-xl font-semibold md:mb-4 md:mt-4">
+            <h2 className="mb-4 self-start text-xl font-semibold lg:mb-4 lg:mt-4">
               {mode === 'create' && 'Neue Mitspielersuche erstellen'}
               {mode === 'edit' && 'Mitspielersuche bearbeiten'}
               {mode === 'view' && 'Mitspielersuche'}
@@ -166,11 +166,11 @@ const EditablePlayerSearch = ({
               disabled={mode === 'view'}
               required
               placeholder="Name"
-              className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
+              className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary lg:mb-4"
             />
 
             <CustomSlider
-              className="mt-4 md:mb-4"
+              className="mt-4 lg:mb-4"
               value={formData.players_needed || 1}
               minValue={1}
               disabled={mode === 'view'}
@@ -179,11 +179,11 @@ const EditablePlayerSearch = ({
               labelText={(value) => `Ich suche: ${value} Mitspieler`}
             />
 
-            <div className="mt-4 block md:hidden">
+            <div className="mt-4 block lg:hidden">
               <label className="mb-3 block font-medium">
                 Raumplan (Ort auswählen)
               </label>
-              <LocationPicker
+              <LocationPickerWithZoom
                 initialLocation={formData.location}
                 onLocationChange={(location) =>
                   setFormData((prev) => ({ ...prev, location }))
@@ -200,7 +200,7 @@ const EditablePlayerSearch = ({
               onChange={handleChange}
               disabled={mode === 'view'}
               placeholder="Details (optional)"
-              className="mt-4 rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
+              className="mt-4 rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary lg:mb-4"
             />
 
             {mode !== 'view' && (
@@ -222,11 +222,11 @@ const EditablePlayerSearch = ({
             )}
           </form>
 
-          <div className="mt-6 hidden w-full md:block">
+          <div className="mt-6 hidden w-full lg:block">
             <label className="mb-3 block font-medium">
               Raumplan (Ort auswählen)
             </label>
-            <LocationPicker
+            <LocationPickerWithZoom
               initialLocation={formData.location}
               onLocationChange={(location) =>
                 setFormData((prev) => ({ ...prev, location }))
