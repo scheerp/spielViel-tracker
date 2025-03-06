@@ -157,7 +157,7 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
           src={imageUrl}
           alt="Raumplan"
           fill
-          className="object-contain"
+          className="pointer-events-none select-none object-contain"
           onLoadingComplete={({ naturalWidth, naturalHeight }) =>
             setAspectRatio(naturalWidth / naturalHeight)
           }
