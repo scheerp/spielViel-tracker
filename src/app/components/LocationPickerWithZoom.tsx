@@ -1,11 +1,9 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import LocationIcon from '@icons/LocationIcon';
 
-const MAGNIFIER_WIDTH = 500;
-const MAGNIFIER_HEIGHT = 300;
 const MOBILE_ZOOM_LEVEL = 5;
 const DESKTOP_ZOOM_LEVEL = 2.5;
 
@@ -51,9 +49,78 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
     mouseY: 0,
   });
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
+  const [magnifierXOffset, setMagnifierXOffset] = useState(0);
 
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const isDesktop = useMediaQuery('(min-width: 1024px)');
+  const isTouchDevice = () => window.matchMedia('(pointer: coarse)').matches;
   const currentZoom = isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL;
+
+  const MAGNIFIER_WIDTH = isDesktop ? 400 : 250;
+  const MAGNIFIER_HEIGHT = isDesktop ? 300 : 200;
+  const MAGNIFIER_OFFSET_TOP = !isTouchDevice() ? 0 : MAGNIFIER_HEIGHT / 2 - 20;
+
+  const updateMarkerOffsetX = (e: React.PointerEvent) => {
+    const container = containerRef.current;
+    if (!container) return;
+    if (!isTouchDevice()) return;
+
+    const rect = container.getBoundingClientRect();
+    const relativeCursorPositionX = e.clientX - rect.left;
+    const containerWidth = rect.width;
+
+    // Berechne den Ziel-Offset basierend auf den Schwellen
+    let targetOffset = 0;
+    const threshold = 5; // Toleranzbereich in Pixeln
+
+    if (relativeCursorPositionX > containerWidth * 0.66 + threshold) {
+      targetOffset = MAGNIFIER_WIDTH / 2;
+    } else if (relativeCursorPositionX < containerWidth * 0.33 - threshold) {
+      targetOffset = -MAGNIFIER_WIDTH / 2;
+    } else if (
+      relativeCursorPositionX > containerWidth * 0.33 + threshold &&
+      relativeCursorPositionX < containerWidth * 0.66 - threshold
+    ) {
+      targetOffset = 0;
+    }
+
+    if (!isDragging) {
+      setMagnifierXOffset(targetOffset); // Sofortige Position beim ersten Klick
+    } else {
+      // Sanfte Interpolation für das Verschieben
+      const smoothOffset = (current: number, target: number) => {
+        return current + (target - current) * 0.05; // Geschwindigkeit der Anpassung
+      };
+
+      // Verwende requestAnimationFrame für flüssige Animation
+      requestAnimationFrame(() => {
+        setMagnifierXOffset((prevOffset) =>
+          smoothOffset(prevOffset, targetOffset),
+        );
+      });
+    }
+  };
+
+  const handleDragLeave = (e: React.PointerEvent) => {
+    const container = containerRef.current;
+    if (!container) return;
+    if (!isTouchDevice()) return;
+    const rect = container.getBoundingClientRect();
+    const relativeCursorPositionX = e.clientX - rect.left;
+    const relativeCursorPositionY = e.clientY - rect.top;
+    const containerWidth = rect.width;
+    const containerHeight = rect.height;
+
+    if (
+      relativeCursorPositionX > containerWidth + 15 ||
+      relativeCursorPositionX < -15 ||
+      relativeCursorPositionY > containerHeight + 20 ||
+      relativeCursorPositionY < 0 - 20
+    ) {
+      setMagnifierVisible(false);
+    } else {
+      setMagnifierVisible(true);
+    }
+  };
 
   const baseMarkerSize = isDesktop ? 32 : 24; // in Pixel
   const magnifierMarkerSize = isDesktop ? 96 : 48;
@@ -140,11 +207,16 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
         setIsDragging(true);
         if (isEditable) updateMarkerPosition(e);
         updateMagnifierPosition(e);
+        updateMarkerOffsetX(e);
       }}
       onPointerMove={(e) => {
         updateMagnifierPosition(e);
         if (isDragging && isEditable) {
           updateMarkerPosition(e);
+        }
+        if (isDragging) {
+          updateMarkerOffsetX(e);
+          handleDragLeave(e);
         }
       }}
       onPointerUp={() => setIsDragging(false)}
@@ -190,32 +262,32 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
           backgroundSize: `${imageSize.width * currentZoom}px ${imageSize.height * currentZoom}px`,
           backgroundRepeat: 'no-repeat',
           display: magnifierVisible ? 'block' : 'none',
-          top: `${magnifierPosition.mouseY}px`,
-          left: `${magnifierPosition.mouseX}px`,
+          top: `${magnifierPosition.mouseY - MAGNIFIER_OFFSET_TOP}px`,
+          left: `${magnifierPosition.mouseX - magnifierXOffset}px`,
           width: `${MAGNIFIER_WIDTH}px`,
           height: `${MAGNIFIER_HEIGHT}px`,
         }}
-        className="pointer-events-none absolute z-50 select-none overflow-hidden"
+        className="pointer-events-none absolute z-50 select-none overflow-hidden rounded-lg border-2 border-primary bg-gray-500 bg-opacity-50"
       >
         {/* Marker innerhalb der Lupe – hier wird der Offset anhand des Breakpoints und Zooms gesetzt */}
         {markerInMagnifier && (
           <div
             className="absolute"
             style={{
-              left: `${markerInMagnifier.x - magnifierMarkerHalf * ((isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL) / 2)}px`,
-              top: `${markerInMagnifier.y - magnifierMarkerHalf * ((isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL) / 2)}px`,
+              left: `${markerInMagnifier.x - (magnifierMarkerHalf * (isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL)) / 4}px`,
+              top: `${markerInMagnifier.y - (magnifierMarkerHalf * (isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL)) / 4}px`,
             }}
           >
             <LocationIcon
               style={{
                 width:
                   magnifierMarkerSize *
-                  ((isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL) / 2),
+                  ((isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL) / 4),
                 height:
                   magnifierMarkerSize *
-                  ((isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL) / 2),
+                  ((isDesktop ? DESKTOP_ZOOM_LEVEL : MOBILE_ZOOM_LEVEL) / 4),
               }}
-              className="text-primary"
+              className="pointer-events-none select-none text-primary"
             />
           </div>
         )}
