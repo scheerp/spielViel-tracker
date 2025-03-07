@@ -59,6 +59,20 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
   const MAGNIFIER_HEIGHT = isDesktop ? 400 : 200;
   const MAGNIFIER_OFFSET_TOP = !isTouchDevice() ? 0 : MAGNIFIER_HEIGHT / 2;
 
+  const unfocusInputs = () => {
+    const inputs = document.querySelectorAll<
+      HTMLInputElement | HTMLTextAreaElement
+    >('#name, #details');
+
+    console.log('tap start');
+
+    inputs.forEach((input) => {
+      if (document.activeElement === input) {
+        input.blur();
+      }
+    });
+  };
+
   const updateMarkerOffsetX = (e: React.PointerEvent) => {
     const container = containerRef.current;
     if (!container) return;
@@ -180,6 +194,7 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
       onPointerEnter={handlePointerEnter}
       onPointerLeave={handlePointerLeave}
       onPointerDown={(e) => {
+        unfocusInputs();
         setIsDragging(true);
         if (isEditable) updateMarkerPosition(e);
         updateMagnifierPosition(e);

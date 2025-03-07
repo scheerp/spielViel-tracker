@@ -226,13 +226,7 @@ const EditablePlayerSearch = ({
             <label className="mb-3 block font-medium">
               Raumplan (Ort auswählen)
             </label>
-            <div
-              onTouchStart={() => {
-                if (document.activeElement instanceof HTMLElement) {
-                  document.activeElement.blur();
-                }
-              }}
-            >
+            <div>
               <LocationPickerWithZoom
                 initialLocation={formData.location}
                 onLocationChange={(location) =>
