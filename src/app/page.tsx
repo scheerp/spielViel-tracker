@@ -107,7 +107,6 @@ const Games: React.FC = () => {
       }
     } catch (err) {
       const error = err as AppError;
-      console.error('[ERROR] Fetch failed:', error);
       showNotification({
         message: `Fehler: ${error.detail.message}`,
         type: 'error',
@@ -166,7 +165,7 @@ const Games: React.FC = () => {
     }
   }, [filter, offset, session, session?.user?.id]); // session als Dependency hinzufügen
 
-  if (loading) return <FancyLoading />;
+  return <FancyLoading />;
 
   return (
     <div className="mb-16 flex flex-col items-center">

@@ -1,7 +1,6 @@
 'use client';
 
 import FancyLoading from '@components/FancyLoading';
-import Loading from '@components/Loading';
 import { Game } from '@context/GamesContext';
 import { useNotification } from '@context/NotificationContext';
 import { useSession } from 'next-auth/react';
