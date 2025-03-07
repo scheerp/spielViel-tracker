@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 import Loading from './Loading';
 import { Explainers, ExplainersResponse, Game } from '@context/GamesContext';
-import CustomSlider from './CustomSlider';
 import FamiliarityPill from './FamiliarityPill';
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
@@ -11,6 +10,7 @@ import { AppError } from '../types/ApiError';
 import { FamiliarityMapping, FamiliarityValueMapping } from '@lib/utils';
 import useUpdateGame from '@hooks/useUpdateGame';
 import ThumbIcon from '@icons/ThumbIcon';
+import Image from 'next/image';
 
 type ExplainersProps = {
   game: Game;
@@ -87,7 +87,28 @@ const ExplainersList: React.FC<ExplainersProps> = ({
     <div className="fixed mt-8 flex h-[80vh] w-[78vw] items-center justify-center md:w-[95%]">
       <div className="flex h-full w-full flex-col bg-white pb-4 md:w-[70%] md:pb-16">
         <div className="flex-grow overflow-y-auto">
-          <h2 className="mb-4 text-lg font-semibold">Erklärer:</h2>
+          <div className="mb-8 flex">
+            <div className="relative mr-4 h-28 w-36 overflow-hidden truncate md:h-44 md:w-44">
+              <Image
+                src={game.img_url ? game.img_url : '/noImage.jpg'}
+                alt={game.name}
+                priority
+                fill
+                sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+            <div className="flex flex-col justify-between">
+              <h2 className="clamp-custom-2 text-wrap text-xl md:text-2xl">
+                {game.name}{' '}
+              </h2>
+              <p className="text-md text-wrap text-gray-500">
+                Hier findest unsere
+                <br /> Erklärer*innen:
+              </p>
+            </div>
+          </div>
+
           <div className="mx-6">
             {explainers && explainers.length > 0 ? (
               explainers.map((group) => (
@@ -130,14 +151,16 @@ const ExplainersList: React.FC<ExplainersProps> = ({
                 </div>
               ))
             ) : (
-              <p className="text-center">Keine Erklärer verfügbar.</p>
+              <p className="text-center text-gray-500">
+                Keine Erklärer*innen verfügbar.
+              </p>
             )}
           </div>
         </div>
         {displaySlider &&
           session?.user?.username !== 'admin' &&
           session?.user?.username !== 'helper' && (
-            <div className="flex flex-col items-center justify-center pl-3">
+            <div className="flex flex-col items-center justify-center">
               <p className="text-md mb-4 text-gray-500 md:block">
                 Wie gut kannst du das Spiel erklären?
               </p>

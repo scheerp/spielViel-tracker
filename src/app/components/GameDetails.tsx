@@ -216,8 +216,8 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
                     {game.min_players && game.max_players && (
                       <p className="text-md mb-2">
                         {game.min_players === game.max_players
-                          ? `${game?.max_players} Spieler`
-                          : `${game?.min_players} - ${game?.max_players} Spieler`}{' '}
+                          ? `${game?.max_players} Spieler*innen`
+                          : `${game?.min_players} - ${game?.max_players} Spieler*innen`}{' '}
                         | {game.player_age}+ <br />
                         {game.min_playtime === game.max_playtime
                           ? `${game?.max_playtime} Min`
@@ -236,12 +236,12 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
           </div>
         </div>
         <h3 className="m-4 self-start text-lg font-semibold md:m-8 md:mb-4">
-          Mitspieler Gesucht:
+          Mitspieler*innen Gesucht:
         </h3>
         <PlayerSearchTable
           playerSearches={playerSearches}
           game={game}
-          tableDescription="Hier findest du Leute die bereits nach Mitspielern suchen:"
+          tableDescription="Hier findest du Leute die bereits nach Mitspieler*innen suchen:"
           onUpdateSuccess={handlePlayerSearchUpdate}
           onCreateSuccess={handlePlayerSearchCreate}
           onDeleteSuccess={handlePlayerSearchDelete}

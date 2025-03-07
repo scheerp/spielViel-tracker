@@ -94,7 +94,7 @@ const PlayerSearchTable = ({
               />
             </div>
             <span className="ml-4">
-              {`Spielersuche für ${game.name} erfolgreich gelöscht!`}
+              {`Spieler*innensuche für ${game.name} erfolgreich gelöscht!`}
             </span>
           </div>
         ),
@@ -138,7 +138,7 @@ const PlayerSearchTable = ({
           }
           className="m-4 w-52 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm"
         >
-          Mitspieler suchen!
+          Mitspieler*innen suchen!
         </button>
       </div>
     );
@@ -181,7 +181,12 @@ const PlayerSearchTable = ({
                     </span>
                   </td>
                   {displayGame && <td className="p-3">{game.name}</td>}
-                  <td className="p-3">{playerSearch.players_needed} Spieler</td>
+                  <td className="p-3">
+                    {playerSearch.players_needed}{' '}
+                    {playerSearch.players_needed > 1
+                      ? 'Spieler*innen'
+                      : 'Spieler*in'}
+                  </td>
                   <td className="hidden p-3 align-middle md:table-cell">
                     <span className="clamp-custom-2 block break-words leading-tight">
                       {playerSearch.details}
@@ -268,7 +273,10 @@ const PlayerSearchTable = ({
                     </td>
                     {displayGame && <td className="p-3">{game.name}</td>}
                     <td className="p-3">
-                      {playerSearch.players_needed} Spieler
+                      {playerSearch.players_needed}{' '}
+                      {playerSearch.players_needed > 1
+                        ? 'Spieler*innen'
+                        : 'Spieler*in'}
                     </td>
                     <td className="hidden items-center p-3 md:flex">
                       <span className="clamp-custom-2 flex break-words leading-tight">
@@ -294,7 +302,7 @@ const PlayerSearchTable = ({
           }
           className="m-4 mb-0 w-56 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm"
         >
-          Mitspieler suchen!
+          Mitspieler*innen suchen!
         </button>
       </div>
     </>

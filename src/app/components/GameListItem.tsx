@@ -6,16 +6,13 @@ import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import ListUpdateButtons from './ListUpdateButtons';
 import ComplexityPill from './ComplexityPill';
-import FamiliarityPill from './FamiliarityPill';
 import useUpdateGame from '@hooks/useUpdateGame';
-import CustomSlider from './CustomSlider';
-import LightbulbIcon from '@icons/LightbulbIcon';
 import ExplainersList from './ExplainersList';
 import Loading from './Loading';
 import { useModal } from '@context/ModalContext';
 import { Game } from '@context/GamesContext';
 import ThumbIcon from '@icons/ThumbIcon';
-import { FamiliarityMapping, FamiliarityValueMapping } from '@lib/utils';
+import { FamiliarityMapping } from '@lib/utils';
 
 type GameListItemProps = {
   game: Game;
@@ -151,8 +148,8 @@ const GameListItem = memo(
                         {game.min_players && game.max_players && (
                           <p className="mb-1 text-sm text-gray-500 md:block">
                             {game.min_players === game.max_players
-                              ? `${game?.max_players} Spieler`
-                              : `${game?.min_players} - ${game?.max_players} Spieler`}{' '}
+                              ? `${game?.max_players} Spieler*innen`
+                              : `${game?.min_players} - ${game?.max_players} Spieler*innen`}{' '}
                             | {game.player_age}+ <br />
                             {game.min_playtime === game.max_playtime
                               ? `${game?.max_playtime} Min`

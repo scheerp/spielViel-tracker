@@ -21,7 +21,7 @@ const HelperPage = () => {
           rel="noopener noreferrer"
           className="font-semibold underline"
         >
-          Helfer-innen Einteilung
+          Helfer*innen Einteilung
         </a>
         <Link className="font-semibold underline" href="/helperUser/stats">
           Statistik

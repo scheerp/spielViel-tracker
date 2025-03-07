@@ -130,7 +130,9 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
           maxValue={10}
           updateFunction={handlePlayercountSliderChange}
           labelText={(value) =>
-            `Spielerzahl: ${value > 9 ? '10 und mehr' : value} Spieler`
+            `Spieler*innenzahl: ${value > 9 ? '10 und mehr' : value} ${
+              value > 1 ? 'Spieler*innen' : 'Spieler*in'
+            }`
           }
         />
 

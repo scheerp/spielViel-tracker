@@ -47,8 +47,8 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
                   {relatedGame.min_players && relatedGame.max_players && (
                     <p className="mb-1 text-sm text-gray-500 md:block">
                       {relatedGame.min_players === relatedGame.max_players
-                        ? `${relatedGame?.max_players} Spieler`
-                        : `${relatedGame?.min_players} - ${relatedGame?.max_players} Spieler`}{' '}
+                        ? `${relatedGame?.max_players} Spieler*innen`
+                        : `${relatedGame?.min_players} - ${relatedGame?.max_players} Spieler*innen`}{' '}
                       | {relatedGame.player_age}+ <br />
                       {relatedGame.min_playtime === relatedGame.max_playtime
                         ? `${relatedGame?.max_playtime} Min`

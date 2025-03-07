@@ -109,8 +109,8 @@ const EditablePlayerSearch = ({
             </div>
             <span className="ml-4">
               {mode === 'create'
-                ? `Spielersuche für ${game.name} erfolgreich erstellt!`
-                : `Spielersuche für ${game.name} erfolgreich bearbeitet!`}
+                ? `Spieler*innensuche für ${game.name} erfolgreich erstellt!`
+                : `Spieler*innensuche für ${game.name} erfolgreich bearbeitet!`}
             </span>
           </div>
         ),
@@ -152,9 +152,9 @@ const EditablePlayerSearch = ({
             className="flex w-full flex-col lg:w-1/2"
           >
             <h2 className="mb-4 self-start text-xl font-semibold lg:mb-4 lg:mt-4">
-              {mode === 'create' && 'Neue Mitspielersuche erstellen'}
-              {mode === 'edit' && 'Mitspielersuche bearbeiten'}
-              {mode === 'view' && 'Mitspielersuche'}
+              {mode === 'create' && 'Neue Mitspieler*innensuche erstellen'}
+              {mode === 'edit' && 'Mitspieler*innensuche bearbeiten'}
+              {mode === 'view' && 'Mitspieler*innensuche'}
             </h2>
 
             <input
@@ -176,7 +176,9 @@ const EditablePlayerSearch = ({
               disabled={mode === 'view'}
               maxValue={game.max_players > 10 ? 10 : game.max_players}
               updateFunction={handlePlayersNeededSliderChange}
-              labelText={(value) => `Ich suche: ${value} Mitspieler`}
+              labelText={(value) =>
+                `Ich suche: ${value} ${value > 1 ? 'Mitspieler*innen' : 'Mitspieler*in'}`
+              }
             />
 
             <div className="mt-4 block lg:hidden">
@@ -216,7 +218,7 @@ const EditablePlayerSearch = ({
                 {isLoading
                   ? 'Speichern...'
                   : mode === 'create'
-                    ? 'Mitspielersuche erstellen!'
+                    ? 'Mitspieler*innensuche erstellen!'
                     : 'Änderungen speichern!'}
               </button>
             )}
