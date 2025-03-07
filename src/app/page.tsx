@@ -11,7 +11,6 @@ import { AppError } from './types/ApiError';
 import { ComplexityMapping } from '@lib/utils';
 import { useSession } from 'next-auth/react';
 import FancyLoading from '@components/FancyLoading';
-import Loading from '@components/Loading';
 
 const Games: React.FC = () => {
   const { data: session } = useSession();
@@ -27,19 +26,12 @@ const Games: React.FC = () => {
     setLoading,
   } = useGames();
   const { filter } = useFilter();
-  const [showLoading, setShowLoading] = useState(true);
   const [oldFilter, setOldFilter] = useState<FilterState>(filter);
   const [pendingFilterChange, setPendingFilterChange] = useState(false);
   const { showNotification } = useNotification();
   const observer = useRef<IntersectionObserver | null>(null);
   const [noGames, setNoGames] = useState<boolean>(false);
   const [editFamiliarity, setEditFamiliarity] = useState<boolean>(false);
-
-  useEffect(() => {
-    if (games.length > 0 || noGames) {
-      setShowLoading(false);
-    }
-  }, [games, noGames]);
 
   const fetchGames = async (newOffset: number, reset: boolean = false) => {
     if (loading) {

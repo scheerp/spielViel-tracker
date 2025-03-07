@@ -226,14 +226,22 @@ const EditablePlayerSearch = ({
             <label className="mb-3 block font-medium">
               Raumplan (Ort auswählen)
             </label>
-            <LocationPickerWithZoom
-              initialLocation={formData.location}
-              onLocationChange={(location) =>
-                setFormData((prev) => ({ ...prev, location }))
-              }
-              isEditable={mode === 'view' ? false : true}
-              imageUrl={'/floorplan.png'}
-            />
+            <div
+              onTouchStart={() => {
+                if (document.activeElement instanceof HTMLElement) {
+                  document.activeElement.blur();
+                }
+              }}
+            >
+              <LocationPickerWithZoom
+                initialLocation={formData.location}
+                onLocationChange={(location) =>
+                  setFormData((prev) => ({ ...prev, location }))
+                }
+                isEditable={mode === 'view' ? false : true}
+                imageUrl={'/floorplan.png'}
+              />
+            </div>
           </div>
         </div>
       </div>
