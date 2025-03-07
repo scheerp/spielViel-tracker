@@ -8,8 +8,9 @@ import FamiliarityPill from './FamiliarityPill';
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
 import { AppError } from '../types/ApiError';
-import { FamiliarityValueMapping } from '@lib/utils';
+import { FamiliarityMapping, FamiliarityValueMapping } from '@lib/utils';
 import useUpdateGame from '@hooks/useUpdateGame';
+import ThumbIcon from '@icons/ThumbIcon';
 
 type ExplainersProps = {
   game: Game;
@@ -136,27 +137,34 @@ const ExplainersList: React.FC<ExplainersProps> = ({
         {displaySlider &&
           session?.user?.username !== 'admin' &&
           session?.user?.username !== 'helper' && (
-            <form
-              onSubmit={(event) => event.preventDefault()}
-              className="mt-4 min-w-72 self-center sm:w-80"
-            >
-              <CustomSlider
-                className="mt-4"
-                value={currentFamiliarity}
-                labelText={(value) => (
-                  <div className="mb-4">
-                    Mein Erklärerstatus:{' '}
-                    <FamiliarityPill
-                      className="mt-2 py-1 text-lg font-semibold"
-                      familiarity={value}
-                    />
-                  </div>
-                )}
-                minValue={0}
-                maxValue={2}
-                updateFunction={updateFamiliarity}
-              />
-            </form>
+            <div className="flex flex-col items-center justify-center pl-3">
+              <p className="text-md mb-4 text-gray-500 md:block">
+                Wie gut kannst du das Spiel erklären?
+              </p>
+
+              <div className="flex w-full max-w-80 items-center justify-around">
+                <button
+                  onClick={() => updateFamiliarity(1)}
+                  className={`flex items-center justify-center rounded-full transition-all duration-300 ${FamiliarityMapping.UNKNOWN.color} ${currentFamiliarity !== 1 && 'opacity-50'}`}
+                >
+                  <ThumbIcon
+                    className={`m-4 h-10 w-10 rotate-180 md:h-12 md:w-12`}
+                  />
+                </button>
+                <button
+                  onClick={() => updateFamiliarity(2)}
+                  className={`items-center justify-center rounded-full transition-all duration-300 ${FamiliarityMapping.NEULING.color} ${currentFamiliarity !== 2 && 'opacity-50'}`}
+                >
+                  <ThumbIcon className="h-13 w-13 m-3 rotate-90 md:h-12 md:w-12" />
+                </button>
+                <button
+                  onClick={() => updateFamiliarity(3)}
+                  className={`items-center justify-center rounded-full transition-all duration-300 ${FamiliarityMapping.PROFI.color} ${currentFamiliarity !== 3 && 'opacity-50'}`}
+                >
+                  <ThumbIcon className="h-13 w-13 m-3 md:h-12 md:w-12" />
+                </button>
+              </div>
+            </div>
           )}
       </div>
     </div>

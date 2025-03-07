@@ -116,7 +116,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
     <>
       <button
         onClick={clearFilter}
-        className="absolute left-2 top-4 mt-20 rounded-full bg-background px-3.5 py-2.5 font-bold text-primary shadow-sm"
+        className="absolute left-2 top-4 mt-20 rounded-full bg-background px-3.5 py-2.5 font-bold text-gray-500 shadow-sm hover:text-gray-800"
         aria-label="Close modal"
       >
         filter löschen

@@ -77,26 +77,26 @@ export const ComplexityMapping = {
 export const FamiliarityMapping = {
   UNSET: {
     label: 'k. Angabe',
-    color: 'bg-error text-white',
-    border: 'border-error',
+    color: 'bg-background text-gray-500',
+    border: 'border-background',
     value: 0,
   },
   UNKNOWN: {
     label: 'Unbekannt',
-    color: 'bg-status text-white',
-    border: 'border-status',
+    color: 'bg-error text-white',
+    border: 'border-error',
     value: 1,
   },
   NEULING: {
     label: 'Neuling',
-    color: 'bg-secondary text-white',
-    border: 'border-secondary',
+    color: 'bg-quinary text-black',
+    border: 'border-quinary',
     value: 2,
   },
-  KENNER: {
+  PROFI: {
     label: 'Profi',
-    color: 'bg-tertiary text-white',
-    border: 'border-tertiary',
+    color: 'bg-quaternary text-white',
+    border: 'border-quaternary',
     value: 3,
   },
 };
