@@ -11,6 +11,7 @@ import { AppError } from './types/ApiError';
 import { ComplexityMapping } from '@lib/utils';
 import { useSession } from 'next-auth/react';
 import FancyLoading from '@components/FancyLoading';
+import Loading from '@components/Loading';
 
 const Games: React.FC = () => {
   const { data: session } = useSession();
@@ -26,12 +27,19 @@ const Games: React.FC = () => {
     setLoading,
   } = useGames();
   const { filter } = useFilter();
+  const [showLoading, setShowLoading] = useState(true);
   const [oldFilter, setOldFilter] = useState<FilterState>(filter);
   const [pendingFilterChange, setPendingFilterChange] = useState(false);
   const { showNotification } = useNotification();
   const observer = useRef<IntersectionObserver | null>(null);
   const [noGames, setNoGames] = useState<boolean>(false);
   const [editFamiliarity, setEditFamiliarity] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (games.length > 0 || noGames) {
+      setShowLoading(false);
+    }
+  }, [games, noGames]);
 
   const fetchGames = async (newOffset: number, reset: boolean = false) => {
     if (loading) {
@@ -163,9 +171,7 @@ const Games: React.FC = () => {
         fetchGames(0, true);
       }
     }
-  }, [filter, offset, session, session?.user?.id]); // session als Dependency hinzufügen
-
-  if (loading) return <FancyLoading />;
+  }, [filter, offset, session, session?.user?.id]);
 
   return (
     <div className="mb-16 flex flex-col items-center">
@@ -205,6 +211,7 @@ const Games: React.FC = () => {
               })}
             </ul>
           )}
+          {loading && <FancyLoading />}
         </div>
       </div>
       <ScrollToTopButton />
