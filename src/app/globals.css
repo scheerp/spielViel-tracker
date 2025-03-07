@@ -96,3 +96,18 @@ input[type='range']::-ms-thumb {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}

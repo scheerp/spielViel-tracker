@@ -1,5 +1,6 @@
 'use client';
 
+import FancyLoading from '@components/FancyLoading';
 import Loading from '@components/Loading';
 import { Game } from '@context/GamesContext';
 import { useNotification } from '@context/NotificationContext';
@@ -51,7 +52,7 @@ const Stats = () => {
     fetchStats();
   }, []);
 
-  if (loading) return <Loading />;
+  if (loading) return <FancyLoading />;
   if (error || !games) return <div>Statistik nicht gefunden.</div>;
 
   return (

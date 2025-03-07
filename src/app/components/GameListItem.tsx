@@ -181,22 +181,3 @@ const GameListItem = memo(
 GameListItem.displayName = 'GameListItem';
 
 export default GameListItem;
-
-{
-  /* <button
-    onClick={() =>
-      openModal((loadingFromContext) => (
-        <>
-          <ExplainersList game={game} displaySlider={false} />
-          {loadingFromContext && <Loading />}
-        </>
-      ))
-    }
-    className={`ml-2 flex h-12 w-12 min-w-12 items-center justify-center rounded-full transition-colors duration-300 md:mt-3 ${editFamiliarity ? 'bg-primary' : 'bg-white'}`}
-  >
-    <LightbulbIcon
-      tailwindColor={`${editFamiliarity ? 'text-white' : 'text-primary'}`}
-      className="h-7 w-7"
-    />
-  </button> */
-}

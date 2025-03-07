@@ -19,6 +19,7 @@ import { useModal } from '@context/ModalContext';
 import ExplainersList from './ExplainersList';
 import LightbulbIcon from '@icons/LightbulbIcon';
 import PlayerSearchTable from './PlayerSearchTable';
+import FancyLoading from './FancyLoading';
 
 interface GameDetailsProps {
   gameId: string;
@@ -153,7 +154,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
     fetchGameDetails();
   }, [gameId]);
 
-  if (loading) return <Loading />;
+  if (loading) return <FancyLoading />;
   if (!game || error) return <div>Spiel nicht gefunden.</div>;
 
   return (

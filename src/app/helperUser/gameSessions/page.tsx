@@ -1,6 +1,6 @@
 'use client';
 
-import Loading from '@components/Loading';
+import FancyLoading from '@components/FancyLoading';
 import SessionTable from '@components/SessionTable';
 import { useModal } from '@context/ModalContext';
 import { useNotification } from '@context/NotificationContext';
@@ -185,7 +185,7 @@ const Sessions: React.FC = () => {
     fetchSessions();
   }, []);
 
-  if (loading) return <Loading />;
+  if (loading) return <FancyLoading />;
   if (error) return null;
 
   return (

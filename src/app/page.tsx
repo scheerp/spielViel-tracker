@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useCallback, useState } from 'react';
 import SearchBar from '@components/SearchBar';
 import GameListItem from '@components/GameListItem';
-import Loading from '@components/Loading';
 import { useNotification } from '@context/NotificationContext';
 import ScrollToTopButton from '@components/ScrollTopButton';
 import { Game, GAMES_LIST_LIMIT, useGames } from '@context/GamesContext';
@@ -11,6 +10,7 @@ import { FilterState, useFilter } from '@context/FilterContext';
 import { AppError } from './types/ApiError';
 import { ComplexityMapping } from '@lib/utils';
 import { useSession } from 'next-auth/react';
+import FancyLoading from '@components/FancyLoading';
 
 const Games: React.FC = () => {
   const { data: session } = useSession();
@@ -166,6 +166,8 @@ const Games: React.FC = () => {
     }
   }, [filter, offset, session, session?.user?.id]); // session als Dependency hinzufügen
 
+  if (loading) return <FancyLoading />;
+
   return (
     <div className="mb-16 flex flex-col items-center">
       <SearchBar
@@ -175,7 +177,7 @@ const Games: React.FC = () => {
       <div className="container mx-auto mt-20 flex flex-col gap-8 px-2 lg:flex-row lg:px-8">
         <div className="flex-grow">
           {noGames && !loading && (
-            <div className="px-4 pt-8 text-center text-gray-500">
+            <div className="px-4 py-16 pt-8 text-center text-gray-500">
               <p>
                 Es wurden keine Spiele gefunden. Bitte passe deine Filter an.
               </p>
@@ -204,7 +206,6 @@ const Games: React.FC = () => {
               })}
             </ul>
           )}
-          {loading && <Loading />}
         </div>
       </div>
       <ScrollToTopButton />
