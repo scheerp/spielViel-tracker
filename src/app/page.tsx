@@ -165,7 +165,7 @@ const Games: React.FC = () => {
     }
   }, [filter, offset, session, session?.user?.id]); // session als Dependency hinzufügen
 
-  return <FancyLoading />;
+  if (loading) return <FancyLoading />;
 
   return (
     <div className="mb-16 flex flex-col items-center">
