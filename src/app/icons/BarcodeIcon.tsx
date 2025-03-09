@@ -1,31 +1,110 @@
 const BarcodeIcon = ({
   tailwindColor,
-  onClick,
   className,
 }: {
   tailwindColor: string;
-  onClick?: () => void;
   className?: string;
 }) => {
   return (
     <svg
+      viewBox="0 0 512 512"
+      className={` ${tailwindColor} ${className}`}
       xmlns="http://www.w3.org/2000/svg"
-      className={`h-12 w-10 ${tailwindColor} relative top-1 ${className}`}
-      onClick={onClick}
-      shapeRendering="geometricPrecision"
-      textRendering="geometricPrecision"
-      imageRendering="optimizeQuality"
-      fillRule="evenodd"
-      clipRule="evenodd"
-      viewBox="0 0 478 512.01"
+      fill="currentColor"
     >
-      <defs></defs>
-      <g className="" transform="translate(0,0)">
+      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+      <g
+        id="SVGRepo_tracerCarrier"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      ></g>
+      <g id="SVGRepo_iconCarrier">
+        <title>ionicons-v5-d</title>
         <path
-          fill="currentColor"
-          fillOpacity="1"
-          d="M69.7 55.96h32.12v265.57H69.7V55.96zm173.03 176.68c9.33.14 18.47 1.29 27.27 3.36V55.96h22.95v187.8c9.78 4.39 18.95 9.99 27.28 16.6V55.96h32.11v242.13c.49.87.96 1.74 1.43 2.62 7.6 14.39 12.58 30.51 14.2 47.77 1.19 12.63.5 25.03-1.84 36.85a126.657 126.657 0 0 1-10.19 30.48l54.37 49.11c2.5 2.26 2.69 6.13.42 8.63l-33.04 36.46a6.136 6.136 0 0 1-8.64.42L317.04 463a127.014 127.014 0 0 1-28 15.82c-11.32 4.62-23.52 7.68-36.34 8.89-17.24 1.62-34-.27-49.57-5.06-16.18-4.98-31.09-13.12-43.92-23.75a127.834 127.834 0 0 1-31.53-38.72c-7.61-14.38-12.59-30.51-14.21-47.76-1.62-17.23.26-34 5.06-49.57 2.65-8.63 6.21-16.91 10.56-24.7V55.96h9.76v227.28c1.11-1.46 2.25-2.9 3.42-4.31 6.94-8.39 14.96-15.9 23.85-22.3V55.96h32.13v183.9c8.66-3.04 17.79-5.19 27.27-6.32V55.96h17.21v176.68zm63.05 49.23c-20.9-17.31-47.61-25.53-74.62-22.99-40.99 3.85-75.76 32.04-87.97 71.57a101.788 101.788 0 0 0-4.03 39.56c2.53 27 15.62 51.72 36.51 69.01 10.24 8.48 22.14 14.98 35.04 18.95 12.44 3.83 25.83 5.33 39.58 4.04 13.73-1.29 26.61-5.27 38.11-11.36a102.106 102.106 0 0 0 30.9-25.15c8.48-10.24 14.98-22.14 18.95-35.04 3.83-12.44 5.33-25.83 4.04-39.58a101.63 101.63 0 0 0-11.35-38.1 102.205 102.205 0 0 0-25.16-30.91zM9.26 0H94.9v18.52H18.51V66.9H0V9.26C0 4.15 4.14 0 9.26 0zm9.25 310.59v48.38H94.9v18.52H9.26c-5.12 0-9.26-4.15-9.26-9.26v-57.64h18.51zM383.1 0h85.64c5.11 0 9.26 4.15 9.26 9.26V66.9h-18.51V18.52H383.1V0zM478 310.59v57.64c0 5.11-4.15 9.26-9.26 9.26H383.1v-18.52h76.39v-48.38H478zM379.62 55.96h28.68v265.57h-28.68V55.96z"
-        />
+          d="M384,400.33l35.13-.33A29,29,0,0,0,448,371.13V140.87A29,29,0,0,0,419.13,112l-35.13.33"
+          style={{
+            fill: 'none',
+            stroke: 'currentColor',
+            strokeLinecap: 'round',
+            strokeLinejoin: 'round',
+            strokeWidth: '32px',
+          }}
+        ></path>
+        <path
+          d="M128,112l-36.8.33c-15.88,0-27.2,13-27.2,28.87V371.47c0,15.87,11.32,28.86,27.2,28.86L128,400"
+          style={{
+            fill: 'none',
+            stroke: 'currentColor',
+            strokeLinecap: 'round',
+            strokeLinejoin: 'round',
+            strokeWidth: '32px',
+          }}
+        ></path>
+        <line
+          x1="384"
+          y1="192"
+          x2="384"
+          y2="320"
+          style={{
+            fill: 'none',
+            stroke: 'currentColor',
+            strokeLinecap: 'round',
+            strokeLinejoin: 'round',
+            strokeWidth: '32px',
+          }}
+        ></line>
+        <line
+          x1="320"
+          y1="160"
+          x2="320"
+          y2="352"
+          style={{
+            fill: 'none',
+            stroke: 'currentColor',
+            strokeLinecap: 'round',
+            strokeLinejoin: 'round',
+            strokeWidth: '32px',
+          }}
+        ></line>
+        <line
+          x1="256"
+          y1="176"
+          x2="256"
+          y2="336"
+          style={{
+            fill: 'none',
+            stroke: 'currentColor',
+            strokeLinecap: 'round',
+            strokeLinejoin: 'round',
+            strokeWidth: '32px',
+          }}
+        ></line>
+        <line
+          x1="192"
+          y1="160"
+          x2="192"
+          y2="352"
+          style={{
+            fill: 'none',
+            stroke: 'currentColor',
+            strokeLinecap: 'round',
+            strokeLinejoin: 'round',
+            strokeWidth: '32px',
+          }}
+        ></line>
+        <line
+          x1="128"
+          y1="192"
+          x2="128"
+          y2="320"
+          style={{
+            fill: 'none',
+            stroke: 'currentColor',
+            strokeLinecap: 'round',
+            strokeLinejoin: 'round',
+            strokeWidth: '32px',
+          }}
+        ></line>
       </g>
     </svg>
   );
