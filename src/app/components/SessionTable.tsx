@@ -34,6 +34,11 @@ const SessionTable: React.FC<SessionTableProps> = ({
     handynummer: '',
   });
 
+  const sortedParticipants = [...participants].sort(
+    (a, b) =>
+      new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+  );
+
   return (
     <div
       key={sessionName}
@@ -53,7 +58,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {participants.map((participant) => (
+            {sortedParticipants.map((participant) => (
               <EditableRow
                 key={participant.id}
                 participant={participant}
