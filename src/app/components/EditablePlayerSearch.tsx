@@ -1,6 +1,6 @@
 'use client';
 
-import { Game, PlayerSearch } from '@context/GamesContext';
+import { PlayerSearch } from '@context/GamesContext';
 import { useState } from 'react';
 import { useNotification } from '@context/NotificationContext';
 import Image from 'next/image';
@@ -8,9 +8,10 @@ import { useModal } from '@context/ModalContext';
 import { AppError } from '../types/ApiError';
 import CustomSlider from './CustomSlider';
 import LocationPickerWithZoom from './LocationPickerWithZoom';
+import { PlayerSearchGameSummary } from './PlayerSearchTable';
 
 type EditablePlayerSearchType = {
-  game: Game;
+  game: PlayerSearchGameSummary;
   playerSearch?: PlayerSearch;
   mode?: 'edit' | 'create' | 'view';
   onSuccess?: (updatedPlayerSearch: PlayerSearch) => void;
@@ -151,7 +152,7 @@ const EditablePlayerSearch = ({
             onSubmit={handleSubmit}
             className="flex w-full flex-col lg:w-1/2"
           >
-            <h2 className="mb-4 self-start text-xl font-semibold lg:mb-4 lg:mt-4">
+            <h2 className="mb-4 mt-4 self-start text-xl font-semibold lg:mb-4">
               {mode === 'create' && 'Neue Mitspieler*innensuche erstellen'}
               {mode === 'edit' && 'Mitspieler*innensuche bearbeiten'}
               {mode === 'view' && 'Mitspieler*innensuche'}

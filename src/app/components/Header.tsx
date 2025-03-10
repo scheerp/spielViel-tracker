@@ -38,18 +38,17 @@ const Header = () => {
           {/* Desktop Navigation Links */}
           <div className="hidden gap-6 font-semibold text-white lg:flex">
             <Link href="/">Home</Link>
-            <Link href="/spieleListe">SpieleListe</Link>
-            <Link href="/partieSuche">PartieSuche</Link>
+            <Link href="/">Spieleliste</Link>
+            <Link href="/partieSuche">Partiesuche</Link>
             <Link href="/programm">Programm</Link>
 
-            {session &&
-            session?.user?.username !== 'admin' &&
-            session?.user?.username !== 'helper' ? (
-              <>
+            {(session && session && session?.user?.role === 'admin') ||
+            session?.user?.role === 'helper' ? (
+              <div className="flex gap-6 font-medium">
+                <Link href="/helperUser">Helfer*innen</Link>
                 <Link href="/helperUser/stats">Statistik</Link>
                 <Link href="/helperUser/gameSessions">Sessions</Link>
-                <Link href="/helperUser">Helfer*innen</Link>
-              </>
+              </div>
             ) : (
               <Link href="/login" className="font-medium">
                 Login
@@ -57,9 +56,8 @@ const Header = () => {
             )}
           </div>
           <div className="flex items-center">
-            {session &&
-              session?.user?.username !== 'admin' &&
-              session?.user?.username !== 'helper' && (
+            {(session && session && session?.user?.role === 'admin') ||
+              (session?.user?.role === 'helper' && (
                 <div className="flex items-center gap-3">
                   <button
                     className="h-14 w-14 p-2 lg:h-16 lg:w-16"
@@ -75,7 +73,7 @@ const Header = () => {
                     <BarcodeIcon tailwindColor="text-white" />
                   </button>
                 </div>
-              )}
+              ))}
             <HamburgerButton menuOpen={menuOpen} toggleMenu={toggleMenu} />
           </div>
         </nav>

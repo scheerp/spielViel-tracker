@@ -60,7 +60,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
 
       const data: Game = await response.json();
       setGame(data);
-      setPlayerSearches(data.player_searches);
+      setPlayerSearches(data?.player_searches || []);
 
       if (data.similar_games && data.similar_games.length > 0) {
         const relatedIds = data.similar_games;
@@ -238,14 +238,16 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
         <h3 className="m-4 self-start text-lg font-semibold md:m-8 md:mb-4">
           Mitspieler*innen Gesucht:
         </h3>
-        <PlayerSearchTable
-          playerSearches={playerSearches}
-          game={game}
-          tableDescription="Hier findest du Leute die bereits nach Mitspieler*innen suchen:"
-          onUpdateSuccess={handlePlayerSearchUpdate}
-          onCreateSuccess={handlePlayerSearchCreate}
-          onDeleteSuccess={handlePlayerSearchDelete}
-        />
+        <div className="mx-4">
+          <PlayerSearchTable
+            playerSearches={playerSearches}
+            game={game}
+            tableDescription="Hier findest du Leute die bereits nach Mitspieler*innen suchen:"
+            onUpdateSuccess={handlePlayerSearchUpdate}
+            onCreateSuccess={handlePlayerSearchCreate}
+            onDeleteSuccess={handlePlayerSearchDelete}
+          />
+        </div>
         <GameSimilarGames relatedGames={relatedGames} />
       </div>
       <FloatingUpdateButtons game={game} handleSuccess={handleGameUpdate} />

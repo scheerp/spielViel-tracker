@@ -21,7 +21,7 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
         onClick={toggleMenu}
       ></div>
 
-      {/* Drawer Content */}
+      {/* Menu Content */}
       <div
         className={`fixed transition-transform ${
           menuOpen
@@ -30,38 +30,48 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
         } ${'right-0 w-full'} ${'lg:right-0 lg:top-0 lg:h-full lg:w-1/3'}`}
       >
         <div className="rounded-b-xl bg-white p-5">
-          <div className="flex flex-col items-center">
-            <Link
-              href="/"
-              className="px-6 py-4 text-xl font-semibold"
-              onClick={toggleMenu}
-            >
+          <div className="flex flex-col items-center text-xl font-semibold">
+            <Link href="/" className="px-6 py-4" onClick={toggleMenu}>
+              Home
+            </Link>
+            <Link href="/" className="px-6 py-4" onClick={toggleMenu}>
               Spieleliste
             </Link>
             <Link
               href="/partieSuche"
-              className="px-6 py-4 text-xl font-semibold"
+              className="px-6 py-4"
               onClick={toggleMenu}
             >
               Partiesuche
             </Link>
-            <Link
-              href="/programm"
-              className="px-6 py-4 text-xl font-semibold"
-              onClick={toggleMenu}
-            >
+            <Link href="/programm" className="px-6 py-4" onClick={toggleMenu}>
               Programm
             </Link>
-            {session &&
-            session?.user?.username !== 'admin' &&
-            session?.user?.username !== 'helper' ? (
-              <Link
-                href="/helperUser"
-                className="px-6 py-4 text-xl font-semibold"
-                onClick={toggleMenu}
-              >
-                Helfer*innen
-              </Link>
+            {(session && session?.user?.role === 'admin') ||
+            session?.user?.role === 'helper' ? (
+              <div className="flex flex-col items-center font-medium">
+                <Link
+                  href="/helperUser"
+                  className="px-6 py-4"
+                  onClick={toggleMenu}
+                >
+                  Helfer*innen
+                </Link>
+                <Link
+                  href="/helperUser/stats"
+                  className="px-6 py-4"
+                  onClick={toggleMenu}
+                >
+                  Statistik
+                </Link>
+                <Link
+                  href="/helperUser/gameSessions"
+                  className="px-6 py-4"
+                  onClick={toggleMenu}
+                >
+                  Sessions
+                </Link>
+              </div>
             ) : (
               <Link
                 href="/login"

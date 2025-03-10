@@ -1,4 +1,4 @@
-import { Game } from '@context/GamesContext';
+import { Game, PlayerSearch } from '@context/GamesContext';
 import { AppError, BarcodeConflictError } from '../types/ApiError';
 
 type FilterGamesType = {
@@ -49,6 +49,39 @@ export const isBarcodeConflictError = (
     error.detail !== undefined &&
     'details' in error.detail
   );
+};
+
+const now = new Date();
+
+export const timeSinceMinutes = (timestamp: string): string => {
+  const past = new Date(timestamp);
+  const diffMs = now.getTime() - past.getTime();
+  const diffMinutes = Math.floor(diffMs / 60000);
+
+  if (diffMinutes < 1) {
+    return 'gerade eben';
+  }
+  return `seit ${diffMinutes} Minuten`;
+};
+
+export const categorizePlayerSearches = (playerSearches: PlayerSearch[]) => {
+  const valid = playerSearches.filter(
+    (playerSearch) => new Date(playerSearch.expires_at) > now,
+  );
+  const expired = playerSearches.filter(
+    (playerSearch) => new Date(playerSearch.expires_at) <= now,
+  );
+
+  valid.sort(
+    (a, b) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+  );
+  expired.sort(
+    (a, b) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+  );
+
+  return { valid, expired };
 };
 
 export const ComplexityMapping = {

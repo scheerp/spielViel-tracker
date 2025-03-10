@@ -145,15 +145,16 @@ const GameListItem = memo(
                         {game.name}
                       </h2>
                       <div>
-                        {game.min_players && game.max_players && (
+                        {game.min_players && game.max_players && !session && (
                           <p className="mb-1 text-sm text-gray-500 md:block">
                             {game.min_players === game.max_players
                               ? `${game?.max_players} Spieler*innen`
                               : `${game?.min_players} - ${game?.max_players} Spieler*innen`}{' '}
-                            | {game.player_age}+ <br />
+                            <br />
                             {game.min_playtime === game.max_playtime
                               ? `${game?.max_playtime} Min`
-                              : `${game?.min_playtime} - ${game?.max_playtime} Min`}
+                              : `${game?.min_playtime} - ${game?.max_playtime} Min`}{' '}
+                            | {game.player_age}+
                           </p>
                         )}
                         <ComplexityPill

@@ -16,6 +16,23 @@ export type PlayerSearch = {
   edit_token: string | null;
 };
 
+export type PlayerSearchByGame = {
+  game: {
+    id: number;
+    name: string;
+    img_url: string;
+    thumbnaul_url: string;
+    best_playercount: number;
+    min_players: number;
+    max_players: number;
+    min_playtime: number;
+    max_playtime: number;
+    complexity_label?: ComplexityType;
+    player_age: number;
+  };
+  player_searches: PlayerSearch[];
+};
+
 export type Explainers = {
   familiarity: number;
   users: {
@@ -53,9 +70,10 @@ export interface Game {
   img_url?: string;
   thumbnail_url?: string;
   ean?: string;
-  player_age: string;
+  player_age: number;
   my_familiarity?: number | null;
-  player_searches: PlayerSearch[];
+  player_searches?: PlayerSearch[];
+  best_playercount?: number;
 }
 
 interface GamesContextType {

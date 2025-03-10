@@ -11,6 +11,34 @@ import { AppError } from '../types/ApiError';
 import { useNotification } from '@context/NotificationContext';
 import Image from 'next/image';
 import AddSearchIcon from '@icons/AddSearchIcon';
+import { categorizePlayerSearches, timeSinceMinutes } from '@lib/utils';
+
+export type PlayerSearchGameSummary = Pick<
+  Game,
+  | 'id'
+  | 'name'
+  | 'img_url'
+  | 'thumbnail_url'
+  | 'max_players'
+  | 'min_players'
+  | 'min_playtime'
+  | 'max_playtime'
+  | 'best_playercount'
+  | 'complexity_label'
+  | 'player_age'
+>;
+
+interface PlayerSearchTableProps {
+  playerSearches: PlayerSearch[];
+  game: PlayerSearchGameSummary;
+  displayGame?: boolean;
+  tableDescription?: string;
+  tableTitle?: React.ReactNode;
+  allowCreate?: boolean;
+  onUpdateSuccess?: (updatedPlayerSearch: PlayerSearch) => void;
+  onCreateSuccess?: (updatedPlayerSearch: PlayerSearch) => void;
+  onDeleteSuccess?: (updatedPlayerSearch: PlayerSearch) => void;
+}
 
 const PlayerSearchTable = ({
   playerSearches,
@@ -18,45 +46,16 @@ const PlayerSearchTable = ({
   displayGame = false,
   tableDescription,
   tableTitle,
+  allowCreate = true,
   onUpdateSuccess,
   onCreateSuccess,
   onDeleteSuccess,
-}: {
-  playerSearches: PlayerSearch[];
-  game: Game;
-  displayGame?: boolean;
-  tableDescription: string;
-  tableTitle?: string;
-  onUpdateSuccess?: (updatedPlayerSearch: PlayerSearch) => void;
-  onCreateSuccess?: (updatedPlayerSearch: PlayerSearch) => void;
-  onDeleteSuccess?: (updatedPlayerSearch: PlayerSearch) => void;
-}) => {
+}: PlayerSearchTableProps) => {
   const { data: session } = useSession();
   const { openModal, closeModal } = useModal();
   const { showNotification } = useNotification();
-  const now = new Date();
   const displayExpired =
     session?.user?.role === 'admin' || session?.user?.role === 'helper';
-
-  const categorizePlayerSearches = (playerSearches: PlayerSearch[]) => {
-    const valid = playerSearches.filter(
-      (playerSearch) => new Date(playerSearch.expires_at) > now,
-    );
-    const expired = playerSearches.filter(
-      (playerSearch) => new Date(playerSearch.expires_at) <= now,
-    );
-
-    valid.sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    );
-    expired.sort(
-      (a, b) =>
-        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-    );
-
-    return { valid, expired };
-  };
 
   const { valid, expired } = categorizePlayerSearches(playerSearches);
 
@@ -123,7 +122,7 @@ const PlayerSearchTable = ({
     }
   };
 
-  if (valid.length === 0 && expired.length === 0)
+  if (valid.length === 0 && expired.length === 0 && allowCreate)
     return (
       <div className="flex w-full justify-center lg:mt-8">
         <button
@@ -145,15 +144,17 @@ const PlayerSearchTable = ({
 
   return (
     <>
-      <div className="bg-whiteshadow-md m-4 mb-12 mt-0 flex flex-col items-center rounded-xl bg-white p-4 shadow-md md:m-8 md:mt-0">
+      <div className="bg-whiteshadow-md mb-12 mt-0 flex flex-col items-center rounded-xl bg-white p-4 shadow-md md:m-8 md:mt-0">
         {tableTitle && (
           <h3 className="self-start text-lg font-semibold md:mb-4 md:mt-2">
             {tableTitle}
           </h3>
         )}
-        <p className="mb-4 self-start text-sm text-gray-500">
-          {tableDescription}
-        </p>
+        {tableDescription && (
+          <p className="mb-4 self-start text-sm text-gray-500">
+            {tableDescription}
+          </p>
+        )}
         <table className="w-full table-fixed border-collapse">
           <thead className="bg-gray-100">
             <tr className="border-b-2 border-gray-300">
@@ -162,10 +163,15 @@ const PlayerSearchTable = ({
                 <th className="p-3 text-left font-semibold">Spiel</th>
               )}
               <th className="p-3 text-left font-semibold">Gesucht</th>
-              <th className="hidden p-3 text-left font-semibold md:block">
+              <th className="hidden p-3 text-left font-semibold md:table-cell">
                 Details
               </th>
-              <th className="p-3 text-left font-semibold">Aktion</th>
+              <th className="hidden p-3 text-left font-semibold md:table-cell">
+                Suche seit
+              </th>
+              <th className="p-3 text-right font-semibold md:text-left">
+                Aktion
+              </th>
             </tr>
           </thead>
           <tbody className="mx-2">
@@ -183,16 +189,19 @@ const PlayerSearchTable = ({
                   {displayGame && <td className="p-3">{game.name}</td>}
                   <td className="p-3">
                     {playerSearch.players_needed}{' '}
-                    {playerSearch.players_needed > 1
-                      ? 'Spieler*innen'
-                      : 'Spieler*in'}
+                    {playerSearch.players_needed > 1 ? 'Personen' : 'Person'}
                   </td>
                   <td className="hidden p-3 align-middle md:table-cell">
                     <span className="clamp-custom-2 block break-words leading-tight">
                       {playerSearch.details}
                     </span>
                   </td>
-                  <td className="pt-3">
+                  <td className="hidden p-3 align-middle md:table-cell">
+                    <span className="clamp-custom-2 block break-words leading-tight">
+                      {timeSinceMinutes(playerSearch.created_at)}
+                    </span>
+                  </td>
+                  <td className="flex justify-end pt-3 md:ml-2 md:justify-start">
                     <button
                       onClick={() =>
                         openModal((loadingFromContext) => (
@@ -210,7 +219,7 @@ const PlayerSearchTable = ({
                           </>
                         ))
                       }
-                      className="mb-2 mr-2 rounded-xl bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
+                      className="mb-2 rounded-xl bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
                     >
                       {playerSearch.can_edit ? (
                         <AddSearchIcon
@@ -228,7 +237,7 @@ const PlayerSearchTable = ({
                       <button
                         onClick={() =>
                           openModal((loadingFromContext) => (
-                            <div className="mt-6 flex flex-col justify-center text-center">
+                            <div className="mt-6 flex flex-col justify-center text-center md:justify-start">
                               Möchtest du deine Mitsielersuche für{' '}
                               <b>{game.name}</b> wirklich löschen? wirklich
                               löschen?
@@ -247,7 +256,7 @@ const PlayerSearchTable = ({
                             </div>
                           ))
                         }
-                        className="rounded-xl bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
+                        className="mb-2 ml-2 rounded-xl bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
                       >
                         <TrashIcon
                           tailwindColor="text-white"
@@ -274,36 +283,38 @@ const PlayerSearchTable = ({
                     {displayGame && <td className="p-3">{game.name}</td>}
                     <td className="p-3">
                       {playerSearch.players_needed}{' '}
-                      {playerSearch.players_needed > 1
-                        ? 'Spieler*innen'
-                        : 'Spieler*in'}
+                      {playerSearch.players_needed > 1 ? 'Personen' : 'Person'}
                     </td>
                     <td className="hidden items-center p-3 md:flex">
                       <span className="clamp-custom-2 flex break-words leading-tight">
                         {playerSearch.details}
                       </span>
                     </td>
+                    <td className="hidden items-center p-3 pt-3 md:table-cell"></td>
+                    <td className="hidden items-center p-3 pt-3 md:table-cell"></td>
                   </tr>
                 );
               })}
           </tbody>
         </table>
-        <button
-          onClick={() =>
-            openModal((loadingFromContext) => (
-              <>
-                <EditablePlayerSearch
-                  game={game}
-                  mode={'create'}
-                  onSuccess={onCreateSuccess}
-                />
-              </>
-            ))
-          }
-          className="m-4 mb-0 w-56 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm"
-        >
-          Mitspieler*innen suchen!
-        </button>
+        {allowCreate && (
+          <button
+            onClick={() =>
+              openModal((loadingFromContext) => (
+                <>
+                  <EditablePlayerSearch
+                    game={game}
+                    mode={'create'}
+                    onSuccess={onCreateSuccess}
+                  />
+                </>
+              ))
+            }
+            className="m-4 mb-0 w-56 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm"
+          >
+            Mitspieler*innen suchen!
+          </button>
+        )}
       </div>
     </>
   );
