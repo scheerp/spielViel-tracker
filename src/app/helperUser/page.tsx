@@ -4,37 +4,29 @@ import ChangePassword from '@components/ChangePassword';
 import ImportButton from '@components/ImportButton';
 import ResetUserPassword from '@components/ResetUserPassword';
 import { signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
 
 const HelperPage = () => {
   const { data: session } = useSession();
 
   return (
     <>
-      <p className="m-4 text-xl lg:m-6">
+      <p className="md:mt6 ml-4 mt-4 text-xl md:ml-6">
         eingeloggt als: {session?.user?.username}
       </p>
-      <div className="mx-auto mt-6 flex max-w-5xl flex-col items-center gap-4 p-6 text-xl">
+      <div className="mx-auto mt-6 flex flex-col items-center gap-4 p-6 text-xl">
         <a
           href={`https://docs.google.com/spreadsheets/d/1em6MANoODIlUtM904hvjerxMwfykKkpjQBB7WJlduGo/edit?usp=sharing`}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-semibold underline"
+          className="mb-6 font-semibold underline"
         >
           Helfer*innen Einteilung
         </a>
-        <Link className="font-semibold underline" href="/helperUser/stats">
-          Statistik
-        </Link>
-        <Link
-          className="mb-12 font-semibold underline"
-          href="/helperUser/gameSessions"
-        >
-          Brettspiel Sessions
-        </Link>
-        <ImportButton />
-        <ChangePassword />
-        {session?.user?.role === 'admin' && <ResetUserPassword />}
+        <div className="flex flex-col flex-wrap items-center justify-center gap-4 md:flex-row md:items-start">
+          <ImportButton />
+          <ChangePassword />
+          {session?.user?.role === 'admin' && <ResetUserPassword />}
+        </div>
         <button
           onClick={() =>
             signOut({

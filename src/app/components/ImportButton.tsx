@@ -96,34 +96,65 @@ const ImportButton = () => {
       }
 
       const result = await response.json();
-      if (result.added > 0 || result.deleted > 0 || result.updated > 0) {
-        setFilter(defaultFilterState);
-        fetchGames();
-        showNotification({
-          message: (
-            <div>
-              Sammlung erfolgreich aktualisiert:
-              <br /> {result.added} Spiele hinzugefügt!
-              <br /> {result.updated} Spiele aktualisiert!
-              <br /> {result.deleted} Spiele gelöscht!
-            </div>
-          ),
-          type: 'success',
-          duration: 3000,
-        });
+      console.log({ result });
+
+      if (mode === 'quick') {
+        if (result.added > 0 || result.deleted > 0 || result.updated > 0) {
+          setFilter(defaultFilterState);
+          fetchGames();
+          showNotification({
+            message: (
+              <div>
+                Sammlung erfolgreich aktualisiert:
+                <br /> {result.added} Spiele hinzugefügt!
+                <br /> {result.updated} Spiele aktualisiert!
+                <br /> {result.deleted} Spiele gelöscht!
+              </div>
+            ),
+            type: 'success',
+            duration: 10000,
+          });
+        } else {
+          showNotification({
+            message: 'Liste bereits aktuell!',
+            type: 'status',
+            duration: 5000,
+          });
+        }
       } else {
-        showNotification({
-          message: 'Liste bereits aktuell!',
-          type: 'status',
-          duration: 3000,
-        });
+        if (
+          result.result.added > 0 ||
+          result.result.deleted > 0 ||
+          result.result.updated > 0
+        ) {
+          setFilter(defaultFilterState);
+          fetchGames();
+          showNotification({
+            message: (
+              <div>
+                Sammlung erfolgreich aktualisiert:
+                <br /> {result.result.added} Spiele hinzugefügt!
+                <br /> {result.result.updated} Spiele aktualisiert!
+                <br /> {result.result.deleted} Spiele gelöscht!
+              </div>
+            ),
+            type: 'success',
+            duration: 10000,
+          });
+        } else {
+          showNotification({
+            message: 'Liste bereits aktuell!',
+            type: 'status',
+            duration: 5000,
+          });
+        }
       }
     } catch (err) {
       const error = err as AppError;
       showNotification({
         message: `Fehler: ${error.detail.message}`,
         type: 'error',
-        duration: 4000,
+        duration: 5000,
       });
     } finally {
       updateModalLoading(false);
@@ -139,8 +170,8 @@ const ImportButton = () => {
     await fetchCollection('quick');
   };
   return (
-    <>
-      <div className="flex max-w-72 flex-col items-center overflow-hidden rounded-xl bg-white p-5 shadow-md md:gap-2">
+    <div className="flex flex-col gap-4">
+      <div className="flex w-72 flex-col items-center rounded-xl bg-white p-8 shadow-md">
         <p className="mb-2 text-center text-sm text-gray-500">
           Hinweis: Der Vorgang kann einige Sekunden dauern, und holt nicht alle
           Details der neuen Spiele!
@@ -151,21 +182,21 @@ const ImportButton = () => {
           buttonText="Schneller Import"
           onClickFunction={fetchCollectionQuick}
           modalText={
-            <p className="mt-10">
-              Import starten?
+            <div className="mt-10">
+              <b>Import starten?</b>
               <br />
-              <b>
+              <p className="mt-2 text-center text-sm text-gray-500">
                 Hinweis: Der Vorgang kann einige Sekunden dauern, und holt nicht
                 alle Details der neuen Spiele!
-              </b>
-            </p>
+              </p>
+            </div>
           }
           modalButtonText="Abfahrt!"
         />
       </div>
 
       {session?.user?.role === 'admin' && (
-        <div className="flex max-w-72 flex-col items-center overflow-hidden rounded-xl bg-white p-5 shadow-md md:gap-2">
+        <div className="flex w-72 flex-col items-center rounded-xl bg-white p-8 shadow-md">
           <p className="mb-2 text-center text-sm text-gray-500">
             Hinweis: Der Vorgang kann einige Minuten dauern!
           </p>
@@ -174,17 +205,19 @@ const ImportButton = () => {
             buttonText="Voller Import"
             onClickFunction={fetchCollectionFull}
             modalText={
-              <p className="mt-10">
-                Import starten?
+              <div className="mt-10">
+                <b>Import starten?</b>
                 <br />
-                <b>Hinweis: Der Vorgang kann einige Minuten dauern!</b>
-              </p>
+                <p className="mt-2 text-center text-sm text-gray-500">
+                  Hinweis: Der Vorgang kann einige Minuten dauern!
+                </p>
+              </div>
             }
             modalButtonText="Abfahrt!"
           />
         </div>
       )}
-    </>
+    </div>
   );
 };
 

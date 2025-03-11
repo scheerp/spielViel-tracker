@@ -75,38 +75,36 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className="mt-8 flex justify-center">
-      <div className="flex flex-col items-center rounded-xl bg-white p-8 shadow-md">
-        <h1 className="text-md font-semibold">Passwort ändern</h1>
-        <form
-          onSubmit={handleChangePassword}
-          className="mt-4 flex w-full max-w-sm flex-col gap-4 text-base"
+    <div className="flex w-72 flex-col items-center rounded-xl bg-white p-8 shadow-md">
+      <h1 className="text-md font-semibold">Passwort ändern</h1>
+      <form
+        onSubmit={handleChangePassword}
+        className="mt-4 flex w-full flex-col gap-4 text-base"
+      >
+        <input
+          name="currentPassword"
+          type="password"
+          placeholder="Aktuelles Passwort"
+          required
+          className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
+        />
+        <input
+          name="newPassword"
+          type="text"
+          placeholder="Neues Passwort"
+          required
+          className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
+        />
+        <button
+          type="submit"
+          disabled={isButtonDisabled}
+          className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
+            isButtonDisabled ? 'cursor-not-allowed opacity-50' : ''
+          }`}
         >
-          <input
-            name="currentPassword"
-            type="password"
-            placeholder="Aktuelles Passwort"
-            required
-            className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
-          />
-          <input
-            name="newPassword"
-            type="text"
-            placeholder="Neues Passwort"
-            required
-            className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
-          />
-          <button
-            type="submit"
-            disabled={isButtonDisabled}
-            className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
-              isButtonDisabled ? 'cursor-not-allowed opacity-50' : ''
-            }`}
-          >
-            {isLoading ? 'Ändern...' : 'Passwort ändern'}
-          </button>
-        </form>
-      </div>
+          {isLoading ? 'Ändern...' : 'Passwort ändern'}
+        </button>
+      </form>
     </div>
   );
 };

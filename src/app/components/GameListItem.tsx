@@ -145,7 +145,7 @@ const GameListItem = memo(
                         {game.name}
                       </h2>
                       <div>
-                        {game.min_players && game.max_players && !session && (
+                        {game.min_players && game.max_players && (
                           <p className="mb-1 text-sm text-gray-500 md:block">
                             {game.min_players === game.max_players
                               ? `${game?.max_players} Spieler*innen`

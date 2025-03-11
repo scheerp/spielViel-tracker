@@ -10,7 +10,6 @@ const LoginPage = () => {
   const router = useRouter();
   const { showNotification } = useNotification();
   const [isLoading, setIsLoading] = useState(false);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   useEffect(() => {
     if (session) {
@@ -21,7 +20,6 @@ const LoginPage = () => {
   const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsLoading(true);
-    setIsButtonDisabled(true);
 
     const form = event.target as HTMLFormElement;
     const username = (form.elements.namedItem('username') as HTMLInputElement)
@@ -31,8 +29,7 @@ const LoginPage = () => {
 
     try {
       const result = await signIn('credentials', {
-        redirect: true,
-        callbackUrl: '/',
+        redirect: false,
         username,
         password,
       });
@@ -43,7 +40,7 @@ const LoginPage = () => {
           type: 'error',
           duration: 3000,
         });
-      } else {
+      } else if (result?.ok) {
         showNotification({
           message: <div>Erfolgreich eingeloggt!</div>,
           type: 'success',
@@ -60,7 +57,6 @@ const LoginPage = () => {
     } finally {
       setTimeout(() => {
         setIsLoading(false);
-        setIsButtonDisabled(false);
       }, 1000);
     }
   };
@@ -89,9 +85,9 @@ const LoginPage = () => {
           />
           <button
             type="submit"
-            disabled={isButtonDisabled}
+            disabled={isLoading}
             className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
-              isButtonDisabled ? 'cursor-not-allowed opacity-50' : ''
+              isLoading ? 'cursor-not-allowed opacity-50' : ''
             }`}
           >
             {isLoading ? 'Anmelden...' : 'Anmelden'}

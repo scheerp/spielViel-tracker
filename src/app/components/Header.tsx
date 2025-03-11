@@ -56,8 +56,9 @@ const Header = () => {
             )}
           </div>
           <div className="flex items-center">
-            {(session && session && session?.user?.role === 'admin') ||
-              (session?.user?.role === 'helper' && (
+            {session &&
+              (session?.user?.role === 'admin' ||
+                session?.user?.role === 'helper') && (
                 <div className="flex items-center gap-3">
                   <button
                     className="h-14 w-14 p-2 lg:h-16 lg:w-16"
@@ -73,7 +74,7 @@ const Header = () => {
                     <BarcodeIcon tailwindColor="text-white" />
                   </button>
                 </div>
-              ))}
+              )}
             <HamburgerButton menuOpen={menuOpen} toggleMenu={toggleMenu} />
           </div>
         </nav>

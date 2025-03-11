@@ -250,7 +250,11 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
         </div>
         <GameSimilarGames relatedGames={relatedGames} />
       </div>
-      <FloatingUpdateButtons game={game} handleSuccess={handleGameUpdate} />
+      <FloatingUpdateButtons
+        game={game}
+        handleSuccess={handleGameUpdate}
+        showDeleteBarcodeButton={true}
+      />
     </>
   );
 };
