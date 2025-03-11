@@ -139,7 +139,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
         <CustomSlider
           className="mt-4"
           value={loclFilterState.minAge}
-          minValue={5}
+          minValue={0}
           maxValue={18}
           updateFunction={handleAgeSliderChange}
           labelText={(value) => `Alter: ab ${value}`}
