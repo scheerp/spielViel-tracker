@@ -98,7 +98,7 @@ const ChangePassword = () => {
         <button
           type="submit"
           disabled={isButtonDisabled}
-          className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
+          className={`btn mt-6 rounded-full bg-primary px-3 py-2.5 font-bold text-white shadow-sm ${
             isButtonDisabled ? 'cursor-not-allowed opacity-50' : ''
           }`}
         >

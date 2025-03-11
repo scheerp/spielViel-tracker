@@ -170,7 +170,7 @@ const ImportButton = () => {
     await fetchCollection('quick');
   };
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 text-base">
       <div className="flex w-72 flex-col items-center rounded-xl bg-white p-8 shadow-md">
         <p className="mb-2 text-center text-sm text-gray-500">
           Hinweis: Der Vorgang kann einige Sekunden dauern, und holt nicht alle

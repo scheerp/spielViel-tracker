@@ -34,7 +34,7 @@ const HelperPage = () => {
               callbackUrl: '/',
             })
           }
-          className="hover:bg-primary-dark mb-16 mt-8 w-36 rounded-full bg-error px-4 py-2 font-bold text-white"
+          className="hover:bg btn mt-6 rounded-full bg-error px-3 py-2.5 font-bold text-white shadow-sm"
         >
           Ausloggen
         </button>

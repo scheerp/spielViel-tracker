@@ -2,6 +2,7 @@
 
 import { useNotification } from '@context/NotificationContext';
 import { signIn, useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -62,9 +63,19 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="flex justify-center">
-      <div className="mt-60 flex flex-col items-center rounded-xl bg-white p-8 shadow-md">
-        <h1 className="text-xl font-semibold">Login</h1>
+    <div className="m-auto flex max-w-lg flex-col items-center justify-center">
+      <h1 className="mb-8 mt-40 text-center text-xl font-semibold">
+        Liebe SpielViel Besucher*in, <br /> im Moment steht der Login leider nur
+        unseren Helfer*innen zur verfügung. Du kannst unsere App trotzdem ohne
+        Login und ohne Probleme nutzen. <br />
+        <br />
+        <Link href="/" className="underline">
+          Hier
+        </Link>{' '}
+        gehts zurück zu den Spielen!
+      </h1>
+      <div className="flex flex-col items-center rounded-xl bg-white p-8 shadow-md">
+        <h2 className="text-xl font-semibold text-gray-700">Login</h2>
         <form
           onSubmit={handleLogin}
           className="mt-4 flex w-full max-w-sm flex-col gap-4"

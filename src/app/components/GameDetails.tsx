@@ -159,7 +159,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
 
   return (
     <>
-      <div className="flex w-full justify-between px-2 pt-3">
+      <div className="flex w-full justify-between px-2 py-4">
         <button
           onClick={() => router.back()}
           className="flex items-center gap-2 rounded-full text-primary"
