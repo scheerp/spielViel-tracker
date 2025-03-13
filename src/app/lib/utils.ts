@@ -53,6 +53,16 @@ export const isBarcodeConflictError = (
 
 const now = new Date();
 
+// TODO: This is a temporary solution to handle the sessions
+export const convertDayToDate = (day: string): string => {
+  const daysMap: Record<string, string> = {
+    Fr: '2025-03-28',
+    Sa: '2025-03-29',
+    So: '2025-03-30',
+  };
+  return daysMap[day] || '';
+};
+
 export const timeSinceMinutes = (timestamp: string): string => {
   const past = new Date(timestamp);
   const diffMs = now.getTime() - past.getTime();

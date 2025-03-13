@@ -1,15 +1,19 @@
 'use client';
 
 import AddIcon from '@icons/AddIcon';
-import { NewSessionEntry, SessionEntry } from '../helperUser/gameSessions/page';
-import { useState } from 'react';
+import {
+  NewSessionEntry,
+  Session,
+  SessionEntry,
+} from '../helperUser/gameSessions/page';
+import { useState, useMemo } from 'react';
 import EditableRow from './EditableRow';
 import CloseIcon from '@icons/CancelIcon';
 import SaveIcon from '@icons/SaveIcon';
+import Image from 'next/image';
 
 type SessionTableProps = {
-  participants: Array<SessionEntry>;
-  sessionName: string;
+  session: Session;
   deleteSession: (id: number) => void;
   updateSession: (
     id: number,
@@ -20,8 +24,7 @@ type SessionTableProps = {
 };
 
 const SessionTable: React.FC<SessionTableProps> = ({
-  participants,
-  sessionName,
+  session,
   deleteSession,
   addSession,
   updateSession,
@@ -34,17 +37,50 @@ const SessionTable: React.FC<SessionTableProps> = ({
     handynummer: '',
   });
 
-  const sortedParticipants = [...participants].sort(
-    (a, b) =>
-      new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+  const sortedParticipants = useMemo(
+    () =>
+      [...session.participants].sort(
+        (a, b) =>
+          (new Date(a.created_at).getTime() || 0) -
+          (new Date(b.created_at).getTime() || 0),
+      ),
+    [session.participants],
   );
 
   return (
     <div
-      key={sessionName}
-      className="mb-8 rounded-xl border border-gray-300 bg-white p-4 shadow-md"
+      key={session.id}
+      className="mb-4 rounded-xl border border-gray-300 bg-white p-4 shadow-md"
     >
-      <h3 className="mb-3 text-lg font-semibold">{sessionName}</h3>
+      <div className="mb-8 flex">
+        <div className="relative mr-4 h-32 w-36 overflow-hidden truncate md:h-44 md:w-44">
+          <Image
+            src={session.imageUrl ? session.imageUrl : '/noImage.jpg'}
+            alt={session.name}
+            priority
+            fill
+            sizes="(max-width: 640px) 26vw, (max-width: 768px) 50vw, 26vw"
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
+        <div className="flex flex-col justify-between">
+          <div className="text-wrap text-xl md:text-2xl">
+            <h2 className="clamp-custom-1">
+              {session.name} <br />
+            </h2>
+            <p>ab {session.time} Uhr</p>
+          </div>
+          <div className="text-md text-wrap text-gray-500">
+            {session.maxPlayers && session.maxPlayers > 0 && (
+              <p>Anzahl: {session.maxPlayers} Spieler*innen</p>
+            )}
+            {session.location && <p>Ort: {session.location}</p>}
+            {session.duration && session.duration > 0 && (
+              <p>Dauer: {session.duration} Min</p>
+            )}
+          </div>
+        </div>
+      </div>
       <div className="overflow-x-auto">
         <table className="w-full table-fixed border-collapse bg-white shadow-sm">
           <thead>
@@ -58,14 +94,22 @@ const SessionTable: React.FC<SessionTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {sortedParticipants.map((participant) => (
-              <EditableRow
-                key={participant.id}
-                participant={participant}
-                deleteSession={deleteSession}
-                updateSession={updateSession}
-              />
-            ))}
+            {sortedParticipants.length > 0 ? (
+              sortedParticipants.map((participant) => (
+                <EditableRow
+                  key={participant.id}
+                  participant={participant}
+                  deleteSession={deleteSession}
+                  updateSession={updateSession}
+                />
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="p-3 text-center text-gray-500">
+                  Keine Teilnehmer vorhanden
+                </td>
+              </tr>
+            )}
 
             {displayNewEntry ? (
               <tr className="h-32">
@@ -118,7 +162,14 @@ const SessionTable: React.FC<SessionTableProps> = ({
                   </button>
                   <button
                     onClick={() => {
-                      addSession(sessionName, newEntry);
+                      addSession(session.oldFormat, newEntry);
+                      setDisplayNewEntry(false);
+                      setNewEntry({
+                        vorname: '',
+                        nachname: '',
+                        email: '',
+                        handynummer: '',
+                      });
                     }}
                     className="mb-2 rounded-xl bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"
                   >
