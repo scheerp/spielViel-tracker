@@ -95,9 +95,11 @@ const SessionTable: React.FC<SessionTableProps> = ({
           </thead>
           <tbody>
             {sortedParticipants.length > 0 ? (
-              sortedParticipants.map((participant) => (
+              sortedParticipants.map((participant, index) => (
                 <EditableRow
                   key={participant.id}
+                  isApproved={index < session.maxPlayers}
+                  isNextInline={index < session.maxPlayers + 2}
                   participant={participant}
                   deleteSession={deleteSession}
                   updateSession={updateSession}

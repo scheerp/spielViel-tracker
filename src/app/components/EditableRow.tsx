@@ -18,6 +18,8 @@ type EditableRowProps = {
     handynummer: string;
     created_at: string;
   };
+  isApproved: boolean;
+  isNextInline: boolean;
   deleteSession: (id: number) => void;
   updateSession: (
     id: number,
@@ -41,6 +43,8 @@ const EditableRow: React.FC<EditableRowProps> = ({
   participant,
   deleteSession,
   updateSession,
+  isApproved,
+  isNextInline,
 }) => {
   const { openModal } = useModal();
   const [isEditing, setIsEditing] = useState(false);
@@ -52,7 +56,9 @@ const EditableRow: React.FC<EditableRowProps> = ({
   });
 
   return (
-    <tr className="border-b border-gray-200 hover:bg-gray-50">
+    <tr
+      className={`border-b border-gray-200 hover:bg-gray-50 ${!isApproved && 'bg-gray-200'} ${!isNextInline && 'bg-gray-300'}`}
+    >
       {isEditing ? (
         <>
           <td className="p-3 pl-0">

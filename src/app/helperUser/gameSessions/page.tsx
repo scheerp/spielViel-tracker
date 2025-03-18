@@ -29,7 +29,7 @@ export type Session = {
   duration: number;
   location: string;
   imageUrl?: string;
-  maxPlayers?: number;
+  maxPlayers: number;
   participants: SessionEntry[];
   oldFormat: string;
 };
@@ -134,7 +134,7 @@ const sessionMetadata: Record<
     imageUrl:
       'https://spielviel.net/wp-content/uploads/2025/03/Was-ist-da-im-Keller.jpg',
   },
-  'Lords of Waterdeep + Expansion': {
+  'Lords of Waterdeep': {
     name: 'Lords of Waterdeep + Expansion',
     type: 'boardgame',
     maxPlayers: 6,
@@ -149,6 +149,8 @@ const sessionMetadata: Record<
     maxPlayers: 6,
     location: 'Pen & Paper Studio',
     duration: 120,
+    imageUrl:
+      'https://spielviel.net/wp-content/uploads/2025/03/Der-Tote-Gast.jpg',
   },
   'Das Unbewusste': {
     name: 'Das Unbewusste',
@@ -196,7 +198,7 @@ const sessionMetadata: Record<
       'https://cf.geekdo-images.com/Oh3kHw6lweg6ru71Q16h2Q__original/img/yW7d4RNfU1ndISCaPlfGYUyxnRU=/0x0/filters:format(jpeg)/pic5235277.jpg',
   },
   'Dungeons and Dragons 5e – Die Banditen von Unterholz': {
-    name: 'Dungeons and Dragons 5e – Die Banditen von Unterholz',
+    name: 'Dungeons and Dragons – Die Banditen von Unterholz',
     type: 'pnp',
     maxPlayers: 5,
     location: 'Pen & Paper Studio',
@@ -242,7 +244,7 @@ const parseSessions = (data: SessionsResponse): Session[] => {
         location: meta.location || '',
         type: meta.type as 'boardgame' | 'pnp',
         imageUrl: meta.imageUrl || '',
-        maxPlayers: meta.maxPlayers ?? undefined,
+        maxPlayers: meta.maxPlayers ?? 0,
         participants: participants.sort(
           (a, b) =>
             new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
