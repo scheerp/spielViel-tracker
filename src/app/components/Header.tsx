@@ -20,7 +20,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed z-50 flex h-20 w-full items-center bg-primary px-[30px] py-[15px] pr-2">
+      <header className="fixed z-50 flex h-20 w-full items-center bg-primary px-[30px] py-[15px] pr-2 shadow-lg">
         <nav className="flex w-full items-center justify-between">
           <Link href="/" className="flex items-center">
             <Image

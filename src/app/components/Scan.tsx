@@ -95,7 +95,7 @@ const Scan: React.FC = () => {
   return (
     <>
       <div className="mb-8 flex flex-col items-center">
-        <div className="z-[1] mt-12 flex w-full flex-col justify-around rounded-xl bg-white text-base shadow-md">
+        <div className="z-[1] mt-12 flex w-full flex-col justify-around rounded-full bg-white text-base shadow-md">
           <form
             onSubmit={(event) => {
               event.preventDefault();
@@ -106,7 +106,7 @@ const Scan: React.FC = () => {
               type="number"
               ref={inputRef}
               readOnly={loading || isUpdating}
-              className="h-16 w-full rounded-xl border-0 p-[15px] py-2.5 pt-[10px] outline-none [appearance:textfield] read-only:bg-gray-100 focus:ring-4 focus:ring-primary focus:ring-offset-2 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
+              className="h-16 w-full rounded-full border-0 p-[15px] py-2.5 pt-[10px] outline-none [appearance:textfield] read-only:bg-gray-100 focus:ring-4 focus:ring-primary focus:ring-offset-2 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
               placeholder="Barcode scannen..."
               value={barCode}
               onChange={(event) => setBarCode(event.target.value)}

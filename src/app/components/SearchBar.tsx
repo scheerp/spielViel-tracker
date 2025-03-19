@@ -8,6 +8,7 @@ import Drawer from './Drawer';
 import Filter from './Filter';
 import LightbulbIcon from '@icons/LightbulbIcon';
 import { useSession } from 'next-auth/react';
+import SubHeader from './SubHeader';
 
 type SearchBarType = {
   editFamiliarity: boolean;
@@ -50,10 +51,13 @@ const SearchBar: React.FC<SearchBarType> = ({
 
   return (
     <>
-      <div className="fixed z-20 mb-4 flex h-20 w-full bg-background px-2 py-4 md:min-w-64">
-        <div className="mr-2 flex flex-grow items-center rounded-full bg-white px-3">
+      <SubHeader hasGradient={true}>
+        <div className="mr-2 flex flex-grow items-center rounded-full bg-white px-3 shadow-md">
           <div className="relative flex w-full items-center pr-3">
-            <SearchIcon tailwindColor="text-primary" className="mr-2 h-5 w-5" />
+            <SearchIcon
+              tailwindColor="text-primary"
+              className="ml-[0.1rem] mr-2 h-[1.7rem] w-[1.7rem]"
+            />
             <input
               type="text"
               placeholder="Nach Namen filtern..."
@@ -74,7 +78,7 @@ const SearchBar: React.FC<SearchBarType> = ({
         </div>
         {session && (
           <button
-            className={`mr-2 flex h-12 w-12 items-center justify-center rounded-full transition-colors duration-300 ${editFamiliarity ? 'bg-primary' : 'bg-white'}`}
+            className={`mr-2 flex h-12 w-12 items-center justify-center rounded-full shadow-md transition-colors duration-300 ${editFamiliarity ? 'bg-primary' : 'bg-white'}`}
             onClick={() => setEditFamiliarity(!editFamiliarity)}
           >
             <LightbulbIcon
@@ -84,7 +88,7 @@ const SearchBar: React.FC<SearchBarType> = ({
           </button>
         )}
         <button
-          className={`flex h-12 w-12 items-center justify-center rounded-full transition-all duration-300 ${isFilterActive ? 'bg-primary' : 'bg-white'}`}
+          className={`flex h-12 w-12 items-center justify-center rounded-full shadow-md transition-all duration-300 ${isFilterActive ? 'bg-primary' : 'bg-white'}`}
           onClick={toggleDrawer}
         >
           <FilterIcon
@@ -92,7 +96,7 @@ const SearchBar: React.FC<SearchBarType> = ({
             className="h-6 w-6"
           />
         </button>
-      </div>
+      </SubHeader>
 
       <Drawer isOpen={isDrawerOpen} onClose={toggleDrawer}>
         <Filter closeDrawer={toggleDrawer} />

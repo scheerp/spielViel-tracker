@@ -2,9 +2,12 @@
 
 import FancyLoading from '@components/FancyLoading';
 import SessionTable from '@components/SessionTable';
+import SubHeader from '@components/SubHeader';
 import { useModal } from '@context/ModalContext';
 import { useNotification } from '@context/NotificationContext';
+import ArrowLeftIcon from '@icons/ArrowLeftIcon';
 import { convertDayToDate } from '@lib/utils';
+import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 
 export type SessionEntry = {
@@ -295,6 +298,7 @@ const groupSessionsByDay = (sessions: Session[]): Record<string, Session[]> => {
 
 const Sessions: React.FC = () => {
   const { showNotification } = useNotification();
+  const router = useRouter();
   const { closeModal, updateModalLoading } = useModal();
   const [gameSessions, setGameSessions] = useState<SessionsResponse | null>(
     null,
@@ -474,20 +478,30 @@ const Sessions: React.FC = () => {
 
   return (
     <>
-      <div className="flex w-full justify-center px-2 py-4">
-        <div className="flex items-center gap-4">
-          {['Freitag', 'Samstag', 'Sonntag'].map((day) => (
-            <button
-              key={day}
-              className={`rounded-full px-4 py-2 font-bold ${selectedDay === day ? 'bg-primary text-white' : 'bg-gray-300 text-black'}`}
-              onClick={() => setSelectedDay(day)}
-            >
-              {day}
-            </button>
-          ))}
+      <SubHeader hasGradient={true}>
+        <div className="flex w-full items-center justify-between gap-4">
+          <button
+            onClick={() => router.back()}
+            className="self-start rounded-full text-primary shadow-md"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+              <ArrowLeftIcon tailwindColor="text-primary" className="h-8 w-8" />
+            </div>
+          </button>
+          <div className="flex items-center justify-center gap-2">
+            {['Freitag', 'Samstag', 'Sonntag'].map((day) => (
+              <button
+                key={day}
+                className={`h-12 rounded-full px-4 font-bold shadow-md ${selectedDay === day ? 'bg-primary text-white' : 'bg-white text-primary'}`}
+                onClick={() => setSelectedDay(day)}
+              >
+                {day}
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
-      <div className="mx-auto px-6">
+      </SubHeader>
+      <div className="mx-auto mt-24 px-6">
         {filteredBoardgameSessions.length > 0 && (
           <>
             <h2 className="mb-4 text-2xl font-bold">

@@ -20,6 +20,7 @@ import ExplainersList from './ExplainersList';
 import LightbulbIcon from '@icons/LightbulbIcon';
 import PlayerSearchTable from './PlayerSearchTable';
 import FancyLoading from './FancyLoading';
+import SubHeader from './SubHeader';
 
 interface GameDetailsProps {
   gameId: string;
@@ -159,50 +160,52 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
 
   return (
     <>
-      <div className="flex w-full justify-between px-2 py-4">
-        <button
-          onClick={() => router.back()}
-          className="flex items-center gap-2 rounded-full text-primary"
-        >
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
-            <ArrowLeftIcon tailwindColor="text-primary" className="h-7 w-7" />
-          </div>
-        </button>
-        <div className="flex items-center gap-2">
-          {session && session.user?.role !== 'user' && (
-            <button
-              onClick={() =>
-                openModal((loadingFromContext) => (
-                  <>
-                    <ExplainersList game={game} />
-                    {loadingFromContext && <Loading />}
-                  </>
-                ))
-              }
-              className="flex items-center gap-2 rounded-full text-primary"
-            >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
-                <LightbulbIcon
-                  tailwindColor="text-primary"
-                  className="h-7 w-7"
-                />
-              </div>
-            </button>
-          )}
-          <a
-            href={`https://boardgamegeek.com/boardgame/${game.bgg_id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 rounded-full text-primary"
+      <SubHeader>
+        <div className="flex w-full justify-between">
+          <button
+            onClick={() => router.back()}
+            className="flex items-center gap-2 rounded-full text-primary shadow-md"
           >
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
-              <BGGIcon tailwindColor="text-primary" className="h-6 w-6" />
+              <ArrowLeftIcon tailwindColor="text-primary" className="h-8 w-8" />
             </div>
-          </a>
+          </button>
+          <div className="flex items-center gap-2">
+            {session && session.user?.role !== 'user' && (
+              <button
+                onClick={() =>
+                  openModal((loadingFromContext) => (
+                    <>
+                      <ExplainersList game={game} />
+                      {loadingFromContext && <Loading />}
+                    </>
+                  ))
+                }
+                className="flex items-center gap-2 rounded-full text-primary shadow-md"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+                  <LightbulbIcon
+                    tailwindColor="text-primary"
+                    className="h-7 w-7"
+                  />
+                </div>
+              </button>
+            )}
+            <a
+              href={`https://boardgamegeek.com/boardgame/${game.bgg_id}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 rounded-full text-primary shadow-md"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+                <BGGIcon tailwindColor="text-primary" className="h-6 w-6" />
+              </div>
+            </a>
+          </div>
         </div>
-      </div>
+      </SubHeader>
       <div className="container mx-auto">
-        <div className="mt-4 flex flex-col items-center justify-center md:ml-9 md:flex-row md:items-start 2xl:mt-10">
+        <div className="mt-24 flex flex-col items-center justify-center md:ml-9 md:flex-row md:items-start 2xl:mt-10">
           <DetailedGameImage game={game} />
           <div className="mt-9 flex flex-col justify-start px-12 md:mt-20">
             <div className="flex justify-center md:justify-start">

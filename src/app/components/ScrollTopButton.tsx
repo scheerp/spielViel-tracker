@@ -1,4 +1,4 @@
-import ArrowUpIcon from '@icons/ArrowUpIcon';
+import ArrowLeftIcon from '@icons/ArrowLeftIcon';
 import { useEffect, useState } from 'react';
 
 const ScrollToTopButton: React.FC = () => {
@@ -21,13 +21,12 @@ const ScrollToTopButton: React.FC = () => {
     return (
       <button
         onClick={scrollToTop}
-        className="hover:bg-primary-dark fixed bottom-7 right-7 z-40 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-2xl text-white shadow-[0_8px_15px_rgba(0,0,0,0.3)] focus:outline-none focus:ring-2 focus:ring-primaryLight md:bottom-8 md:right-7 md:h-20 md:w-20"
+        className="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-2xl shadow-[0_8px_15px_rgba(0,0,0,0.3)] focus:outline-none focus:ring-2 focus:ring-primaryLight md:bottom-8 md:right-7"
         aria-label="Scroll to top"
       >
-        <ArrowUpIcon
-          tailwindColor="text-white"
-          className="h-7 w-7 md:h-9 md:w-9"
-        />
+        <div className="flex h-8 w-8 rotate-90 items-center justify-center rounded-full bg-primary">
+          <ArrowLeftIcon tailwindColor="text-white" className="h-8 w-8" />
+        </div>
       </button>
     );
 

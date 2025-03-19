@@ -50,11 +50,11 @@ const GameUpdateButton = ({
 
   const getButtonStyles = () => {
     const baseStyles =
-      'rounded-xl px-2 py-2.5 text-xl text-white flex items-center justify-center';
+      'rounded-full  text-xl text-white flex items-center justify-center';
     const sizeStyles =
       buttonType !== 'list'
-        ? 'btn min-h-16 min-w-16 md:min-h-24 md:min-w-24 flex flex-col items-center justify-center max-w-10'
-        : 'btnflex h-16 w-16 flex-col items-center justify-center';
+        ? 'btn min-h-[3.5rem] min-w-[3.5rem] md:min-h-24 md:min-w-24 flex flex-col items-center justify-center max-w-10'
+        : 'btnflex h-[3.5rem] w-[3.5rem] flex-col items-center justify-center';
 
     let availabilityStyles;
     switch (operation) {
@@ -100,7 +100,7 @@ const GameUpdateButton = ({
             </div>
           ))
         }
-        className="flex min-h-16 min-w-16 items-center justify-center rounded-xl"
+        className="flex min-h-16 min-w-16 items-center justify-center rounded-full"
       >
         <div className={getButtonStyles()}>
           {text && buttonType !== 'list' && <span>{text}</span>}
@@ -120,8 +120,8 @@ const GameUpdateButton = ({
       <Image
         src={operation === 'borrow' ? '/lend-icon.svg' : '/return-icon.svg'}
         alt={operation === 'borrow' ? 'lend icon' : 'return icon'}
-        width={buttonType === 'list' ? 20 : 30}
-        height={buttonType === 'list' ? 20 : 30}
+        width={buttonType === 'list' ? 30 : 40}
+        height={buttonType === 'list' ? 30 : 40}
         style={{
           maxWidth: '100%',
           height: 'auto',

@@ -112,18 +112,18 @@ const EditableRow: React.FC<EditableRowProps> = ({
                 });
                 setIsEditing(false);
               }}
-              className="mb-2 mr-2 rounded-xl bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
+              className="mb-2 mr-1 rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
             >
-              <CloseIcon tailwindColor="text-white" className="h-6 w-6" />
+              <CloseIcon tailwindColor="text-white" className="h-7 w-7" />
             </button>
 
             <button
               onClick={() => {
                 updateSession(participant.id, editedEntry, participant);
               }}
-              className="rounded-xl bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"
+              className="rounded-full bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"
             >
-              <SaveIcon tailwindColor="text-white" className="h-6 w-6" />
+              <SaveIcon tailwindColor="text-white" className="h-7 w-7" />
             </button>
           </td>
           <td className="hidden p-3 md:block">
@@ -143,9 +143,9 @@ const EditableRow: React.FC<EditableRowProps> = ({
           <td className="pt-3">
             <button
               onClick={() => setIsEditing(true)}
-              className="mb-2 mr-2 rounded-xl bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
+              className="mb-2 mr-1 rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
             >
-              <EditIcon tailwindColor="text-white" className="h-6 w-6" />
+              <EditIcon tailwindColor="text-white" className="h-7 w-7" />
             </button>
 
             <button
@@ -172,9 +172,9 @@ const EditableRow: React.FC<EditableRowProps> = ({
                   </div>
                 ))
               }
-              className="rounded-xl bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
+              className="rounded-full bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
             >
-              <TrashIcon tailwindColor="text-white" className="h-6 w-6" />
+              <TrashIcon tailwindColor="text-white" className="h-7 w-7" />
             </button>
           </td>
           <td className="hidden p-3 md:block">

@@ -171,7 +171,7 @@ const Games: React.FC = () => {
         editFamiliarity={editFamiliarity}
         setEditFamiliarity={setEditFamiliarity}
       />
-      <div className="container mx-auto mt-20 flex flex-col gap-8 px-2 lg:flex-row lg:px-8">
+      <div className="container mx-auto mt-[5.5rem] flex flex-col gap-8 px-2 lg:flex-row lg:px-8">
         <div className="flex-grow">
           {noGames && !loading && (
             <div className="px-4 py-16 pt-8 text-center text-gray-500">

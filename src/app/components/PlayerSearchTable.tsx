@@ -219,7 +219,7 @@ const PlayerSearchTable = ({
                           </>
                         ))
                       }
-                      className="mb-2 rounded-xl bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
+                      className="mb-2 rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
                     >
                       {playerSearch.can_edit ? (
                         <AddSearchIcon
@@ -256,7 +256,7 @@ const PlayerSearchTable = ({
                             </div>
                           ))
                         }
-                        className="mb-2 ml-2 rounded-xl bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
+                        className="mb-2 ml-2 rounded-full bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
                       >
                         <TrashIcon
                           tailwindColor="text-white"

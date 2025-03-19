@@ -158,7 +158,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
                 <td className="pt-3">
                   <button
                     onClick={() => setDisplayNewEntry(false)}
-                    className="mb-2 mr-2 rounded-xl bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
+                    className="mb-2 mr-1 rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
                   >
                     <CloseIcon tailwindColor="text-white" className="h-6 w-6" />
                   </button>
@@ -173,7 +173,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
                         handynummer: '',
                       });
                     }}
-                    className="mb-2 rounded-xl bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"
+                    className="mb-2 rounded-full bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"
                   >
                     <SaveIcon tailwindColor="text-white" className="h-6 w-6" />
                   </button>
@@ -184,7 +184,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
                 <td className="h-8 p-3">
                   <button
                     onClick={() => setDisplayNewEntry(true)}
-                    className="rounded-xl bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"
+                    className="rounded-full bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"
                   >
                     <AddIcon tailwindColor="text-white" className="h-6 w-6" />
                   </button>
