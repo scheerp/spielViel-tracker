@@ -126,13 +126,15 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
         <CustomSlider
           className="mt-4"
           value={loclFilterState.minPlayerCount}
-          minValue={1}
+          minValue={0}
           maxValue={10}
           updateFunction={handlePlayercountSliderChange}
           labelText={(value) =>
-            `Spieler*innenzahl: ${value > 9 ? '10 und mehr' : value} ${
-              value > 1 ? 'Spieler*innen' : 'Spieler*in'
-            }`
+            value === 0
+              ? 'Spieler*innenzahl: ungesetzt'
+              : `Spieler*innenzahl: ${value > 9 ? '10 und mehr' : value} ${
+                  value !== 1 ? 'Spieler*innen' : 'Spieler*in'
+                }`
           }
         />
 
@@ -142,7 +144,9 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
           minValue={0}
           maxValue={18}
           updateFunction={handleAgeSliderChange}
-          labelText={(value) => `Alter: ab ${value}`}
+          labelText={(value) =>
+            value === 0 ? 'Alter: ungesetzt' : `Alter: ab ${value}`
+          }
         />
         <ComplexityFilter
           complexityNames={getComplexityKeys()}

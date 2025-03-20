@@ -20,7 +20,7 @@ export const defaultFilterState: FilterState = {
   filterText: '',
   showAvailableOnly: false,
   showMissingEanOnly: false,
-  minPlayerCount: 1,
+  minPlayerCount: 0,
   minAge: 0,
   complexity: [] as ComplexityType[],
 };
