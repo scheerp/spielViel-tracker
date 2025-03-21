@@ -13,6 +13,7 @@ import { useNotification } from '@context/NotificationContext';
 import { useSession } from 'next-auth/react';
 import ComplexityFilter from './ComplexityFilter';
 import { ComplexityMapping, ComplexityType } from '@lib/utils';
+import { useFeedback } from '@context/FeedbackContext';
 
 type FilterProps = {
   closeDrawer: () => void;
@@ -25,6 +26,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
   const { filter, setFilter } = useFilter();
   const { data: session } = useSession();
   const { totalCount } = useGames();
+  const { addInteraction } = useFeedback();
   const { showNotification } = useNotification();
   const [newTotalCount, setNewTotalCount] = useState<number>(totalCount);
   const [loclFilterState, setLocalFilterstate] = useState<FilterState>(filter);
@@ -79,6 +81,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
     }));
 
     closeDrawer();
+    addInteraction(2);
     window.scrollTo({ top: 0 });
   };
 
@@ -110,6 +113,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
     window.scrollTo({ top: 0 });
     setLocalFilterstate(defaultFilterState);
     setFilter(defaultFilterState);
+    addInteraction(2);
   };
 
   return (

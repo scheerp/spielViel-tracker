@@ -6,6 +6,7 @@ import { NotificationProvider } from '@context/NotificationContext';
 import { GamesProvider } from '@context/GamesContext';
 import { FilterProvider } from './FilterContext';
 import { ModalProvider } from './ModalContext';
+import { FeedbackProvider } from './FeedbackContext';
 
 const AppProviders: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -13,7 +14,9 @@ const AppProviders: React.FC<{ children: ReactNode }> = ({ children }) => {
       <NotificationProvider>
         <FilterProvider>
           <GamesProvider>
-            <ModalProvider>{children}</ModalProvider>
+            <FeedbackProvider>
+              <ModalProvider>{children}</ModalProvider>
+            </FeedbackProvider>
           </GamesProvider>
         </FilterProvider>
       </NotificationProvider>

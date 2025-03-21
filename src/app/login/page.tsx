@@ -54,7 +54,6 @@ const LoginPage = () => {
         type: 'error',
         duration: 3000,
       });
-      console.error('Login-Fehler:<br/>', error);
     } finally {
       setTimeout(() => {
         setIsLoading(false);
@@ -63,8 +62,8 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="m-auto flex max-w-lg flex-col items-center justify-center">
-      <h1 className="mb-8 mt-40 text-center text-xl font-semibold">
+    <div className="m-auto flex h-screen max-w-lg flex-col items-center justify-center">
+      <h1 className="mx-8 -mt-40 mb-12 items-center text-center text-xl font-semibold md:mb-20">
         Liebe SpielViel Besucher*in, <br /> im Moment steht der Login leider nur
         unseren Helfer*innen zur verfügung. Du kannst unsere App trotzdem ohne
         Login und ohne Probleme nutzen. <br />

@@ -4,8 +4,10 @@ import { Game } from '@context/GamesContext';
 import Image from 'next/image';
 import Link from 'next/link';
 import ComplexityPill from './ComplexityPill';
+import { useFeedback } from '@context/FeedbackContext';
 
 const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
+  const { addInteraction } = useFeedback();
   if (!relatedGames || !relatedGames.length) return null;
 
   return (
@@ -24,6 +26,7 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
               className={`flex flex-grow items-center md:h-32 md:w-32 ${
                 relatedGame.available <= 0 ? 'opacity-40' : ''
               }`}
+              onClick={() => addInteraction(1)}
             >
               <div className="relative h-36 w-36 flex-shrink-0 overflow-hidden truncate md:h-48 md:w-48">
                 <Image

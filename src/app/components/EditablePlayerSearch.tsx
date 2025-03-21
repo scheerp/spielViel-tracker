@@ -9,6 +9,7 @@ import { AppError } from '../types/ApiError';
 import CustomSlider from './CustomSlider';
 import LocationPickerWithZoom from './LocationPickerWithZoom';
 import { PlayerSearchGameSummary } from './PlayerSearchTable';
+import { useFeedback } from '@context/FeedbackContext';
 
 type EditablePlayerSearchType = {
   game: PlayerSearchGameSummary;
@@ -27,6 +28,7 @@ const EditablePlayerSearch = ({
   const { closeModal } = useModal();
   const { showNotification } = useNotification();
   const [isLoading, setIsLoading] = useState(false);
+  const { addInteraction } = useFeedback();
   const [formData, setFormData] = useState<Partial<PlayerSearch>>(
     playerSearch || {
       game_id: game.id,
@@ -118,7 +120,7 @@ const EditablePlayerSearch = ({
         type: 'success',
         duration: 2500,
       });
-
+      addInteraction(3);
       setError(null);
       closeModal();
 

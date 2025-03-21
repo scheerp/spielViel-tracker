@@ -2,11 +2,15 @@
 
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { FEEDBACK_FORM_URL } from './FeedbackBanner';
+import { useFeedback } from '@context/FeedbackContext';
 
 type HamburgerMenuType = { menuOpen: boolean; toggleMenu: () => void };
 
 const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
   const { data: session } = useSession();
+  const { hideBanner } = useFeedback();
+
   return (
     <div
       className={`fixed inset-0 top-20 z-40 transition-all lg:hidden ${
@@ -47,6 +51,15 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
             <Link href="/programm" className="px-6 py-4" onClick={toggleMenu}>
               Programm
             </Link>
+            <a
+              href={FEEDBACK_FORM_URL}
+              target="_blank"
+              className="px-6 py-4"
+              rel="noopener noreferrer"
+              onClick={() => hideBanner()}
+            >
+              Feedback geben
+            </a>
             {(session && session?.user?.role === 'admin') ||
             session?.user?.role === 'helper' ? (
               <div className="flex flex-col items-center font-medium">

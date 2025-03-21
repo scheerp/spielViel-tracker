@@ -13,6 +13,7 @@ import { useModal } from '@context/ModalContext';
 import { Game } from '@context/GamesContext';
 import ThumbIcon from '@icons/ThumbIcon';
 import { FamiliarityMapping } from '@lib/utils';
+import { useFeedback } from '@context/FeedbackContext';
 
 type GameListItemProps = {
   game: Game;
@@ -28,7 +29,7 @@ const GameListItem = memo(
       const [currentFamiliarity, setCurrentFamiliarity] = useState<number>(
         game.my_familiarity || 0,
       );
-
+      const { addInteraction } = useFeedback();
       const updateFamiliarity = async (value: number) => {
         if (value === currentFamiliarity) return;
 
@@ -116,6 +117,7 @@ const GameListItem = memo(
                 <Link
                   href={`/game/${game.id}`}
                   className={`${game.available <= 0 ? 'opacity-40' : ''}`}
+                  onClick={() => addInteraction(1)}
                 >
                   <div className="relative h-36 w-36 flex-shrink-0 overflow-hidden truncate md:h-48 md:w-48">
                     <Image
@@ -139,6 +141,7 @@ const GameListItem = memo(
                   <Link
                     href={`/game/${game.id}`}
                     className={`flex flex-grow items-center md:h-32 md:w-24 ${game.available <= 0 ? 'opacity-40' : ''}`}
+                    onClick={() => addInteraction(1)}
                   >
                     <div className="ml-3 flex h-[7.8rem] flex-col justify-between md:mx-4 md:h-[9.3rem]">
                       <h2 className="clamp-custom-2 mb-1 text-xl/6 md:text-lg lg:text-xl">

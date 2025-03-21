@@ -4,6 +4,7 @@ import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@components/Header';
 import AppProviders from '@context/AppProviders';
+import FeedbackBanner from '@components/FeedbackBanner';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -31,6 +32,7 @@ export default function RootLayout({
       >
         <AppProviders>
           <Header />
+          <FeedbackBanner />
           <main className="pt-20">{children}</main>
         </AppProviders>
       </body>

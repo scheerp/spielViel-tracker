@@ -1,6 +1,7 @@
 'use client';
 
 import FancyLoading from '@components/FancyLoading';
+import { useFeedback } from '@context/FeedbackContext';
 import { Game } from '@context/GamesContext';
 import { useNotification } from '@context/NotificationContext';
 import { useSession } from 'next-auth/react';
@@ -10,6 +11,7 @@ import { useEffect, useState } from 'react';
 const Stats = () => {
   const { data: session } = useSession();
   const { showNotification } = useNotification();
+  const { addInteraction } = useFeedback();
   const [games, setGames] = useState<Game[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -77,7 +79,12 @@ const Stats = () => {
                 className="border-b border-gray-200 hover:bg-gray-50"
               >
                 <td className="p-3">
-                  <Link href={`/game/${game.id}`}>{game.name}</Link>
+                  <Link
+                    href={`/game/${game.id}`}
+                    onClick={() => addInteraction(1)}
+                  >
+                    {game.name}
+                  </Link>
                 </td>
                 <td className="p-3 pl-6">{game.borrow_count}</td>
               </tr>

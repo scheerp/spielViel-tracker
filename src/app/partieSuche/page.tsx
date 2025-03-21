@@ -14,10 +14,12 @@ import Image from 'next/image';
 import ComplexityPill from '@components/ComplexityPill';
 import { categorizePlayerSearches } from '@lib/utils';
 import { useSession } from 'next-auth/react';
+import { useFeedback } from '@context/FeedbackContext';
 
 const PlayerSearch = () => {
   const { showNotification } = useNotification();
   const { data: session } = useSession();
+  const { addInteraction } = useFeedback();
   const [loading, setLoading] = useState<boolean>(true);
   const [playerSearches, setPlayerSearches] = useState<PlayerSearchByGame[]>(
     [],
@@ -114,7 +116,10 @@ const PlayerSearch = () => {
               playerSearches={search.player_searches}
               game={search.game}
               tableTitle={
-                <Link href={`/game/${search.game.id}`}>
+                <Link
+                  href={`/game/${search.game.id}`}
+                  onClick={() => addInteraction(1)}
+                >
                   <div className="mb-4 flex">
                     <div className="relative mr-4 h-28 w-36 overflow-hidden truncate md:h-44 md:w-44">
                       <Image
