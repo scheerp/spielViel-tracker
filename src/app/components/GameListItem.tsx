@@ -45,7 +45,7 @@ const GameListItem = memo(
       return (
         <li
           ref={ref}
-          className="relative flex h-36 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-3 shadow-md md:h-48 md:gap-2"
+          className="relative flex h-36 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-2"
         >
           <div className="flex flex-grow items-center md:h-32 md:w-32">
             {editFamiliarity ? (

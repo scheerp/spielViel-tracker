@@ -194,7 +194,7 @@ const EditablePlayerSearch = ({
                   setFormData((prev) => ({ ...prev, location }))
                 }
                 isEditable={mode === 'view' ? false : true}
-                imageUrl={'/floorplan.png'}
+                imageUrl={'/floorplan.jpeg'}
               />
             </div>
 
@@ -238,7 +238,7 @@ const EditablePlayerSearch = ({
                   setFormData((prev) => ({ ...prev, location }))
                 }
                 isEditable={mode === 'view' ? false : true}
-                imageUrl={'/floorplan.png'}
+                imageUrl={'/floorplan.jpeg'}
               />
             </div>
           </div>

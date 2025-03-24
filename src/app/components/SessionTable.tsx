@@ -86,10 +86,12 @@ const SessionTable: React.FC<SessionTableProps> = ({
           <thead>
             <tr className="border-b-2 border-gray-300 bg-gray-100">
               <th className="p-3 text-left font-semibold">Name</th>
-              <th className="p-3 text-left font-semibold">Anmeldedaten</th>
-              <th className="p-3 text-left font-semibold">Aktion</th>
-              <th className="hidden p-3 text-left font-semibold md:block">
+              <th className="p-3 text-left font-semibold">Daten</th>
+              <th className="hidden p-3 text-left font-semibold md:table-cell">
                 Anmeldedatum
+              </th>
+              <th className="w-[6.5rem] p-3 text-center font-semibold md:w-28">
+                Aktion
               </th>
             </tr>
           </thead>
@@ -155,7 +157,8 @@ const SessionTable: React.FC<SessionTableProps> = ({
                     }
                   />
                 </td>
-                <td className="pt-3">
+                <td className="p-3 pl-0"></td>
+                <td className="flex justify-around p-3 px-0">
                   <button
                     onClick={() => setDisplayNewEntry(false)}
                     className="mb-2 mr-1 rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"

@@ -101,7 +101,10 @@ const EditableRow: React.FC<EditableRowProps> = ({
               }
             />
           </td>
-          <td className="pt-3">
+          <td className="hidden p-3 md:table-cell">
+            {formatDate(participant.created_at)}
+          </td>
+          <td className="flex justify-around p-3 px-0">
             <button
               onClick={() => {
                 setEditedEntry({
@@ -112,22 +115,18 @@ const EditableRow: React.FC<EditableRowProps> = ({
                 });
                 setIsEditing(false);
               }}
-              className="mb-2 mr-1 rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
+              className="rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
             >
-              <CloseIcon tailwindColor="text-white" className="h-7 w-7" />
+              <CloseIcon tailwindColor="text-white" className="h-6 w-6" />
             </button>
-
             <button
               onClick={() => {
                 updateSession(participant.id, editedEntry, participant);
               }}
               className="rounded-full bg-quaternary p-3 text-white shadow-md transition hover:bg-green-700"
             >
-              <SaveIcon tailwindColor="text-white" className="h-7 w-7" />
+              <SaveIcon tailwindColor="text-white" className="h-6 w-6" />
             </button>
-          </td>
-          <td className="hidden p-3 md:block">
-            {formatDate(participant.created_at)}
           </td>
         </>
       ) : (
@@ -140,12 +139,15 @@ const EditableRow: React.FC<EditableRowProps> = ({
             {participant.email && participant.email}
             {participant.handynummer && <p>{participant.handynummer}</p>}
           </td>
-          <td className="pt-3">
+          <td className="hidden p-3 md:table-cell">
+            {formatDate(participant.created_at)}
+          </td>
+          <td className="flex justify-around p-3 px-0">
             <button
               onClick={() => setIsEditing(true)}
-              className="mb-2 mr-1 rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
+              className="rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
             >
-              <EditIcon tailwindColor="text-white" className="h-7 w-7" />
+              <EditIcon tailwindColor="text-white" className="h-6 w-6" />
             </button>
 
             <button
@@ -174,11 +176,8 @@ const EditableRow: React.FC<EditableRowProps> = ({
               }
               className="rounded-full bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
             >
-              <TrashIcon tailwindColor="text-white" className="h-7 w-7" />
+              <TrashIcon tailwindColor="text-white" className="h-6 w-6" />
             </button>
-          </td>
-          <td className="hidden p-3 md:block">
-            {formatDate(participant.created_at)}
           </td>
         </>
       )}

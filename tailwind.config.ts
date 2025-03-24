@@ -22,6 +22,9 @@ export default {
         status: 'var(--status)',
         error: 'var(--error)',
       },
+      fontFamily: {
+        work: ['var(--font-work-sans)', 'sans-serif'],
+      },
     },
   },
   plugins: [],

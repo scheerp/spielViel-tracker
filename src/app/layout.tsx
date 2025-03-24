@@ -1,20 +1,14 @@
 'use client';
 
-import localFont from 'next/font/local';
 import './globals.css';
 import Header from '@components/Header';
 import AppProviders from '@context/AppProviders';
 import FeedbackBanner from '@components/FeedbackBanner';
+import { Work_Sans } from 'next/font/google';
 
-const geistSans = localFont({
-  src: './fonts/GeistVF.woff',
-  variable: '--font-geist-sans',
-  weight: '100 900',
-});
-const geistMono = localFont({
-  src: './fonts/GeistMonoVF.woff',
-  variable: '--font-geist-mono',
-  weight: '100 900',
+const workSans = Work_Sans({
+  subsets: ['latin'],
+  variable: '--font-work-sans',
 });
 
 export default function RootLayout({
@@ -23,13 +17,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="de" className={`${workSans.variable}`}>
       <head>
         <link rel="manifest" href="/manifest.json" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className="font-work">
         <AppProviders>
           <Header />
           <FeedbackBanner />

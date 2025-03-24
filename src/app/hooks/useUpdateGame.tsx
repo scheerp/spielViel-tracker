@@ -121,7 +121,7 @@ const useUpdateGame = () => {
           operation === 'updateFamiliarity'
             ? 'success'
             : operation,
-        duration: 2000,
+        duration: operation === 'updateFamiliarity' ? 200 : 2000,
       });
 
       return { success: true, gameData: updatedGame };

@@ -135,7 +135,7 @@ const PlayerSearchTable = ({
               />
             ))
           }
-          className="m-4 w-52 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm"
+          className="m-4 rounded-full bg-primary px-3 py-2.5 font-bold text-white shadow-sm"
         >
           Mitspieler*innen suchen!
         </button>
@@ -169,7 +169,7 @@ const PlayerSearchTable = ({
               <th className="hidden p-3 text-left font-semibold md:table-cell">
                 Suche seit
               </th>
-              <th className="p-3 text-right font-semibold md:text-left">
+              <th className="w-[6.5rem] p-3 text-center font-semibold md:w-28">
                 Aktion
               </th>
             </tr>
@@ -201,7 +201,7 @@ const PlayerSearchTable = ({
                       {timeSinceMinutes(playerSearch.created_at)}
                     </span>
                   </td>
-                  <td className="flex justify-end pt-3 md:ml-2 md:justify-start">
+                  <td className="flex justify-around p-3 px-0">
                     <button
                       onClick={() =>
                         openModal((loadingFromContext) => (
