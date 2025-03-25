@@ -5,8 +5,10 @@ import confetti from 'canvas-confetti';
 import { useFeedback } from '@context/FeedbackContext';
 import Link from 'next/link';
 import Fireworks from 'react-canvas-confetti/dist/presets/fireworks';
+import dynamic from 'next/dynamic';
 import successMeeple from '@animations/success_meeple.json';
-import Lottie from 'lottie-react';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const FeedbackThanks: React.FC = () => {
   const { closeBannerPermanently } = useFeedback();
@@ -84,11 +86,9 @@ const FeedbackThanks: React.FC = () => {
   return (
     <>
       <div className="flex h-screen flex-col items-center justify-center overflow-hidden">
-        <Lottie
-          className="-mt-80 max-w-64 md:max-w-80"
-          animationData={successMeeple}
-          loop={true}
-        />
+        <div className="-mt-80 h-96 max-w-64 md:max-w-80">
+          <Lottie animationData={successMeeple} loop={true} />
+        </div>
         <h1 className="mx-8 mt-10 text-center text-xl font-semibold">
           Danke für dein Feedback! ❤️
           <br />

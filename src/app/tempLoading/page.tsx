@@ -1,8 +1,10 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import hourglass from '@animations/sanduhr.json';
-import Lottie from 'lottie-react';
+
+const Lottie = dynamic(() => import('lottie-react'), { ssr: false });
 
 const messages = [
   'Sortiere noch schnell die Karten – gleich geht’s los!',
@@ -63,11 +65,9 @@ const FancyLoading: React.FC = () => {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center overflow-hidden">
-      <Lottie
-        className="-mt-80 max-w-64 md:max-w-80"
-        animationData={hourglass}
-        loop={true}
-      />
+      <div className="-mt-80 h-80 max-w-64 md:max-w-80">
+        <Lottie animationData={hourglass} loop={true} />
+      </div>
       <div
         key={currentMessageIndex}
         className="animate-fadeIn -mt-24 max-w-md px-4 text-center text-2xl text-gray-700 md:mt-8"

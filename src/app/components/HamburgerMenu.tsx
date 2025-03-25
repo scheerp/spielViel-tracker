@@ -64,13 +64,6 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
             session?.user?.role === 'helper' ? (
               <div className="flex flex-col items-center font-medium">
                 <Link
-                  href="/helperUser"
-                  className="px-6 py-4"
-                  onClick={toggleMenu}
-                >
-                  Helfer*innen
-                </Link>
-                <Link
                   href="/helperUser/stats"
                   className="px-6 py-4"
                   onClick={toggleMenu}
@@ -83,6 +76,13 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
                   onClick={toggleMenu}
                 >
                   Sessions
+                </Link>
+                <Link
+                  href="/helperUser"
+                  className="px-6 py-4"
+                  onClick={toggleMenu}
+                >
+                  Helfer*innen
                 </Link>
               </div>
             ) : (
