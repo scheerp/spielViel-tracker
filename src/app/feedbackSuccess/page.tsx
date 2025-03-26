@@ -85,11 +85,12 @@ const FeedbackThanks: React.FC = () => {
 
   return (
     <>
-      <div className="flex h-screen flex-col items-center justify-center overflow-hidden">
-        <div className="-mt-80 h-96 max-w-64 md:max-w-80">
+      <div className="flex min-h-[calc(100vh-11rem)] flex-col items-center justify-center overflow-hidden">
+        <div className="-mt-64 flex h-[19rem] max-w-60 items-center justify-center md:max-w-80">
           <Lottie animationData={successMeeple} loop={true} />
         </div>
-        <h1 className="mx-8 mt-10 text-center text-xl font-semibold">
+
+        <h1 className="mx-8 mt-4 text-center text-xl font-semibold">
           Danke für dein Feedback! ❤️
           <br />
           <Link href="/" className="underline">
@@ -98,8 +99,10 @@ const FeedbackThanks: React.FC = () => {
           gehts zurück zu den Spielen!
         </h1>
       </div>
-      {/* @ts-expect-error: ignore type */}
-      <Fireworks ref={fireworksRef} className="absolute h-full w-full" />
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        {/* @ts-expect-error: ignore type */}
+        <Fireworks ref={fireworksRef} className="h-full w-full" />
+      </div>
     </>
   );
 };

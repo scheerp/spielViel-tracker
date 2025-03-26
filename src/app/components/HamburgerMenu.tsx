@@ -88,7 +88,7 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
             ) : (
               <Link
                 href="/login"
-                className="px-6 py-4 text-xl text-gray-400"
+                className="text-backgroundDark px-6 py-4 text-xl"
                 onClick={toggleMenu}
               >
                 Login

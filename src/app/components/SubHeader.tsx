@@ -7,7 +7,7 @@ const SubHeader = ({
 }) => {
   return (
     <div
-      className={`fixed z-20 flex h-28 w-full ${hasGradient && 'bg-gradient-to-b from-background from-70%'} px-2 py-4 pb-12 md:min-w-64`}
+      className={`fixed z-20 flex h-20 w-full ${hasGradient && 'bg-gradient-to-b from-background from-[82%]'} px-2 py-4 pb-4 md:min-w-64`}
     >
       {children}
     </div>

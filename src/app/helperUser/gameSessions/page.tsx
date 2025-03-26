@@ -85,7 +85,7 @@ const sessionMetadata: Record<
     imageUrl:
       'https://cf.geekdo-images.com/UVUkjMV_Q2paVUIUP30Vvw__original/img/BoUtCkd1NRO0bR1R5EwL51xIuXA=/0x0/filters:format(jpeg)/pic7664424.jpg',
   },
-  'Das schwarze Auge - Das Geheimnis des Grünen Ritters': {
+  'DSA5 – Das Geheimnis des grünen Ritters': {
     name: 'Das schwarze Auge - Das Geheimnis des Grünen Ritters',
     type: 'pnp',
     maxPlayers: 6,
@@ -100,6 +100,7 @@ const sessionMetadata: Record<
     maxPlayers: 6,
     location: 'Saal',
     duration: 180,
+    imageUrl: 'https://spielviel.net/wp-content/uploads/2025/03/Titelbild.jpeg',
   },
   "Aeon's End": {
     name: "Aeon's End - Ein neues Zeitalter",
@@ -208,6 +209,15 @@ const sessionMetadata: Record<
     duration: 180,
     imageUrl:
       'https://spielviel.net/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-04-at-11.24.47.jpeg',
+  },
+  'The Great Wall': {
+    name: 'The Great Wall',
+    type: 'boardgame',
+    maxPlayers: 3,
+    location: 'Saal',
+    duration: 240,
+    imageUrl:
+      'https://cf.geekdo-images.com/3P1cMmZ47nf_L1zLO-pKlg__original/img/8mgbSvzu7-1WX4R8ZRseupThtLY=/0x0/filters:format(jpeg)/pic5016682.jpg',
   },
 };
 

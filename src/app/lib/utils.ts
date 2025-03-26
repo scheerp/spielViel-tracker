@@ -1,6 +1,8 @@
 import { Game, PlayerSearch } from '@context/GamesContext';
 import { AppError, BarcodeConflictError } from '../types/ApiError';
 
+export type OperationType = 'borrow' | 'return' | 'inconclusive';
+
 type FilterGamesType = {
   games: Game[];
   filterText: string;
@@ -8,7 +10,57 @@ type FilterGamesType = {
   minPlayerCount: number;
 };
 
-export type OperationType = 'borrow' | 'return' | 'inconclusive';
+const EVENT_START = new Date('2025-03-28'); // Event startet am 28. März 2025 (Freitag)
+const EVENT_END = new Date('2025-03-30'); // Event endet am 30. März 2025 (Sonntag)
+
+const EVENT_TIMES: Record<number, [number, number]> = {
+  5: [18, 24], // Freitag: 18 - 24 Uhr
+  6: [14, 24], // Samstag: 14 - 24 Uhr
+  0: [11, 17], // Sonntag: 11 - 17 Uhr
+};
+
+const now = new Date();
+const currentDay = now.getDay();
+const currentHour = now.getHours();
+
+export const isWithinEvent = ({
+  considerTime = true,
+}: {
+  considerTime?: boolean;
+} = {}): boolean => {
+  if (now < EVENT_START || now > EVENT_END) {
+    return false;
+  }
+
+  if (!considerTime) {
+    return (
+      currentDay >= EVENT_START.getDay() && currentDay <= EVENT_END.getDay()
+    );
+  }
+
+  if (EVENT_TIMES[currentDay]) {
+    const [start, end] = EVENT_TIMES[currentDay];
+    return currentHour >= start && currentHour < end;
+  }
+
+  return false;
+};
+
+export const isWithinExtendedEvent = ({
+  bufferDaysBefore = 0,
+  bufferDaysAfter = 0,
+}: {
+  bufferDaysBefore?: number;
+  bufferDaysAfter?: number;
+}): boolean => {
+  const extendedStart = new Date(EVENT_START);
+  extendedStart.setDate(EVENT_START.getDate() - bufferDaysBefore);
+
+  const extendedEnd = new Date(EVENT_END);
+  extendedEnd.setDate(EVENT_END.getDate() + bufferDaysAfter);
+
+  return now >= extendedStart && now <= extendedEnd;
+};
 
 export const filterGames = ({
   games,
@@ -50,8 +102,6 @@ export const isBarcodeConflictError = (
     'details' in error.detail
   );
 };
-
-const now = new Date();
 
 // TODO: This is a temporary solution to handle the sessions
 export const convertDayToDate = (day: string): string => {

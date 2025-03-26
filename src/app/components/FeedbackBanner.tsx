@@ -4,7 +4,7 @@ import { useNotification } from '@context/NotificationContext';
 import { useFeedback } from '../context/FeedbackContext';
 
 export const FEEDBACK_FORM_URL =
-  'https://docs.google.com/forms/d/e/1FAIpQLSfA3KyUlSjBXMsDV0ClH5O-iFz87iE2aOoZQLmtfkZWCm3wFQ/viewform?usp=dialog';
+  'https://docs.google.com/forms/d/e/1FAIpQLSdJH96Ilyv2DnbJOkcCWa6KwosnRF2v0OIVJfPpy4fodResUQ/viewform?usp=sharing';
 
 const FeedbackBanner: React.FC = () => {
   const { isBannerHidden, isBannerClosed, resetFeedbackTimer, hideBanner } =

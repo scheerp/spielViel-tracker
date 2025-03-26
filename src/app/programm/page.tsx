@@ -31,7 +31,7 @@ const CommonNinjaPage = () => {
         />
       </Head>
 
-      <div className="m-auto mt-16">
+      <div className="m-auto mt-4 px-4 md:px-0">
         <div className="commonninja_component pid-c80bc464-3b68-4641-adca-8ab846debd0d"></div>
       </div>
     </>

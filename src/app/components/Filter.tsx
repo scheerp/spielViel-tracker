@@ -168,7 +168,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
                 showAvailableOnly: e.target.checked,
               })
             }
-            className="peer relative mr-2 mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-[3px] border-primary bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primaryLight focus:ring-offset-0 disabled:border-gray-400"
+            className="disabled:border-backgroundDark peer relative mr-2 mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-[3px] border-primary bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primaryLight focus:ring-offset-0"
           />
           Nur verfügbare zeigen
         </label>
@@ -184,7 +184,7 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
                   showMissingEanOnly: e.target.checked,
                 })
               }
-              className="peer relative mr-2 mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-[3px] border-primary bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primaryLight focus:ring-offset-0 disabled:border-gray-400"
+              className="disabled:border-backgroundDark peer relative mr-2 mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-[3px] border-primary bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primaryLight focus:ring-offset-0"
             />
             Nur Spiele ohne Barcode zeigen
           </label>

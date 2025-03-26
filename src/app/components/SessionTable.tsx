@@ -53,7 +53,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
       className="mb-4 rounded-xl border border-gray-300 bg-white p-4 shadow-md"
     >
       <div className="mb-8 flex">
-        <div className="relative mr-4 h-32 w-36 overflow-hidden truncate md:h-44 md:w-44">
+        <div className="relative mr-4 h-32 w-36 md:h-44 md:w-44">
           <Image
             src={session.imageUrl ? session.imageUrl : '/noImage.jpg'}
             alt={session.name}
@@ -72,7 +72,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
           </div>
           <div className="text-md text-wrap text-gray-500">
             {session.maxPlayers && session.maxPlayers > 0 && (
-              <p>Anzahl: {session.maxPlayers} Spieler*innen</p>
+              <p>Mitspieler*innen: {session.maxPlayers}</p>
             )}
             {session.location && <p>Ort: {session.location}</p>}
             {session.duration && session.duration > 0 && (

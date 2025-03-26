@@ -45,9 +45,9 @@ const Header = () => {
             {(session && session && session?.user?.role === 'admin') ||
             session?.user?.role === 'helper' ? (
               <div className="flex gap-6 font-medium">
-                <Link href="/helperUser">Helfer*innen</Link>
                 <Link href="/helperUser/stats">Statistik</Link>
                 <Link href="/helperUser/gameSessions">Sessions</Link>
+                <Link href="/helperUser">Helfer*innen</Link>
               </div>
             ) : (
               <Link href="/login" className="font-medium">

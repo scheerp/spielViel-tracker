@@ -57,9 +57,9 @@ const Stats = () => {
   if (error || !games) return <div>Statistik nicht gefunden.</div>;
 
   return (
-    <div className="mx-auto p-6">
+    <div className="mx-auto mb-3 p-6">
       <h2 className="mb-6 text-2xl font-bold">Statistik</h2>
-      <div className="mb-8 rounded-xl border border-gray-300 bg-white p-4 shadow-md">
+      <div className="rounded-xl border border-gray-300 bg-white p-4 shadow-md">
         <h3 className="mb-1 text-lg font-semibold">Spiel Viel 2025</h3>
         <p className="mb-4 text-sm text-gray-500">
           Spiele die noch nicht geliehen wurden tauchen nicht in der Tabelle

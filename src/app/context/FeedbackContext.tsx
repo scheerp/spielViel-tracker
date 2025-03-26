@@ -1,11 +1,12 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { isWithinExtendedEvent } from '@lib/utils';
 
-export const FEEDBACK_COOKIE_NAME = 'feedbackSubmitted';
+export const FEEDBACK_COOKIE_NAME = 'feedbackSubmittedProd';
 const INTERACTION_THRESHOLD = 10;
-const PAUSE_INTERVAL = 60 * 1000; // dont show banner for 60 secondes -> 120 minutes
-const CHECK_INTERVAL = 10 * 1000; // check every 10 seconds -> 60seconds
+const PAUSE_INTERVAL = 120 * 60 * 1000; // 120 Minuten
+const CHECK_INTERVAL = 60 * 1000; // 60 Sekunden
 
 interface FeedbackContextProps {
   interactionScore: number;
@@ -32,10 +33,11 @@ export const FeedbackProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // 📌 Hilfsfunktion: Cookie setzen
   const setFeedbackCookie = () => {
+    // console.log('[Feedback] ✅ Cookie gesetzt');
     const expires = new Date();
-    expires.setTime(expires.getTime() + 300 * 24 * 60 * 60 * 1000); // valid for 300 days
+    expires.setTime(expires.getTime() + 300 * 24 * 60 * 60 * 1000);
     document.cookie = `${FEEDBACK_COOKIE_NAME}=true; expires=${expires.toUTCString()}; path=/; domain=spiel-viel-tracker.vercel.app; Secure; SameSite=Lax`;
-    document.cookie = `${FEEDBACK_COOKIE_NAME}=true; expires=${expires.toUTCString()}; path=/; SameSite=Lax`; // Fallback für lokale Entwicklung
+    document.cookie = `${FEEDBACK_COOKIE_NAME}=true; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
   };
 
   // 📌 Hilfsfunktion: Cookie auslesen
@@ -44,69 +46,92 @@ export const FeedbackProvider: React.FC<{ children: React.ReactNode }> = ({
       `(^|;)\\s*${FEEDBACK_COOKIE_NAME}\\s*=\\s*([^;]+)`,
     );
     const result = match ? match[2] === 'true' : false;
+    // console.log(`[Feedback] 🍪 Cookie vorhanden? ${result}`);
     return result;
   };
 
   // 📌 Initialisieren (LocalStorage & Cookie prüfen)
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (getFeedbackCookie()) {
-        setIsBannerClosed(true);
-        return;
-      }
+    // console.log('[Feedback] 🔄 Initialisierung...');
 
-      // LocalStorage prüfen
-      const storedScore = localStorage.getItem('feedbackInteractionScore');
-      const storedFirstVisit = localStorage.getItem('feedbackFirstVisit');
+    const shouldCloseBanner =
+      getFeedbackCookie() ||
+      !isWithinExtendedEvent({
+        bufferDaysAfter: 14,
+      });
 
-      setInteractionScore(storedScore ? parseInt(storedScore, 10) : 0);
-      setFirstVisit(
-        storedFirstVisit ? parseInt(storedFirstVisit, 10) : Date.now(),
-      );
-
-      // Banner vorerst nicht anzeigen
+    if (shouldCloseBanner) {
+      //  console.log(
+      //   '[Feedback] ❌ Banner wird nicht gezeigt (Cookie existiert oder Zeitraum ungültig)',
+      // );
+      setIsBannerClosed(true);
       setIsBannerHidden(true);
+      return;
     }
+
+    // console.log('[Feedback] ✅ Banner darf grundsätzlich gezeigt werden');
+
+    const storedScore = localStorage.getItem('feedbackInteractionScore');
+    const storedFirstVisit = localStorage.getItem('feedbackFirstVisit');
+
+    setInteractionScore(storedScore ? parseInt(storedScore, 10) : 0);
+    setFirstVisit(
+      storedFirstVisit ? parseInt(storedFirstVisit, 10) : Date.now(),
+    );
+
+    //  console.log(
+    //   `[Feedback] 📊 Geladener Score: ${storedScore}, Erster Besuch: ${storedFirstVisit}`,
+    // );
   }, []);
 
   // 📌 Prüfe regelmäßig, ob der Banner angezeigt werden soll
   useEffect(() => {
+    if (isBannerClosed) {
+      //  console.log(
+      //   '[Feedback] ⛔ Banner ist geschlossen, keine weiteren Checks nötig.',
+      // );
+      return;
+    }
+
     const checkBannerVisibility = () => {
-      if (getFeedbackCookie()) {
-        setIsBannerHidden(true);
-        setIsBannerClosed(true);
-        return;
-      }
+      if (isBannerClosed) return;
+
       const timePassed = Date.now() - firstVisit;
       const shouldShow =
         timePassed > PAUSE_INTERVAL ||
         interactionScore >= INTERACTION_THRESHOLD;
+
+      // console.log(
+      //   `[Feedback] ⏳ Überprüfung: ${timePassed}ms vergangen, Score: ${interactionScore}, Zeige Banner? ${shouldShow}`,
+      // );
+
       setIsBannerHidden(!shouldShow);
-      setIsBannerClosed(!shouldShow);
     };
 
-    // Initiale Prüfung
-    const initialTimer = setTimeout(() => {
-      checkBannerVisibility();
-    }, 500);
-
-    // Regelmäßige Prüfung
-    const interval = setInterval(() => {
-      checkBannerVisibility();
-    }, CHECK_INTERVAL);
+    // console.log('[Feedback] 🔄 Starte Banner-Check Intervall...');
+    const interval = setInterval(checkBannerVisibility, CHECK_INTERVAL);
 
     return () => {
-      clearTimeout(initialTimer);
+      // console.log('[Feedback] ❌ Stoppe Banner-Check Intervall');
       clearInterval(interval);
     };
   }, [firstVisit, interactionScore, isBannerClosed]);
 
   // 📌 Funktion: Interaktion erhöhen
   const addInteraction = (points: number) => {
-    if (getFeedbackCookie()) return 0;
+    if (getFeedbackCookie()) {
+      // console.log(
+      //   '[Feedback] ❌ Interaktion nicht gezählt, da Cookie existiert',
+      // );
+      return 0;
+    }
 
     setInteractionScore((prev) => {
       const newScore = Math.min(prev + points, INTERACTION_THRESHOLD);
+      // console.log(
+      //   `[Feedback] ➕ Interaktion: +${points} (Neuer Score: ${newScore})`,
+      // );
+
       if (typeof window !== 'undefined') {
         localStorage.setItem('feedbackInteractionScore', newScore.toString());
       }
@@ -116,26 +141,36 @@ export const FeedbackProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // 📌 Funktion: Banner dauerhaft schließen
   const closeBannerPermanently = () => {
+    // console.log('[Feedback] ❌ Banner dauerhaft geschlossen');
     setFeedbackCookie();
     setIsBannerClosed(true);
     setIsBannerHidden(true);
   };
 
-  // 📌 Funktion: Banner dauerhaft schließen
+  // 📌 Funktion: Banner vorübergehend schließen
   const hideBanner = () => {
+    // console.log('[Feedback] 🔕 Banner vorübergehend geschlossen');
     setIsBannerHidden(true);
   };
 
   // 📌 Funktion: Feedback-Timer zurücksetzen
   const resetFeedbackTimer = () => {
+    if (isBannerClosed) {
+      // console.log(
+      //   '[Feedback] ❌ Timer-Reset ignoriert (Banner ist geschlossen)',
+      // );
+      return;
+    }
+
     const now = Date.now();
+    // console.log('[Feedback] 🔄 Feedback-Timer zurückgesetzt');
+
     setFirstVisit(now);
     setInteractionScore(0);
     setIsBannerHidden(true);
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('feedbackInteractionScore', '0');
-      localStorage.setItem('feedbackFirstVisit', now.toString());
-    }
+
+    localStorage.setItem('feedbackInteractionScore', '0');
+    localStorage.setItem('feedbackFirstVisit', now.toString());
   };
 
   return (
