@@ -2,8 +2,8 @@
 
 const Footer: React.FC = () => {
   return (
-    <footer className="bottom-0 mt-4 w-full bg-[#c1c1c1] py-6 text-white">
-      <div className="container flex w-full items-center justify-center gap-2">
+    <footer className="bg-backgroundDark bottom-0 mt-4 w-full py-6 text-white">
+      <div className="flex items-center justify-center gap-2">
         <a
           href="https://spielviel.net/contact-us/"
           target="_blank"

@@ -90,7 +90,7 @@ const FeedbackThanks: React.FC = () => {
           <Lottie animationData={successMeeple} loop={true} />
         </div>
 
-        <h1 className="mx-8 mt-4 text-center text-xl font-semibold">
+        <h1 className="mx-8 mt-4 text-center text-xl font-semibold md:mt-16">
           Danke für dein Feedback! ❤️
           <br />
           <Link href="/" className="underline">
