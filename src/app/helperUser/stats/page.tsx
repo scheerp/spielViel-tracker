@@ -81,6 +81,7 @@ const Stats = () => {
                 <td className="p-3">
                   <Link
                     href={`/game/${game.id}`}
+                    prefetch={false}
                     onClick={() => addInteraction(1)}
                   >
                     {game.name}

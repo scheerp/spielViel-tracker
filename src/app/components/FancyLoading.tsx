@@ -65,16 +65,17 @@ const FancyLoading: React.FC = () => {
 
   return (
     <div className="flex min-h-[calc(100vh-15rem)] flex-col items-center justify-center overflow-hidden">
-      <div className="h-[17rem] max-w-64 md:max-w-80">
-        <Lottie animationData={hourglass} loop={true} />
+      <div className="flex flex-col items-center justify-center">
+        <div className="h-[17rem] max-w-64 md:max-w-80">
+          <Lottie animationData={hourglass} loop={true} />
+        </div>
+        <div
+          key={currentMessageIndex}
+          className="animate-fadeIn mx-8 h-28 max-w-md px-4 text-center text-2xl text-gray-700 md:mt-8"
+        >
+          {messages[currentMessageIndex]}
+        </div>
       </div>
-      <div
-        key={currentMessageIndex}
-        className="animate-fadeIn mx-8 h-28 max-w-md px-4 text-center text-2xl text-gray-700 md:mt-8"
-      >
-        {messages[currentMessageIndex]}
-      </div>
-
       <div className="max-w-md px-4 pt-4 text-center text-sm text-gray-500">
         Der Server braucht manchmal eine Minute, um aufzuwachen.
       </div>
