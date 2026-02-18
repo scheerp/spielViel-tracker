@@ -48,7 +48,7 @@ const CustomSlider = ({
         onChange={handleSliderChange}
         onMouseUp={handleMouseUpOrTouchEnd}
         onTouchEnd={handleMouseUpOrTouchEnd}
-        className="h-3 w-full cursor-pointer appearance-none rounded-full bg-gray-200 accent-primaryLight hover:bg-gray-300 focus:outline-none"
+        className="h-3 w-full cursor-pointer appearance-none rounded-full bg-backgroundDark accent-primaryLight focus:outline-none"
       />
     </div>
   );

@@ -1,6 +1,7 @@
 import { useModal } from '@context/ModalContext';
 import React from 'react';
 import Loading from './Loading';
+import PrimaryButton from './PrimaryButton';
 
 type LoadingModalButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading: boolean;
@@ -20,26 +21,23 @@ export const LoadingModalButton: React.FC<LoadingModalButtonProps> = ({
 }) => {
   const { openModal } = useModal();
   return (
-    <button
+    <PrimaryButton
       onClick={() =>
         openModal((loadingFromContext) => (
           <div className="mt-6 flex flex-col justify-center text-center">
             {modalText}
-            <button
+            <PrimaryButton
               onClick={onClickFunction}
               disabled={loadingFromContext}
-              className={`btn mt-6 rounded-full bg-primary px-3 py-2.5 font-bold text-white shadow-sm ${
-                loadingFromContext ? 'cursor-not-allowed opacity-50' : ''
-              }`}
             >
               {modalButtonText}
-            </button>
+            </PrimaryButton>
             {loadingFromContext && <Loading />}
           </div>
         ))
       }
       disabled={loading}
-      className={`relative inline-flex items-center justify-center rounded-full bg-primary px-4 py-2.5 font-bold text-white shadow-sm transition-transform disabled:cursor-not-allowed disabled:opacity-50 ${className || ''} `}
+      className={className}
     >
       {loading ? (
         <>
@@ -68,6 +66,6 @@ export const LoadingModalButton: React.FC<LoadingModalButtonProps> = ({
       ) : (
         buttonText
       )}
-    </button>
+    </PrimaryButton>
   );
 };

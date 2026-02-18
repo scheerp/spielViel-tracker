@@ -9,6 +9,7 @@ import Filter from './Filter';
 import LightbulbIcon from '@icons/LightbulbIcon';
 import { useSession } from 'next-auth/react';
 import SubHeader from './SubHeader';
+import Clickable from './Clickable';
 
 type SearchBarType = {
   editFamiliarity: boolean;
@@ -52,7 +53,7 @@ const SearchBar: React.FC<SearchBarType> = ({
   return (
     <>
       <SubHeader hasGradient={true}>
-        <div className="mr-2 flex flex-grow items-center rounded-full bg-white px-3 shadow-md">
+        <div className="mr-2 flex flex-grow items-center rounded-xl border-[3px] border-foreground bg-white px-3 shadow-darkBottom">
           <div className="relative flex w-full items-center pr-3">
             <SearchIcon
               tailwindColor="text-primary"
@@ -68,7 +69,7 @@ const SearchBar: React.FC<SearchBarType> = ({
             {searchTerm && (
               <button
                 onClick={() => handleSearchChange('')}
-                className="absolute right-0 flex h-8 w-8 items-center justify-center rounded-full text-gray-500 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
+                className="absolute right-0 flex h-8 w-8 items-center justify-center rounded-xl text-gray-500 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-white"
                 aria-label="Clear search"
               >
                 ✕
@@ -77,25 +78,25 @@ const SearchBar: React.FC<SearchBarType> = ({
           </div>
         </div>
         {session && (
-          <button
-            className={`mr-2 flex h-12 w-12 items-center justify-center rounded-full shadow-md transition-colors duration-300 ${editFamiliarity ? 'bg-primary' : 'bg-white'}`}
+          <Clickable
+            className={`mr-2 flex h-12 w-12 items-center justify-center ${editFamiliarity ? 'bg-primary' : 'bg-white'}`}
             onClick={() => setEditFamiliarity(!editFamiliarity)}
           >
             <LightbulbIcon
               tailwindColor={`${editFamiliarity ? 'text-white' : 'text-primary'}`}
               className="h-7 w-7"
             />
-          </button>
+          </Clickable>
         )}
-        <button
-          className={`flex h-12 w-12 items-center justify-center rounded-full shadow-md transition-all duration-300 ${isFilterActive ? 'bg-primary' : 'bg-white'}`}
+        <Clickable
+          className={`flex h-12 w-12 items-center justify-center ${isFilterActive ? 'bg-primary' : 'bg-white'}`}
           onClick={toggleDrawer}
         >
           <FilterIcon
             tailwindColor={`${isFilterActive ? 'text-white' : 'text-primary'}`}
             className="h-6 w-6"
           />
-        </button>
+        </Clickable>
       </SubHeader>
 
       <Drawer isOpen={isDrawerOpen} onClose={toggleDrawer}>

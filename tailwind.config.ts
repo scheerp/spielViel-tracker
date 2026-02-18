@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import * as tailwindcssTextshadow from 'tailwindcss-textshadow';
 
 export default {
   content: [
@@ -13,7 +14,10 @@ export default {
       colors: {
         background: 'var(--background)',
         backgroundDark: 'var(--background-dark)',
+        backgroundDark2: 'var(--background-dark-2)',
         foreground: 'var(--foreground)',
+        foregroundDark: 'var(--foreground-dark)',
+        foregroundDark2: 'var(--foreground-dark-2)',
         primary: 'var(--primary)',
         primaryLight: 'var(--primary-light)',
         secondary: 'var(--secondary)',
@@ -26,7 +30,17 @@ export default {
       fontFamily: {
         work: ['var(--font-work-sans)', 'sans-serif'],
       },
+      boxShadow: {
+        darkBottom: '0 3px 0 var(--foreground)',
+        darkBottomLg: '0 6px 0 var(--foreground)',
+        whiteBottom: '0 3px 0 white',
+        whiteBottomLg: '0 6px 0 white',
+      },
+      textShadow: {
+        'outline-dark':
+          '1px 1px 1px var(--foreground), 1px -1px 1px var(--foreground), -1px 1px 1px var(--foreground), -1px -1px 1px var(--foreground)',
+      },
     },
   },
-  plugins: [],
+  plugins: [tailwindcssTextshadow],
 } satisfies Config;

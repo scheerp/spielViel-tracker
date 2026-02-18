@@ -8,6 +8,7 @@ import React, {
   useEffect,
 } from 'react';
 import { usePathname } from 'next/navigation';
+import Clickable from '@components/Clickable';
 
 interface ModalContextType {
   openModal: (content: (loading: boolean) => ReactNode) => void;
@@ -62,16 +63,16 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({
           onClick={closeModal}
         >
           <div
-            className="absolute inset-x-5 inset-y-10 overflow-scroll rounded-xl bg-white p-6 pt-10"
+            className="absolute inset-x-5 inset-y-10 overflow-scroll rounded-xl border-[3px] border-foreground bg-background p-6 pt-10"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
+            <Clickable
               onClick={closeModal}
-              className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-xl text-gray-500 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-white md:text-3xl"
+              className="absolute right-4 top-4 flex h-12 w-12 items-center justify-center bg-white text-xl md:text-3xl"
               aria-label="Close modal"
             >
               ✕
-            </button>
+            </Clickable>
             {modalContent(modalLoading)}
           </div>
         </div>

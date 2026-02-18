@@ -1,0 +1,25 @@
+const FacebookIcon = ({
+  tailwindColor,
+  className,
+}: {
+  tailwindColor: string;
+  onClick?: () => void;
+  className?: string;
+}) => {
+  return (
+    <svg
+      role="img"
+      viewBox="0 0 28 28"
+      xmlns="http://www.w3.org/2000/svg"
+      className={`h-12 w-10 ${tailwindColor} ${className}`}
+    >
+      <title>Facebook</title>
+      <path
+        fill="currentColor"
+        d="M27.125 13.5625C27.125 20.3438 22.1484 25.9766 15.6406 26.9609V17.5H18.8125L19.4141 13.5625H15.6406V11.0469C15.6406 9.95312 16.1875 8.91406 17.8828 8.91406H19.5781V5.57812C19.5781 5.57812 18.0469 5.30469 16.5156 5.30469C13.4531 5.30469 11.4297 7.21875 11.4297 10.6094V13.5625H7.98438V17.5H11.4297V26.9609C4.92188 25.9766 0 20.3438 0 13.5625C0 6.07031 6.07031 0 13.5625 0C21.0547 0 27.125 6.07031 27.125 13.5625Z"
+      />
+    </svg>
+  );
+};
+
+export default FacebookIcon;

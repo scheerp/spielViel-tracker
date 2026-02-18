@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
 import { AppError } from '../types/ApiError';
+import PrimaryButton from './PrimaryButton';
 
 const ResetUserPassword = () => {
   const { data: session } = useSession();
@@ -95,15 +96,9 @@ const ResetUserPassword = () => {
           required
           className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
         />
-        <button
-          type="submit"
-          disabled={isButtonDisabled}
-          className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
-            isButtonDisabled ? 'cursor-not-allowed opacity-50' : ''
-          }`}
-        >
+        <PrimaryButton type="submit" disabled={isButtonDisabled}>
           {isLoading ? 'Zurücksetzen...' : 'Passwort zurücksetzen'}
-        </button>
+        </PrimaryButton>
       </form>
     </div>
   );

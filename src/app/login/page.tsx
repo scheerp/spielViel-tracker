@@ -1,5 +1,6 @@
 'use client';
 
+import PrimaryButton from '@components/PrimaryButton';
 import { useNotification } from '@context/NotificationContext';
 import { signIn, useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -93,15 +94,9 @@ const LoginPage = () => {
             required
             className="rounded-full border-2 px-3 py-2.5"
           />
-          <button
-            type="submit"
-            disabled={isLoading}
-            className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
-              isLoading ? 'cursor-not-allowed opacity-50' : ''
-            }`}
-          >
+          <PrimaryButton type="submit" disabled={isLoading}>
             {isLoading ? 'Anmelden...' : 'Anmelden'}
-          </button>
+          </PrimaryButton>
         </form>
       </div>
     </div>

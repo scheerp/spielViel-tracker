@@ -2,6 +2,7 @@
 
 import ChangePassword from '@components/ChangePassword';
 import ImportButton from '@components/ImportButton';
+import PrimaryButton from '@components/PrimaryButton';
 import ResetUserPassword from '@components/ResetUserPassword';
 import { signOut, useSession } from 'next-auth/react';
 
@@ -27,17 +28,17 @@ const HelperPage = () => {
           <ChangePassword />
           {session?.user?.role === 'admin' && <ResetUserPassword />}
         </div>
-        <button
+        <PrimaryButton
           onClick={() =>
             signOut({
               redirect: true,
               callbackUrl: '/',
             })
           }
-          className="hover:bg btn mt-6 rounded-full bg-error px-3 py-2.5 font-bold text-white shadow-sm"
+          className="bg-error"
         >
           Ausloggen
-        </button>
+        </PrimaryButton>
       </div>
     </>
   );

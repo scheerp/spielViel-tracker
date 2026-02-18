@@ -55,7 +55,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
       <div className="mb-8 flex">
         <div className="relative mr-4 h-32 w-36 md:h-44 md:w-44">
           <Image
-            src={session.imageUrl ? session.imageUrl : '/noImage.jpg'}
+            src={session.imageUrl ? session.imageUrl : '/placeholder.png'}
             alt={session.name}
             priority
             fill

@@ -26,12 +26,14 @@ const Games: React.FC = () => {
     setLoading,
   } = useGames();
   const { filter } = useFilter();
+
   const [oldFilter, setOldFilter] = useState<FilterState>(filter);
   const [pendingFilterChange, setPendingFilterChange] = useState(false);
   const { showNotification } = useNotification();
   const observer = useRef<IntersectionObserver | null>(null);
   const [noGames, setNoGames] = useState<boolean>(false);
   const [editFamiliarity, setEditFamiliarity] = useState<boolean>(false);
+  const [favourites, setFavourites] = useState<number[]>([]);
 
   const fetchGames = async (newOffset: number, reset: boolean = false) => {
     if (loading) {
@@ -134,6 +136,35 @@ const Games: React.FC = () => {
     [loading, hasMore, setOffset],
   );
 
+  // Toggle-Fvourite-Funktion für ein Spiel
+  const toggleFavourite = useCallback((gameId: number) => {
+    setFavourites((prev) => {
+      let updated: number[];
+      if (prev.includes(gameId)) {
+        updated = prev.filter((id) => id !== gameId);
+      } else {
+        updated = [...prev, gameId];
+      }
+
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('favourites', JSON.stringify(updated));
+      }
+
+      return updated;
+    });
+  }, []);
+
+  // Favoriten beim Mount aus localStorage laden
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const stored = JSON.parse(localStorage.getItem('favourites') || '[]').map(
+      Number,
+    );
+
+    setFavourites(stored);
+  }, []);
+
   useEffect(() => {
     if (session === undefined) return;
 
@@ -190,6 +221,8 @@ const Games: React.FC = () => {
                       key={game.id}
                       editFamiliarity={editFamiliarity}
                       game={game}
+                      isFavourite={favourites.includes(game.id)}
+                      toggleFavourite={() => toggleFavourite(game.id)}
                     />
                   );
                 }
@@ -198,6 +231,8 @@ const Games: React.FC = () => {
                     key={game.id}
                     editFamiliarity={editFamiliarity}
                     game={game}
+                    isFavourite={favourites.includes(game.id)}
+                    toggleFavourite={() => toggleFavourite(game.id)}
                   />
                 );
               })}

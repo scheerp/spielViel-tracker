@@ -14,22 +14,28 @@ import { Game } from '@context/GamesContext';
 import ThumbIcon from '@icons/ThumbIcon';
 import { FamiliarityMapping } from '@lib/utils';
 import { useFeedback } from '@context/FeedbackContext';
+import FavouriteOffIcon from '@icons/FavouriteOffIcon';
+import FavouriteOnIcon from '@icons/FavouriteOnIcon';
+import Clickable from './Clickable';
 
 type GameListItemProps = {
   game: Game;
   editFamiliarity: boolean;
+  isFavourite: boolean;
+  toggleFavourite: () => void;
 };
 
 const GameListItem = memo(
   forwardRef<HTMLLIElement, GameListItemProps>(
-    ({ game, editFamiliarity }, ref) => {
+    ({ game, editFamiliarity, isFavourite, toggleFavourite }, ref) => {
       const { data: session } = useSession();
       const { updateGame } = useUpdateGame();
       const { openModal } = useModal();
+      const { addInteraction } = useFeedback();
+
       const [currentFamiliarity, setCurrentFamiliarity] = useState<number>(
         game.my_familiarity || 0,
       );
-      const { addInteraction } = useFeedback();
       const updateFamiliarity = async (value: number) => {
         if (value === currentFamiliarity) return;
 
@@ -43,9 +49,10 @@ const GameListItem = memo(
       };
 
       return (
-        <li
+        <Clickable
+          as="li"
           ref={ref}
-          className="relative flex h-36 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-2 shadow-md md:h-48 md:gap-2"
+          className="relative flex h-36 flex-row items-center justify-between overflow-hidden rounded-xl border-[3px] border-foreground bg-backgroundDark pr-2 shadow-darkBottom md:h-48 md:gap-2"
         >
           <div className="flex flex-grow items-center md:h-32 md:w-32">
             {editFamiliarity ? (
@@ -61,9 +68,9 @@ const GameListItem = memo(
                   }
                   className={`${game.available <= 0 ? 'opacity-40' : ''}`}
                 >
-                  <div className="relative h-36 w-36 flex-shrink-0 overflow-hidden truncate md:h-48 md:w-48">
+                  <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground md:h-44 md:w-44">
                     <Image
-                      src={game.img_url ? game.img_url : '/noImage.jpg'}
+                      src={game.img_url ? game.img_url : '/placeholder.png'}
                       alt={game.name}
                       priority
                       fill
@@ -114,14 +121,41 @@ const GameListItem = memo(
               </>
             ) : (
               <>
+                <div
+                  className={
+                    'absolute left-[-2px] top-[-1px] z-10 md:top-[-5px]'
+                  }
+                >
+                  {isFavourite ? (
+                    <button
+                      className="h-12 w-12 md:h-16 md:w-16"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleFavourite();
+                      }}
+                    >
+                      <FavouriteOnIcon className="h-10 w-10 md:h-12 md:w-12" />
+                    </button>
+                  ) : (
+                    <button
+                      className="h-12 w-12 md:h-16 md:w-16"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        toggleFavourite();
+                      }}
+                    >
+                      <FavouriteOffIcon className="h-10 w-10 md:h-12 md:w-12" />
+                    </button>
+                  )}
+                </div>
                 <Link
                   href={`/game/${game.id}`}
                   className={`${game.available <= 0 ? 'opacity-40' : ''}`}
                   onClick={() => addInteraction(1)}
                 >
-                  <div className="relative h-36 w-36 flex-shrink-0 overflow-hidden truncate md:h-48 md:w-48">
+                  <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground md:h-44 md:w-44">
                     <Image
-                      src={game.img_url ? game.img_url : '/noImage.jpg'}
+                      src={game.img_url ? game.img_url : '/placeholder.png'}
                       alt={game.name}
                       priority
                       fill
@@ -143,8 +177,8 @@ const GameListItem = memo(
                     className={`flex flex-grow items-center md:h-32 md:w-24 ${game.available <= 0 ? 'opacity-40' : ''}`}
                     onClick={() => addInteraction(1)}
                   >
-                    <div className="ml-3 flex h-[7.8rem] flex-col justify-between md:mx-4 md:h-[9.3rem]">
-                      <h2 className="clamp-custom-2 mb-1 text-xl/6 md:text-lg lg:text-xl">
+                    <div className="ml-3 flex h-[7.9rem] flex-col justify-between md:mx-4 md:h-[9.8rem]">
+                      <h2 className="clamp-custom-2 mb-1 text-xl/6 font-semibold [font-stretch:125%] md:text-lg lg:text-xl">
                         {game.name}
                       </h2>
                       <div>
@@ -173,7 +207,7 @@ const GameListItem = memo(
               </>
             )}
           </div>
-        </li>
+        </Clickable>
       );
     },
   ),

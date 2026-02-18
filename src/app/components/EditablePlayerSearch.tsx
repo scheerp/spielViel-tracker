@@ -10,6 +10,7 @@ import CustomSlider from './CustomSlider';
 import LocationPickerWithZoom from './LocationPickerWithZoom';
 import { PlayerSearchGameSummary } from './PlayerSearchTable';
 import { useFeedback } from '@context/FeedbackContext';
+import PrimaryButton from './PrimaryButton';
 
 type EditablePlayerSearchType = {
   game: PlayerSearchGameSummary;
@@ -102,7 +103,9 @@ const EditablePlayerSearch = ({
           <div className="flex items-center">
             <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden truncate">
               <Image
-                src={game.thumbnail_url ? game.thumbnail_url : '/noImage.jpg'}
+                src={
+                  game.thumbnail_url ? game.thumbnail_url : '/placeholder.png'
+                }
                 alt={game.name}
                 priority
                 fill
@@ -209,21 +212,16 @@ const EditablePlayerSearch = ({
             />
 
             {mode !== 'view' && (
-              <button
+              <PrimaryButton
                 type="submit"
                 disabled={!formData.location || isLoading || !formData.name}
-                className={`btn mt-4 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm ${
-                  !formData.location || isLoading || !formData.name
-                    ? 'cursor-not-allowed opacity-50'
-                    : ''
-                }`}
               >
                 {isLoading
                   ? 'Speichern...'
                   : mode === 'create'
                     ? 'Mitspieler*innensuche erstellen!'
                     : 'Änderungen speichern!'}
-              </button>
+              </PrimaryButton>
             )}
           </form>
 

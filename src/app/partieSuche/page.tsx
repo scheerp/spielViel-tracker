@@ -15,6 +15,7 @@ import ComplexityPill from '@components/ComplexityPill';
 import { categorizePlayerSearches } from '@lib/utils';
 import { useSession } from 'next-auth/react';
 import { useFeedback } from '@context/FeedbackContext';
+import RotatedTitle from '@components/RotatedTitle';
 
 const PlayerSearch = () => {
   const { showNotification } = useNotification();
@@ -99,10 +100,12 @@ const PlayerSearch = () => {
   if (loading) return <FancyLoading />;
 
   return (
-    <div className="mx-auto p-6">
-      <h2 className="mb-2 text-2xl font-bold md:mx-8">
-        Mitspieler*innen Suche
-      </h2>
+    <div className="container mx-auto mb-16 flex flex-col items-center p-6">
+      <RotatedTitle
+        text="Partiesuche"
+        tailwindBgColor="bg-tertiary"
+        className="mb-12 mt-12"
+      />
       <p className="mb-4 text-sm font-medium text-gray-500 md:mx-8">
         Hier findest du Leute, die bereits nach Mitspieler*innen suchen
       </p>
@@ -129,12 +132,12 @@ const PlayerSearch = () => {
                     onClick={() => addInteraction(1)}
                   >
                     <div className="mb-4 flex">
-                      <div className="relative mr-4 h-28 w-36 overflow-hidden truncate md:h-44 md:w-44">
+                      <div className="relative mr-4 h-28 w-36 overflow-hidden truncate rounded-lg border-[3px] border-foreground md:h-44 md:w-44">
                         <Image
                           src={
                             search.game.img_url
                               ? search.game.img_url
-                              : '/noImage.jpg'
+                              : '/placeholder.png'
                           }
                           alt={search.game.name}
                           priority
@@ -144,7 +147,7 @@ const PlayerSearch = () => {
                         />
                       </div>
                       <div className="ml-3 flex max-w-[45%] flex-col justify-between md:mx-4 md:h-[9.3rem] md:max-w-[90%]">
-                        <h2 className="clamp-custom-1 mb-1 text-xl/6 md:text-lg lg:text-xl">
+                        <h2 className="clamp-custom-1 mb-1 text-xl/6 [font-stretch:125%] md:text-lg lg:text-xl">
                           {search.game.name}
                         </h2>
                         <div>

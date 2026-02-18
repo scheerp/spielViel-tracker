@@ -9,7 +9,7 @@ const ComplexityPill = ({ complexityName, className }: ComplexityPillType) => {
   if (!complexityName) return null;
   return (
     <p
-      className={`${className} ${ComplexityMapping[complexityName].color} w-[6.8rem] rounded-full text-center text-sm font-semibold`}
+      className={`${className} ${ComplexityMapping[complexityName].color} text-shadow-outline-dark w-[6.8rem] rounded-full border-[3px] border-foreground text-center text-sm font-semibold text-white`}
     >
       {ComplexityMapping[complexityName].label}
     </p>

@@ -33,13 +33,16 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
             : '-translate-y-full lg:-translate-y-0 lg:translate-x-full'
         } ${'right-0 w-full'} ${'lg:right-0 lg:top-0 lg:h-full lg:w-1/3'}`}
       >
-        <div className="rounded-b-xl bg-white p-5">
+        <div className="rounded-b-xl bg-background p-5">
           <div className="flex flex-col items-center text-xl font-semibold">
             <Link href="/" className="px-6 py-4" onClick={toggleMenu}>
               Home
             </Link>
             <Link href="/" className="px-6 py-4" onClick={toggleMenu}>
               Spieleliste
+            </Link>
+            <Link href="/favoriten" className="px-6 py-4" onClick={toggleMenu}>
+              Favoriten
             </Link>
             <Link
               href="/partieSuche"
@@ -70,13 +73,13 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
                 >
                   Statistik
                 </Link>
-                <Link
+                {/* <Link
                   href="/helperUser/gameSessions"
                   className="px-6 py-4"
                   onClick={toggleMenu}
                 >
                   Sessions
-                </Link>
+                </Link> */}
                 <Link
                   href="/helperUser"
                   className="px-6 py-4"
@@ -88,7 +91,7 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
             ) : (
               <Link
                 href="/login"
-                className="text-backgroundDark px-6 py-4 text-xl"
+                className="px-6 py-4 text-xl text-backgroundDark"
                 onClick={toggleMenu}
               >
                 Login

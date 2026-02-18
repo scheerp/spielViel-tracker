@@ -12,6 +12,8 @@ import { useNotification } from '@context/NotificationContext';
 import Image from 'next/image';
 import AddSearchIcon from '@icons/AddSearchIcon';
 import { categorizePlayerSearches, timeSinceMinutes } from '@lib/utils';
+import PrimaryButton from './PrimaryButton';
+import Clickable from './Clickable';
 
 export type PlayerSearchGameSummary = Pick<
   Game,
@@ -84,7 +86,9 @@ const PlayerSearchTable = ({
           <div className="flex items-center">
             <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden truncate">
               <Image
-                src={game.thumbnail_url ? game.thumbnail_url : '/noImage.jpg'}
+                src={
+                  game.thumbnail_url ? game.thumbnail_url : '/placeholder.png'
+                }
                 alt={game.name}
                 priority
                 fill
@@ -125,7 +129,8 @@ const PlayerSearchTable = ({
   if (valid.length === 0 && expired.length === 0 && allowCreate)
     return (
       <div className="flex w-full justify-center lg:mt-8">
-        <button
+        <PrimaryButton
+          className="mb-8 mt-4"
           onClick={() =>
             openModal((loadingFromContext) => (
               <EditablePlayerSearch
@@ -135,16 +140,15 @@ const PlayerSearchTable = ({
               />
             ))
           }
-          className="m-4 rounded-full bg-primary px-3 py-2.5 font-bold text-white shadow-sm"
         >
           Mitspieler*innen suchen!
-        </button>
+        </PrimaryButton>
       </div>
     );
 
   return (
     <>
-      <div className="bg-whiteshadow-md mb-12 mt-0 flex flex-col items-center rounded-xl bg-white p-4 shadow-md md:m-8 md:mt-0">
+      <div className="mb-12 mt-0 flex flex-col items-center rounded-xl border-[3px] border-foreground bg-backgroundDark p-4 md:m-8 md:mt-0">
         {tableTitle && (
           <h3 className="self-start text-lg font-semibold md:mb-4 md:mt-2">
             {tableTitle}
@@ -155,9 +159,9 @@ const PlayerSearchTable = ({
             {tableDescription}
           </p>
         )}
-        <table className="w-full table-fixed border-collapse">
-          <thead className="bg-gray-100">
-            <tr className="border-b-2 border-gray-300">
+        <table className="w-full table-fixed border-collapse rounded-xl">
+          <thead className="bg-backgroundDark">
+            <tr className="border-b-2 border-foreground">
               <th className="p-3 text-left font-semibold">Name</th>
               {displayGame && (
                 <th className="p-3 text-left font-semibold">Spiel</th>
@@ -202,7 +206,7 @@ const PlayerSearchTable = ({
                     </span>
                   </td>
                   <td className="flex justify-around p-3 px-0">
-                    <button
+                    <Clickable
                       onClick={() =>
                         openModal((loadingFromContext) => (
                           <>
@@ -219,7 +223,7 @@ const PlayerSearchTable = ({
                           </>
                         ))
                       }
-                      className="mb-2 rounded-full bg-status p-3 text-white shadow-md transition hover:bg-sky-700"
+                      className="mb-2 bg-status p-3 text-white"
                     >
                       {playerSearch.can_edit ? (
                         <AddSearchIcon
@@ -232,37 +236,37 @@ const PlayerSearchTable = ({
                           className="h-6 w-6"
                         />
                       )}
-                    </button>
+                    </Clickable>
                     {playerSearch.can_edit && playerSearch.edit_token && (
-                      <button
+                      <Clickable
                         onClick={() =>
                           openModal((loadingFromContext) => (
                             <div className="mt-6 flex flex-col justify-center text-center md:justify-start">
                               Möchtest du deine Mitsielersuche für{' '}
                               <b>{game.name}</b> wirklich löschen? wirklich
                               löschen?
-                              <button
+                              <PrimaryButton
                                 onClick={() => deletePlayerSearch(playerSearch)}
                                 disabled={loadingFromContext}
-                                className={`btn mt-6 rounded-full bg-primary px-3 py-2.5 font-bold text-white shadow-sm ${
+                                className={`btn mt-6 px-3 py-2.5 font-semibold ${
                                   loadingFromContext
                                     ? 'cursor-not-allowed opacity-50'
                                     : ''
                                 }`}
                               >
                                 löschen!
-                              </button>
+                              </PrimaryButton>
                               {loadingFromContext && <Loading />}
                             </div>
                           ))
                         }
-                        className="mb-2 ml-2 rounded-full bg-error p-3 text-white shadow-md transition hover:bg-orange-700"
+                        className="mb-2 ml-2 bg-error p-3 text-white"
                       >
                         <TrashIcon
                           tailwindColor="text-white"
                           className="h-6 w-6"
                         />
-                      </button>
+                      </Clickable>
                     )}
                   </td>
                 </tr>
@@ -298,7 +302,7 @@ const PlayerSearchTable = ({
           </tbody>
         </table>
         {allowCreate && (
-          <button
+          <PrimaryButton
             onClick={() =>
               openModal((loadingFromContext) => (
                 <>
@@ -310,10 +314,9 @@ const PlayerSearchTable = ({
                 </>
               ))
             }
-            className="m-4 mb-0 w-56 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm"
           >
             Mitspieler*innen suchen!
-          </button>
+          </PrimaryButton>
         )}
       </div>
     </>

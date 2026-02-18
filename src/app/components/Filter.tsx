@@ -14,6 +14,9 @@ import { useSession } from 'next-auth/react';
 import ComplexityFilter from './ComplexityFilter';
 import { ComplexityMapping, ComplexityType } from '@lib/utils';
 import { useFeedback } from '@context/FeedbackContext';
+import PrimaryButton from './PrimaryButton';
+import Clickable from './Clickable';
+import Checkbox from './Checkbox';
 
 type FilterProps = {
   closeDrawer: () => void;
@@ -118,13 +121,13 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
 
   return (
     <>
-      <button
+      <Clickable
         onClick={clearFilter}
-        className="absolute left-2 top-4 mt-20 rounded-full bg-background px-3.5 py-2.5 font-bold text-gray-500 shadow-sm hover:text-gray-800"
+        className="absolute left-2 top-4 mt-20 bg-white px-3.5 py-2.5 font-semibold"
         aria-label="Close modal"
       >
         filter löschen
-      </button>
+      </Clickable>
 
       <div className="mt-12 flex flex-col">
         <CustomSlider
@@ -157,45 +160,35 @@ const Filter: React.FC<FilterProps> = ({ closeDrawer }) => {
           updateFunction={handleComplexityFilterChange}
           selectedComplexities={loclFilterState.complexity}
         />
-        <label htmlFor="available-only-checkbox" className="mt-6 flex">
-          <input
-            id="available-only-checkbox"
-            type="checkbox"
-            checked={loclFilterState.showAvailableOnly}
-            onChange={(e) =>
+        <Checkbox
+          id="available-only-checkbox"
+          checked={loclFilterState.showAvailableOnly}
+          onChange={(checked) =>
+            setLocalFilterstate({
+              ...loclFilterState,
+              showAvailableOnly: checked,
+            })
+          }
+          label="Nur verfügbare zeigen"
+          className="mt-6"
+        />
+        {session && (
+          <Checkbox
+            id="missing-ean-only-checkbox"
+            checked={loclFilterState.showMissingEanOnly}
+            onChange={(checked) =>
               setLocalFilterstate({
                 ...loclFilterState,
-                showAvailableOnly: e.target.checked,
+                showMissingEanOnly: checked,
               })
             }
-            className="disabled:border-backgroundDark peer relative mr-2 mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-[3px] border-primary bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primaryLight focus:ring-offset-0"
+            label="Nur Spiele ohne Barcode zeigen"
+            className="mt-6"
           />
-          Nur verfügbare zeigen
-        </label>
-        {session && (
-          <label htmlFor="missing-ean-only-checkbox" className="mt-8 flex">
-            <input
-              id="missing-ean-only-checkbox"
-              type="checkbox"
-              checked={loclFilterState.showMissingEanOnly}
-              onChange={(e) =>
-                setLocalFilterstate({
-                  ...loclFilterState,
-                  showMissingEanOnly: e.target.checked,
-                })
-              }
-              className="disabled:border-backgroundDark peer relative mr-2 mt-1 h-4 w-4 shrink-0 appearance-none rounded-sm border-[3px] border-primary bg-white checked:border-0 checked:bg-primary focus:outline-none focus:ring-2 focus:ring-primaryLight focus:ring-offset-0"
-            />
-            Nur Spiele ohne Barcode zeigen
-          </label>
         )}
-        <button
-          className={`mt-10 rounded-full bg-primary py-2.5 font-bold text-white shadow-sm transition-opacity ${loading && 'cursor-not-allowed opacity-20'}`}
-          onClick={applyFilter}
-          disabled={loading}
-        >
+        <PrimaryButton onClick={applyFilter} disabled={loading}>
           {loading ? 'lädt...' : `${newTotalCount} Spiele anzeigen`}
-        </button>
+        </PrimaryButton>
       </div>
     </>
   );

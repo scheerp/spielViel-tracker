@@ -90,7 +90,7 @@ const ExplainersList: React.FC<ExplainersProps> = ({
           <div className="mb-8 flex">
             <div className="relative mr-4 h-28 w-36 overflow-hidden truncate md:h-44 md:w-44">
               <Image
-                src={game.img_url ? game.img_url : '/noImage.jpg'}
+                src={game.img_url ? game.img_url : '/placeholder.png'}
                 alt={game.name}
                 priority
                 fill
@@ -121,7 +121,6 @@ const ExplainersList: React.FC<ExplainersProps> = ({
                       familiarity={group.familiarity}
                       className="mt-2 w-36 py-1 text-lg font-semibold"
                     />
-                    :
                   </div>
                   <div className="mb-6 pl-2">
                     <ul
@@ -140,7 +139,7 @@ const ExplainersList: React.FC<ExplainersProps> = ({
                             </span>
                           </div>
                           <span
-                            className={`text-base ${user.id === Number(userId) && 'font-bold'}`}
+                            className={`text-base ${user.id === Number(userId) && 'font-semibold'}`}
                           >
                             {user.username}
                           </span>

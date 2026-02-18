@@ -20,12 +20,12 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed z-50 flex h-20 w-full items-center bg-primary px-[30px] py-[15px] pr-2 shadow-lg">
+      <header className="fixed z-50 flex h-20 w-full items-center bg-[url('/header_app.png')] bg-cover bg-center px-[30px] py-[15px] pr-2 shadow-lg">
         <nav className="flex w-full items-center justify-between">
           <Link href="/" className="flex items-center">
             <Image
               className="mr-2"
-              src="/spielViel-logo.png"
+              src="/spielviel-app-icon.svg"
               alt="spielViel-logo"
               width={0}
               height={50}
@@ -39,6 +39,7 @@ const Header = () => {
           <div className="hidden gap-6 font-semibold text-white lg:flex">
             <Link href="/">Home</Link>
             <Link href="/">Spieleliste</Link>
+            <Link href="/favoriten">Favoriten</Link>
             <Link href="/partieSuche">Partiesuche</Link>
             <Link href="/programm">Programm</Link>
 
@@ -46,7 +47,7 @@ const Header = () => {
             session?.user?.role === 'helper' ? (
               <div className="flex gap-6 font-medium">
                 <Link href="/helperUser/stats">Statistik</Link>
-                <Link href="/helperUser/gameSessions">Sessions</Link>
+                {/* <Link href="/helperUser/gameSessions">Sessions</Link> */}
                 <Link href="/helperUser">Helfer*innen</Link>
               </div>
             ) : (

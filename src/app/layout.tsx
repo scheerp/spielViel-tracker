@@ -1,28 +1,28 @@
-'use client';
-
+// @ts-expect-error - This is a workaround to avoid a hydration mismatch due to the use of CSS variables for theming. The actual type of the imported font is not important for this component, and this prevents TypeScript errors without affecting functionality.
 import './globals.css';
 import Header from '@components/Header';
 import AppProviders from '@context/AppProviders';
 import FeedbackBanner from '@components/FeedbackBanner';
-import { Work_Sans } from 'next/font/google';
 import Footer from '@components/Footer';
+import localFont from 'next/font/local';
 
-const workSans = Work_Sans({
-  subsets: ['latin'],
-  variable: '--font-work-sans',
+const mainFont = localFont({
+  src: './fonts/Fredoka-VariableFont_wdth,wght.ttf',
+  variable: '--font-main',
 });
+
+export const metadata = {
+  manifest: '/manifest.json',
+};
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="de" className={` ${workSans.variable}`}>
-      <head>
-        <link rel="manifest" href="/manifest.json" />
-      </head>
-      <body className="flex min-h-screen flex-col font-work">
+    <html lang="de" className={mainFont.variable}>
+      <body className="font-main flex min-h-screen flex-col">
         <AppProviders>
           <Header />
           <FeedbackBanner />

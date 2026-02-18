@@ -97,7 +97,7 @@ const useUpdateGame = () => {
                 src={
                   updatedGame.thumbnail_url
                     ? updatedGame.thumbnail_url
-                    : '/noImage.jpg'
+                    : '/placeholder.png'
                 }
                 alt={updatedGame.name}
                 priority
@@ -140,7 +140,7 @@ const useUpdateGame = () => {
                   src={
                     error.detail.ean_details.thumbnail_url
                       ? error.detail.ean_details.thumbnail_url
-                      : '/noImage.jpg'
+                      : '/placeholder.png'
                   }
                   alt={error.detail.ean_details.name}
                   priority

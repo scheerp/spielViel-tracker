@@ -10,18 +10,22 @@ type FilterGamesType = {
   minPlayerCount: number;
 };
 
-const EVENT_START = new Date('2025-03-28'); // Event startet am 28. März 2025 (Freitag)
-const EVENT_END = new Date('2025-03-30'); // Event endet am 30. März 2025 (Sonntag)
+const EVENT_START = new Date('2026-03-13'); // Event startet am 13. März 2026 (Freitag)
+const EVENT_END = new Date('2026-03-15'); // Event endet am 15. März 2026 (Sonntag)
 
-const EVENT_TIMES: Record<number, [number, number]> = {
-  5: [18, 24], // Freitag: 18 - 24 Uhr
-  6: [14, 24], // Samstag: 14 - 24 Uhr
-  0: [11, 17], // Sonntag: 11 - 17 Uhr
+const DAY_KEYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'] as const;
+type DayKey = (typeof DAY_KEYS)[number];
+
+const EVENT_TIMES: Partial<Record<DayKey, [number, number]>> = {
+  FRI: [18, 24], // Freitag: 18 - 24 Uhr
+  SAT: [14, 24], // Samstag: 14 - 24 Uhr
+  SUN: [11, 17], // Sonntag: 11 - 17 Uhr
 };
 
 const now = new Date();
 const currentDay = now.getDay();
 const currentHour = now.getHours();
+const dayKey = DAY_KEYS[currentDay];
 
 export const isWithinEvent = ({
   considerTime = true,
@@ -38,8 +42,8 @@ export const isWithinEvent = ({
     );
   }
 
-  if (EVENT_TIMES[currentDay]) {
-    const [start, end] = EVENT_TIMES[currentDay];
+  if (EVENT_TIMES[dayKey]) {
+    const [start, end] = EVENT_TIMES[dayKey];
     return currentHour >= start && currentHour < end;
   }
 
@@ -147,48 +151,48 @@ export const categorizePlayerSearches = (playerSearches: PlayerSearch[]) => {
 export const ComplexityMapping = {
   Family: {
     label: 'Familie',
-    color: 'bg-status text-white',
+    color: 'bg-status',
   },
   Beginner: {
     label: 'Einsteiger',
-    color: 'bg-secondary text-white',
+    color: 'bg-secondary',
   },
   Intermediate: {
     label: 'Erfahren',
-    color: 'bg-quinary text-black',
+    color: 'bg-quinary',
   },
   Advanced: {
     label: 'Kenner',
-    color: 'bg-error text-white',
+    color: 'bg-error',
   },
   Expert: {
     label: 'Experte',
-    color: 'bg-tertiary text-white',
+    color: 'bg-tertiary',
   },
 };
 
 export const FamiliarityMapping = {
   UNSET: {
     label: 'k. Angabe',
-    color: 'bg-background text-gray-500',
+    color: 'bg-background',
     border: 'border-background',
     value: 0,
   },
   UNKNOWN: {
     label: 'Unbekannt',
-    color: 'bg-error text-white',
+    color: 'bg-error',
     border: 'border-error',
     value: 1,
   },
   NEULING: {
     label: 'Neuling',
-    color: 'bg-quinary text-black',
+    color: 'bg-quinary',
     border: 'border-quinary',
     value: 2,
   },
   PROFI: {
     label: 'Profi',
-    color: 'bg-quaternary text-white',
+    color: 'bg-quaternary',
     border: 'border-quaternary',
     value: 3,
   },

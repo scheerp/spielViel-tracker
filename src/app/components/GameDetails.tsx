@@ -21,6 +21,7 @@ import LightbulbIcon from '@icons/LightbulbIcon';
 import PlayerSearchTable from './PlayerSearchTable';
 import FancyLoading from './FancyLoading';
 import SubHeader from './SubHeader';
+import Clickable from './Clickable';
 
 interface GameDetailsProps {
   gameId: string;
@@ -166,9 +167,12 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
             onClick={() => router.back()}
             className="flex items-center gap-2 rounded-full text-primary shadow-md"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+            <Clickable
+              as="div"
+              className="flex h-12 w-12 items-center justify-center bg-white"
+            >
               <ArrowLeftIcon tailwindColor="text-primary" className="h-8 w-8" />
-            </div>
+            </Clickable>
           </button>
           <div className="flex items-center gap-2">
             {session && session.user?.role !== 'user' && (
@@ -183,12 +187,15 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
                 }
                 className="flex items-center gap-2 rounded-full text-primary shadow-md"
               >
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+                <Clickable
+                  as="div"
+                  className="flex h-12 w-12 items-center justify-center bg-white"
+                >
                   <LightbulbIcon
                     tailwindColor="text-primary"
                     className="h-7 w-7"
                   />
-                </div>
+                </Clickable>
               </button>
             )}
             <a
@@ -197,9 +204,12 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
               rel="noopener noreferrer"
               className="flex items-center gap-2 rounded-full text-primary shadow-md"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white">
+              <Clickable
+                as="div"
+                className="flex h-12 w-12 items-center justify-center bg-white"
+              >
                 <BGGIcon tailwindColor="text-primary" className="h-6 w-6" />
-              </div>
+              </Clickable>
             </a>
           </div>
         </div>
@@ -211,7 +221,7 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
             <div className="flex justify-center md:justify-start">
               <RatingHexagon rating={game.rating} bggId={game.bgg_id} />
               <div>
-                <h1 className="text-wrap text-xl font-bold md:text-4xl">
+                <h1 className="text-wrap text-xl font-bold [font-stretch:125%] md:text-4xl">
                   {game.name}{' '}
                 </h1>
                 <div className="mb-2 flex flex-col justify-between md:mt-2 md:text-lg">
@@ -238,18 +248,20 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
             <GameDescription game={game} />
           </div>
         </div>
-        <h3 className="m-4 self-start text-lg font-semibold md:m-8 md:mb-4">
-          Mitspieler*innen Gesucht:
-        </h3>
-        <div className="mx-4">
-          <PlayerSearchTable
-            playerSearches={playerSearches}
-            game={game}
-            tableDescription="Hier findest du Leute die bereits nach Mitspieler*innen suchen:"
-            onUpdateSuccess={handlePlayerSearchUpdate}
-            onCreateSuccess={handlePlayerSearchCreate}
-            onDeleteSuccess={handlePlayerSearchDelete}
-          />
+        <div className="mx-4 rounded-xl border-[3px] border-foreground bg-backgroundDark2 md:mx-8 md:my-12">
+          <h3 className="m-4 self-start text-lg font-semibold md:m-8 md:mb-4">
+            Mitspieler*innen Gesucht:
+          </h3>
+          <div className="mx-4">
+            <PlayerSearchTable
+              playerSearches={playerSearches}
+              game={game}
+              tableDescription="Hier findest du Leute die bereits nach Mitspieler*innen suchen:"
+              onUpdateSuccess={handlePlayerSearchUpdate}
+              onCreateSuccess={handlePlayerSearchCreate}
+              onDeleteSuccess={handlePlayerSearchDelete}
+            />
+          </div>
         </div>
         <GameSimilarGames relatedGames={relatedGames} />
       </div>

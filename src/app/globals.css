@@ -4,24 +4,33 @@
 
 :root {
   --white: #fff;
-  --background: #ebebeb;
-  --background-dark: #c1c1c1;
-  --foreground: #171717;
+  --background: #fffaf0;
+  --background-dark: #f3e4cc;
+  --background-dark-2: #f0cd9d;
+  --foreground: #4a3244;
+  --foreground-dark: #3a1436;
+  --foreground-dark-2: #2e0f2e;
   --primary: #e01474;
   --primary-light: #e27bab;
-  --primary-dark: #9b0e50;
-  --secondary: #3bceac;
-  --tertiary: #540d6e;
-  --quaternary: #0ead69;
-  --quinary: #ffd23f;
+  --primary-dark: #940445;
+  --secondary: #36b086;
+  --tertiary: #ab5da7;
+  --quaternary: #88b534;
+  --quinary: #f8b713;
   --status: #0197f6;
-  --error: #fe5d26;
+  --error: #ea4227;
+}
+.font-main {
+  font-family:
+    var(--font-main),
+    system-ui,
+    -apple-system,
+    sans-serif;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
 }
 
 * {
@@ -30,27 +39,30 @@ body {
 
 input[type='range']::-webkit-slider-thumb {
   appearance: none;
-  width: 19px;
-  height: 19px;
+  width: 25px;
+  height: 25px;
   background: var(--primary);
   border-radius: 50%;
   cursor: pointer;
+  border: 3px solid var(--foreground);
 }
 
 input[type='range']::-moz-range-thumb {
-  width: 19px;
-  height: 19px;
+  width: 25px;
+  height: 25px;
   background: var(--primary);
   border-radius: 50%;
   cursor: pointer;
+  border: 3px solid var(--foreground);
 }
 
 input[type='range']::-ms-thumb {
-  width: 19px;
-  height: 19px;
+  width: 25px;
+  height: 25px;
   background: var(--primary);
   border-radius: 50%;
   cursor: pointer;
+  border: 3px solid var(--foreground);
 }
 
 @keyframes slide-in {

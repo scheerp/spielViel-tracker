@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ComplexityPill from './ComplexityPill';
 import { useFeedback } from '@context/FeedbackContext';
+import Clickable from './Clickable';
 
 const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
   const { addInteraction } = useFeedback();
@@ -17,9 +18,9 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
       </h3>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {relatedGames.map((relatedGame) => (
-          <div
+          <Clickable
             key={relatedGame.id + relatedGame.name}
-            className="relative flex h-36 flex-row items-center justify-between overflow-hidden rounded-xl bg-white pr-3 shadow-md md:h-48 md:gap-2"
+            className="s relative flex h-36 flex-row items-center justify-between overflow-hidden bg-backgroundDark pr-3 md:h-48 md:gap-2"
           >
             <Link
               href={`/game/${relatedGame.id}`}
@@ -28,10 +29,12 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
               }`}
               onClick={() => addInteraction(1)}
             >
-              <div className="relative h-36 w-36 flex-shrink-0 overflow-hidden truncate md:h-48 md:w-48">
+              <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground md:h-44 md:w-44">
                 <Image
                   src={
-                    relatedGame.img_url ? relatedGame.img_url : '/noImage.jpg'
+                    relatedGame.img_url
+                      ? relatedGame.img_url
+                      : '/placeholder.png'
                   }
                   alt={relatedGame.name}
                   priority
@@ -42,8 +45,8 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
                   }}
                 />
               </div>
-              <div className="ml-3 flex h-[7.5rem] flex-col justify-between md:mx-4 md:h-36">
-                <h2 className="clamp-custom-2 mb-1 text-xl/6 md:text-lg lg:text-xl">
+              <div className="ml-3 flex h-[7.9rem] flex-col justify-between md:mx-4 md:h-44">
+                <h2 className="clamp-custom-2 mb-1 text-xl/6 font-semibold [font-stretch:125%] md:text-lg lg:text-xl">
                   {relatedGame.name}
                 </h2>
                 <div>
@@ -65,7 +68,7 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
                 </div>
               </div>
             </Link>
-          </div>
+          </Clickable>
         ))}
       </div>
     </div>

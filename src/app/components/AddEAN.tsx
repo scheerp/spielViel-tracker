@@ -64,7 +64,7 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
           <div className="relative w-80 flex-shrink-0 overflow-hidden truncate rounded-l-md md:w-[500px]">
             <div className={`relative ${isLoading ? 'opacity-70' : ''}`}>
               <Image
-                src={game.img_url ? game.img_url : '/noImage.jpg'}
+                src={game.img_url ? game.img_url : '/placeholder.png'}
                 alt={game.name}
                 width={900}
                 height={900}
