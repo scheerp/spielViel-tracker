@@ -1,4 +1,3 @@
-// @ts-expect-error - This is a workaround to avoid a hydration mismatch due to the use of CSS variables for theming. The actual type of the imported font is not important for this component, and this prevents TypeScript errors without affecting functionality.
 import './globals.css';
 import Header from '@components/Header';
 import AppProviders from '@context/AppProviders';
