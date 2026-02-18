@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -11,7 +15,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "incremental": true,
     "plugins": [
       {
@@ -19,12 +23,24 @@
       }
     ],
     "paths": {
-      "@components/*": ["./src/app/components/*"],
-      "@animations/*": ["./public/lottie/*"],
-      "@hooks/*": ["./src/app/hooks/*"],
-      "@icons/*": ["./src/app/icons/*"],
-      "@context/*": ["./src/app/context/*"],
-      "@lib/*": ["./src/app/lib/*"]
+      "@components/*": [
+        "./src/app/components/*"
+      ],
+      "@animations/*": [
+        "./public/lottie/*"
+      ],
+      "@hooks/*": [
+        "./src/app/hooks/*"
+      ],
+      "@icons/*": [
+        "./src/app/icons/*"
+      ],
+      "@context/*": [
+        "./src/app/context/*"
+      ],
+      "@lib/*": [
+        "./src/app/lib/*"
+      ]
     }
   },
   "include": [
@@ -32,7 +48,10 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "public/sw.js"
+    "public/sw.js",
+    ".next/dev/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": [
+    "node_modules"
+  ]
 }
