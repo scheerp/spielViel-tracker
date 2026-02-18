@@ -1,18 +1,11 @@
 import type { NextConfig } from 'next';
 
-const nextConfig: NextConfig = {
-  eslint: {
-    dirs: ['src'],
-  },
-};
+const nextConfig: NextConfig = {};
 
 module.exports = {
   images: {
     domains: ['cf.geekdo-images.com'],
     unoptimized: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: false,
   },
 };
 
