@@ -38,12 +38,9 @@ const Clickable = forwardRef(
 
     const interactionStyles = disabled
       ? 'opacity-50 cursor-not-allowed'
-      : `
-          hover:-translate-y-1
-          hover:${hasWhiteBorder ? 'shadow-whiteBottomLg' : 'shadow-darkBottomLg'}
-          active:translate-y-0
-          active:${hasWhiteBorder ? 'shadow-darkBottom' : 'shadow-whiteBottom'}
-        `;
+      : hasWhiteBorder
+        ? 'hover:-translate-y-1 hover:shadow-whiteBottomLg active:translate-y-0 active:shadow-whiteBottom'
+        : 'hover:-translate-y-1 hover:shadow-darkBottomLg active:translate-y-0 active:shadow-darkBottom';
 
     return (
       <Component
