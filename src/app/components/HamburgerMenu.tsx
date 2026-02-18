@@ -51,9 +51,10 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
             >
               Partiesuche
             </Link>
+            {/* TODO: Temporarily hide programm link until we have a proper program page
             <Link href="/programm" className="px-6 py-4" onClick={toggleMenu}>
               Programm
-            </Link>
+            </Link> */}
             <a
               href={FEEDBACK_FORM_URL}
               target="_blank"

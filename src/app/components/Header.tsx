@@ -41,7 +41,8 @@ const Header = () => {
             <Link href="/">Spieleliste</Link>
             <Link href="/favoriten">Favoriten</Link>
             <Link href="/partieSuche">Partiesuche</Link>
-            <Link href="/programm">Programm</Link>
+            {/* TODO: Temporarily hide programm link until we have a proper program page
+            <Link href="/programm">Programm</Link> */}
 
             {(session && session && session?.user?.role === 'admin') ||
             session?.user?.role === 'helper' ? (
