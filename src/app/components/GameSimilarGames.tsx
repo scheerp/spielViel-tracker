@@ -29,7 +29,7 @@ const GameSimilarGames = ({ relatedGames }: { relatedGames: Game[] }) => {
               }`}
               onClick={() => addInteraction(1)}
             >
-              <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground md:h-44 md:w-44">
+              <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground bg-white md:h-44 md:w-44">
                 <Image
                   src={
                     relatedGame.img_url
