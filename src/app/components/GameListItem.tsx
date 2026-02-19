@@ -68,7 +68,7 @@ const GameListItem = memo(
                   }
                   className={`${game.available <= 0 ? 'opacity-40' : ''}`}
                 >
-                  <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground md:h-44 md:w-44">
+                  <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground bg-white md:h-44 md:w-44">
                     <Image
                       src={game.img_url ? game.img_url : '/placeholder.png'}
                       alt={game.name}
@@ -153,7 +153,7 @@ const GameListItem = memo(
                   className={`${game.available <= 0 ? 'opacity-40' : ''}`}
                   onClick={() => addInteraction(1)}
                 >
-                  <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground md:h-44 md:w-44">
+                  <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground bg-white md:h-44 md:w-44">
                     <Image
                       src={game.img_url ? game.img_url : '/placeholder.png'}
                       alt={game.name}
