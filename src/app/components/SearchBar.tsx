@@ -54,7 +54,7 @@ const SearchBar: React.FC<SearchBarType> = ({
     <>
       <SubHeader hasGradient={true}>
         <div className="mr-2 flex flex-grow items-center rounded-xl border-[3px] border-foreground bg-white px-3 shadow-darkBottom">
-          <div className="relative flex w-full items-center pr-3">
+          <div className="relative flex w-full items-center py-1 pr-3">
             <SearchIcon
               tailwindColor="text-primary"
               className="ml-[0.1rem] mr-2 h-[1.7rem] w-[1.7rem]"
@@ -64,7 +64,7 @@ const SearchBar: React.FC<SearchBarType> = ({
               placeholder="Nach Namen filtern..."
               value={searchTerm}
               onChange={(e) => handleSearchChange(e.target.value)}
-              className="mr-1 w-full border-0 py-2.5 pr-0 outline-none focus:ring-0"
+              className="mr-1 w-full border-0 bg-white py-1.5 pr-0 outline-none focus:ring-0"
             />
             {searchTerm && (
               <button

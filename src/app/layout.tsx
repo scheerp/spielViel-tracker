@@ -12,6 +12,16 @@ const mainFont = localFont({
 
 export const metadata = {
   manifest: '/manifest.json',
+
+  appleWebApp: {
+    capable: true,
+    title: 'Spiel Viel',
+    statusBarStyle: 'default',
+  },
+
+  icons: {
+    apple: '/ios/apple-icon-180x180.png',
+  },
 };
 
 export default function RootLayout({

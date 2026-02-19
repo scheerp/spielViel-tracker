@@ -172,7 +172,7 @@ const EditablePlayerSearch = ({
               disabled={mode === 'view'}
               required
               placeholder="Name"
-              className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary lg:mb-4"
+              className="rounded-full border bg-white px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary lg:mb-4"
             />
 
             <CustomSlider

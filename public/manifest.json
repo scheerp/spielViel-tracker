@@ -2,35 +2,20 @@
   "id": "/",
   "name": "Spiel Viel Tracker",
   "short_name": "Spiel Viel",
-  "description": "App zum verwalten der SpielViel Spiele",
+  "description": "App zum Verwalten der SpielViel Spiele",
   "start_url": "/",
   "scope": "/",
   "lang": "de-DE",
-  "theme_color": "#e01474",
-  "background_color": "#fffaf0",
-  "display_override": ["standalone"],
+
   "display": "standalone",
+  "orientation": "portrait",
+
+  "theme_color": "#030303",
+  "background_color": "#FFFFFF",
+
   "screenshots": [
     {
       "src": "/screenshots/screenshot1-v2.png",
-      "type": "image/png",
-      "sizes": "1082x2402",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/screenshots/screenshot2-v2.png",
-      "type": "image/png",
-      "sizes": "1082x2402",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/screenshots/screenshot3-v2.png",
-      "type": "image/png",
-      "sizes": "1082x2402",
-      "form_factor": "narrow"
-    },
-    {
-      "src": "/screenshots/screenshot4-v2.png",
       "type": "image/png",
       "sizes": "1082x2402",
       "form_factor": "narrow"
@@ -44,84 +29,16 @@
   ],
   "icons": [
     {
-      "src": "logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml"
-    },
-    {
-      "src": "android/android-icon-192x192.png",
+      "src": "/android/icon-192.png",
       "sizes": "192x192",
-      "purpose": "maskable"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "android/android-icon-144x144.png",
-      "sizes": "144x144",
-      "purpose": "maskable"
-    },
-    {
-      "src": "android/android-icon-96x96.png",
-      "sizes": "96x96",
-      "purpose": "maskable"
-    },
-    {
-      "src": "android/android-icon-72x72.png",
-      "sizes": "72x72",
-      "purpose": "maskable"
-    },
-    {
-      "src": "android/android-icon-48x48.png",
-      "sizes": "48x48",
-      "purpose": "maskable"
-    },
-    {
-      "src": "android/android-icon-36x36.png",
-      "sizes": "36x36",
-      "purpose": "maskable"
-    },
-    {
-      "src": "ios/apple-icon-57x57.png",
-      "sizes": "57x57",
-      "purpose": "maskable"
-    },
-    {
-      "src": "ios/apple-icon-60x60.png",
-      "sizes": "60x60",
-      "purpose": "maskable"
-    },
-    {
-      "src": "ios/apple-icon-72x72.png",
-      "sizes": "72x72",
-      "purpose": "maskable"
-    },
-    {
-      "src": "ios/apple-icon-76x76.png",
-      "sizes": "76x76",
-      "purpose": "maskable"
-    },
-    {
-      "src": "ios/apple-icon-114x114.png",
-      "sizes": "114x114",
-      "purpose": "maskable"
-    },
-    {
-      "src": "ios/apple-icon-120x120.png",
-      "sizes": "120x120",
-      "purpose": "maskable"
-    },
-    {
-      "src": "ios/apple-icon-144x144.png",
-      "sizes": "144x144",
-      "purpose": "maskable"
-    },
-    {
-      "src": "ios/apple-icon-152x152.png",
-      "sizes": "152x152",
-      "purpose": "maskable"
-    },
-    {
-      "src": "ios/apple-icon-180x180.png",
-      "sizes": "180x180",
-      "purpose": "maskable"
+      "src": "/android/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }
