@@ -39,7 +39,7 @@
       "sizes": "384x384",
       "type": "image/png",
       "purpose": "any maskable"
-    }
+    },
     {
       "src": "/android/android-icon-512x512.png",
       "sizes": "512x512",
