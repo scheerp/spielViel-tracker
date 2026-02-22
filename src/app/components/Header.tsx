@@ -24,10 +24,10 @@ const Header = () => {
         <nav className="flex w-full items-center justify-between">
           <Link href="/" className="flex items-center">
             <Image
-              className="mr-2"
+              className="mr-2 h-[50px] w-auto"
               src="/spielviel-app-icon.svg"
               alt="spielViel-logo"
-              width={0}
+              width={120}
               height={50}
               sizes="auto"
               style={{ height: '50px', width: 'auto' }}
@@ -41,14 +41,12 @@ const Header = () => {
             <Link href="/">Spieleliste</Link>
             <Link href="/favoriten">Favoriten</Link>
             <Link href="/partieSuche">Partiesuche</Link>
-            {/* TODO: Temporarily hide programm link until we have a proper program page
-            <Link href="/programm">Programm</Link> */}
 
             {(session && session && session?.user?.role === 'admin') ||
             session?.user?.role === 'helper' ? (
               <div className="flex gap-6 font-medium">
+                <Link href="/programm">Programm</Link>
                 <Link href="/helperUser/stats">Statistik</Link>
-                {/* <Link href="/helperUser/gameSessions">Sessions</Link> */}
                 <Link href="/helperUser">Helfer*innen</Link>
               </div>
             ) : (

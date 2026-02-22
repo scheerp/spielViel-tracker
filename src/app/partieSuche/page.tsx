@@ -110,9 +110,9 @@ const PlayerSearch = () => {
         Hier findest du Leute, die bereits nach Mitspieler*innen suchen
       </p>
       {playerSearches.length === 0 ? (
-        <div className="bg-whiteshadow-md mb-12 mt-0 flex flex-col items-center rounded-xl bg-white p-4 shadow-md md:m-8 md:mt-0">
+        <div className="bg-whiteshadow-md mb-12 mt-0 flex flex-col items-center rounded-xl border-[3px] border-foreground bg-[#F7E8D0] p-4 md:m-8 md:mt-0">
           <h2 className="my-8 px-8 text-center text-xl md:mx-8">
-            Leider gibt es aktuell keine offenen Mitspieler*innen Suchen. 🫣
+            Leider gibt es aktuell keine offenen Partie Suchen. 🫣
           </h2>
         </div>
       ) : (

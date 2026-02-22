@@ -74,13 +74,13 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
                 >
                   Statistik
                 </Link>
-                {/* <Link
-                  href="/helperUser/gameSessions"
+                <Link
+                  href="/programm"
                   className="px-6 py-4"
                   onClick={toggleMenu}
                 >
-                  Sessions
-                </Link> */}
+                  Programm
+                </Link>
                 <Link
                   href="/helperUser"
                   className="px-6 py-4"

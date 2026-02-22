@@ -13,6 +13,7 @@ export default {
     extend: {
       colors: {
         background: 'var(--background)',
+        background2: 'var(--background-2)',
         backgroundDark: 'var(--background-dark)',
         backgroundDark2: 'var(--background-dark-2)',
         foreground: 'var(--foreground)',
@@ -39,6 +40,8 @@ export default {
       textShadow: {
         'outline-dark':
           '1px 1px 1px var(--foreground), 1px -1px 1px var(--foreground), -1px 1px 1px var(--foreground), -1px -1px 1px var(--foreground)',
+        'drop-shadow':
+          '0px 3px 0px var(--foreground), 1px 1px 1px var(--foreground), 1px -1px 1px var(--foreground), -1px 1px 1px var(--foreground), -1px -1px 1px var(--foreground);',
       },
     },
   },
