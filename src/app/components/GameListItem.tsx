@@ -132,6 +132,7 @@ const GameListItem = memo(
                       onClick={(e) => {
                         e.preventDefault();
                         toggleFavourite();
+                        addInteraction(1);
                       }}
                     >
                       <FavouriteOnIcon className="h-10 w-10 md:h-12 md:w-12" />
@@ -142,6 +143,7 @@ const GameListItem = memo(
                       onClick={(e) => {
                         e.preventDefault();
                         toggleFavourite();
+                        addInteraction(1);
                       }}
                     >
                       <FavouriteOffIcon className="h-10 w-10 md:h-12 md:w-12" />

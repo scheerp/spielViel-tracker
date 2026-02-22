@@ -1,6 +1,10 @@
 import { Game, PlayerSearch } from '@context/GamesContext';
 import { AppError, BarcodeConflictError } from '../types/ApiError';
 
+/* ------------------------------------------------ */
+/* Types */
+/* ------------------------------------------------ */
+
 export type OperationType = 'borrow' | 'return' | 'inconclusive';
 
 type FilterGamesType = {
@@ -10,23 +14,79 @@ type FilterGamesType = {
   minPlayerCount: number;
 };
 
-const EVENT_START = new Date('2026-03-13'); // Event startet am 13. März 2026 (Freitag)
-const EVENT_END = new Date('2026-03-15'); // Event endet am 15. März 2026 (Sonntag)
+/* ------------------------------------------------ */
+/* Event Days */
+/* ------------------------------------------------ */
 
-const DAY_KEYS = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'] as const;
-type DayKey = (typeof DAY_KEYS)[number];
+/**
+ * zentrale Definition der Eventtage
+ * -> wird für Rendering, Gruppierung und Eventlogik genutzt
+ */
+export const DAY_KEYS = ['FRI', 'SAT', 'SUN', 'OTHER'] as const;
+
+export type DayKey = (typeof DAY_KEYS)[number];
+
+export const DAY_LABELS: Record<DayKey, string> = {
+  FRI: 'Freitag',
+  SAT: 'Samstag',
+  SUN: 'Sonntag',
+  OTHER: 'Weitere Termine',
+};
+
+/**
+ * Wörter mit denen Tage erkannt werden
+ * -> leicht erweiterbar
+ */
+const DAY_MATCHERS: Record<Exclude<DayKey, 'OTHER'>, string[]> = {
+  FRI: ['freitag', 'fr'],
+  SAT: ['samstag', 'sa'],
+  SUN: ['sonntag', 'so'],
+};
+
+/**
+ * erkennt aus einem String den Eventtag
+ */
+export const getSessionDayKey = (time?: string): DayKey => {
+  const t = time?.toLowerCase() ?? '';
+
+  for (const [day, patterns] of Object.entries(DAY_MATCHERS)) {
+    if (patterns.some((p) => t.includes(p))) {
+      return day as DayKey;
+    }
+  }
+
+  return 'OTHER';
+};
+
+/* ------------------------------------------------ */
+/* Event Date Handling */
+/* ------------------------------------------------ */
+
+const EVENT_START = new Date('2026-03-13');
+const EVENT_END = new Date('2026-03-15');
 
 const EVENT_TIMES: Partial<Record<DayKey, [number, number]>> = {
-  FRI: [18, 24], // Freitag: 18 - 24 Uhr
-  SAT: [14, 24], // Samstag: 14 - 24 Uhr
-  SUN: [11, 17], // Sonntag: 11 - 17 Uhr
+  FRI: [18, 24],
+  SAT: [14, 24],
+  SUN: [11, 17],
+};
+
+/**
+ * JS weekday → Event day
+ */
+const WEEKDAY_TO_DAYKEY: Partial<Record<number, DayKey>> = {
+  5: 'FRI',
+  6: 'SAT',
+  0: 'SUN',
 };
 
 const now = new Date();
-const currentDay = now.getDay();
 const currentHour = now.getHours();
-const dayKey = DAY_KEYS[currentDay];
+const todayKey = WEEKDAY_TO_DAYKEY[now.getDay()];
 
+/**
+ * prüft ob wir aktuell während des Events sind
+ */
 export const isWithinEvent = ({
   considerTime = true,
 }: {
@@ -36,14 +96,10 @@ export const isWithinEvent = ({
     return false;
   }
 
-  if (!considerTime) {
-    return (
-      currentDay >= EVENT_START.getDay() && currentDay <= EVENT_END.getDay()
-    );
-  }
+  if (!considerTime) return true;
 
-  if (EVENT_TIMES[dayKey]) {
-    const [start, end] = EVENT_TIMES[dayKey];
+  if (todayKey && EVENT_TIMES[todayKey]) {
+    const [start, end] = EVENT_TIMES[todayKey];
     return currentHour >= start && currentHour < end;
   }
 
@@ -66,6 +122,36 @@ export const isWithinExtendedEvent = ({
   return now >= extendedStart && now <= extendedEnd;
 };
 
+/* ------------------------------------------------ */
+/* Time Utilities */
+/* ------------------------------------------------ */
+
+/**
+ * wandelt "18:30" oder "18.30" in Minuten um
+ * -> nützlich zum Sortieren
+ */
+export const parseTimeToMinutes = (time?: string): number => {
+  const match = time?.match(/(\d{1,2})[:.](\d{2})/);
+
+  if (!match) return Number.MAX_SAFE_INTEGER;
+
+  return parseInt(match[1]) * 60 + parseInt(match[2]);
+};
+
+export const timeSinceMinutes = (timestamp: string): string => {
+  const past = new Date(timestamp);
+  const diffMs = now.getTime() - past.getTime();
+  const diffMinutes = Math.floor(diffMs / 60000);
+
+  if (diffMinutes < 1) return 'gerade eben';
+
+  return `seit ${diffMinutes} Minuten`;
+};
+
+/* ------------------------------------------------ */
+/* Game Filtering */
+/* ------------------------------------------------ */
+
 export const filterGames = ({
   games,
   filterText,
@@ -76,14 +162,10 @@ export const filterGames = ({
     item.name.toLowerCase().includes(filterText.toLowerCase()),
   );
 
-  filtered = filtered.filter((item) => {
-    return item.max_players >= minPlayerCount;
-  });
+  filtered = filtered.filter((item) => item.max_players >= minPlayerCount);
 
   if (showAvailableOnly) {
-    filtered = filtered.filter((item) => {
-      return item.available;
-    });
+    filtered = filtered.filter((item) => item.available);
   }
 
   return filtered;
@@ -95,51 +177,32 @@ export const getOperation = (game: Game): OperationType => {
   return 'inconclusive';
 };
 
+/* ------------------------------------------------ */
+/* API Errors */
+/* ------------------------------------------------ */
+
 export const isBarcodeConflictError = (
   error: AppError,
 ): error is BarcodeConflictError => {
-  console.log(error);
-
   return (
-    error.detail.error_code === 'BARCODE_CONFLICT' &&
-    error.detail !== undefined &&
-    'details' in error.detail
+    error.detail?.error_code === 'BARCODE_CONFLICT' && 'details' in error.detail
   );
 };
 
-// TODO: This is a temporary solution to handle the sessions
-export const convertDayToDate = (day: string): string => {
-  const daysMap: Record<string, string> = {
-    Fr: '2025-03-28',
-    Sa: '2025-03-29',
-    So: '2025-03-30',
-  };
-  return daysMap[day] || '';
-};
-
-export const timeSinceMinutes = (timestamp: string): string => {
-  const past = new Date(timestamp);
-  const diffMs = now.getTime() - past.getTime();
-  const diffMinutes = Math.floor(diffMs / 60000);
-
-  if (diffMinutes < 1) {
-    return 'gerade eben';
-  }
-  return `seit ${diffMinutes} Minuten`;
-};
+/* ------------------------------------------------ */
+/* Player Searches */
+/* ------------------------------------------------ */
 
 export const categorizePlayerSearches = (playerSearches: PlayerSearch[]) => {
-  const valid = playerSearches.filter(
-    (playerSearch) => new Date(playerSearch.expires_at) > now,
-  );
-  const expired = playerSearches.filter(
-    (playerSearch) => new Date(playerSearch.expires_at) <= now,
-  );
+  const valid = playerSearches.filter((p) => new Date(p.expires_at) > now);
+
+  const expired = playerSearches.filter((p) => new Date(p.expires_at) <= now);
 
   valid.sort(
     (a, b) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
   );
+
   expired.sort(
     (a, b) =>
       new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
@@ -147,6 +210,10 @@ export const categorizePlayerSearches = (playerSearches: PlayerSearch[]) => {
 
   return { valid, expired };
 };
+
+/* ------------------------------------------------ */
+/* Game Metadata */
+/* ------------------------------------------------ */
 
 export const ComplexityMapping = {
   Family: {
@@ -206,12 +273,18 @@ export const FamiliarityValueMapping = Object.values(FamiliarityMapping).reduce(
     acc[item.value] = item;
     return acc;
   },
-  {} as {
-    [key: number]: {
-      label: string;
-      color: string;
-      border: string;
-      value: number;
-    };
-  },
+  {} as Record<
+    number,
+    (typeof FamiliarityMapping)[keyof typeof FamiliarityMapping]
+  >,
 );
+
+/* ------------------------------------------------ */
+/* Event Types */
+/* ------------------------------------------------ */
+
+export const EVENT_TYPE_LABELS: Record<string, string> = {
+  turnier: 'Turnier',
+  spielesession: 'Spielesession',
+  penandpaper: 'Pen & Paper',
+};

@@ -19,7 +19,7 @@ const RotatedTitle: React.FC<RotatedTitleProps> = ({
         className,
       )}
     >
-      <h1 className="mx-6 my-2 text-center text-3xl font-semibold text-white text-shadow-outline-dark [font-stretch:125%] md:mx-9 md:my-4 md:text-5xl">
+      <h1 className="text-shadow-drop-shadow mx-6 my-2 text-center text-3xl font-semibold text-white [font-stretch:125%] md:mx-9 md:my-4 md:text-5xl">
         {text}
       </h1>
     </div>

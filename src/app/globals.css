@@ -5,6 +5,7 @@
 :root {
   --white: #fff;
   --background: #fffaf0;
+  --background-2: #fff8f0;
   --background-dark: #f3e4cc;
   --background-dark-2: #f0cd9d;
   --foreground: #4a3244;
@@ -17,7 +18,7 @@
   --tertiary: #ab5da7;
   --quaternary: #88b534;
   --quinary: #f8b713;
-  --status: #0197f6;
+  --status: #4e67d8;
   --error: #ea4227;
 }
 .font-main {
@@ -30,7 +31,7 @@
 
 body {
   color: var(--foreground);
-  background: var(--background);
+  background: var(--background-2);
 }
 
 * {
