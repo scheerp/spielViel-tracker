@@ -70,7 +70,7 @@ export default function ProgramPage() {
         const data = await response.json();
         const sessionsData = data.data;
 
-        const sessions = Object.values(sessionsData);
+        const sessions: Session[] = Object.values(sessionsData);
         setSessions(sessions);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
@@ -130,8 +130,12 @@ export default function ProgramPage() {
             const daySessions = sessionsByDay[dayKey];
             if (!daySessions || daySessions.length === 0) return null;
 
-            const leftSessions = daySessions.filter((_, idx) => idx % 2 === 0);
-            const rightSessions = daySessions.filter((_, idx) => idx % 2 !== 0);
+            const leftSessions: Session[] = daySessions.filter(
+              (_, idx) => idx % 2 === 0,
+            );
+            const rightSessions: Session[] = daySessions.filter(
+              (_, idx) => idx % 2 !== 0,
+            );
 
             console.log(dayKey);
 
@@ -150,7 +154,7 @@ export default function ProgramPage() {
                   <div className="flex h-full flex-col gap-8">
                     {leftSessions.map((s, idx) => (
                       <ProgramCard
-                        key={s.id ?? `${s.title}-${idx}`}
+                        key={s.content.id ?? `${s.content.title}-${idx}`}
                         session={s}
                       />
                     ))}
@@ -159,7 +163,7 @@ export default function ProgramPage() {
                   <div className="flex flex-col gap-8 md:mt-20">
                     {rightSessions.map((s, idx) => (
                       <ProgramCard
-                        key={s.id ?? `${s.title}-${idx}`}
+                        key={s.content.id ?? `${s.content.title}-${idx}`}
                         session={s}
                       />
                     ))}

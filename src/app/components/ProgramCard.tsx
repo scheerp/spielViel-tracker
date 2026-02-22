@@ -19,6 +19,7 @@ export interface Session {
     image?: string;
     imageAlt?: string;
     link?: string;
+    id?: string;
   };
   available: number;
   occupied: number;
