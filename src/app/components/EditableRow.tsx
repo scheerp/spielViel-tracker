@@ -1,4 +1,4 @@
-'use client';
+/* 'use client';
 
 import { useState } from 'react';
 import CloseIcon from '@icons/CancelIcon';
@@ -7,7 +7,6 @@ import SaveIcon from '@icons/SaveIcon';
 import EditIcon from '@icons/EditIcon';
 import { useModal } from '@context/ModalContext';
 import Loading from './Loading';
-import { NewSessionEntry, SessionEntry } from '../helperUser/gameSessions/page';
 
 type EditableRowProps = {
   participant: {
@@ -186,3 +185,4 @@ const EditableRow: React.FC<EditableRowProps> = ({
 };
 
 export default EditableRow;
+ */
