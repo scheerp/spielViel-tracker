@@ -1,4 +1,4 @@
-'use client';
+/* 'use client';
 
 import AddIcon from '@icons/AddIcon';
 import {
@@ -202,3 +202,4 @@ const SessionTable: React.FC<SessionTableProps> = ({
 };
 
 export default SessionTable;
+ */
