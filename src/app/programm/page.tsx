@@ -142,7 +142,7 @@ export default function ProgramPage() {
             return (
               <div
                 key={dayKey}
-                className={`program-day bg-background2 rounded-[28px] border-2 border-foreground p-6 pt-0 md:p-8 md:pt-0 ${dayKey === 'SAT' ? 'bg-[#FFEAE6]' : 'bg-[#FFF4E6]'}`}
+                className={`program-day rounded-[28px] border-2 border-foreground p-6 pt-0 md:p-8 md:pt-0 ${dayKey === 'SAT' ? 'bg-[#FFEAE6]' : 'bg-[#FFF4E6]'}`}
               >
                 <div className="program-day-header pointer-events-none sticky top-20 z-10 mb-4 flex justify-center">
                   <h2 className="program-day-label mb-6 mt-6 inline-flex items-center justify-center rounded-full border-[3px] border-foreground bg-white px-12 py-2 text-xl font-semibold shadow-darkBottom [font-stretch:125%]">
