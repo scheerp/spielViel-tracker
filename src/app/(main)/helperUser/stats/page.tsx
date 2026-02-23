@@ -9,7 +9,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const Stats = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const { showNotification } = useNotification();
   const { addInteraction } = useFeedback();
   const [games, setGames] = useState<Game[]>([]);
@@ -17,18 +17,11 @@ const Stats = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchStats = async () => {
-    if (!session) {
-      showNotification({
-        message: 'Fehler: Keine Sitzung gefunden.',
-        type: 'error',
-        duration: 3000,
-      });
-      return;
-    }
+    if (!session) return; // Sicherheit: nur fetchen, wenn Session existiert
     try {
       setLoading(true);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games`,
+        `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games?limit=20&year=2025`,
         {
           method: 'GET',
           headers: {
@@ -44,16 +37,33 @@ const Stats = () => {
     } catch (err) {
       console.error('Fehler:', err);
       setError('Fehler beim Laden der Statistik.');
+      showNotification({
+        message: 'Fehler beim Laden der Statistik.',
+        type: 'error',
+        duration: 3000,
+      });
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchStats();
-  }, []);
+    // erst fetchen, wenn Session bereit ist
+    if (status === 'authenticated') {
+      fetchStats();
+    } else if (status === 'unauthenticated') {
+      // Notification nur zeigen, wenn wirklich keine Session vorhanden
+      showNotification({
+        message: 'Fehler: Keine Sitzung gefunden.',
+        type: 'error',
+        duration: 3000,
+      });
+      setLoading(false);
+    }
+  }, [status, session]);
 
-  if (loading) return <FancyLoading />;
+  if (status === 'loading' || loading) return <FancyLoading />;
+  if (!session) return <div>Bitte anmelden, um die Statistik zu sehen.</div>;
   if (error || !games) return <div>Statistik nicht gefunden.</div>;
 
   return (

@@ -6,9 +6,7 @@ import {
   PlayerSearch as PlayerSearchType,
 } from '@context/GamesContext';
 import { useEffect, useState } from 'react';
-import { AppError } from '../types/ApiError';
 import { useNotification } from '@context/NotificationContext';
-import FancyLoading from '@components/FancyLoading';
 import Link from 'next/link';
 import Image from 'next/image';
 import ComplexityPill from '@components/ComplexityPill';
@@ -16,8 +14,9 @@ import { categorizePlayerSearches } from '@lib/utils';
 import { useSession } from 'next-auth/react';
 import { useFeedback } from '@context/FeedbackContext';
 import RotatedTitle from '@components/RotatedTitle';
+import { AppError } from '../../../types/ApiError';
 
-const PlayerSearch = () => {
+const OpenPlayersearchSlide = () => {
   const { showNotification } = useNotification();
   const { data: session } = useSession();
   const { addInteraction } = useFeedback();
@@ -97,7 +96,7 @@ const PlayerSearch = () => {
     fetchGameSearches();
   }, []);
 
-  if (loading) return <FancyLoading />;
+  if (loading) return null;
 
   return (
     <div className="container mx-auto mb-16 flex flex-col items-center p-6">
@@ -182,4 +181,4 @@ const PlayerSearch = () => {
     </div>
   );
 };
-export default PlayerSearch;
+export default OpenPlayersearchSlide;

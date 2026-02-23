@@ -36,7 +36,7 @@ const Header = () => {
           </Link>
 
           {/* Desktop Navigation Links */}
-          <div className="hidden gap-6 font-semibold text-white lg:flex">
+          <div className="hidden gap-6 font-semibold text-white [font-stretch:125%] lg:flex">
             <Link href="/">Home</Link>
             <Link href="/">Spieleliste</Link>
             <Link href="/favoriten">Favoriten</Link>
@@ -44,7 +44,7 @@ const Header = () => {
 
             {(session && session && session?.user?.role === 'admin') ||
             session?.user?.role === 'helper' ? (
-              <div className="flex gap-6 font-medium">
+              <div className="flex gap-6 font-medium [font-stretch:100%]">
                 <Link href="/programm">Programm</Link>
                 <Link href="/helperUser/stats">Statistik</Link>
                 <Link href="/helperUser">Helfer*innen</Link>

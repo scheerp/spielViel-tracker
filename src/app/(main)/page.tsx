@@ -7,7 +7,7 @@ import { useNotification } from '@context/NotificationContext';
 import ScrollToTopButton from '@components/ScrollTopButton';
 import { Game, GAMES_LIST_LIMIT, useGames } from '@context/GamesContext';
 import { FilterState, useFilter } from '@context/FilterContext';
-import { AppError } from './types/ApiError';
+import { AppError } from '../types/ApiError';
 import { ComplexityMapping } from '@lib/utils';
 import { useSession } from 'next-auth/react';
 import FancyLoading from '@components/FancyLoading';

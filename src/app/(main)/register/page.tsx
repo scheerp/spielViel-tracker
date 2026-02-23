@@ -3,7 +3,7 @@
 import { useNotification } from '@context/NotificationContext';
 import { useSearchParams } from 'next/navigation';
 import { Suspense, useState } from 'react';
-import { AppError } from '../types/ApiError';
+import { AppError } from '../../types/ApiError';
 import Loading from '@components/Loading';
 import { signIn, signOut, useSession } from 'next-auth/react';
 

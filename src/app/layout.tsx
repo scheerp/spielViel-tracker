@@ -1,8 +1,5 @@
 import './globals.css';
-import Header from '@components/Header';
 import AppProviders from '@context/AppProviders';
-import FeedbackBanner from '@components/FeedbackBanner';
-import Footer from '@components/Footer';
 import localFont from 'next/font/local';
 
 const mainFont = localFont({
@@ -33,12 +30,7 @@ export default function RootLayout({
   return (
     <html lang="de" className={`${mainFont.variable} font-main`}>
       <body className="flex min-h-screen flex-col">
-        <AppProviders>
-          <Header />
-          <FeedbackBanner />
-          <main className="flex-grow pt-20">{children}</main>
-          <Footer />
-        </AppProviders>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );
