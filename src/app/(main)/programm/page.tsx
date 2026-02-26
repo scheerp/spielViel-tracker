@@ -116,7 +116,7 @@ export default function ProgramPage() {
       )}
 
       {!sessions || sessions?.length === 0 ? (
-        <div className="mx-auto max-w-5xl rounded-2xl border-[3px] border-foreground bg-backgroundDark p-7 text-center font-medium [font-stretch:112%]">
+        <div className="mx-auto max-w-7xl rounded-2xl border-[3px] border-foreground bg-backgroundDark p-7 text-center font-medium [font-stretch:112%]">
           <p className="mb-2 text-lg">Noch ein kleinens bisschen Geduld</p>
           <p className="mb-2">
             Bald findest du hier alle Infos zum Programm und kannst dich zu
@@ -125,7 +125,7 @@ export default function ProgramPage() {
           <p>Schau&apos; einfach in ein paar Tagen nochmal vorbei.</p>
         </div>
       ) : (
-        <div className="max-w-5xl space-y-12">
+        <div className="max-w-7xl space-y-16">
           {DAY_KEYS.map((dayKey) => {
             const daySessions = sessionsByDay[dayKey];
             if (!daySessions || daySessions.length === 0) return null;
@@ -137,12 +137,10 @@ export default function ProgramPage() {
               (_, idx) => idx % 2 !== 0,
             );
 
-            console.log(dayKey);
-
             return (
               <div
                 key={dayKey}
-                className={`program-day rounded-[28px] border-2 border-foreground p-6 pt-0 md:p-8 md:pt-0 ${dayKey === 'SAT' ? 'bg-[#FFEAE6]' : 'bg-[#FFF4E6]'}`}
+                className={`program-day rounded-[28px] border-2 border-foreground p-6 pt-0 md:p-28 md:pt-0 ${dayKey === 'SAT' ? 'bg-[#FFEAE6]' : 'bg-[#FFF4E6]'}`}
               >
                 <div className="program-day-header pointer-events-none sticky top-20 z-10 mb-4 flex justify-center">
                   <h2 className="program-day-label mb-6 mt-6 inline-flex items-center justify-center rounded-full border-[3px] border-foreground bg-white px-12 py-2 text-xl font-semibold shadow-darkBottom [font-stretch:125%]">
@@ -150,7 +148,7 @@ export default function ProgramPage() {
                   </h2>
                 </div>
 
-                <div className="grid gap-8 md:grid-cols-[1fr_auto_1fr]">
+                <div className="grid gap-24 md:grid-cols-[1fr_auto_1fr]">
                   <div className="flex h-full flex-col gap-8">
                     {leftSessions.map((s, idx) => (
                       <ProgramCard

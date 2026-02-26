@@ -96,7 +96,6 @@ const ImportButton = () => {
       }
 
       const result = await response.json();
-      console.log({ result });
 
       if (mode === 'quick') {
         if (result.added > 0 || result.deleted > 0 || result.updated > 0) {

@@ -77,7 +77,6 @@ const useUpdateGame = () => {
       }
 
       const updatedGame: Game = await response.json();
-      console.log('Updated game:', updatedGame);
 
       updateGlobalGame(updatedGame);
 

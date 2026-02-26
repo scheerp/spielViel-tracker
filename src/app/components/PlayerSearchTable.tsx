@@ -1,6 +1,6 @@
 'use client';
 
-import { Game, PlayerSearch } from '@context/GamesContext';
+import { Game } from '@context/GamesContext';
 import { useModal } from '@context/ModalContext';
 import { useSession } from 'next-auth/react';
 import EditablePlayerSearch from './EditablePlayerSearch';
@@ -11,9 +11,13 @@ import { AppError } from '../types/ApiError';
 import { useNotification } from '@context/NotificationContext';
 import Image from 'next/image';
 import AddSearchIcon from '@icons/AddSearchIcon';
-import { categorizePlayerSearches, timeSinceMinutes } from '@lib/utils';
+import { timeSinceMinutes } from '@lib/utils';
 import PrimaryButton from './PrimaryButton';
 import Clickable from './Clickable';
+import {
+  categorizePlayerSearches,
+  PlayerSearch,
+} from '@context/PlayerSearchContext';
 
 export type PlayerSearchGameSummary = Pick<
   Game,

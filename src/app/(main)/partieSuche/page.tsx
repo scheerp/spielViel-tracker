@@ -2,9 +2,10 @@
 
 import PlayerSearchTable from '@components/PlayerSearchTable';
 import {
+  categorizePlayerSearches,
   PlayerSearchByGame,
   PlayerSearch as PlayerSearchType,
-} from '@context/GamesContext';
+} from '@context/PlayerSearchContext';
 import { useEffect, useState } from 'react';
 import { AppError } from '../../types/ApiError';
 import { useNotification } from '@context/NotificationContext';
@@ -12,7 +13,6 @@ import FancyLoading from '@components/FancyLoading';
 import Link from 'next/link';
 import Image from 'next/image';
 import ComplexityPill from '@components/ComplexityPill';
-import { categorizePlayerSearches } from '@lib/utils';
 import { useSession } from 'next-auth/react';
 import { useFeedback } from '@context/FeedbackContext';
 import RotatedTitle from '@components/RotatedTitle';

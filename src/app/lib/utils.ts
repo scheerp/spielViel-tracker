@@ -1,4 +1,4 @@
-import { Game, PlayerSearch } from '@context/GamesContext';
+import { Game } from '@context/GamesContext';
 import { AppError, BarcodeConflictError } from '../types/ApiError';
 
 /* ------------------------------------------------ */
@@ -187,28 +187,6 @@ export const isBarcodeConflictError = (
   return (
     error.detail?.error_code === 'BARCODE_CONFLICT' && 'details' in error.detail
   );
-};
-
-/* ------------------------------------------------ */
-/* Player Searches */
-/* ------------------------------------------------ */
-
-export const categorizePlayerSearches = (playerSearches: PlayerSearch[]) => {
-  const valid = playerSearches.filter((p) => new Date(p.expires_at) > now);
-
-  const expired = playerSearches.filter((p) => new Date(p.expires_at) <= now);
-
-  valid.sort(
-    (a, b) =>
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-  );
-
-  expired.sort(
-    (a, b) =>
-      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
-  );
-
-  return { valid, expired };
 };
 
 /* ------------------------------------------------ */

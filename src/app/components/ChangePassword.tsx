@@ -20,8 +20,6 @@ const ChangePassword = () => {
     event.preventDefault();
     setIsLoading(true);
     setIsButtonDisabled(true);
-    console.log('API URL:', process.env.NEXT_PUBLIC_API_URL);
-    console.log('Token:', session?.accessToken);
 
     const form = event.target as HTMLFormElement;
     const currentPassword = (

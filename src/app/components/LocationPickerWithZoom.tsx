@@ -64,8 +64,6 @@ const LocationPickerWithZoom: React.FC<LocationPickerWithZoomProps> = ({
       HTMLInputElement | HTMLTextAreaElement
     >('#name, #details');
 
-    console.log('tap start');
-
     inputs.forEach((input) => {
       if (document.activeElement === input) {
         input.blur();

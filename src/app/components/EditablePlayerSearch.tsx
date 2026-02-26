@@ -1,6 +1,5 @@
 'use client';
 
-import { PlayerSearch } from '@context/GamesContext';
 import { useState } from 'react';
 import { useNotification } from '@context/NotificationContext';
 import Image from 'next/image';
@@ -11,6 +10,7 @@ import LocationPickerWithZoom from './LocationPickerWithZoom';
 import { PlayerSearchGameSummary } from './PlayerSearchTable';
 import { useFeedback } from '@context/FeedbackContext';
 import PrimaryButton from './PrimaryButton';
+import { PlayerSearch } from '@context/PlayerSearchContext';
 
 type EditablePlayerSearchType = {
   game: PlayerSearchGameSummary;

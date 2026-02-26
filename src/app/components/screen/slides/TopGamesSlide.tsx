@@ -2,14 +2,7 @@
 
 import { Game } from '@context/GamesContext';
 
-type RotatorSlideProps = {
-  onReady?: () => void;
-  data?: Game[];
-};
-
-const TopGamesSlide: React.FC<RotatorSlideProps> = ({ data }) => {
-  console.log({ data });
-
+const TopGamesSlide: React.FC<{ data?: Game[] }> = ({ data }) => {
   return (
     <div className="mx-auto mb-3 p-6">
       <h2 className="mb-6 text-2xl font-bold">Statistik</h2>
@@ -22,7 +15,7 @@ const TopGamesSlide: React.FC<RotatorSlideProps> = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.games?.map((game: Game) => (
+            {data?.map((game: Game) => (
               <tr
                 key={game.id}
                 className="border-b border-gray-200 hover:bg-gray-50"

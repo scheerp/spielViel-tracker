@@ -1,37 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { ComplexityType } from '@lib/utils';
-
-export type PlayerSearch = {
-  can_edit: boolean;
-  created_at: string;
-  game_id: number;
-  id: number;
-  name: string;
-  player_id: number;
-  location: string;
-  current_players: number;
-  details: string | null;
-  expires_at: string;
-  players_needed: number;
-  edit_token: string | null;
-};
-
-export type PlayerSearchByGame = {
-  game: {
-    id: number;
-    name: string;
-    img_url: string;
-    thumbnaul_url: string;
-    best_playercount: number;
-    min_players: number;
-    max_players: number;
-    min_playtime: number;
-    max_playtime: number;
-    complexity_label?: ComplexityType;
-    player_age: number;
-  };
-  player_searches: PlayerSearch[];
-};
+import { PlayerSearch } from './PlayerSearchContext';
 
 export type Explainers = {
   familiarity: number;

@@ -47,6 +47,7 @@ const Header = () => {
               <div className="flex gap-6 font-medium [font-stretch:100%]">
                 <Link href="/programm">Programm</Link>
                 <Link href="/helperUser/stats">Statistik</Link>
+                <Link href="/screen">Demo</Link>
                 <Link href="/helperUser">Helfer*innen</Link>
               </div>
             ) : (

@@ -1,53 +1,92 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import ProgramSlide from './slides/ProgramSlide';
 import OpenPlayersearchSlide from './slides/OpenPlayersearchSlide';
-import { Game } from '@context/GamesContext';
 import TopGamesSlide from './slides/TopGamesSlide';
+import { SlidesData } from './ScreenRotatorWrapper';
+import { Game } from '@context/GamesContext';
+import { Session } from '@components/ProgramCard';
+import { FlatPlayerSearchWithGame } from '@context/PlayerSearchContext';
 
-type SlidesData = {
-  topGames?: Game[];
-};
-
-type Slide = {
-  id: string;
-  component: React.ComponentType<{ data?: any }>;
-  data?: any;
+type ProgramSlideType = {
+  id: 'program';
+  component: typeof ProgramSlide;
+  data: Record<string, Session>;
   duration: number;
 };
 
-type Props = { slidesData: SlidesData };
+type OpenGamesSlideType = {
+  id: 'open-games';
+  component: typeof OpenPlayersearchSlide;
+  data: FlatPlayerSearchWithGame[];
+  duration: number;
+};
 
-export default function ScreenRotator({ slidesData }: Props) {
-  const slides: Slide[] = [
-    {
-      id: 'program',
-      component: ProgramSlide,
-      duration: 20000,
-    },
-    {
-      id: 'open-games',
-      component: OpenPlayersearchSlide,
-      duration: 20000,
-    },
-    {
-      id: 'top-games',
-      component: TopGamesSlide,
-      data: slidesData.topGames || [],
-      duration: 20000,
-    },
-  ];
+type TopGamesSlideType = {
+  id: 'top-games';
+  component: typeof TopGamesSlide;
+  data: Game[];
+  duration: number;
+};
 
+type Slide = ProgramSlideType | OpenGamesSlideType | TopGamesSlideType;
+
+const DEFAULT_DURATION = 10 * 1000; // 10 Sekunden
+
+export default function ScreenRotator({
+  slidesData,
+  onCompleteRound,
+}: {
+  slidesData: SlidesData;
+  onCompleteRound?: () => void;
+}) {
   const [index, setIndex] = useState(0);
 
-  const goToSlide = useCallback(
-    (newIndex: number) => setIndex((newIndex + slides.length) % slides.length),
-    [],
+  const slides = useMemo<Slide[]>(
+    () => [
+      {
+        id: 'program',
+        component: ProgramSlide,
+        data: slidesData.program,
+        duration: DEFAULT_DURATION,
+      },
+      {
+        id: 'open-games',
+        component: OpenPlayersearchSlide,
+        data: slidesData.openGames,
+        duration: DEFAULT_DURATION,
+      },
+      {
+        id: 'top-games',
+        component: TopGamesSlide,
+        data: slidesData.topGames,
+        duration: DEFAULT_DURATION,
+      },
+    ],
+    [slidesData],
   );
 
-  // Pfeiltasten
+  const goToSlide = useCallback(
+    (newIndex: number) => {
+      const nextIndex = (newIndex + slides.length) % slides.length;
+
+      // Wenn wir wieder zum ersten Slide springen -> komplette Runde vorbei
+      if (newIndex >= slides.length && onCompleteRound) {
+        onCompleteRound();
+      }
+
+      setIndex(nextIndex);
+    },
+    [slides.length, onCompleteRound],
+  );
+
+  useEffect(() => {
+    setIndex(0);
+  }, [slidesData]);
+
+  // Pfeiltasten navigation
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowRight') goToSlide(index + 1);
@@ -58,7 +97,6 @@ export default function ScreenRotator({ slidesData }: Props) {
   }, [index, goToSlide]);
 
   const currentSlide = slides[index];
-  const SlideComponent = currentSlide.component;
 
   // Autoplay
   useEffect(() => {
@@ -80,7 +118,27 @@ export default function ScreenRotator({ slidesData }: Props) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.4 }}
         >
-          <SlideComponent data={currentSlide.data} />
+          {currentSlide.id === 'program' && (
+            <ProgramSlide data={currentSlide.data} />
+          )}
+
+          {currentSlide.id === 'open-games' && (
+            <OpenPlayersearchSlide data={currentSlide.data} />
+          )}
+
+          {currentSlide.id === 'top-games' && (
+            <TopGamesSlide data={currentSlide.data} />
+          )}
+          {/* Ladebalken */}
+          <motion.div
+            className="fixed bottom-0 left-0 h-1 w-full origin-left bg-primary"
+            initial={{ scaleX: 1 }}
+            animate={{ scaleX: 0 }}
+            transition={{
+              duration: currentSlide.duration / 1000,
+              ease: 'linear',
+            }}
+          />
         </motion.div>
       </AnimatePresence>
     </div>
