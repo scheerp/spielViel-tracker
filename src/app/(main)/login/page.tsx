@@ -81,7 +81,6 @@ const LoginPage = () => {
           className="mt-4 flex w-full max-w-sm flex-col gap-4"
         >
           <input
-            data-search="true"
             name="username"
             type="text"
             placeholder="E-Mail / Username"
@@ -89,7 +88,6 @@ const LoginPage = () => {
             className="rounded-full border-2 px-3 py-2.5"
           />
           <input
-            data-search="true"
             name="password"
             type="password"
             placeholder="Passwort"

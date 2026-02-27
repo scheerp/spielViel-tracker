@@ -90,7 +90,6 @@ const ResetUserPassword = () => {
         className="mt-4 flex w-full flex-col gap-4 text-base"
       >
         <input
-          data-search="true"
           name="usernameOrEmail"
           type="text"
           placeholder="E-Mail/Username"
