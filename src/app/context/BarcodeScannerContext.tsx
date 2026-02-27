@@ -31,10 +31,6 @@ export const BarcodeScannerProvider = ({
 
     const handleKeyDown = (event: KeyboardEvent) => {
 
-    if (/^[0-9]$/.test(event.key) || event.key === 'Enter') {
-        event.preventDefault();
-        event.stopPropagation();
-    }
       const now = Date.now();
 
       if (now - lastKeyTime.current > 50) {
