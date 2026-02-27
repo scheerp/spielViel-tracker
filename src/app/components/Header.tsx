@@ -4,9 +4,6 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import BarcodeIcon from '@icons/BarcodeIcon';
-import Scan from './Scan';
-import { useModal } from '@context/ModalContext';
-import Loading from './Loading';
 import HamburgerMenu from './HamburgerMenu';
 import HamburgerButton from './HamburgerButton';
 import { useState } from 'react';
@@ -14,7 +11,6 @@ import { useBarcodeScanner } from '@context/BarcodeScannerContext';
 
 const Header = () => {
   const { data: session } = useSession();
-  const { openModal } = useModal();
   const [menuOpen, setMenuOpen] = useState(false);
   const { scanningEnabled, toggleScanning } = useBarcodeScanner();
 
