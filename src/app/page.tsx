@@ -11,6 +11,7 @@ import { AppError } from './types/ApiError';
 import { ComplexityMapping } from '@lib/utils';
 import { useSession } from 'next-auth/react';
 import FancyLoading from '@components/FancyLoading';
+import { supabase } from './api/supabase';
 
 const Games: React.FC = () => {
   const { data: session } = useSession();
@@ -34,6 +35,73 @@ const Games: React.FC = () => {
   const [noGames, setNoGames] = useState<boolean>(false);
   const [editFamiliarity, setEditFamiliarity] = useState<boolean>(false);
   const [favourites, setFavourites] = useState<number[]>([]);
+
+const fetchGamesSupabase = async (newOffset: number, reset: boolean = false) => {
+  if (loading) return;
+
+  setLoading(true);
+
+  try {
+    if (reset) {
+      setNoGames(false);
+      setHasMore(true);
+      setGames([]);
+      setTotalCount(0);
+    }
+
+    console.log({filter});
+    
+
+    const { data, error } = await supabase.rpc('get_games_public', {
+      p_limit: GAMES_LIST_LIMIT,
+      p_offset: newOffset,
+      p_filter_text: filter.filterText || null,
+      p_show_available_only: filter.showAvailableOnly,
+      p_min_player_count: filter.minPlayerCount || 1,
+      p_player_age: filter.minAge || 0,
+      p_show_missing_ean_only: filter.showMissingEanOnly,
+      p_complexities:
+        filter.complexity.length > 0 ? filter.complexity : null,
+      p_user_id: session?.user?.id ?? null,
+    });
+
+    if (error) throw error;
+
+    if (data.games.length === 0) {
+      setNoGames(true);
+      setGames([]);
+      setTotalCount(0);
+      showNotification({
+        message: 'Keine Spiele gefunden. Bitte passe deine Filter an.',
+        type: 'status',
+        duration: 3000,
+      });
+      return;
+    }
+
+    // Daten im gleichen Format wie vorher setzen
+    setGames((prevGames) => {
+      if (reset) return data.games;
+
+      const newGames = data.games.filter(
+        (game: Game) => !prevGames.some((g) => g.id === game.id)
+      );
+      return [...prevGames, ...newGames];
+    });
+
+    setTotalCount(data.total);
+    setHasMore(data.games.length >= GAMES_LIST_LIMIT);
+  } catch (err: any) {
+    console.error(err);
+    showNotification({
+      message: `Fehler: ${err.message}`,
+      type: 'error',
+      duration: 3000,
+    });
+  } finally {
+    setLoading(false);
+  }
+};
 
   const fetchGames = async (newOffset: number, reset: boolean = false) => {
     if (loading) {
@@ -91,7 +159,6 @@ const Games: React.FC = () => {
       }
 
       const data = await response.json();
-
       setGames((prevGames) => {
         if (reset) {
           return data.games;
@@ -180,21 +247,22 @@ const Games: React.FC = () => {
         return;
       }
       // reload if offset was 0
-      fetchGames(0, true);
+      fetchGamesSupabase(0, true);
       setPendingFilterChange(false);
     } else {
       // Filter has not changed.
       if (pendingFilterChange && offset === 0) {
-        fetchGames(0, true);
+        fetchGamesSupabase(0, true);
         setPendingFilterChange(false);
       } else if (offset > 0) {
-        fetchGames(offset, false);
+        fetchGamesSupabase(offset, false);
       } else if (offset === 0 && games.length === 0 && !loading) {
         // Initial-Fetch
-        fetchGames(0, true);
+        fetchGamesSupabase(0, true);
       }
     }
   }, [filter, offset, session, session?.user?.id]);
+  
 
   return (
     <div className="mb-16 flex flex-col items-center">
