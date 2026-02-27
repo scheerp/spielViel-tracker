@@ -116,10 +116,7 @@ const ProgramCard: React.FC<ProgramCardProps> = ({ session, mobileOrder }) => {
           <Clickable className="mt-6 rounded-xl">
             <a
               className="flex w-full justify-center rounded-lg bg-primary py-2 font-semibold text-white transition [font-stretch:120%]"
-              //   TODO: this should not lead to stage
-              href={
-                'https://stage.spielviel.net/programm/' + session?.content?.link
-              }
+              href={'https://spielviel.net/programm/' + session?.content?.link}
               target="_blank"
               rel="noopener noreferrer"
             >

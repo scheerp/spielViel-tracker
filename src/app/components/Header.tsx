@@ -38,12 +38,12 @@ const Header = () => {
             <Link href="/">Home</Link>
             <Link href="/">Spieleliste</Link>
             <Link href="/favoriten">Favoriten</Link>
+            <Link href="/programm">Programm</Link>
             <Link href="/partieSuche">Partiesuche</Link>
 
             {(session && session && session?.user?.role === 'admin') ||
             session?.user?.role === 'helper' ? (
               <div className="flex gap-6 font-medium [font-stretch:100%]">
-                <Link href="/programm">Programm</Link>
                 <Link href="/helperUser/stats">Statistik</Link>
                 <Link href="/screen">Demo</Link>
                 <Link href="/helperUser">Helfer*innen</Link>
@@ -63,9 +63,11 @@ const Header = () => {
                     onClick={toggleScanning}
                     className="h-14 w-14 p-2 lg:h-16 lg:w-16"
                   >
-                    {scanningEnabled ? 
-                      <BarcodeIcon tailwindColor="text-white" /> : 
-                      <BarcodeIcon tailwindColor="text-gray-400" />}
+                    {scanningEnabled ? (
+                      <BarcodeIcon tailwindColor="text-white" />
+                    ) : (
+                      <BarcodeIcon tailwindColor="text-gray-400" />
+                    )}
                   </button>
                 </div>
               )}

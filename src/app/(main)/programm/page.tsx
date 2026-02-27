@@ -58,7 +58,7 @@ export default function ProgramPage() {
 
       try {
         const response = await fetch(
-          'https://stage.spielviel.net/programm/api_availability.php',
+          'https://spielviel.net/programm/api_availability.php',
         );
 
         if (!response.ok) {
@@ -96,7 +96,7 @@ export default function ProgramPage() {
     );
 
   return (
-    <div className="mx-4 mb-16 flex flex-col items-center">
+    <div className="mb-16 flex flex-col items-center lg:mx-4">
       <RotatedTitle
         text="Programm"
         tailwindBgColor="bg-error"
@@ -140,7 +140,7 @@ export default function ProgramPage() {
             return (
               <div
                 key={dayKey}
-                className={`program-day rounded-[28px] border-2 border-foreground p-6 pt-0 md:p-28 md:pt-0 ${dayKey === 'SAT' ? 'bg-[#FFEAE6]' : 'bg-[#FFF4E6]'}`}
+                className={`program-day p-6 pt-0 md:rounded-[28px] md:border-2 md:border-foreground md:p-28 md:pt-0 ${dayKey === 'SAT' ? 'bg-[#FFEAE6]' : 'bg-[#FFF4E6]'}`}
               >
                 <div className="program-day-header pointer-events-none sticky top-20 z-10 mb-4 flex justify-center">
                   <h2 className="program-day-label mb-6 mt-6 inline-flex items-center justify-center rounded-full border-[3px] border-foreground bg-white px-12 py-2 text-xl font-semibold shadow-darkBottom [font-stretch:125%]">
@@ -148,7 +148,7 @@ export default function ProgramPage() {
                   </h2>
                 </div>
 
-                <div className="grid gap-24 md:grid-cols-[1fr_auto_1fr]">
+                <div className="grid gap-28 md:grid-cols-[1fr_auto_1fr]">
                   <div className="flex h-full flex-col gap-8">
                     {leftSessions.map((s, idx) => (
                       <ProgramCard

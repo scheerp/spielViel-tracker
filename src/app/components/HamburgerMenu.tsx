@@ -51,10 +51,10 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
             >
               Partiesuche
             </Link>
-            {/* TODO: Temporarily hide programm link until we have a proper program page
             <Link href="/programm" className="px-6 py-4" onClick={toggleMenu}>
               Programm
-            </Link> */}
+            </Link>
+            {/* TODO: add link to feedback form
             <a
               href={FEEDBACK_FORM_URL}
               target="_blank"
@@ -63,7 +63,7 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
               onClick={() => hideBanner()}
             >
               Feedback geben
-            </a>
+            </a> */}
             {(session && session?.user?.role === 'admin') ||
             session?.user?.role === 'helper' ? (
               <div className="flex flex-col items-center font-medium">
@@ -73,13 +73,6 @@ const HamburgerMenu = ({ menuOpen, toggleMenu }: HamburgerMenuType) => {
                   onClick={toggleMenu}
                 >
                   Statistik
-                </Link>
-                <Link
-                  href="/programm"
-                  className="px-6 py-4"
-                  onClick={toggleMenu}
-                >
-                  Programm
                 </Link>
                 <Link
                   href="/helperUser"
