@@ -164,6 +164,7 @@ const EditablePlayerSearch = ({
             </h2>
 
             <input
+              data-search="true"
               type="text"
               id="name"
               name="name"
@@ -202,6 +203,7 @@ const EditablePlayerSearch = ({
             </div>
 
             <input
+              data-search="true"
               id="details"
               name="details"
               value={formData.details || ''}

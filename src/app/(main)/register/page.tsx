@@ -91,6 +91,7 @@ const Register = () => {
           className="mt-4 flex w-full max-w-sm flex-col gap-4"
         >
           <input
+            data-search="true"
             name="username"
             type="text"
             placeholder="Benutzername"
@@ -98,6 +99,7 @@ const Register = () => {
             className="rounded-full border-2 px-3 py-2.5"
           />
           <input
+            data-search="true"
             name="email"
             type="text"
             placeholder="E-Mail Adresse"
@@ -105,6 +107,7 @@ const Register = () => {
             className="rounded-full border-2 px-3 py-2.5"
           />
           <input
+            data-search="true"
             name="password"
             type="password"
             placeholder="Passwort"

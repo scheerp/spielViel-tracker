@@ -47,6 +47,7 @@ const AddEAN: React.FC<AddEANProps> = ({ game }) => {
           }}
         >
           <input
+            data-search="true"
             type="number"
             ref={inputRef}
             readOnly={isLoading}

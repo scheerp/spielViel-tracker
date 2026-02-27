@@ -60,6 +60,7 @@ const SearchBar: React.FC<SearchBarType> = ({
               className="ml-[0.1rem] mr-2 h-[1.7rem] w-[1.7rem]"
             />
             <input
+              data-search="true"
               type="text"
               placeholder="Nach Namen filtern..."
               value={searchTerm}

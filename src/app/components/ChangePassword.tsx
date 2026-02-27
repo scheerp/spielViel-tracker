@@ -81,6 +81,7 @@ const ChangePassword = () => {
         className="mt-4 flex w-full flex-col gap-4 text-base"
       >
         <input
+          data-search="true"
           name="currentPassword"
           type="password"
           placeholder="Aktuelles Passwort"
@@ -88,6 +89,7 @@ const ChangePassword = () => {
           className="rounded-full border px-3 py-2.5 outline-none focus:ring-2 focus:ring-primary md:mb-4"
         />
         <input
+          data-search="true"
           name="newPassword"
           type="text"
           placeholder="Neues Passwort"

@@ -119,6 +119,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
               <tr className="h-32">
                 <td className="p-3 pl-0">
                   <input
+                    data-search="true"
                     type="text"
                     placeholder="Vorname"
                     className="mb-2 ml-1 mr-2 w-full rounded-full border p-2 pl-4 outline-none focus:ring-2 focus:ring-primary"
@@ -128,6 +129,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
                     }
                   />
                   <input
+                    data-search="true"
                     type="text"
                     placeholder="Nachname"
                     className="ml-1 w-full rounded-full border p-2 pl-4 outline-none focus:ring-2 focus:ring-primary"
@@ -139,6 +141,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
                 </td>
                 <td className="p-3 pl-0">
                   <input
+                    data-search="true"
                     type="email"
                     placeholder="E-Mail"
                     className="mb-2 ml-1 mr-2 w-full rounded-full border p-2 pl-4 outline-none focus:ring-2 focus:ring-primary"
@@ -148,6 +151,7 @@ const SessionTable: React.FC<SessionTableProps> = ({
                     }
                   />
                   <input
+                    data-search="true"
                     type="number"
                     placeholder="Handynummer"
                     className="ml-1 w-full rounded-full border p-2 pl-4 outline-none [appearance:textfield] focus:ring-2 focus:ring-primary [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"

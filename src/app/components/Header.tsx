@@ -10,11 +10,13 @@ import Loading from './Loading';
 import HamburgerMenu from './HamburgerMenu';
 import HamburgerButton from './HamburgerButton';
 import { useState } from 'react';
+import { useBarcodeScanner } from '@context/BarcodeScannerContext';
 
 const Header = () => {
   const { data: session } = useSession();
   const { openModal } = useModal();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { scanningEnabled, toggleScanning } = useBarcodeScanner();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -62,17 +64,12 @@ const Header = () => {
                 session?.user?.role === 'helper') && (
                 <div className="flex items-center gap-3">
                   <button
+                    onClick={toggleScanning}
                     className="h-14 w-14 p-2 lg:h-16 lg:w-16"
-                    onClick={() =>
-                      openModal((loadingFromContext) => (
-                        <>
-                          <Scan />
-                          {loadingFromContext && <Loading />}
-                        </>
-                      ))
-                    }
                   >
-                    <BarcodeIcon tailwindColor="text-white" />
+                    {scanningEnabled ? 
+                      <BarcodeIcon tailwindColor="text-white" /> : 
+                      <BarcodeIcon tailwindColor="text-gray-400" />}
                   </button>
                 </div>
               )}

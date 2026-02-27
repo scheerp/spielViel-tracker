@@ -8,7 +8,7 @@ import { AppError } from '../types/ApiError';
 import GameDescription from './GameDescription';
 import GameSimilarGames from './GameSimilarGames';
 import FloatingUpdateButtons from './FloatingUpdateButtons';
-import { Game, PlayerSearch } from '@context/GamesContext';
+import { Game } from '@context/GamesContext';
 import DetailedGameImage from './DetailedGameImage';
 import { useRouter } from 'next/navigation';
 import ArrowLeftIcon from '@icons/ArrowLeftIcon';
@@ -22,6 +22,7 @@ import PlayerSearchTable from './PlayerSearchTable';
 import FancyLoading from './FancyLoading';
 import SubHeader from './SubHeader';
 import Clickable from './Clickable';
+import { PlayerSearch } from '@context/PlayerSearchContext';
 
 interface GameDetailsProps {
   gameId: string;
