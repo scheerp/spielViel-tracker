@@ -1,6 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, Dispatch, SetStateAction } from 'react';
+import React, {
+  useState,
+  useEffect,
+  Dispatch,
+  SetStateAction,
+  useRef,
+} from 'react';
 import SearchIcon from '@icons/SearchIcon';
 import { useFilter } from '@context/FilterContext';
 import FilterIcon from '@icons/FilterIcon';
@@ -24,19 +30,12 @@ const SearchBar: React.FC<SearchBarType> = ({
   const { data: session } = useSession();
   const [searchTerm, setSearchTerm] = useState<string>(filter.filterText);
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => {
-    if (searchTerm === '') {
-      setFilter((prev) => ({ ...prev, filterText: searchTerm }));
-      return;
-    }
-    const timeout = setTimeout(() => {
-      setFilter((prev) => ({ ...prev, filterText: searchTerm }));
-    }, 500);
-
+  const triggerSearch = (text: string) => {
+    setFilter((prev) => ({ ...prev, filterText: text }));
     window.scrollTo({ top: 0 });
-    return () => clearTimeout(timeout);
-  }, [searchTerm]);
+  };
 
   useEffect(() => {
     setSearchTerm(filter.filterText);
@@ -44,6 +43,18 @@ const SearchBar: React.FC<SearchBarType> = ({
 
   const handleSearchChange = (text: string) => {
     setSearchTerm(text);
+
+    if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+    debounceTimeout.current = setTimeout(() => {
+      triggerSearch(text);
+    }, 500);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
+      triggerSearch(searchTerm);
+    }
   };
 
   const toggleDrawer = () => {
@@ -60,11 +71,11 @@ const SearchBar: React.FC<SearchBarType> = ({
               className="ml-[0.1rem] mr-2 h-[1.7rem] w-[1.7rem]"
             />
             <input
-              data-search="true"
               type="text"
               placeholder="Nach Namen filtern..."
               value={searchTerm}
               onChange={(e) => handleSearchChange(e.target.value)}
+              onKeyDown={handleKeyDown}
               className="mr-1 w-full border-0 bg-white py-1.5 pr-0 outline-none focus:ring-0"
             />
             {searchTerm && (

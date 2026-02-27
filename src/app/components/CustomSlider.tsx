@@ -39,6 +39,7 @@ const CustomSlider = ({
         <label htmlFor="custom-slider">{labelText(tempValue)}</label>
       )}
       <input
+        data-allow-scanner
         id="custom-slider"
         type="range"
         value={tempValue}

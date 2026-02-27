@@ -1,3 +1,5 @@
+'use client';
+
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
 import { useState } from 'react';
@@ -10,6 +12,7 @@ export type useUpdateGameArguments = {
   operation: 'borrow' | 'return' | 'removeEAN' | 'addEAN' | 'updateFamiliarity';
   ean?: string;
   familiarity?: number;
+  skipRequest?: boolean;
 };
 
 const useUpdateGame = () => {
@@ -23,6 +26,7 @@ const useUpdateGame = () => {
     operation,
     ean,
     familiarity,
+    skipRequest = false,
   }: useUpdateGameArguments) => {
     if (!session) {
       console.error('Keine Sitzung gefunden.');
@@ -32,6 +36,54 @@ const useUpdateGame = () => {
     setIsLoading(true);
 
     try {
+      // -----------------------------
+      // 1️⃣ skipRequest-Mode: nur State + Notification
+      // -----------------------------
+      if (skipRequest) {
+        updateGlobalGame(game);
+
+        const actionMessage = {
+          borrow: 'erfolgreich ausgeliehen.',
+          return: 'erfolgreich zurückgegeben.',
+          addEAN: 'Barcode erfolgreich hinzugefügt.',
+          removeEAN: 'Barcode erfolgreich entfernt.',
+          updateFamiliarity: 'Familiarity erfolgreich aktualisiert.',
+        }[operation];
+
+        showNotification({
+          message: (
+            <div className="flex items-center">
+              <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden truncate">
+                <Image
+                  src={game.thumbnail_url || '/placeholder.png'}
+                  alt={game.name || 'placeholder Bild'}
+                  fill
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+              <span className="ml-4">
+                {game.name}
+                <br />
+                {actionMessage}
+              </span>
+            </div>
+          ),
+          type:
+            operation === 'addEAN' ||
+            operation === 'removeEAN' ||
+            operation === 'updateFamiliarity'
+              ? 'success'
+              : operation,
+          duration: 2000,
+        });
+
+        setIsLoading(false);
+        return { success: true, gameData: game };
+      }
+
+      // -----------------------------
+      // 2️⃣ Normaler Request-Mode (bestehendes Verhalten)
+      // -----------------------------
       let endpoint = '';
       let body: Record<string, unknown> = {};
 
@@ -99,12 +151,8 @@ const useUpdateGame = () => {
                     : '/placeholder.png'
                 }
                 alt={updatedGame.name}
-                priority
                 fill
-                sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
-                style={{
-                  objectFit: 'cover',
-                }}
+                style={{ objectFit: 'cover' }}
               />
             </div>
             <span className="ml-4">
@@ -127,10 +175,9 @@ const useUpdateGame = () => {
     } catch (err) {
       const error = err as BarcodeConflictError;
       if (
-        error.detail.error_code === 'BARCODE_CONFLICT' &&
+        error.detail?.error_code === 'BARCODE_CONFLICT' &&
         error.detail.ean_details
       ) {
-        const error = err as BarcodeConflictError;
         return showNotification({
           message: (
             <div className="flex items-center">
@@ -142,12 +189,8 @@ const useUpdateGame = () => {
                       : '/placeholder.png'
                   }
                   alt={error.detail.ean_details.name}
-                  priority
                   fill
-                  sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
-                  style={{
-                    objectFit: 'cover',
-                  }}
+                  style={{ objectFit: 'cover' }}
                 />
               </div>
               <span className="ml-4">

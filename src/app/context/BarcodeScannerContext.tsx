@@ -5,7 +5,6 @@ import { createContext, useContext, useEffect, useRef, useState } from 'react';
 type BarcodeScannerContextType = {
   scanningEnabled: boolean;
   toggleScanning: () => void;
-  onScan: (barcode: string) => void;
   setOnScan: (fn: (barcode: string) => void) => void;
 };
 
@@ -13,58 +12,106 @@ const BarcodeScannerContext = createContext<BarcodeScannerContextType | null>(
   null,
 );
 
+const SCAN_SPEED_THRESHOLD = 40; // ms between keys
+const MIN_BARCODE_LENGTH = 8;
+
 export const BarcodeScannerProvider = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
   const [scanningEnabled, setScanningEnabled] = useState(true);
-  const [onScan, setOnScan] = useState<(barcode: string) => void>(() => {});
 
-  const buffer = useRef('');
-  const lastKeyTime = useRef(0);
+  const bufferRef = useRef('');
+  const lastKeyTimeRef = useRef(0);
+  const scanStartTimeRef = useRef(0);
+
+  const onScanRef = useRef<(barcode: string) => void>(() => {});
 
   const toggleScanning = () => setScanningEnabled((v) => !v);
 
+  const setOnScan = (fn: (barcode: string) => void) => {
+    onScanRef.current = fn;
+  };
+
   useEffect(() => {
-    if (!scanningEnabled) return;
-
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (!scanningEnabled) return;
 
-      const now = Date.now();
+      const target = event.target as HTMLElement;
 
-      if (now - lastKeyTime.current > 50) {
-        buffer.current = '';
-      }
-
-      lastKeyTime.current = now;
-
-      if (event.key === 'Enter') {
-        if (buffer.current.length > 3) {
-          onScan(buffer.current);
-        }
-        buffer.current = '';
+      // ignore inputs unless explicitly allowed
+      if (
+        (target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.isContentEditable) &&
+        !target.closest('[data-allow-scanner]')
+      ) {
         return;
       }
 
-      if (/^[0-9]$/.test(event.key)) {
-        buffer.current += event.key;
+      const now = Date.now();
+      const delta = now - lastKeyTimeRef.current;
+
+      lastKeyTimeRef.current = now;
+
+      // reset buffer if typing is too slow
+      if (delta > SCAN_SPEED_THRESHOLD) {
+        bufferRef.current = '';
+        scanStartTimeRef.current = now;
+      }
+
+      if (event.key === 'Enter') {
+        const barcode = bufferRef.current;
+
+        bufferRef.current = '';
+
+        const duration = now - scanStartTimeRef.current;
+
+        const avgKeySpeed = duration / barcode.length;
+
+        const looksLikeScanner =
+          barcode.length >= MIN_BARCODE_LENGTH &&
+          avgKeySpeed < SCAN_SPEED_THRESHOLD;
+
+        if (looksLikeScanner) {
+          onScanRef.current(barcode);
+        }
+
+        return;
+      }
+
+      if (/^[0-9A-Za-z]$/.test(event.key)) {
+        bufferRef.current += event.key;
+      }
+    };
+
+    const handlePaste = (event: ClipboardEvent) => {
+      if (!scanningEnabled) return;
+
+      const pasted = event.clipboardData?.getData('text');
+
+      if (!pasted) return;
+
+      if (pasted.length >= MIN_BARCODE_LENGTH) {
+        onScanRef.current(pasted.trim());
       }
     };
 
     window.addEventListener('keydown', handleKeyDown, true);
+    window.addEventListener('paste', handlePaste);
 
     return () => {
       window.removeEventListener('keydown', handleKeyDown, true);
+      window.removeEventListener('paste', handlePaste);
     };
-  }, [scanningEnabled, onScan]);
+  }, [scanningEnabled]);
 
   return (
     <BarcodeScannerContext.Provider
       value={{
         scanningEnabled,
         toggleScanning,
-        onScan,
         setOnScan,
       }}
     >

@@ -29,6 +29,7 @@ const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           className="p-0"
         >
           <input
+            data-allow-scanner
             id={id}
             type="checkbox"
             ref={ref}
