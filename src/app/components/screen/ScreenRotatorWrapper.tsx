@@ -47,16 +47,16 @@ export default function ScreenRotatorWrapper() {
       const [topGamesRes, programRes]: [TopGamesResponse, ProgramResponse] =
         await Promise.all([
           fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games?limit=20&year=2025`,
+            `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games?limit=10&year=2025`,
             {
               headers: {
                 Authorization: `Bearer ${session?.accessToken}`,
               },
             },
           ).then((r) => r.json() as Promise<TopGamesResponse>),
-          fetch(
-            'https://spielviel.net/programm/api_availability.php',
-          ).then((r) => r.json() as Promise<ProgramResponse>),
+          fetch('https://spielviel.net/programm/api_availability.php').then(
+            (r) => r.json() as Promise<ProgramResponse>,
+          ),
         ]);
 
       setTopGames(topGamesRes.games);
