@@ -55,7 +55,7 @@ export default function ScreenRotatorWrapper() {
             },
           ).then((r) => r.json() as Promise<TopGamesResponse>),
           fetch(
-            'https://stage.spielviel.net/programm/api_availability.php',
+            'https://spielviel.net/programm/api_availability.php',
           ).then((r) => r.json() as Promise<ProgramResponse>),
         ]);
 

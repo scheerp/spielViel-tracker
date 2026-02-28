@@ -13,25 +13,23 @@ import ScanActionModal from '@components/ScanActionModal';
 import ScanListener from '@components/ScanListener';
 
 const AppProviders: React.FC<{ children: ReactNode }> = ({ children }) => {
-
-
   return (
     <SessionProvider>
       <NotificationProvider>
         <FilterProvider>
-          <GamesProvider>
-            <BarcodeScannerProvider>
-              <ModalProvider>
-                <PlayerSearchProvider>
-                  <FeedbackProvider>
+          <FeedbackProvider>
+            <PlayerSearchProvider>
+              <GamesProvider>
+                <BarcodeScannerProvider>
+                  <ModalProvider>
                     <ScanListener />
                     <ScanActionModal />
                     {children}
-                  </FeedbackProvider>
-                </PlayerSearchProvider>
-              </ModalProvider>
-            </BarcodeScannerProvider>
-          </GamesProvider>
+                  </ModalProvider>
+                </BarcodeScannerProvider>
+              </GamesProvider>
+            </PlayerSearchProvider>
+          </FeedbackProvider>
         </FilterProvider>
       </NotificationProvider>
     </SessionProvider>
