@@ -33,6 +33,8 @@ export const DAY_LABELS: Record<DayKey, string> = {
   OTHER: 'Weitere Termine',
 };
 
+export const FORCE_BORROW_COUNT_UPDATE = false;
+
 /**
  * Wörter mit denen Tage erkannt werden
  * -> leicht erweiterbar
@@ -62,8 +64,8 @@ export const getSessionDayKey = (time?: string): DayKey => {
 /* Event Date Handling */
 /* ------------------------------------------------ */
 
-const EVENT_START = new Date('2026-03-13');
-const EVENT_END = new Date('2026-03-15');
+export const EVENT_START = new Date('2026-03-13');
+export const EVENT_END = new Date('2026-03-15');
 
 const EVENT_TIMES: Partial<Record<DayKey, [number, number]>> = {
   FRI: [18, 24],

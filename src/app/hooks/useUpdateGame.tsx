@@ -6,6 +6,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { AppError, BarcodeConflictError } from '../types/ApiError';
 import { Game, useGames } from '@context/GamesContext';
+import { FORCE_BORROW_COUNT_UPDATE } from '@lib/utils';
 
 export type useUpdateGameArguments = {
   game: Game;
@@ -89,7 +90,7 @@ const useUpdateGame = () => {
 
       switch (operation) {
         case 'borrow':
-          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/games/game/borrow/${game.id}`;
+          endpoint = `${process.env.NEXT_PUBLIC_API_URL}/games/game/borrow/${game.id}?force_event=${FORCE_BORROW_COUNT_UPDATE}`;
           break;
         case 'return':
           endpoint = `${process.env.NEXT_PUBLIC_API_URL}/games/game/return/${game.id}`;

@@ -14,10 +14,10 @@ type RankedGame = Game & { rank: number };
 const TopGamesSlide: React.FC<Props> = ({ data }) => {
   if (!data) return null;
 
-  const MAX_PODIUM_HEIGHT = 240;
+  const MAX_PODIUM_HEIGHT = 260;
 
   const sorted = [...data]
-    .sort((a, b) => b.borrow_count - a.borrow_count)
+    .sort((a, b) => b.borrows_count - a.borrows_count)
     .slice(0, 10);
 
   // Ranking mit Gleichständen
@@ -30,14 +30,14 @@ const TopGamesSlide: React.FC<Props> = ({ data }) => {
     const prev = sorted[i - 1];
     const prevRank = ranked[i - 1].rank;
 
-    if (game.borrow_count === prev.borrow_count) {
+    if (game.borrows_count === prev.borrows_count) {
       ranked.push({ ...game, rank: prevRank });
     } else {
       ranked.push({ ...game, rank: i + 1 });
     }
   });
 
-  const max = Math.max(...sorted.map((g) => g.borrow_count));
+  const max = Math.max(...sorted.map((g) => g.borrows_count));
 
   // Podest-Höhe proportional zur Ausleihzahl
   const getPodiumHeight = (count: number) => (count / max) * MAX_PODIUM_HEIGHT;
@@ -46,7 +46,7 @@ const TopGamesSlide: React.FC<Props> = ({ data }) => {
   const top5 = ranked.slice(0, 5);
 
   return (
-    <div className="flex h-screen flex-col items-center gap-10 overflow-hidden px-16 py-6">
+    <div className="flex h-screen flex-col items-center overflow-hidden px-16 py-6">
       {/* TITLE */}
       <div className="col-span-2 flex justify-center">
         <RotatedTitle
@@ -55,6 +55,9 @@ const TopGamesSlide: React.FC<Props> = ({ data }) => {
           className="mb-2"
         />
       </div>
+      <span className="mb-8 mt-20 text-xl font-semibold">
+        Diese Spiele wurden am häufigsten ausgeliehen.
+      </span>
 
       {/* TOP 5 PODIUM */}
       <div className="flex w-full items-end justify-center gap-12">
@@ -77,7 +80,7 @@ const TopGamesSlide: React.FC<Props> = ({ data }) => {
             )}
 
             <div className="mt-2 text-3xl font-bold text-gray-800">
-              {game.borrow_count}
+              {game.borrows_count}
             </div>
             <div
               className={`mt-3 flex w-full items-end justify-center rounded-t-xl text-2xl font-bold text-white shadow-xl ${
@@ -85,7 +88,7 @@ const TopGamesSlide: React.FC<Props> = ({ data }) => {
                   ? 'bg-yellow-400 shadow-yellow-300/70'
                   : 'bg-gray-400'
               }`}
-              style={{ height: getPodiumHeight(game.borrow_count) }}
+              style={{ height: getPodiumHeight(game.borrows_count) }}
             ></div>
             <div className="mt-8 flex h-96 flex-col items-center justify-start">
               <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground bg-white md:h-44 md:w-44">

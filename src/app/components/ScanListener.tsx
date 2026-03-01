@@ -6,6 +6,7 @@ import useUpdateGame from '@hooks/useUpdateGame';
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
 import { AppError } from '../types/ApiError';
+import { FORCE_BORROW_COUNT_UPDATE } from '@lib/utils';
 
 const ScanListener = () => {
   const { data: session, status } = useSession();
@@ -23,13 +24,16 @@ const ScanListener = () => {
 
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/games/game/scan_by_ean/${barcode}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/games/game/scan_by_ean/${barcode}?force_event=${FORCE_BORROW_COUNT_UPDATE}`,
           {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${session.accessToken}`,
             },
+            body: JSON.stringify({
+              force_event: false,
+            }),
           },
         );
 

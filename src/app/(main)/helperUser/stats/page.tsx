@@ -97,7 +97,7 @@ const Stats = () => {
                     {game.name}
                   </Link>
                 </td>
-                <td className="p-3 pl-6">{game.borrow_count}</td>
+                <td className="p-3 pl-6">{game.borrows_count}</td>
               </tr>
             ))}
           </tbody>

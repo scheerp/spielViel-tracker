@@ -20,13 +20,13 @@ const AppProviders: React.FC<{ children: ReactNode }> = ({ children }) => {
           <FeedbackProvider>
             <PlayerSearchProvider>
               <GamesProvider>
-                <BarcodeScannerProvider>
-                  <ModalProvider>
+                <ModalProvider>
+                  <BarcodeScannerProvider>
                     <ScanListener />
                     <ScanActionModal />
                     {children}
-                  </ModalProvider>
-                </BarcodeScannerProvider>
+                  </BarcodeScannerProvider>
+                </ModalProvider>
               </GamesProvider>
             </PlayerSearchProvider>
           </FeedbackProvider>

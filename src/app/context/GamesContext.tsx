@@ -25,7 +25,7 @@ export interface Game {
   similar_games: number[];
   tags: string;
   available: number;
-  borrow_count: number;
+  borrows_count: number;
   quantity: number;
   year_published: number;
   min_players: number;

@@ -10,6 +10,7 @@ import {
   usePlayerSearch,
 } from '@context/PlayerSearchContext';
 import ScreenRotator from './Screenrotator';
+import { EVENT_START } from '@lib/utils';
 
 type TopGamesResponse = {
   games: Game[];
@@ -38,6 +39,8 @@ export default function ScreenRotatorWrapper() {
   const [program, setProgram] = useState<Record<string, Session>>({});
   const [loading, setLoading] = useState(true);
 
+  const now = new Date();
+
   // Lade TopGames + Program
   const loadAll = async () => {
     if (status !== 'authenticated') return;
@@ -47,7 +50,7 @@ export default function ScreenRotatorWrapper() {
       const [topGamesRes, programRes]: [TopGamesResponse, ProgramResponse] =
         await Promise.all([
           fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games?limit=10&year=2025`,
+            `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games?limit=5&year=${now >= EVENT_START ? now.getFullYear() : now.getFullYear() - 1}`,
             {
               headers: {
                 Authorization: `Bearer ${session?.accessToken}`,
