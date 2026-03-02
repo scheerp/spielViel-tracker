@@ -139,7 +139,7 @@ export const PlayerSearchProvider = ({
   const reload = useCallback(async () => {
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/player_search?${queryParams.toString()}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/player_search/?${queryParams.toString()}`,
       );
       const data = (await res.json()) as PlayerSearchByGame[];
       setAllSearches(data);

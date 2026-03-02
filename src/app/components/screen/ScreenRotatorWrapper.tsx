@@ -1,16 +1,17 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { Game } from '@context/GamesContext';
 import { useSession } from 'next-auth/react';
 import { useNotification } from '@context/NotificationContext';
 import { Session } from '@components/ProgramCard';
 import {
   FlatPlayerSearchWithGame,
-  usePlayerSearch,
+  flattenAndCategorizePlayerSearches,
+  PlayerSearchByGame,
 } from '@context/PlayerSearchContext';
-import ScreenRotator from './Screenrotator';
 import { EVENT_START } from '@lib/utils';
+import ScreenRotator from './Screenrotator';
 
 type TopGamesResponse = {
   games: Game[];
@@ -32,79 +33,111 @@ export type SlidesData = {
 
 export default function ScreenRotatorWrapper() {
   const { showNotification } = useNotification();
-  const { openGames, reload } = usePlayerSearch();
   const { data: session, status } = useSession();
 
-  const [topGames, setTopGames] = useState<Game[]>([]);
-  const [program, setProgram] = useState<Record<string, Session>>({});
-  const [loading, setLoading] = useState(true);
+  const [slidesData, setSlidesData] = useState<SlidesData | null>(null);
 
-  const now = new Date();
+  const inFlightRef = useRef<Promise<SlidesData> | null>(null);
 
-  // Lade TopGames + Program
-  const loadAll = async () => {
-    if (status !== 'authenticated') return;
+  const loadSlidesData = useCallback(async (): Promise<SlidesData> => {
+    if (!session?.accessToken) throw new Error('No access token');
 
-    setLoading(true);
-    try {
-      const [topGamesRes, programRes]: [TopGamesResponse, ProgramResponse] =
-        await Promise.all([
+    if (inFlightRef.current) {
+      return inFlightRef.current;
+    }
+
+    const request = (async () => {
+      const now = new Date();
+
+      const [topGamesResult, programResult, openGamesResult] =
+        await Promise.allSettled([
           fetch(
-            `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games?limit=5&year=${now >= EVENT_START ? now.getFullYear() : now.getFullYear() - 1}`,
-            {
-              headers: {
-                Authorization: `Bearer ${session?.accessToken}`,
-              },
-            },
+            `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games?limit=5&year=${
+              now >= EVENT_START ? now.getFullYear() : now.getFullYear() - 1
+            }`,
+            { headers: { Authorization: `Bearer ${session.accessToken}` } },
           ).then((r) => r.json() as Promise<TopGamesResponse>),
+
           fetch('https://spielviel.net/programm/api_availability.php').then(
             (r) => r.json() as Promise<ProgramResponse>,
           ),
+
+          fetch(
+            `${process.env.NEXT_PUBLIC_API_URL}/player_search/?expire_after_minutes=30`,
+          ).then((r) => r.json() as Promise<PlayerSearchByGame[]>),
         ]);
 
-      setTopGames(topGamesRes.games);
-      setProgram(programRes.data);
+      if (topGamesResult.status === 'rejected') {
+        console.error('Top games endpoint failed', topGamesResult.reason);
+      }
 
-      // PlayerSearches direkt aus Context
-      await reload();
+      if (programResult.status === 'rejected') {
+        console.error('Program endpoint failed', programResult.reason);
+      }
+
+      if (openGamesResult.status === 'rejected') {
+        console.error('Open games endpoint failed', openGamesResult.reason);
+      }
+
+      const topGames =
+        topGamesResult.status === 'fulfilled' ? topGamesResult.value.games : [];
+
+      const program =
+        programResult.status === 'fulfilled' ? programResult.value.data : {};
+
+      const openGames =
+        openGamesResult.status === 'fulfilled'
+          ? flattenAndCategorizePlayerSearches(openGamesResult.value).valid
+          : [];
+
+      const newData: SlidesData = {
+        topGames,
+        program,
+        openGames,
+      };
+
+      setSlidesData(newData);
+      return newData;
+    })();
+
+    inFlightRef.current = request;
+
+    try {
+      return await request;
     } catch (err) {
-      console.error(err);
-      showNotification({
-        message: 'Fehler beim Laden der Slides.',
-        type: 'error',
-        duration: 3000,
-      });
+      console.error('Error loading slides', err);
+      throw err;
     } finally {
-      setLoading(false);
+      inFlightRef.current = null;
     }
-  };
+  }, [session?.accessToken]);
 
-  // Initial load
+  // Initial Load
   useEffect(() => {
     if (status !== 'authenticated') return;
-    loadAll();
-  }, [status]);
 
-  // Hinweis Notification
-  useEffect(() => {
-    showNotification({
-      message: 'F11 - Vollbildmodus aktivieren für beste Darstellung.',
-      type: 'status',
-      duration: 30000,
-    });
-  }, []);
+    const init = async () => {
+      try {
+        await loadSlidesData();
+      } catch {
+        showNotification({
+          message: 'Fehler beim Laden der Slides.',
+          type: 'error',
+          duration: 3000,
+        });
+      }
+    };
 
-  if (loading) return null;
+    init();
+  }, [status, loadSlidesData, showNotification]);
+
+  if (!slidesData) return null;
 
   return (
     <ScreenRotator
-      key={`${topGames.length}-${Object.keys(program).length}-${openGames.length}`}
-      slidesData={{
-        topGames,
-        program,
-        openGames, // direkt aus Context
-      }}
-      onCompleteRound={loadAll}
+      slidesData={slidesData}
+      // requestRefresh wird nur einmal pro Round aufgerufen
+      requestRefresh={loadSlidesData}
     />
   );
 }
