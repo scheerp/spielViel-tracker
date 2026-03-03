@@ -1,10 +1,13 @@
 import type { NextConfig } from 'next';
 
-const nextConfig: NextConfig = {};
-
-module.exports = {
+const nextConfig: NextConfig = {
   images: {
-    domains: ['cf.geekdo-images.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cf.geekdo-images.com',
+      },
+    ],
     unoptimized: true,
   },
 };
