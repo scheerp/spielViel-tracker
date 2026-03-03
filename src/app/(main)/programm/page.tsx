@@ -1,55 +1,31 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import RotatedTitle from '@components/RotatedTitle';
 import ProgramCard, { Session } from '@components/ProgramCard';
 import {
   DAY_KEYS,
   DAY_LABELS,
+  DAY_ORDER_INDEX,
   DayKey,
-  getSessionDayKey,
+  EVENT_START,
+  getCurrentEventReference,
+  groupSessionsByDay,
+  isAllDaySession,
   parseTimeToMinutes,
 } from '@lib/utils';
 import ScrollToTopButton from '@components/ScrollTopButton';
 import Loading from '@components/Loading';
 
-type SessionWithIndex = Session & { __source_index: number };
-
-export const groupSessionsByDay = (sessions: Session[]) => {
-  const grouped: Record<DayKey, SessionWithIndex[]> = {
-    FRI: [],
-    SAT: [],
-    SUN: [],
-    OTHER: [],
-  };
-
-  sessions.forEach((session, index) => {
-    const dayKey = getSessionDayKey(session.content.time);
-
-    grouped[dayKey].push({
-      ...session,
-      __source_index: index,
-    });
-  });
-
-  Object.values(grouped).forEach((list) => {
-    list.sort((a, b) => {
-      const diff =
-        parseTimeToMinutes(a.content.time) - parseTimeToMinutes(b.content.time);
-      if (diff !== 0) return diff;
-
-      return (a.__source_index ?? 0) - (b.__source_index ?? 0);
-    });
-  });
-
-  return grouped;
-};
-
 export default function ProgramPage() {
   const [sessions, setSessions] = useState<Session[]>([]);
-  const [timelineProgress, setTimelineProgress] = useState(0);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const markerRefs = useRef<Partial<Record<DayKey, HTMLDivElement | null>>>({});
+  const mobileSessionRefs = useRef<
+    Partial<Record<DayKey, HTMLDivElement | null>>
+  >({});
+  const hasScrolledToMarker = useRef(false);
 
   useEffect(() => {
     const fetchProgram = async () => {
@@ -85,6 +61,137 @@ export default function ProgramPage() {
   }, []);
 
   const sessionsByDay = groupSessionsByDay(sessions);
+
+  const currentReference = useMemo(() => getCurrentEventReference(), []);
+
+  const shouldShowTimelineAndAutoScroll = useMemo(() => {
+    if (currentReference.hasDayOverride) return true;
+    return new Date() >= EVENT_START;
+  }, [currentReference.hasDayOverride]);
+
+  const timelineProgressByDay = useMemo(() => {
+    const progress: Record<DayKey, number | null> = {
+      FRI: null,
+      SAT: null,
+      SUN: null,
+      OTHER: null,
+    };
+
+    if (!shouldShowTimelineAndAutoScroll) {
+      return progress;
+    }
+
+    DAY_KEYS.forEach((dayKey) => {
+      const daySessions = sessionsByDay[dayKey] ?? [];
+
+      const sessionMinutes = daySessions
+        .filter((session) => !isAllDaySession(session.content.time))
+        .map((session) => parseTimeToMinutes(session.content.time))
+        .filter((minutes) => minutes !== Number.MAX_SAFE_INTEGER)
+        .sort((a, b) => a - b);
+
+      if (sessionMinutes.length === 0) {
+        progress[dayKey] = null;
+        return;
+      }
+
+      const dayStart = sessionMinutes[0];
+      const dayEnd = sessionMinutes[sessionMinutes.length - 1];
+
+      if (dayKey !== currentReference.dayKey) {
+        progress[dayKey] =
+          DAY_ORDER_INDEX[dayKey] < DAY_ORDER_INDEX[currentReference.dayKey]
+            ? 100
+            : 0;
+        return;
+      }
+
+      if (dayEnd === dayStart) {
+        progress[dayKey] = currentReference.minutes >= dayStart ? 100 : 0;
+        return;
+      }
+
+      const currentProgress =
+        ((currentReference.minutes - dayStart) / (dayEnd - dayStart)) * 100;
+
+      progress[dayKey] = Math.max(0, Math.min(100, currentProgress));
+    });
+
+    return progress;
+  }, [
+    currentReference.dayKey,
+    currentReference.minutes,
+    sessionsByDay,
+    shouldShowTimelineAndAutoScroll,
+  ]);
+
+  const mobileScrollTargetByDay = useMemo(() => {
+    const targets: Record<DayKey, number | null> = {
+      FRI: null,
+      SAT: null,
+      SUN: null,
+      OTHER: null,
+    };
+
+    if (!shouldShowTimelineAndAutoScroll) {
+      return targets;
+    }
+
+    const dayKey = currentReference.dayKey;
+    const daySessions = sessionsByDay[dayKey] ?? [];
+
+    if (daySessions.length === 0) {
+      return targets;
+    }
+
+    const nextSessionIndex = daySessions.findIndex((session) => {
+      if (isAllDaySession(session.content.time)) return false;
+      const minutes = parseTimeToMinutes(session.content.time);
+      if (minutes === Number.MAX_SAFE_INTEGER) return false;
+      return minutes >= currentReference.minutes;
+    });
+
+    targets[dayKey] = nextSessionIndex >= 0 ? nextSessionIndex : 0;
+
+    return targets;
+  }, [
+    currentReference.dayKey,
+    currentReference.minutes,
+    sessionsByDay,
+    shouldShowTimelineAndAutoScroll,
+  ]);
+
+  useEffect(() => {
+    if (hasScrolledToMarker.current) return;
+    if (loading) return;
+    if (!shouldShowTimelineAndAutoScroll) return;
+
+    const targetDay = currentReference.dayKey;
+    const targetMarker = markerRefs.current[targetDay];
+    const mobileTarget = mobileSessionRefs.current[targetDay];
+    const targetProgress = timelineProgressByDay[targetDay];
+
+    const isDesktopViewport =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(min-width: 768px)').matches;
+
+    if (isDesktopViewport && targetMarker && targetProgress !== null) {
+      targetMarker.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      hasScrolledToMarker.current = true;
+      return;
+    }
+
+    if (!isDesktopViewport && mobileTarget) {
+      mobileTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      hasScrolledToMarker.current = true;
+    }
+  }, [
+    currentReference.dayKey,
+    loading,
+    mobileScrollTargetByDay,
+    shouldShowTimelineAndAutoScroll,
+    timelineProgressByDay,
+  ]);
 
   if (loading || !sessions || sessions?.length === 0) return <Loading />;
   if (error)
@@ -148,7 +255,25 @@ export default function ProgramPage() {
                   </h2>
                 </div>
 
-                <div className="grid gap-28 md:grid-cols-[1fr_auto_1fr]">
+                <div className="flex flex-col gap-8 md:hidden">
+                  {daySessions.map((s, idx) => (
+                    <div
+                      key={s.content.id ?? `${s.content.title}-${idx}`}
+                      ref={(el) => {
+                        if (
+                          dayKey === currentReference.dayKey &&
+                          mobileScrollTargetByDay[dayKey] === idx
+                        ) {
+                          mobileSessionRefs.current[dayKey] = el;
+                        }
+                      }}
+                    >
+                      <ProgramCard session={s} />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="hidden gap-28 md:grid md:grid-cols-[1fr_auto_1fr]">
                   <div className="flex h-full flex-col gap-8">
                     {leftSessions.map((s, idx) => (
                       <ProgramCard
@@ -157,7 +282,25 @@ export default function ProgramPage() {
                       />
                     ))}
                   </div>
-                  <div className="invisible h-full w-2 rounded-lg bg-[#E6D5B8] md:visible"></div>
+                  <div className="relative hidden h-full w-2 rounded-lg bg-[#E6D5B8] md:block">
+                    {timelineProgressByDay[dayKey] !== null && (
+                      <>
+                        <div
+                          className="absolute left-0 top-0 w-full rounded-lg bg-primary"
+                          style={{
+                            height: `${timelineProgressByDay[dayKey]}%`,
+                          }}
+                        />
+                        <div
+                          ref={(el) => {
+                            markerRefs.current[dayKey] = el;
+                          }}
+                          className="absolute left-1/2 h-0 w-0 -translate-x-1/2 -translate-y-1/2 rounded-full border-0 border-foreground bg-primary"
+                          style={{ top: `${timelineProgressByDay[dayKey]}%` }}
+                        />
+                      </>
+                    )}
+                  </div>
                   <div className="flex flex-col gap-8 md:mt-20">
                     {rightSessions.map((s, idx) => (
                       <ProgramCard

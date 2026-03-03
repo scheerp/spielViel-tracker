@@ -3,9 +3,8 @@
 import { useState } from 'react';
 import RotatedTitle from '@components/RotatedTitle';
 import ProgramCard, { Session } from '@components/ProgramCard';
-import { DAY_KEYS, DAY_LABELS } from '@lib/utils';
+import { DAY_KEYS, DAY_LABELS, groupSessionsByDay } from '@lib/utils';
 import ScrollToTopButton from '@components/ScrollTopButton';
-import { groupSessionsByDay } from '../../../(main)/programm/page';
 
 export default function ProgramSlide({
   data,

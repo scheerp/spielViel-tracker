@@ -18,6 +18,8 @@ export interface Session {
     total?: number;
     image?: string;
     imageAlt?: string;
+    hostAvatar?: string;
+    hostAvatarAlt?: string;
     link?: string;
     id?: string;
   };

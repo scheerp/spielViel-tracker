@@ -2,7 +2,8 @@
 
 import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import ProgramSlide from './slides/ProgramSlide';
+import { useSearchParams } from 'next/navigation';
+import UpcommingSessionsSlide from './slides/UpcommingSessionsSlide';
 import OpenPlayersearchSlide from './slides/OpenPlayersearchSlide';
 import TopGamesSlide from './slides/TopGamesSlide';
 import StaticInfoSlide from './slides/StaticInfoSlide';
@@ -11,22 +12,38 @@ import { Game } from '@context/GamesContext';
 import { Session } from '@components/ProgramCard';
 import { FlatPlayerSearchWithGame } from '@context/PlayerSearchContext';
 import { useNotification } from '@context/NotificationContext';
+import { useSession } from 'next-auth/react';
+import { getUpcomingSessionsForCurrentDay, isWithinEvent } from '@lib/utils';
 
 type Slide =
   | { id: 'program'; data: Record<string, Session>; duration: number }
   | { id: 'open-games'; data: FlatPlayerSearchWithGame[]; duration: number }
   | { id: 'top-games'; data: Game[]; duration: number }
-  | { id: 'static'; key: string; title: string; duration: number };
+  | {
+      id: 'static';
+      key: string;
+      title: string;
+      imageSrc?: string;
+      imageAlt?: string;
+      duration: number;
+    };
 
 const DEFAULT_DURATION = 20 * 1000;
 
-const STATIC_SLIDES: Array<{ key: string; title: string; duration?: number }> =
-  [
-    {
-      key: 'welcome',
-      title: 'Willkommen bei Spielviel',
-    },
-  ];
+const STATIC_SLIDES: Array<{
+  key: string;
+  title: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  duration?: number;
+}> = [
+  {
+    key: 'welcome',
+    title: 'Willkommen auf der Spiel Viel',
+    imageSrc: 'logo.svg',
+    imageAlt: 'Spielviel Logo',
+  },
+];
 
 export default function ScreenRotator({
   slidesData,
@@ -36,11 +53,18 @@ export default function ScreenRotator({
   requestRefresh: () => Promise<SlidesData>;
 }) {
   const { showNotification } = useNotification();
+  const { data: session, status } = useSession();
+  const searchParams = useSearchParams();
 
   const [index, setIndex] = useState(0);
   const [elapsed, setElapsed] = useState(0);
+  const [roundsCompleted, setRoundsCompleted] = useState(0);
+  const [lastCycleDuration, setLastCycleDuration] = useState<number | null>(
+    null,
+  );
 
   const startTimeRef = useRef(Date.now());
+  const indexRef = useRef(0);
   const shownRef = useRef(false);
   const refreshInFlightRef = useRef(false);
   const slideLockRef = useRef(false);
@@ -58,6 +82,9 @@ export default function ScreenRotator({
   }, [showNotification]);
 
   const slides = useMemo(() => {
+    const allowDevOverrides =
+      status === 'authenticated' && session?.user?.role === 'admin';
+
     const dynamicSlides: Slide[] = [
       { id: 'program', data: slidesData.program, duration: DEFAULT_DURATION },
       {
@@ -75,10 +102,23 @@ export default function ScreenRotator({
     const visibleDynamicSlides = dynamicSlides.filter((slide) => {
       switch (slide.id) {
         case 'open-games':
+          return (
+            slide.data.length > 0 &&
+            isWithinEvent({
+              searchParams,
+              allowDevOverrides,
+            })
+          );
         case 'top-games':
           return slide.data.length > 0;
         case 'program':
-          return Object.keys(slide.data).length > 0;
+          return (
+            getUpcomingSessionsForCurrentDay(Object.values(slide.data), {
+              limit: 4,
+              searchParams,
+              allowDevOverrides,
+            }).length > 0
+          );
         default:
           return true;
       }
@@ -88,13 +128,24 @@ export default function ScreenRotator({
       id: 'static',
       key: slide.key,
       title: slide.title,
+      imageSrc: slide.imageSrc,
+      imageAlt: slide.imageAlt,
       duration: slide.duration ?? DEFAULT_DURATION,
     }));
 
     return [...staticSlides, ...visibleDynamicSlides];
-  }, [slidesData]);
+  }, [searchParams, session?.user?.role, slidesData, status]);
 
   const currentSlide = slides[index];
+  const cycleDurationTarget = useMemo(
+    () => slides.reduce((sum, slide) => sum + slide.duration, 0),
+    [slides],
+  );
+  const formatDuration = useCallback(
+    (ms: number) => `${(ms / 1000).toFixed(1)}s`,
+    [],
+  );
+  const cycleStartRef = useRef(Date.now());
 
   const refreshAtRoundEnd = useCallback(async () => {
     if (refreshInFlightRef.current) return;
@@ -119,21 +170,34 @@ export default function ScreenRotator({
 
     slideLockRef.current = true;
 
-    setIndex((prev) => {
-      const next = prev + 1;
+    const currentIndex = indexRef.current;
+    const isWrapping = currentIndex + 1 >= slides.length;
+    const nextIndex = isWrapping ? 0 : currentIndex + 1;
 
-      if (next >= slides.length) {
-        void refreshAtRoundEnd();
-        return 0;
-      }
+    setIndex(nextIndex);
 
-      return next;
-    });
+    if (isWrapping) {
+      const now = Date.now();
+      setLastCycleDuration(now - cycleStartRef.current);
+      cycleStartRef.current = now;
+      setRoundsCompleted((rounds) => rounds + 1);
+      void refreshAtRoundEnd();
+    }
 
     setTimeout(() => {
       slideLockRef.current = false;
     }, 50);
   }, [slides.length, refreshAtRoundEnd]);
+
+  useEffect(() => {
+    if (!currentSlide || slides.length === 0) return;
+
+    const timeout = setTimeout(() => {
+      goNext();
+    }, currentSlide.duration);
+
+    return () => clearTimeout(timeout);
+  }, [currentSlide, goNext, slides.length]);
 
   useEffect(() => {
     if (slides.length === 0) {
@@ -146,6 +210,10 @@ export default function ScreenRotator({
 
   useEffect(() => {
     startTimeRef.current = Date.now();
+  }, [index]);
+
+  useEffect(() => {
+    indexRef.current = index;
   }, [index]);
 
   useEffect(() => {
@@ -167,10 +235,9 @@ export default function ScreenRotator({
       if (e.key === 'ArrowLeft') {
         slideLockRef.current = true;
 
-        setIndex((prev) => {
-          const next = (prev - 1 + slides.length) % slides.length;
-          return next;
-        });
+        const currentIndex = indexRef.current;
+        const nextIndex = (currentIndex - 1 + slides.length) % slides.length;
+        setIndex(nextIndex);
 
         setTimeout(() => {
           slideLockRef.current = false;
@@ -193,7 +260,8 @@ export default function ScreenRotator({
     );
   }
 
-  const isDev = process.env.NODE_ENV !== 'production';
+  const isLocalDev = process.env.NODE_ENV !== 'production';
+  const showDebugHud = isLocalDev;
 
   return (
     <div className="relative h-full w-full">
@@ -211,7 +279,7 @@ export default function ScreenRotator({
           transition={{ duration: 0.4 }}
         >
           {currentSlide.id === 'program' && (
-            <ProgramSlide data={currentSlide.data} />
+            <UpcommingSessionsSlide data={currentSlide.data} />
           )}
 
           {currentSlide.id === 'open-games' && (
@@ -223,7 +291,11 @@ export default function ScreenRotator({
           )}
 
           {currentSlide.id === 'static' && (
-            <StaticInfoSlide title={currentSlide.title} />
+            <StaticInfoSlide
+              title={currentSlide.title}
+              imageSrc={currentSlide.imageSrc}
+              imageAlt={currentSlide.imageAlt}
+            />
           )}
           {/* TODO: remove progress bar? */}
           <motion.div
@@ -235,23 +307,60 @@ export default function ScreenRotator({
               duration: currentSlide.duration / 1000,
               ease: 'linear',
             }}
-            onAnimationComplete={goNext}
           />
         </motion.div>
       </AnimatePresence>
 
-      {isDev && (
-        <div className="fixed right-3 top-3 rounded bg-black/70 p-2 font-mono text-xs text-white">
-          <div>slide: {currentSlide.id}</div>
-          <div>index: {index}</div>
-          <div>slides.length: {slides.length}</div>
-          <div>elapsed: {elapsed}</div>
-          <div>target: {currentSlide.duration}</div>
-          <div>drift: {elapsed - currentSlide.duration}</div>
-          <div>refreshing: {refreshInFlightRef.current ? 'yes' : 'no'}</div>
-          <div>
-            keys: program={Object.keys(slidesData.program).length}, openGames=
-            {slidesData.openGames.length}, topGames={slidesData.topGames.length}
+      {showDebugHud && (
+        <div className="fixed right-3 top-3 z-[1000] w-[22rem] max-w-[calc(100vw-1.5rem)] rounded bg-black/70 p-3 font-mono text-xs text-white">
+          <div className="mb-2 font-bold">DEV-Screen debug</div>
+
+          <div className="mb-2 border-b border-white/20 pb-2">
+            <div className="grid grid-cols-[7rem_1fr] gap-y-1">
+              <div className="text-white/70">slide</div>
+              <div>{currentSlide.id}</div>
+              <div className="text-white/70">index</div>
+              <div>{index}</div>
+              <div className="text-white/70">slides</div>
+              <div>{slides.length}</div>
+              <div className="text-white/70">refreshing</div>
+              <div>{refreshInFlightRef.current ? 'yes' : 'no'}</div>
+            </div>
+          </div>
+
+          <div className="mb-2 border-b border-white/20 pb-2">
+            <div className="grid grid-cols-[7rem_1fr] gap-y-1">
+              <div className="text-white/70">elapsed</div>
+              <div>{elapsed}</div>
+              <div className="text-white/70">target</div>
+              <div>{currentSlide.duration}</div>
+              <div className="text-white/70">drift</div>
+              <div>{elapsed - currentSlide.duration}</div>
+            </div>
+          </div>
+
+          <div className="mb-2 border-b border-white/20 pb-2">
+            <div className="grid grid-cols-[7rem_1fr] gap-y-1">
+              <div className="text-white/70">cycles</div>
+              <div>{roundsCompleted}</div>
+              <div className="text-white/70">cycleTarget</div>
+              <div>{formatDuration(cycleDurationTarget)}</div>
+              <div className="text-white/70">lastCycle</div>
+              <div>
+                {lastCycleDuration !== null
+                  ? formatDuration(lastCycleDuration)
+                  : '-'}
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-[7rem_1fr] gap-y-1">
+            <div className="text-white/70">program</div>
+            <div>{Object.keys(slidesData.program).length}</div>
+            <div className="text-white/70">openGames</div>
+            <div>{slidesData.openGames.length}</div>
+            <div className="text-white/70">topGames</div>
+            <div>{slidesData.topGames.length}</div>
           </div>
         </div>
       )}

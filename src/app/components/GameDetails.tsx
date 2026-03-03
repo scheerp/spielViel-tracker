@@ -10,7 +10,7 @@ import GameSimilarGames from './GameSimilarGames';
 import FloatingUpdateButtons from './FloatingUpdateButtons';
 import { Game } from '@context/GamesContext';
 import DetailedGameImage from './DetailedGameImage';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import ArrowLeftIcon from '@icons/ArrowLeftIcon';
 import BGGIcon from '@icons/BGGIcon';
 import ComplexityPill from './ComplexityPill';
@@ -23,6 +23,7 @@ import FancyLoading from './FancyLoading';
 import SubHeader from './SubHeader';
 import Clickable from './Clickable';
 import { PlayerSearch } from '@context/PlayerSearchContext';
+import { isWithinEvent } from '@lib/utils';
 
 interface GameDetailsProps {
   gameId: string;
@@ -31,6 +32,7 @@ interface GameDetailsProps {
 const GameDetails = ({ gameId }: GameDetailsProps) => {
   const { showNotification } = useNotification();
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { data: session } = useSession();
   const { openModal } = useModal();
   const [loading, setLoading] = useState<boolean>(true);
@@ -38,6 +40,11 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
   const [relatedGames, setRelatedGames] = useState<Game[]>([]);
   const [playerSearches, setPlayerSearches] = useState<PlayerSearch[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const isAdmin = session?.user?.role === 'admin';
+  const showPlayerSearchSection = isWithinEvent({
+    searchParams,
+    allowDevOverrides: isAdmin,
+  });
 
   const fetchGameDetails = async () => {
     setLoading(true);
@@ -249,21 +256,23 @@ const GameDetails = ({ gameId }: GameDetailsProps) => {
             <GameDescription game={game} />
           </div>
         </div>
-        <div className="mx-4 rounded-xl border-[3px] border-foreground bg-backgroundDark2 md:mx-8 md:my-12">
-          <h3 className="m-4 self-start text-lg font-semibold md:m-8 md:mb-4">
-            Mitspieler*innen Gesucht:
-          </h3>
-          <div className="mx-4">
-            <PlayerSearchTable
-              playerSearches={playerSearches}
-              game={game}
-              tableDescription="Hier findest du Leute die bereits nach Mitspieler*innen suchen:"
-              onUpdateSuccess={handlePlayerSearchUpdate}
-              onCreateSuccess={handlePlayerSearchCreate}
-              onDeleteSuccess={handlePlayerSearchDelete}
-            />
+        {showPlayerSearchSection && (
+          <div className="mx-4 rounded-xl border-[3px] border-foreground bg-backgroundDark2 md:mx-8 md:my-12">
+            <h3 className="m-4 self-start text-lg font-semibold md:m-8 md:mb-4">
+              Mitspieler*innen Gesucht:
+            </h3>
+            <div className="mx-4">
+              <PlayerSearchTable
+                playerSearches={playerSearches}
+                game={game}
+                tableDescription="Hier findest du Leute die bereits nach Mitspieler*innen suchen:"
+                onUpdateSuccess={handlePlayerSearchUpdate}
+                onCreateSuccess={handlePlayerSearchCreate}
+                onDeleteSuccess={handlePlayerSearchDelete}
+              />
+            </div>
           </div>
-        </div>
+        )}
         <GameSimilarGames relatedGames={relatedGames} />
       </div>
       <FloatingUpdateButtons

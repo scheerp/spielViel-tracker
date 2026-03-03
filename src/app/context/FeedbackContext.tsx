@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { isWithinExtendedEvent } from '@lib/utils';
+import { useSession } from 'next-auth/react';
 
 export const FEEDBACK_COOKIE_NAME = 'feedbackSubmittedProd';
 const INTERACTION_THRESHOLD = 10;
@@ -26,6 +27,8 @@ const FeedbackContext = createContext<FeedbackContextProps | undefined>(
 export const FeedbackProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  const { data: session, status } = useSession();
+  const isAdmin = status === 'authenticated' && session?.user?.role === 'admin';
   const [interactionScore, setInteractionScore] = useState<number>(0);
   const [firstVisit, setFirstVisit] = useState<number>(Date.now());
   const [isBannerHidden, setIsBannerHidden] = useState<boolean>(true);
@@ -58,6 +61,7 @@ export const FeedbackProvider: React.FC<{ children: React.ReactNode }> = ({
       getFeedbackCookie() ||
       !isWithinExtendedEvent({
         bufferDaysAfter: 14,
+        allowDevOverrides: isAdmin,
       });
 
     if (shouldCloseBanner) {
@@ -82,7 +86,7 @@ export const FeedbackProvider: React.FC<{ children: React.ReactNode }> = ({
     //  console.log(
     //   `[Feedback] 📊 Geladener Score: ${storedScore}, Erster Besuch: ${storedFirstVisit}`,
     // );
-  }, []);
+  }, [isAdmin]);
 
   // 📌 Prüfe regelmäßig, ob der Banner angezeigt werden soll
   useEffect(() => {

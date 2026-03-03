@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
 import { Game } from '@context/GamesContext';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useNotification } from '@context/NotificationContext';
 import { Session } from '@components/ProgramCard';
 import {
@@ -10,7 +11,7 @@ import {
   flattenAndCategorizePlayerSearches,
   PlayerSearchByGame,
 } from '@context/PlayerSearchContext';
-import { EVENT_START } from '@lib/utils';
+import { EVENT_START, getCurrentEventReference } from '@lib/utils';
 import ScreenRotator from './Screenrotator';
 
 type TopGamesResponse = {
@@ -34,6 +35,8 @@ export type SlidesData = {
 export default function ScreenRotatorWrapper() {
   const { showNotification } = useNotification();
   const { data: session, status } = useSession();
+  const isAdmin = session?.user?.role === 'admin';
+  const router = useRouter();
 
   const [slidesData, setSlidesData] = useState<SlidesData | null>(null);
 
@@ -48,12 +51,19 @@ export default function ScreenRotatorWrapper() {
 
     const request = (async () => {
       const now = new Date();
+      const { simulatedDate } = getCurrentEventReference({
+        now,
+        allowDevOverrides: isAdmin,
+      });
+      const effectiveDate = simulatedDate ?? now;
 
       const [topGamesResult, programResult, openGamesResult] =
         await Promise.allSettled([
           fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/games/borrowed-games?limit=5&year=${
-              now >= EVENT_START ? now.getFullYear() : now.getFullYear() - 1
+              effectiveDate >= EVENT_START
+                ? effectiveDate.getFullYear()
+                : effectiveDate.getFullYear() - 1
             }`,
             { headers: { Authorization: `Bearer ${session.accessToken}` } },
           ).then((r) => r.json() as Promise<TopGamesResponse>),
@@ -110,10 +120,15 @@ export default function ScreenRotatorWrapper() {
     } finally {
       inFlightRef.current = null;
     }
-  }, [session?.accessToken]);
+  }, [isAdmin, session?.accessToken]);
 
   // Initial Load
   useEffect(() => {
+    if (status === 'unauthenticated') {
+      router.replace('/');
+      return;
+    }
+
     if (status !== 'authenticated') return;
 
     const init = async () => {
@@ -129,7 +144,7 @@ export default function ScreenRotatorWrapper() {
     };
 
     init();
-  }, [status, loadSlidesData, showNotification]);
+  }, [status, loadSlidesData, router, showNotification]);
 
   if (!slidesData) return null;
 

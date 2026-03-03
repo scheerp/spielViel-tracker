@@ -11,6 +11,7 @@ import { PlayerSearchProvider } from './PlayerSearchContext';
 import { BarcodeScannerProvider } from './BarcodeScannerContext';
 import ScanActionModal from '@components/ScanActionModal';
 import ScanListener from '@components/ScanListener';
+import DevTimeDebugOverlay from '@components/DevTimeDebugOverlay';
 
 const AppProviders: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
@@ -24,6 +25,7 @@ const AppProviders: React.FC<{ children: ReactNode }> = ({ children }) => {
                   <BarcodeScannerProvider>
                     <ScanListener />
                     <ScanActionModal />
+                    <DevTimeDebugOverlay />
                     {children}
                   </BarcodeScannerProvider>
                 </ModalProvider>
