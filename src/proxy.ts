@@ -45,7 +45,6 @@ export default withAuth(
   },
 );
 
-// Middleware für bestimmte Routen aktivieren
 export const config = {
   matcher: ['/admin/:path*', '/helperUser/:path*'],
 };

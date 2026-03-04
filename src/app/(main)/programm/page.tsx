@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import RotatedTitle from '@components/RotatedTitle';
 import ProgramCard, { Session } from '@components/ProgramCard';
 import {
@@ -20,7 +19,7 @@ import Loading from '@components/Loading';
 import { loadProgramSessions } from '@lib/programData';
 
 export default function ProgramPage() {
-  const searchParams = useSearchParams();
+  const [devSearchParams, setDevSearchParams] = useState('');
   const [sessions, setSessions] = useState<Session[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -29,6 +28,11 @@ export default function ProgramPage() {
     Partial<Record<DayKey, HTMLDivElement | null>>
   >({});
   const hasScrolledToMarker = useRef(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    setDevSearchParams(window.location.search);
+  }, []);
 
   useEffect(() => {
     const fetchProgram = async () => {
@@ -54,10 +58,10 @@ export default function ProgramPage() {
   const currentReference = useMemo(
     () =>
       getCurrentEventReference({
-        searchParams,
+        searchParams: devSearchParams,
         allowDevOverrides: true,
       }),
-    [searchParams],
+    [devSearchParams],
   );
 
   const shouldShowTimelineAndAutoScroll = useMemo(() => {
