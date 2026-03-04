@@ -1,93 +1,71 @@
 import { FlatPlayerSearchWithGame } from '@context/PlayerSearchContext';
-import LocationIcon from '@icons/LocationIcon';
+import { timeSinceMinutes } from '@lib/utils';
 import Image from 'next/image';
-import ComplexityPill from './ComplexityPill';
 
 type OpenplayerSearchCardProps = {
   search: FlatPlayerSearchWithGame;
-  aspectRatio: number | null;
-  setAspectRatio: (ratio: number) => void;
   index: number;
+  markerClassName: string;
+  cardBorderClassName: string;
 };
 
 const OpenplayerSearchCard = ({
   search,
-  aspectRatio,
-  setAspectRatio,
   index,
+  markerClassName,
+  cardBorderClassName,
 }: OpenplayerSearchCardProps) => {
-  const location = search.player_search?.location;
+  const playersNeeded = search.player_search.players_needed;
+  const playersLabel =
+    playersNeeded === 1
+      ? '1 Mitspieler*in gesucht'
+      : `${playersNeeded} Mitspieler*innen gesucht`;
 
   return (
-    <div
+    <article
       key={search.game.id + '-' + search.player_search.id}
-      className={`flex w-4/6 rounded-xl border-[3px] border-foreground bg-background p-6 ${index % 2 === 1 ? 'flex-row' : 'flex-row-reverse'}`}
+      className={`relative h-full overflow-visible rounded-2xl border-[3px] border-foreground bg-backgroundDark px-2 py-2 ${cardBorderClassName}`}
     >
-      <div className="relative mx-auto w-full touch-none bg-gray-200">
-        <div
-          className="relative w-full"
-          style={{
-            aspectRatio: aspectRatio || undefined,
-            height: aspectRatio ? undefined : 534.42, // Fallback-Höhe in px
-          }}
-        >
-          <Image
-            src="/floorplan.jpeg"
-            alt="Raumplan"
-            fill
-            loading="eager"
-            onLoad={(event) => {
-              const target = event.target as HTMLImageElement;
-              if (!aspectRatio) {
-                setAspectRatio(target.naturalWidth / target.naturalHeight);
-              }
-            }}
-          />
-        </div>
+      <div
+        className={`text-shadow-drop-shadow text-shadow-outline-dark absolute left-1 top-1 z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 border-foreground text-xl font-black text-white shadow-darkBottom ${markerClassName}`}
+      >
+        {index + 1}
+      </div>
 
-        {location && (
-          <div
-            className="absolute -translate-x-1/2 -translate-y-1/2"
-            style={{
-              top: `${+location.split(',')[1]}%`,
-              left: `${+location.split(',')[0]}%`,
-            }}
-          >
-            <LocationIcon className="h-6 w-6 text-primary md:h-8 md:w-8" />
+      <div className="flex h-full items-stretch gap-2">
+        <div className="grid h-full min-w-0 flex-1 grid-cols-[auto_1fr] items-stretch gap-2.5">
+          <div className="relative aspect-square h-full overflow-hidden rounded-lg border-2 border-foreground bg-white">
+            <Image
+              src={search.game.img_url || '/placeholder.png'}
+              alt={search.game.name}
+              fill
+              sizes="(max-width: 1600px) 12vw, 220px"
+              className="object-cover"
+            />
           </div>
-        )}
-      </div>
-      <div className="mb-4 flex flex-col">
-        <div className="relative mr-4 h-28 w-36 overflow-hidden truncate rounded-lg border-[3px] border-foreground md:h-44 md:w-44">
-          <Image
-            src={search.game.img_url ? search.game.img_url : '/placeholder.png'}
-            alt={search.game.name}
-            priority
-            fill
-            sizes="(max-width: 640px) 25vw, (max-width: 768px) 50vw, 25vw"
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
-        <div className="ml-3 flex max-w-[45%] flex-col justify-between md:mx-4 md:h-[9.3rem] md:max-w-[90%]">
-          <h2 className="clamp-custom-1 mb-1 text-xl/6 [font-stretch:125%] md:text-lg lg:text-xl">
-            {search.game.name}
-          </h2>
-          <div>
-            <p className="mb-1 text-sm text-gray-500 md:block">
-              {search.game.min_players === search.game.max_players
-                ? `${search.game?.max_players} Spieler*innen`
-                : `${search.game?.min_players} - ${search.game?.max_players} Spieler*innen`}
-              <br />
-              {search.game.min_playtime === search.game.max_playtime
-                ? `${search.game?.max_playtime} Min`
-                : `${search.game?.min_playtime} - ${search.game?.max_playtime} Min`}{' '}
-              | {search.game.player_age}+
-            </p>
-            <ComplexityPill complexityName="Beginner" className="py-1" />
+
+          <div className="min-w-0 flex-1">
+            <h3 className="truncate text-xl font-bold [font-stretch:125%]">
+              {search.game.name}
+            </h3>
+
+            <div className="text-md mt-1.5 space-y-0.5">
+              <p>
+                <span className="font-semibold">Name:</span>{' '}
+                {search.player_search.name}
+              </p>
+              <p>
+                <span className="font-semibold">Gesucht:</span> {playersLabel}
+              </p>
+              <p>
+                <span className="font-semibold">Suche seit:</span>{' '}
+                {timeSinceMinutes(search.player_search.created_at)}
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

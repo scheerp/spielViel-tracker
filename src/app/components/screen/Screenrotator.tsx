@@ -20,7 +20,12 @@ import { useDevHudSetting } from '@hooks/useDevHudSettings';
 type Slide =
   | { id: 'start'; duration: number }
   | { id: 'program'; data: Record<string, Session>; duration: number }
-  | { id: 'open-games'; data: FlatPlayerSearchWithGame[]; duration: number }
+  | {
+      id: 'open-games';
+      key: string;
+      data: FlatPlayerSearchWithGame[];
+      duration: number;
+    }
   | { id: 'top-games'; data: Game[]; duration: number }
   | {
       id: 'static';
@@ -32,6 +37,30 @@ type Slide =
     };
 
 const DEFAULT_DURATION = 20 * 1000;
+const OPEN_GAMES_PER_SLIDE = 5;
+
+const chunkOpenGames = (
+  openGames: FlatPlayerSearchWithGame[],
+): FlatPlayerSearchWithGame[][] => {
+  const sortedOpenGames = [...openGames].sort((a, b) => {
+    const aTime = new Date(a.player_search.created_at).getTime();
+    const bTime = new Date(b.player_search.created_at).getTime();
+
+    if (Number.isNaN(aTime) || Number.isNaN(bTime)) {
+      return b.player_search.id - a.player_search.id;
+    }
+
+    return bTime - aTime;
+  });
+
+  const chunks: FlatPlayerSearchWithGame[][] = [];
+
+  for (let i = 0; i < sortedOpenGames.length; i += OPEN_GAMES_PER_SLIDE) {
+    chunks.push(sortedOpenGames.slice(i, i + OPEN_GAMES_PER_SLIDE));
+  }
+
+  return chunks;
+};
 
 const STATIC_SLIDES: Array<{
   key: string;
@@ -89,13 +118,17 @@ export default function ScreenRotator({
     const allowDevOverrides =
       status === 'authenticated' && session?.user?.role === 'admin';
 
+    const openGamesChunks = chunkOpenGames(slidesData.openGames);
+    const openGamesSlides: Slide[] = openGamesChunks.map((chunk, index) => ({
+      id: 'open-games',
+      key: `open-games-${index + 1}`,
+      data: chunk,
+      duration: DEFAULT_DURATION,
+    }));
+
     const dynamicSlides: Slide[] = [
       { id: 'program', data: slidesData.program, duration: DEFAULT_DURATION },
-      {
-        id: 'open-games',
-        data: slidesData.openGames,
-        duration: DEFAULT_DURATION,
-      },
+      ...openGamesSlides,
       {
         id: 'top-games',
         data: slidesData.topGames,
@@ -276,7 +309,9 @@ export default function ScreenRotator({
           key={
             currentSlide.id === 'static'
               ? `static-${currentSlide.key}`
-              : currentSlide.id
+              : currentSlide.id === 'open-games'
+                ? currentSlide.key
+                : currentSlide.id
           }
           className="absolute inset-0"
           initial={{ opacity: 0 }}
@@ -326,7 +361,11 @@ export default function ScreenRotator({
           <div className="mb-2 border-b border-white/20 pb-2">
             <div className="grid grid-cols-[7rem_1fr] gap-y-1">
               <div className="text-white/70">slide</div>
-              <div>{currentSlide.id}</div>
+              <div>
+                {currentSlide.id === 'open-games'
+                  ? currentSlide.key
+                  : currentSlide.id}
+              </div>
               <div className="text-white/70">index</div>
               <div>{index}</div>
               <div className="text-white/70">slides</div>

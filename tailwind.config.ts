@@ -21,6 +21,7 @@ export default {
         foregroundDark2: 'var(--foreground-dark-2)',
         primary: 'var(--primary)',
         primaryLight: 'var(--primary-light)',
+        primaryDark: 'var(--primary-dark)',
         secondary: 'var(--secondary)',
         tertiary: 'var(--tertiary)',
         quaternary: 'var(--quaternary)',

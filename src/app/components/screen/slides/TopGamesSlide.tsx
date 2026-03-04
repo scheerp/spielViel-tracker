@@ -49,7 +49,7 @@ const TopGamesSlide: React.FC<Props> = ({ data }) => {
     <div className="flex h-screen flex-col items-center overflow-hidden px-16 py-8">
       <RotatedTitle
         text="Top Spiele"
-        tailwindBgColor="bg-error"
+        tailwindBgColor="bg-status"
         className="mb-16"
       />
       <span className="mb-14 text-xl font-semibold">
