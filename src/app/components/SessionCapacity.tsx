@@ -5,6 +5,10 @@ interface SessionCapacityProps {
 }
 
 const SessionCapacity: React.FC<SessionCapacityProps> = ({ session }) => {
+  if (session?.hasAvailabilityData === false) {
+    return null;
+  }
+
   const occupied = session?.occupied ?? 0;
   const total = session?.total ?? 0;
   const percent =

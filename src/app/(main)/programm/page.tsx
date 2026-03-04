@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import RotatedTitle from '@components/RotatedTitle';
 import ProgramCard, { Session } from '@components/ProgramCard';
 import {
@@ -16,10 +17,12 @@ import {
 } from '@lib/utils';
 import ScrollToTopButton from '@components/ScrollTopButton';
 import Loading from '@components/Loading';
+import { loadProgramSessions } from '@lib/programData';
 
 export default function ProgramPage() {
+  const searchParams = useSearchParams();
   const [sessions, setSessions] = useState<Session[]>([]);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const markerRefs = useRef<Partial<Record<DayKey, HTMLDivElement | null>>>({});
   const mobileSessionRefs = useRef<
@@ -30,28 +33,14 @@ export default function ProgramPage() {
   useEffect(() => {
     const fetchProgram = async () => {
       setLoading(true);
-      setError(false);
+      setError(null);
 
       try {
-        const response = await fetch(
-          'https://spielviel.net/programm/api_availability.php',
-        );
-
-        if (!response.ok) {
-          throw new Error(
-            `Fehler beim Laden des Programms: ${response.status}`,
-          );
-        }
-
-        const data = await response.json();
-        const sessionsData = data.data;
-
-        const sessions: Session[] = Object.values(sessionsData);
-        setSessions(sessions);
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      } catch (err: any) {
+        const loadedSessions = await loadProgramSessions();
+        setSessions(loadedSessions);
+      } catch (err: unknown) {
         console.error(err);
-        setError(err.message || 'Unbekannter Fehler');
+        setError(err instanceof Error ? err.message : 'Unbekannter Fehler');
       } finally {
         setLoading(false);
       }
@@ -62,12 +51,22 @@ export default function ProgramPage() {
 
   const sessionsByDay = groupSessionsByDay(sessions);
 
-  const currentReference = useMemo(() => getCurrentEventReference(), []);
+  const currentReference = useMemo(
+    () =>
+      getCurrentEventReference({
+        searchParams,
+        allowDevOverrides: true,
+      }),
+    [searchParams],
+  );
 
   const shouldShowTimelineAndAutoScroll = useMemo(() => {
-    if (currentReference.hasDayOverride) return true;
+    if (currentReference.hasDayOverride || currentReference.hasTimeOverride) {
+      return true;
+    }
+
     return new Date() >= EVENT_START;
-  }, [currentReference.hasDayOverride]);
+  }, [currentReference.hasDayOverride, currentReference.hasTimeOverride]);
 
   const timelineProgressByDay = useMemo(() => {
     const progress: Record<DayKey, number | null> = {

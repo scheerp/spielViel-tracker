@@ -1,0 +1,770 @@
+{
+  "timelineProgress": 0,
+  "sessions": [
+    {
+      "time": "Freitag, 18:00 Uhr",
+      "title": "Arche Nova",
+      "eventType": "spielesession",
+      "slug": "arche-nova",
+      "players": "2-4 Spieler:innen",
+      "age": "ab 14 Jahren",
+      "duration": "180 min",
+      "host": "Tom",
+      "room": "Freie Spielfläche",
+      "total": 4,
+      "image": "../img/programm/arche-nova.png",
+      "imageAlt": "Spielbox von Arche Nova",
+      "link": "session.php?slug=arche-nova",
+      "detail": {
+        "quote": "In Arche Nova plant und errichtet ihr einen modernen, wissenschaftlich geführten Zoo. Ihr baut Gehege entsprechend der Lebensweise der Tiere und unterstützt Artenschutzprojekte, um den Erhalt der Tierarten zu sichern.\n\nMit den Tieren steigt die Attraktion eures Zoos. Ihr schreitet auf der Attraktionsleiste voran und erzielt höhere Einnahmen. Gleichzeitig erlauben euch die Tiere Artenschutzprojekte wie z.B. Nachzuchtprogramme zu unterstützen. Ihr schreitet auf der Artenschutzleiste voran und erhaltet dadurch Boni. Diese beiden Leisten sind gegenläufig - treffen sich eure Zählmarker, endet das Spiel. Wer die beste Kombination aus Attraktion und Artenschutz erreicht, hat den erfolgreichsten Zoo aufgebaut und gewinnt das Spiel.\n\nVerbandsarbeit in unterschiedlichen Zooverbänden ermöglicht euch Partnerschaften mit Zoos und Universitäten auf der ganzen Welt. Zusammen mit Spezialisten und Sponsoren helfen sie euch, die verschiedenen Aufgaben leichter zu bewältigen und eure Ziele zu erreichen.",
+        "paragraphs": [
+          "Arche Nova ist ein anspruchsvolles Expertenspiel, das einen innovativen Slot-Mechanismus nutzt, um fünf verschiedene Aktionskarten in ihrer Stärke zu steuern. Während die Spielenden versuchen, ihren Zoo strategisch zu planen und die Synergien ihrer Handkarten optimal zu nutzen, werden sich durch das Zusammenspiel von Artenschutzprojekten und Attraktionen immer wieder neue Wege zum Sieg auftun. In jedem Spiel werden sie nur einen Bruchteil der über 250 einzigartigen Karten und Möglichkeiten entdecken können, die das komplexe Ökosystem des Spiels bietet. Wiederspielwert: Enorm hoch!"
+        ]
+      },
+      "id": "sess-001",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      }
+    },
+    {
+      "time": "Freitag, 18:00 Uhr",
+      "title": "The Witcher: Die Alte Welt",
+      "eventType": "spielesession",
+      "slug": "the-witcher-die-alte-welt",
+      "players": "1-5 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "150 min",
+      "host": "Isy",
+      "room": "Session Raum 3",
+      "total": 5,
+      "image": "../img/programm/the-witcher-die-alte-welt.webp",
+      "imageAlt": "Spielbox von The Witcher: Die Alte Welt",
+      "link": "session.php?slug=the-witcher-die-alte-welt",
+      "detail": {
+        "quote": "In The Witcher: Die Alte Welt schlüpft ihr in die Rolle eines ausgebildeten Hexers und durchstreift den Kontinent voller Gefahren und Monster, die nach der Sphärenkonjunktion über die Lande ziehen. Ihr reist von Stadt zu Stadt, folgt Fährten, erfüllt Aufträge und stellt euch tödlichen Kreaturen, um Ruhm, Reichtum und Anerkennung zu erlangen.\n\nJeder Hexer besitzt ein eigenes Kartendeck mit Angriffen, Ausweichmanövern und Zaubern, das sich im Laufe der Abenteuer weiterentwickelt. Durch geschickte Kombinationen aus Fähigkeiten, taktischem Karteneinsatz und moralisch zweideutigen Entscheidungen formt ihr euren individuellen Pfad durch die alte Welt.\n\nWer als Erster eine bestimmte Anzahl an Trophäen sammelt – indem er Monster bezwingt, andere Hexer herausfordert oder außergewöhnliche Leistungen vollbringt – wird als mächtigster Hexer gefeiert und hat das Spiel für sich entschieden.",
+        "paragraphs": [
+          "The Witcher: Die Alte Welt ist ein kompetitives Abenteuer‑ und Deckbau‑Brettspiel für 1–5 Spieler, in dem jeder von euch einen Hexer aus einer der fünf Schulen verkörpert und auf dem Kontinent auf Monsterjagd geht.",
+          "Über eine große Karte bewegt ihr euch, nehmt Quests an, kämpft gegen Bestien, entdeckt neue Orte und trefft Entscheidungen, die euren Weg beeinflussen. Durch das Erweitern eurer Kartendecks und das Verbessern eurer Fertigkeiten baut ihr euren Charakter im Verlauf des Spiels auf und passt euren Spielstil an.",
+          "Das Ziel ist es, als erster Hexer die erforderliche Anzahl an Trophäen zu erringen – sei es durch das Besiegen mächtiger Monster, den Sieg in Duellen mit anderen Hexern oder das Meistern herausfordernder Aufgaben. Mit taktischem Kartenmanagement, strategischen Entscheidungen und thematischem Flair bietet das Spiel eine spannende Witcher-Erfahrung mit hohem Wiederspielwert."
+        ]
+      },
+      "id": "sess-002",
+      "hostImage": "../img/hosts/Isy.webp",
+      "hostImageAlt": "Avatar von Isy"
+    },
+    {
+      "time": "Freitag, 18:00 Uhr",
+      "title": "Tief im Wald",
+      "eventType": "penandpaper",
+      "slug": "tief-im-wald-1",
+      "players": "4-8 Spieler:innen",
+      "age": "ab 10 Jahren",
+      "duration": "180 min",
+      "host": "Constanze & Tim",
+      "room": "PnP Studio",
+      "total": 8,
+      "image": "../img/programm/tief-im-wald.png",
+      "imageAlt": "Illustration zu Tief im Wald",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/lorox-veranstaltungen.webp",
+        "url": "https://www.lorox-veranstaltungen.de/",
+        "alt": "Lorox Veranstaltungen"
+      },
+      "link": "session.php?slug=tief-im-wald-1",
+      "detail": {
+        "quote": "Ihr wolltet schon immer mal einen Abenteuerurlaub buchen. Camping in Osteuropa klingt echt erlebnisreich und schön, um der Arbeitswelt ein wenig zu entflüchten. Deswegen habt ihr euch entschlossen, eine kleine Auszeit zu nehmen und habt einen mehrtägigen Wanderurlaub über Vortex Travel gebucht.",
+        "paragraphs": [
+          "Constanze und Tim von Lorox Veranstaltungen führen euch durch ein dreistündiges One-Shot mit Gruselfaktor am Freitagabend. Ihr dürft euren modernen Charakter aus einer Vielzahl auswählen und bekommt dann die zugehörige Spielfigur, um in einem liebevoll gestaltetem Setting ein aufregendes Abenteuer zu erleben. Das benutzte System ist einfach und auch für Rollenspielanfänger sofort zugänglich."
+        ]
+      },
+      "id": "sess-003",
+      "hostImage": "../img/hosts/Constanze-tim.webp",
+      "hostImageAlt": "Avatar von Constanze und Tim"
+    },
+    {
+      "time": "Freitag, 19:00 Uhr",
+      "title": "Mondbasis Shackleton",
+      "eventType": "spielesession",
+      "slug": "mondbasis-shackleton",
+      "players": "1-4 Spieler:innen",
+      "age": "ab 14 Jahren",
+      "duration": "180 min",
+      "host": "Christof",
+      "room": "Session Raum 2",
+      "total": 4,
+      "image": "../img/programm/mondbasis-shackleton.jpg",
+      "imageAlt": "Spielbox von Mondbasis Shackleton",
+      "link": "session.php?slug=mondbasis-shackleton",
+      "detail": {
+        "quote": "In Mondbasis Shackleton führt ihr eure eigene Raumfahrtagentur an den Südpol des Mondes, wo im Shackleton‑Krater die erste permanente Mondbasis entsteht. Gemeinsam mit anderen Agenturen nutzt ihr Shuttles, setzt spezialisierte Astronauten ein und errichtet lebenswichtige Strukturen, während mächtige Konzerne euch mit Projekten unterstützen – oder eure Pläne durcheinanderbringen.\n\nIn jeder Partie werden drei von sieben Großkonzernen ausgewählt, deren unterschiedliche Ziele und Mechanismen beeinflussen, wie ihr Ressourcen sammelt, Gebäude baut und eure Projekte vorantreibt.\n\nEuer Erfolg wird daran gemessen, wie gut ihr eure Basis ausbaut, Konzernprojekte erfüllt und eure Position gegenüber den anderen Agenturen stärkt – nur wer die meisten Punkte erzielt, hat das Rennen um die Vorherrschaft in der Mondbasis gewonnen.",
+        "paragraphs": [
+          "Mondbasis Shackleton ist ein strategisches Euro‑Management‑ und Worker‑Placement‑Spiel für 1–4 Spieler, das euch in die Rolle von konkurrierenden Raumfahrtagenturen versetzt, die gemeinsam eine Basis im Shackleton‑Krater errichten.",
+          "Über drei Runden wählt ihr zu Beginn jedes Zuges Shuttles aus, die eure verfügbaren Astronauten und Ressourcen festlegen, dann setzt ihr diese gezielt ein, um Ressourcen zu gewinnen, Strukturen zu bauen oder die Projekte der im Spiel aktiven Konzerne zu finanzieren.",
+          "Die eingebundenen Konzerne verändern bei jeder Partie die Ziele und Wertungsmöglichkeiten, was die strategischen Entscheidungen vielfältig und dynamisch macht. Am Ende zählt nur, wer durch geschicktes Ressourcen‑ und Personalmanagement die meisten Siegpunkte erspielt – mit hohem Wiederspielwert durch die modularen Mechaniken und variablen Aufgaben."
+        ]
+      },
+      "id": "sess-004",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      }
+    },
+    {
+      "time": "Freitag, 20:00 Uhr",
+      "title": "Duell um Cardia",
+      "eventType": "turnier",
+      "slug": "duell-um-cardia",
+      "players": "2-16 Spieler:innen",
+      "age": "ab 10 Jahren",
+      "duration": "120 min",
+      "host": "Steve, Tanja & Leo",
+      "room": "Freie Spielfläche",
+      "total": 16,
+      "image": "../img/programm/duell-um-cardia.jpg",
+      "imageAlt": "Motiv zu Duell um Cardia",
+      "link": "session.php?slug=duell-um-cardia",
+      "detail": {
+        "quote": "In Duell um Cardia kämpft ihr im Schatten der sagenumwobenen Stadt Cardia um Macht und Einfluss: Eine mächtige Stadt, erschaffen aus Dankbarkeit eines Djinn, lockt mit den Siegelringen ihrer vier Fraktionen – und nur wer sie alle erringt, kann die Herrschaft an sich reißen. Jeder Spieler wählt Karten aus seinem Deck, um seine Gegner zu überlisten, die Gunst der Fraktionen zu gewinnen und sich die kostbaren Siegel zu sichern.\n\nRunde für Runde spielt ihr zwei Karten aus – der höhere Einfluss entscheidet über den Sieg eines Duells, doch nur die niedrigere Karte aktiviert ihre besondere Fähigkeit und bringt das Spiel in überraschende Richtungen. Gesammelte Siegel zeigen euren Fortschritt, aber Vorsicht: Sie können im Verlauf des Spiels auch wieder den Besitzer wechseln!\n\nWer zuerst fünf Siegel auf seinen Karten sammelt, hat das Duell um Cardia für sich entschieden und die Kontrolle über die Stadt errungen – ein packender Wettstreit voller Taktik, Timing und cleverer Entscheidungen.",
+        "paragraphs": [
+          "Duell um Cardia ist ein schnelles, strategisches Kartenspiel‑Duell für 2 (bis 4) Spieler, in dem ihr mit identischen Decks aus 16 Karten gegeneinander antretet.",
+          "In jeder Runde wählt ihr verdeckt zwei Karten aus eurer Hand und vergleicht ihre Einflusswerte: Die Karte mit dem höheren Einfluss erhält einen begehrten Siegelring, während nur die Karte mit dem niedrigeren Einfluss ihre einzigartige Fähigkeit aktiviert – diese Wendung sorgt für Spannung, taktische Tiefe und überraschende Spielverläufe.",
+          "Gespielte Karten bleiben im Spiel liegen und können durch spätere Effekte beeinflusst werden. Wer als Erster fünf Siegel für sich beansprucht, gewinnt das Duell um die Vorherrschaft in Cardia. Mit optionalen Schauplatz‑Karten und einem zweiten Deck bietet das Spiel zusätzliche Varianten und einen hohen Wiederspielwert in kurzen, intensiven Partien."
+        ]
+      },
+      "id": "sess-005"
+    },
+    {
+      "time": "Sonntag, 15:00 Uhr",
+      "title": "Cthulhu: Death May Die",
+      "eventType": "spielesession",
+      "slug": "cthulhu-death-may-die",
+      "players": "1-5 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "120 min",
+      "host": "Angelika",
+      "room": "Session Raum 1",
+      "total": 5,
+      "image": "../img/programm/cthulhu-death-may-die.png",
+      "imageAlt": "Spielbox von Cthulhu: Death May Die",
+      "link": "session.php?slug=cthulhu-death-may-die",
+      "detail": {
+        "quote": "In Cthulhu: Death May Die stürzt ihr euch kopfüber in den kosmischen Horror des Cthulhu‑Mythos: Durch finstere Rituale haben fanatische Kultisten begonnen, einen Großen Alten in unsere Welt zu holen. Als Ermittler stellt ihr euch diesem Albtraum, durchstreift dunkle Orte, kämpft gegen Scheußlichkeiten und versucht das Unaussprechliche aufzuhalten.\n\nDoch der Wahnsinn lauert in jedem von euch: Eure Figuren beginnen die Mission bereits mit einem Funken geistiger Instabilität, und jede Begegnung mit den Kräften jenseits der Realität kann euch weiter in den Abgrund treiben – gleichzeitig wächst mit dem Wahnsinn oft eure Macht.\n\nNur wenn ihr die finsteren Rituale stört, Schwächen für die Großen Alten findet und sie anschließend besiegt, könnt ihr das drohende Ende abwenden. Scheitert ihr, frisst der Wahnsinn eure Verstand und entfesselt unaussprechliche Schrecken.",
+        "paragraphs": [
+          "Cthulhu: Death May Die ist ein kooperatives Horror‑Miniaturenspiel für 1–5 Spieler, in dem ihr als Ermittler gegen die finsteren Mächte des Cthulhu‑Mythos antretet.",
+          "Jede Partie besteht aus mehreren Episoden, in denen ihr taktisch Aktionen auswählt, Monster bekämpft und versucht, die finsteren Rituale zu unterbrechen, die einen Alten Gott beschwören. Je nach Szenario verändert sich der Aufbau des modularen Spielplans und die Bedingungen, unter denen ihr gewinnen oder verlieren könnt.",
+          "Das Spiel kombiniert thematischen Horror mit kooperativer Taktik: Ihr müsst Ressourcen, Aktionen und euren Verstand sorgfältig managen, denn je näher ihr an den Sieg kommt, desto stärker kann euch der Wahnsinn treffen. Mit detaillierten Miniaturen, variierenden Szenarien und tiefem thematischem Flair bietet Cthulhu: Death May Die intensive, nervenaufreibende Spielerlebnisse mit hohem Wiederspielwert."
+        ]
+      },
+      "id": "sess-006",
+      "hostImage": "../img/hosts/Angelika.webp",
+      "hostImageAlt": "Avatar von Angelika",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      }
+    },
+    {
+      "time": "Freitag, 21:00 Uhr",
+      "title": "Tief im Wald",
+      "eventType": "penandpaper",
+      "slug": "tief-im-wald-2",
+      "players": "4-8 Spieler:innen",
+      "age": "ab 10 Jahren",
+      "duration": "180 min",
+      "host": "Constanze & Tim",
+      "room": "PnP Studio",
+      "total": 8,
+      "image": "../img/programm/tief-im-wald.png",
+      "imageAlt": "Illustration zu Tief im Wald",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/lorox-veranstaltungen.webp",
+        "url": "https://www.lorox-veranstaltungen.de/",
+        "alt": "Lorox Veranstaltungen"
+      },
+      "link": "session.php?slug=tief-im-wald-2",
+      "detail": {
+        "quote": "Ihr wolltet schon immer mal einen Abenteuerurlaub buchen. Camping in Osteuropa klingt echt erlebnisreich und schön, um der Arbeitswelt ein wenig zu entflüchten. Deswegen habt ihr euch entschlossen, eine kleine Auszeit zu nehmen und habt einen mehrtägigen Wanderurlaub über Vortex Travel gebucht.",
+        "paragraphs": [
+          "Constanze und Tim von Lorox Veranstaltungen führen euch durch ein dreistündiges One-Shot mit Gruselfaktor am Freitagabend. Ihr dürft euren modernen Charakter aus einer Vielzahl auswählen und bekommt dann die zugehörige Spielfigur, um in einem liebevoll gestaltetem Setting ein aufregendes Abenteuer zu erleben. Das benutzte System ist einfach und auch für Rollenspielanfänger sofort zugänglich."
+        ]
+      },
+      "id": "sess-007",
+      "hostImage": "../img/hosts/Constanze-tim.webp",
+      "hostImageAlt": "Avatar von Constanze und Tim"
+    },
+    {
+      "time": "Samstag, 17:00 Uhr",
+      "title": "Civolution",
+      "eventType": "spielesession",
+      "slug": "civolution",
+      "players": "1-4 Spieler:innen",
+      "age": "ab 14 Jahren",
+      "duration": "180 min",
+      "host": "David",
+      "room": "Freie Spielfläche",
+      "total": 4,
+      "image": "../img/programm/civolution.png",
+      "imageAlt": "Spielbox von Civolution",
+      "link": "session.php?slug=civolution",
+      "detail": {
+        "quote": "Hallo Studierende! Das Kollegium der Technischen Schöpfungsakademie heißen euch herzlich zu eurer Civolution willkommen, der wichtigsten Prüfung im Fach Zivilisationsdesign.\n\nDieses Mal haben wir uns für ein humanoides Grundszenario auf einem geschlossenen Kontinent entschieden. Dabei ist euch jeweils der Rang einer lokalen Zivilisations-Gottheit zugewiesen, die eng an ihre eigene Zivilisation gebunden ist und diese im Wettstreit mit den anderen zum Erfolg führen soll. Die Entwicklungsmöglichkeiten sind vielfältig und reichen von kulturellem und technischem Fortschritt bis hin zu evolutionsbiologischen Anpassungen. Was würde eure eigene Zivilisation zum Beispiel mehr voranbringen: Die Erfindung des Rades oder die Ausbildung von Flügeln?\n\nStellt unter Beweis, dass ihr die Bedienung eurer Konsole beherrscht und euch auf variable Umwelt-Parameter ebenso einstellen könnt wie auf diverse schöpfungschaotische Gegebenheiten. Die Prüfung endet nach vier Epochen. Wer dann mit der eigenen Zivilisation die meisten Erfolgspunkte erreichen konnte, hat nicht nur die Prüfung bestanden, sondern erhält die Gelegenheit als Vollmitglied der Technischen Schöpfungsakademie in die nächste Instanz aufzusteigen.",
+        "paragraphs": [
+          "Civolution ist ein mittelschweres bis schweres Euro-Style Spiel, das einen Würfel Auswahlmechanismus nutzt, um Aktionen in einem Tech-Baum zu aktivieren. Während die Spielenden versuchen, ihre Würfel optimal zu nutzen und ihre individuellen Karten zu nutzen, werden sich immer wieder neue Strategien auf dem Weg zum Sieg auftun und entwickeln. In jedem Spiel werden sie nur einen kleinen Teil der zahllosen Möglichkeiten entdecken können, die das Spielsystem und die Karten bieten. Wiederspielwert: Sehr hoch!"
+        ]
+      },
+      "id": "sess-008"
+    },
+    {
+      "time": "Samstag, 14:30 Uhr",
+      "title": "Blood on the Clocktower",
+      "eventType": "spielesession",
+      "slug": "blood-on-the-clocktower-1",
+      "players": "8-12 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "150 min",
+      "host": "Rene",
+      "room": "Session Raum 1",
+      "total": 12,
+      "image": "../img/programm/blood-on-the-clocktower.png",
+      "imageAlt": "Spielbox von Blood on the Clocktower",
+      "link": "session.php?slug=blood-on-the-clocktower-1",
+      "detail": {
+        "quote": "In Blood on the Clocktower herrscht in Ravenswood Bluff Unruhe: Nach einem grausamen Mord am Erzähler hängt sein lebloser Körper am Glockenturm und blutige Vorahnungen durchziehen das Dorf. Unter den Dorfbewohnern verbirgt sich ein Dämon, der nachts mordet und sich tagsüber als Mensch tarnt. Einige besitzen geheime Informationen oder Fähigkeiten, andere verbreiten Lügen und Intrigen, um die Wahrheit zu verschleiern.\n\nJeden Tag diskutiert ihr offen oder im Flüstermodus, tauscht Wissen und Verdächtigungen aus – am Ende wartet eine Abstimmung über Leben und Tod. In der Nacht führt der Erzähler Aktionen durch, gibt Hinweise oder lässt finstere Mächte zuschlagen. Selbst wenn ein Charakter „stirbt“, bleibt er als Geist im Dorf und kann weiterhin Einfluss auf das Spielgeschehen nehmen.\n\nGelingt es der Gemeinschaft, den Dämon rechtzeitig zu entlarven und zu exekutieren, ist das Dorf gerettet. Schafft das Böse es jedoch, die Reihen zu spalten und unentdeckt zu überleben, breitet sich das Verderben aus – und die Uhr schlägt zu euren Ungunsten.",
+        "paragraphs": [
+          "Blood on the Clocktower ist ein soziales Bluff‑ und Deduktionsspiel für 5–20 Spieler, geleitet von einem Erzähler, der das Geschehen steuert und Informationen verteilt. Jeder Mitspielende erhält eine geheime Rolle mit speziellen Fähigkeiten und gehört entweder dem Guten oder dem Bösen an.",
+          "Das Spiel wechselt zwischen Tages‑ und Nachtphasen: Tagsüber wird offen oder heimlich diskutiert und am Ende abgestimmt, wer exekutiert wird; nachts wirken Charaktere ihre Kräfte, sammeln Hinweise oder begehen heimliche Taten. Selbst ausgeschiedene Figuren bleiben im Spiel aktiv und können weiter mitreden.",
+          "Der Reiz liegt in psychologischer Deduktion, Bluff und Teamspiel: Gute suchen nach vertrauenswürdigen Informationen, während Böse Lügen streuen und Zweifel säen. Kein Spielverlauf gleicht dem anderen – durch die Vielfalt an Rollen, Geheimnissen und Dynamiken entsteht ein hoher Wiederspielwert voller überraschender Wendungen."
+        ]
+      },
+      "id": "sess-009"
+    },
+    {
+      "time": "Samstag, 17:30 Uhr",
+      "title": "Blood on the Clocktower",
+      "eventType": "spielesession",
+      "slug": "blood-on-the-clocktower-2",
+      "players": "8-12 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "150 min",
+      "host": "Rene",
+      "room": "Session Raum 1",
+      "total": 12,
+      "image": "../img/programm/blood-on-the-clocktower.png",
+      "imageAlt": "Spielbox von Blood on the Clocktower",
+      "link": "session.php?slug=blood-on-the-clocktower-2",
+      "detail": {
+        "quote": "In Blood on the Clocktower herrscht in Ravenswood Bluff Unruhe: Nach einem grausamen Mord am Erzähler hängt sein lebloser Körper am Glockenturm und blutige Vorahnungen durchziehen das Dorf. Unter den Dorfbewohnern verbirgt sich ein Dämon, der nachts mordet und sich tagsüber als Mensch tarnt. Einige besitzen geheime Informationen oder Fähigkeiten, andere verbreiten Lügen und Intrigen, um die Wahrheit zu verschleiern.\n\nJeden Tag diskutiert ihr offen oder im Flüstermodus, tauscht Wissen und Verdächtigungen aus – am Ende wartet eine Abstimmung über Leben und Tod. In der Nacht führt der Erzähler Aktionen durch, gibt Hinweise oder lässt finstere Mächte zuschlagen. Selbst wenn ein Charakter „stirbt“, bleibt er als Geist im Dorf und kann weiterhin Einfluss auf das Spielgeschehen nehmen.\n\nGelingt es der Gemeinschaft, den Dämon rechtzeitig zu entlarven und zu exekutieren, ist das Dorf gerettet. Schafft das Böse es jedoch, die Reihen zu spalten und unentdeckt zu überleben, breitet sich das Verderben aus – und die Uhr schlägt zu euren Ungunsten.",
+        "paragraphs": [
+          "Blood on the Clocktower ist ein soziales Bluff‑ und Deduktionsspiel für 5–20 Spieler, geleitet von einem Erzähler, der das Geschehen steuert und Informationen verteilt. Jeder Mitspielende erhält eine geheime Rolle mit speziellen Fähigkeiten und gehört entweder dem Guten oder dem Bösen an.",
+          "Das Spiel wechselt zwischen Tages‑ und Nachtphasen: Tagsüber wird offen oder heimlich diskutiert und am Ende abgestimmt, wer exekutiert wird; nachts wirken Charaktere ihre Kräfte, sammeln Hinweise oder begehen heimliche Taten. Selbst ausgeschiedene Figuren bleiben im Spiel aktiv und können weiter mitreden.",
+          "Der Reiz liegt in psychologischer Deduktion, Bluff und Teamspiel: Gute suchen nach vertrauenswürdigen Informationen, während Böse Lügen streuen und Zweifel säen. Kein Spielverlauf gleicht dem anderen – durch die Vielfalt an Rollen, Geheimnissen und Dynamiken entsteht ein hoher Wiederspielwert voller überraschender Wendungen."
+        ]
+      },
+      "id": "sess-010"
+    },
+    {
+      "time": "Samstag, 21:00 Uhr",
+      "title": "Blood on the Clocktower",
+      "eventType": "spielesession",
+      "slug": "blood-on-the-clocktower-3",
+      "players": "8-12 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "150 min",
+      "host": "Rene",
+      "room": "Session Raum 1",
+      "total": 12,
+      "image": "../img/programm/blood-on-the-clocktower.png",
+      "imageAlt": "Spielbox von Blood on the Clocktower",
+      "link": "session.php?slug=blood-on-the-clocktower-3",
+      "detail": {
+        "quote": "In Blood on the Clocktower herrscht in Ravenswood Bluff Unruhe: Nach einem grausamen Mord am Erzähler hängt sein lebloser Körper am Glockenturm und blutige Vorahnungen durchziehen das Dorf. Unter den Dorfbewohnern verbirgt sich ein Dämon, der nachts mordet und sich tagsüber als Mensch tarnt. Einige besitzen geheime Informationen oder Fähigkeiten, andere verbreiten Lügen und Intrigen, um die Wahrheit zu verschleiern.\n\nJeden Tag diskutiert ihr offen oder im Flüstermodus, tauscht Wissen und Verdächtigungen aus – am Ende wartet eine Abstimmung über Leben und Tod. In der Nacht führt der Erzähler Aktionen durch, gibt Hinweise oder lässt finstere Mächte zuschlagen. Selbst wenn ein Charakter „stirbt“, bleibt er als Geist im Dorf und kann weiterhin Einfluss auf das Spielgeschehen nehmen.\n\nGelingt es der Gemeinschaft, den Dämon rechtzeitig zu entlarven und zu exekutieren, ist das Dorf gerettet. Schafft das Böse es jedoch, die Reihen zu spalten und unentdeckt zu überleben, breitet sich das Verderben aus – und die Uhr schlägt zu euren Ungunsten.",
+        "paragraphs": [
+          "Blood on the Clocktower ist ein soziales Bluff‑ und Deduktionsspiel für 5–20 Spieler, geleitet von einem Erzähler, der das Geschehen steuert und Informationen verteilt. Jeder Mitspielende erhält eine geheime Rolle mit speziellen Fähigkeiten und gehört entweder dem Guten oder dem Bösen an.",
+          "Das Spiel wechselt zwischen Tages‑ und Nachtphasen: Tagsüber wird offen oder heimlich diskutiert und am Ende abgestimmt, wer exekutiert wird; nachts wirken Charaktere ihre Kräfte, sammeln Hinweise oder begehen heimliche Taten. Selbst ausgeschiedene Figuren bleiben im Spiel aktiv und können weiter mitreden.",
+          "Der Reiz liegt in psychologischer Deduktion, Bluff und Teamspiel: Gute suchen nach vertrauenswürdigen Informationen, während Böse Lügen streuen und Zweifel säen. Kein Spielverlauf gleicht dem anderen – durch die Vielfalt an Rollen, Geheimnissen und Dynamiken entsteht ein hoher Wiederspielwert voller überraschender Wendungen."
+        ]
+      },
+      "id": "sess-011"
+    },
+    {
+      "time": "Freitag, 18:00 Uhr",
+      "title": "This War of Mine",
+      "eventType": "spielesession",
+      "slug": "this-war-of-mine",
+      "players": "1-6 Spieler:innen",
+      "age": "ab 16 Jahren",
+      "duration": "150 min",
+      "host": "Sams & Noel",
+      "room": "Session Raum 1",
+      "total": 6,
+      "image": "../img/programm/this-war-of-mine.png",
+      "imageAlt": "Spielbox von This War of Mine",
+      "link": "session.php?slug=this-war-of-mine",
+      "detail": {
+        "quote": "In This War of Mine: Das Brettspiel erlebt ihr den Krieg nicht als Soldaten, sondern als eine Gruppe ziviler Überlebender, die in einer von Konflikten zerrissenen Stadt um jeden Atemzug kämpft. Ihr versteckt euch tagsüber in einem zerstörten Unterschlupf, versucht euer Zuhause instand zu halten, baut einfache Werkstätten und sammelt, was ihr zum Leben braucht, während draußen die Welt zerfällt.\n\nNachts macht ihr euch auf den riskanten Weg durch Ruinen und verlassene Häuser, um knappe Ressourcen wie Nahrung, Wasser oder Medizin zu finden – stets begleitet von moralisch schmerzhaften Entscheidungen und der ständigen Gefahr, auf feindselige Plünderer oder andere Überlebende zu treffen.\n\nEuer Ziel ist einfach und zugleich hart: Haltet eure Gruppe am Leben, bis der Belagerungszustand endet. Doch jeder Tag fordert seinen Tribut, und jede Wahl kann eure Menschlichkeit oder euer Überleben kosten.",
+        "paragraphs": [
+          "This War of Mine: Das Brettspiel ist ein intensives, kooperatives Survival‑ und Erzählspiel für 1–6 Spieler, das die bedrückende Erfahrung des kriegszerrütteten Alltags ziviler Überlebender simuliert.",
+          "In einem Tag‑/Nacht‑Rhythmus verwaltet ihr gemeinsam euren Unterschlupf, baut nützliche Objekte und sorgt für Nahrung und Schutz. Nach Einbruch der Dunkelheit brecht ihr zu gefährlichen Expeditionen auf, um dringend benötigte Ressourcen zu sammeln – immer mit dem Risiko, verletzt, beraubt oder seelisch erschüttert zu werden.",
+          "Das Spiel stellt euch fortlaufend vor unmenschlich schwere Entscheidungen, die nicht nur euer Überleben, sondern auch den weiteren Verlauf der Geschichte beeinflussen. Euer Ziel ist es, so lange wie möglich am Leben zu bleiben und den Belagerungszustand bis zur Friedenskarte (Ceasefire) durchzustehen. Durch seine erzählerischen Elemente, realitätsnahe Themen und moralischen Dilemmata bietet This War of Mine ein eindringliches, emotionales Erlebnis mit hohem Wiedererkennungs‑ und Nachdenkwert."
+        ]
+      },
+      "id": "sess-012"
+    },
+    {
+      "time": "Samstag, 14:00 Uhr",
+      "title": "Twilight Imperium",
+      "eventType": "spielesession",
+      "slug": "twilight-imperium",
+      "players": "3-8 Spieler:innen",
+      "age": "ab 14 Jahren",
+      "duration": "480 min",
+      "host": "Andreas",
+      "room": "Session Raum 2",
+      "total": 8,
+      "image": "../img/programm/twilight-imperium.png",
+      "imageAlt": "Spielbox von Twilight Imperium",
+      "link": "session.php?slug=twilight-imperium",
+      "detail": {
+        "infoBox": "Aufgrund der langen Spieldauer findet die Regelerklärung bereits am Freitagabend statt.",
+        "quote": "In Twilight Imperium übernehmt ihr die Führung einer von vielen galaktischen Fraktionen und kämpft im Machtvakuum des zerfallenen Lazax‑Imperiums um die Herrschaft über die Galaxie. Zwischen den Sternensystemen toben Kriege, diplomatische Ränkespiele und wirtschaftliche Intrigen, während ihr euren Einfluss durch militärische Stärke, geschickte Verhandlungen und technologischen Fortschritt ausbaut.\n\nJede Partie beginnt mit dem Aufbau einer zufällig generierten Galaxie aus sechseckigen Plättchen, auf der ihr eure Flotten mobilisiert und Planeten erobert, Ressourcen verwaltet und im galaktischen Senat politische Agenden durchsetzt.\n\nNur wer geschickt seine Strategiekarte nutzt, Allianzen schmiedet und öffentliche und geheime Ziele erfüllt, kann genügend Siegpunkte erringen und die Krone von Mecatol Rex gewinnen – und damit den Thron über die Galaxis besteigen.",
+        "paragraphs": [
+          "Twilight Imperium ist ein episches sci‑fi‑Strategiespiel für 3–6 Spieler, in dem ihr als Anführer einer von zahlreichen einzigartigen Fraktionen um galaktische Vorherrschaft rittert.",
+          "Über einen modularen Spielplan breitet ihr euer Imperium aus, kolonisiert neue Systeme, baut Flotten und Technologien aus, handelt mit Ressourcen und nehmt an politischen Entscheidungen im galaktischen Rat teil – dabei entstehen dynamische Verläufe voller Konflikte, Diplomatie und taktischer Entscheidungen.",
+          "Ziel ist es, durch das Erfüllen von öffentlichen und geheimen Zielen Siegpunkte zu sammeln und als erster die festgelegte Punktzahl zu erreichen. Mit seiner enormen strategischen Tiefe, variablen Galaxien, verschiedenen Siegpfaden und intensiven Interaktion bietet Twilight Imperium ein einzigartiges, langandauerndes Spielerlebnis mit extrem hohem Wiederspielwert."
+        ]
+      },
+      "id": "sess-013"
+    },
+    {
+      "time": "Samstag, 14:00 Uhr",
+      "title": "Betrayal at the House on the Hill [EN]",
+      "eventType": "spielesession",
+      "slug": "betrayal-at-the-house-on-the-hill",
+      "players": "3-5 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "180 min",
+      "host": "Helge",
+      "room": "Freie Spielfläche",
+      "total": 5,
+      "image": "../img/programm/betrayal-at-the-house-on-the-hill.jpg",
+      "imageAlt": "Illustration zu Betrayal at the House on the Hill",
+      "link": "session.php?slug=betrayal-at-the-house-on-the-hill",
+      "detail": {
+        "infoBox": "Diese Session findet voraussichtlich auf Englisch statt. Du musst aber kein perfektes Englisch sprechen – komm einfach dazu und hab Spaß am Spielen und gemeinsamen Üben!",
+        "quote": "In Betrayal at the House on the Hill nähert ihr euch als tapfere Entdecker einem verfallenen Spukhaus, in dessen düsteren Gängen unheimliche Geheimnisse, tückische Fallen und seltsame Visionen auf euch warten. Zu Beginn arbeitet ihr noch gemeinsam daran, Räume aufzudecken, Gegenstände zu finden und eure Charaktere zu stärken, während das Haus euch tiefer in seine Schatten lockt.\n\nDoch je mehr ihr erkundet, desto wahrscheinlicher wird es, dass das Grauen erwacht: Irgendwann wird der „Haunt“ ausgelöst und das Spiel wendet sich schlagartig – ein Mitspieler verrät die Gruppe und tritt auf der Seite der Monster oder einer dunklen Macht an.\n\nDann beginnt ein packender Überlebenskampf, in dem die verbliebenen Helden versuchen müssen, den Verräter oder die Schrecken des Hauses zu bezwingen und lebend zu entkommen, bevor sie alle dem Wahnsinn anheimfallen.",
+        "paragraphs": [
+          "Betrayal at the House on the Hill ist ein thematisches Horror‑Abenteuer‑Brettspiel für 3–6 Spieler, in dem ihr gemeinsam ein mysteriöses, zufällig aufgebautes Spukhaus erkundet.",
+          "Zu Beginn bewegt ihr eure Charaktere durchs Haus, entdeckt zufällig gezogene Raum‑Kacheln, sammelt nützliche oder gefährliche Gegenstände, stößt auf Ereignisse und Omen und verbessert eure Überlebenswerte. Sobald ein bestimmter Auslöser erfüllt ist, wechselt das Spiel in die Haunt‑Phase: Ein zuvor unscheinbarer Moment enthüllt eine von über 50 möglichen Haunt‑Szenarien und setzt einen Verräter frei, der fortan eigene, geheime Ziele verfolgt.",
+          "In der zweiten Hälfte kämpft ihr dann entweder als Team gegen den Verräter oder – als Verräter selbst – gegen die übrigen Spieler, mit jeweils unterschiedlichen Siegbedingungen, die vom ausgelösten Szenario abhängen. Dieses überraschende Wechselspiel aus Kooperation und Verrat, verbunden mit modularer Board‑Generierung und variablen Geschichten, macht jede Partie zu einem einzigartigen, spannungsgeladenen Erlebnis mit hohem Wiederspielwert."
+        ]
+      },
+      "id": "sess-014",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      }
+    },
+    {
+      "time": "Samstag, 19:00 Uhr",
+      "title": "Aventuria: Die Kelche der Macht",
+      "eventType": "spielesession",
+      "slug": "aventuria",
+      "players": "1-6 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "180 min",
+      "host": "Lars",
+      "room": "Session Raum 3",
+      "total": 6,
+      "image": "../img/programm/aventuria.webp",
+      "imageAlt": "Spielbox von Aventuria",
+      "link": "session.php?slug=aventuria",
+      "detail": {
+        "quote": "Aventuria - Die Kelche der Macht ist ein rasantes Fantasy‑Abenteuer‑Kartenspiel für 1–6 Spieler ab etwa 12 Jahren, das euch direkt in die Welt des Schwarzen Auges (DSA) versetzt.\n\nIm Abenteuer‑Modus arbeitet Ihr als Gruppe zusammen, nutzt eure individuellen Heldendecks, würfelt für Herausforderungen und spielt Aktionskarten aus, um Kämpfe zu gewinnen, Gegner zu überraschen oder knifflige Situationen zu meistern.\n\nMit jeder Runde verbessert ihr eure Fähigkeiten, sammelt Belohnungen und trefft gemeinsam mit euren Mitspielern strategische Entscheidungen und erlebt so spannende Fantasie‑Abenteuer voller taktischer Tiefe und hoher Spannung.\n\nNur wer geschickt seine Aktionen plant, überraschende Tricks nutzt und selbst in der größten Bedrängnis die Oberhand behält, wird in Aventurien bestehen und verhindern, dass großes Unglück über den gesamten Kontinent gebracht wird.",
+        "paragraphs": [
+          "In Aventuria - Die Kelche der Macht reist ihr durch die gefährlichen Lande von Aventurien aus dem bekannten deutschen Rollenspiel-System \"Das schwarze Auge\" (DSA). Dort lauern hinter jedem Hügel Monster, verlockende Schätze locken Helden aus allen Landen und Abenteuer ruft euren Namen.",
+          "Legendäre Artefakte - die \"Kelche der Macht\" sind in die falschen Hände geraten. Als tapfere Helden – sei es der grimmige Zwergenschmied, die geschickte Elfenkundschafterin, der gerissene Halbelf oder die geheimnisvolle Magierin – zieht ihr im Abenteuer‑Modus gemeinsam gegen schurkische Mächte ins Feld.",
+          "Ihr sammelt Waffen, Rüstungen und Zauber, erweitert eure Fähigkeiten und spielt jede Runde taktisch überzeugende Karten aus, um Gefahren zu meistern und eure Gegner zu überlisten.",
+          "Nur wer geschickt seine Aktionen plant, überraschende Tricks nutzt und selbst in der größten Bedrängnis die Oberhand behält, wird in Aventurien bestehen und den Sieg davontragen."
+        ]
+      },
+      "id": "sess-015",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      }
+    },
+    {
+      "time": "Samstag, 15:00 Uhr",
+      "title": "Anno 1800 + Erweiterung",
+      "eventType": "spielesession",
+      "slug": "anno-1800-plus-erweiterung",
+      "players": "2-4 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "120 min",
+      "host": "Lars",
+      "room": "Freie Spielfläche",
+      "total": 4,
+      "image": "../img/programm/anno-1800.png",
+      "imageAlt": "Spielbox von Anno 1800 + Erweiterung",
+      "link": "session.php?slug=anno-1800-plus-erweiterung",
+      "detail": {
+        "quote": "In Anno 1800 seid ihr Kapitäne auf dem aufsteigenden Gipfel der Industrialisierung: Ihr beginnt im 19. Jahrhundert damit, eure erste Insel zu besiedeln, Produktionsketten aufzubauen und eure Bevölkerung mit allem Lebensnotwendigen zu versorgen. Doch Ressourcen sind knapp, der Wettbewerb stark und der Weg zur Vorherrschaft über neue Märkte lang und voller Entscheidungen.\n\nMit der Erweiterung bringt ihr eure Industrie auf das nächste Level: Luftschiffe eröffnen neue Handelsmöglichkeiten, Innovationskarten und Zahnräder steigern eure Effizienz und Patente schützen eure cleversten Erfindungen vor der Konkurrenz. Neue Aufträge und strategische Optionen führen zu völlig neuen Wegen, eure Wirtschaft zu optimieren.\n\nWer seine Bevölkerung zufriedenstellt, Handelsrouten klug nutzt und die besten Entscheidungen für Industrie, Wachstum und Einfluss trifft, baut die florierendste Metropole der Ära – und dominiert die Welt der Anno 1800‑Unternehmer.",
+        "paragraphs": [
+          "Anno 1800 ist ein komplexes, strategisches Euro‑Managementspiel für 1–4 Spieler, in dem ihr als Leiter eurer eigenen Wirtschafts‑ und Handelsmacht agiert.",
+          "Jede Partie dreht sich um den Aufbau ökonomischer Netzwerke: Plant Produktionsketten, verwaltet eure Bevölkerung mit unterschiedlichen Bedürfnissen, etabliert Handel über Seewege und erschließt neue Inseln in der Alten sowie der Neuen Welt. Jede Aktion muss gut überlegt sein, da Ressourcen begrenzt und Konkurrenten schlau sind.",
+          "Die Erweiterung vertieft das Spiel erheblich: Sie ergänzt neue Mechanismen wie Innovationen, Luftschiffe und Patente, die eure industrielle Effizienz verbessern und zusätzliche, strategische Wege zum Sieg eröffnen. Außerdem bringt sie einen Solo‑Modus und neue Auftragskarten, die eure Entscheidungsspielräume noch stärker erweitern und das Spielgefühl intensivieren – ideal für alle, die das Basisspiel bereits gemeistert haben.",
+          "Mit seinen verzahnten Ressourcen‑ und Aktionssystemen, seinem ökonomischen Tiefgang und vielfältigen Strategiemöglichkeiten liefert Anno 1800 ein tiefes, thematisches Spielerlebnis mit hohem Wiederspielwert."
+        ]
+      },
+      "id": "sess-016",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      }
+    },
+    {
+      "time": "Samstag, 15:00 Uhr",
+      "title": "Die Jagd (CoC)",
+      "eventType": "penandpaper",
+      "slug": "die-jagd-coc",
+      "players": "3-6 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "120 min",
+      "host": "Tom",
+      "room": "PnP Studio",
+      "total": 6,
+      "image": "../img/programm/die-jagd.webp",
+      "imageAlt": "Illustration zu Die Jagd (CoC)",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      },
+      "link": "session.php?slug=die-jagd-coc",
+      "detail": {
+        "quote": "Bolivien 1925, eine deutsche Forschungsexpedition unter der Leitung von Dr. Krieg ist aufgebrochen um den Amazonasdschungel nach noch unbekannten Tierarten zu durchsuchen. Der Ruf des Unbekannten lockt, doch wilde Tiere sind bei weitem nicht das Furchterregendste, was im Unterholz des Dschungels lauert.",
+        "paragraphs": [
+          "Das klassische Pen&Paper-Horror-Rollenspiel Cthulhu basiert auf den Werken des Schriftstellers Howard Philipps Lovecraft und zieht seit über 30 Jahren Spielende in seinen Bann. In diesem Spiel voller Geheimnisse, Rätsel und Schrecken schlüpft ihr in die Rollen standhafter Ermittelnder („Investigatoren“), welche teils durch Zufall, teils durch Eigeninitiative auf die Spuren fragwürdiger Rituale, widernatürlicher Wesen und mysteriöser Todesfälle stoßen.",
+          "Dabei begegnet ihr wahnsinnigen Kultisten und alptraumhaften Kreaturen. Uralte und vergessene Folianten enthüllen Geheimnisse, die so furchterregend sind, dass sie einen Menschen in den Wahnsinn treiben können. Dabei könnten diese Bücher durchaus über das Schicksal der Welt entscheiden.",
+          "Lange vor dem Aufstieg der Menschheit herrschten die Großen Alten über die Erde. Die Spuren ihrer zyklopischen Städte sind noch immer auf abgelegenen Inseln, vergraben im Wüstensand und unter dem Polarkreis zu finden. Einst kamen sie von den Sternen auf unsere Welt. Jetzt schlafen sie, manche weit unter der Erdoberfläche oder im Meer. Wenn die Sterne richtig stehen, werden sie sich erheben und erneut auf Erden wandeln."
+        ]
+      },
+      "id": "sess-017"
+    },
+    {
+      "time": "Samstag, 17:00 Uhr",
+      "title": "Endstation (CoC)",
+      "eventType": "penandpaper",
+      "slug": "endstation-coc",
+      "players": "3-6 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "120 min",
+      "host": "Tom",
+      "room": "PnP Studio",
+      "total": 6,
+      "image": "../img/programm/endstation.webp",
+      "imageAlt": "Illustration zu Endstation (CoC)",
+      "link": "session.php?slug=endstation-coc",
+      "detail": {
+        "quote": "Ein ganz normaler Tag, eine ganz gewöhnliche Fahrt mit der U-Bahn in Berlin, auf einer Strecke, auf der jeden Tag hunderte von Menschen unterwegs sind. Routine möchte man meinen, doch irgendetwas ist heute anders. Es ist vielleicht nur ein Gefühl, nur eine Ahnung oder eine Erinnerung an etwas, das in Vergessenheit geraten ist. Was wohl die Erinnerung mit sich bringen wird?",
+        "paragraphs": [
+          "Das klassische Pen&Paper-Horror-Rollenspiel Cthulhu basiert auf den Werken des Schriftstellers Howard Philipps Lovecraft und zieht seit über 30 Jahren Spielende in seinen Bann. In diesem Spiel voller Geheimnisse, Rätsel und Schrecken schlüpft ihr in die Rollen standhafter Ermittelnder („Investigatoren“), welche teils durch Zufall, teils durch Eigeninitiative auf die Spuren fragwürdiger Rituale, widernatürlicher Wesen und mysteriöser Todesfälle stoßen.",
+          "Dabei begegnet ihr wahnsinnigen Kultisten und alptraumhaften Kreaturen. Uralte und vergessene Folianten enthüllen Geheimnisse, die so furchterregend sind, dass sie einen Menschen in den Wahnsinn treiben können. Dabei könnten diese Bücher durchaus über das Schicksal der Welt entscheiden.",
+          "Lange vor dem Aufstieg der Menschheit herrschten die Großen Alten über die Erde. Die Spuren ihrer zyklopischen Städte sind noch immer auf abgelegenen Inseln, vergraben im Wüstensand und unter dem Polarkreis zu finden. Einst kamen sie von den Sternen auf unsere Welt. Jetzt schlafen sie, manche weit unter der Erdoberfläche oder im Meer. Wenn die Sterne richtig stehen, werden sie sich erheben und erneut auf Erden wandeln."
+        ]
+      },
+      "id": "sess-018",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      }
+    },
+    {
+      "time": "Samstag, 19:30 Uhr",
+      "title": "Fall der USS Shenandoah (CoC)",
+      "eventType": "penandpaper",
+      "slug": "fall-der-uss-shenandoah",
+      "players": "3-6 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "240 min",
+      "host": "Tom",
+      "room": "PnP Studio",
+      "total": 6,
+      "image": "../img/programm/uss-shenandoah.webp",
+      "imageAlt": "Illustration zu Fall der USS Shenandoah (CoC)",
+      "link": "session.php?slug=fall-der-uss-shenandoah",
+      "detail": {
+        "quote": "Heute ist ein ganz besonderer Tag in der Stadt New York. Nicht nur, weil es der letzte Konzertabend des New York Philharmonik Orchesters im Lewison Stadium ist, sondern auch, weil es eine Wohltätigkeits-Tombola für das örtliche Waisenhaus gibt, an der noch 2 Karten für den Rundflug mit dem Navi Luftschiff USS Shenandoah verlost werden. Alles was Rang und Namen hat wird auf diesem Rundflug, der 40 Staaten der USA umfasst vertreten sein. Verpasst dieses Ereignis nicht!",
+        "paragraphs": [
+          "Das klassische Pen&Paper-Horror-Rollenspiel Cthulhu basiert auf den Werken des Schriftstellers Howard Philipps Lovecraft und zieht seit über 30 Jahren Spielende in seinen Bann. In diesem Spiel voller Geheimnisse, Rätsel und Schrecken schlüpft ihr in die Rollen standhafter Ermittelnder („Investigatoren“), welche teils durch Zufall, teils durch Eigeninitiative auf die Spuren fragwürdiger Rituale, widernatürlicher Wesen und mysteriöser Todesfälle stoßen.",
+          "Dabei begegnet ihr wahnsinnigen Kultisten und alptraumhaften Kreaturen. Uralte und vergessene Folianten enthüllen Geheimnisse, die so furchterregend sind, dass sie einen Menschen in den Wahnsinn treiben können. Dabei könnten diese Bücher durchaus über das Schicksal der Welt entscheiden.",
+          "Lange vor dem Aufstieg der Menschheit herrschten die Großen Alten über die Erde. Die Spuren ihrer zyklopischen Städte sind noch immer auf abgelegenen Inseln, vergraben im Wüstensand und unter dem Polarkreis zu finden. Einst kamen sie von den Sternen auf unsere Welt. Jetzt schlafen sie, manche weit unter der Erdoberfläche oder im Meer. Wenn die Sterne richtig stehen, werden sie sich erheben und erneut auf Erden wandeln."
+        ]
+      },
+      "id": "sess-019",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      }
+    },
+    {
+      "time": "Sonntag, 11:00 Uhr",
+      "title": "Root",
+      "eventType": "spielesession",
+      "slug": "root",
+      "players": "2-4 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "120 min",
+      "host": "Paul",
+      "room": "Session Raum 1",
+      "total": 4,
+      "image": "../img/programm/root.png",
+      "imageAlt": "Spielbox von Root",
+      "link": "session.php?slug=root",
+      "detail": {
+        "quote": "In Root wütet im Wald ein Konflikt um Macht, Recht und Vorherrschaft, bei dem jede Fraktion ihre ganz eigene Stimme erhebt. Während die Marquise de Cat mit Holz und Klingen ihren Einfluss über das Waldland ausdehnt, schmieden die stolzen Eyrie Dynasties um jeden Quadratzentimeter und müssen ihren eigenen Hof im Zaum halten. Die Woodland Alliance schürt im Unterholz die Flamme des Widerstands und ruft Unterstützer im Verborgenen auf den Plan, während die geheimnisvollen Vagabonds zwischen Freundschaft und Hinterhalt wandeln – immer auf der Suche nach ihren eigenen Vorteilen.\n\nJede Runde entfaltet sich ein anderes Kapitel dieser ungleichen Auseinandersetzung, in dem Strategie, Interaktion und asymmetrische Kräfte darüber entscheiden, wer den Wald beherrscht.\n\nAm Ende kann nur eine Fraktion die Oberhand gewinnen und den Wald unter ihre Kontrolle bringen – ein packender Wettstreit um Einfluss, Intrige und taktische Finesse.",
+        "paragraphs": [
+          "Root ist ein hochstrategisches asymmetrisches Brettspiel für 2 – 4 Spieler (mit Erweiterungen bis zu 6), in dem jede Gruppe eine völlig unterschiedliche Spielweise und Siegbedingung verfolgt.",
+          "Auf einem sechseckigen Spielplan kämpfen verschiedene Fraktionen – sei es durch Aufbau und Kontrolle, Guerillataktiken oder diplomatische Verstrickungen – um die Vorherrschaft im Wald. Während grundlegende Regeln für Bewegung, Kampf und Kartennutzung allen gemeinsam sind, besitzt jede Fraktion einzigartige Mechanismen: Die einen errichten Gebäude und sammeln Ressourcen, andere koordinieren Aufstände oder wandern allein umher, um ihren Pfad zum Sieg zu finden.",
+          "Das Ziel ist es, als erste Fraktion genügend Siegespunkte zu sammeln und so die Herrschaft über das Waldland zu erringen. Durch die starke Asymmetrie, variierende Strategien und immer neue Konstellationen entsteht ein abwechslungsreiches Spiel mit hohem Wiederspielwert, in dem jede Partie eine neue Geschichte schreibt."
+        ]
+      },
+      "id": "sess-020"
+    },
+    {
+      "time": "Sonntag, 15:00 Uhr",
+      "title": "Die Gilde der fahrenden Händler",
+      "eventType": "spielesession",
+      "slug": "die-gilde-der-fahrenden-haendler",
+      "players": "1-4 Spieler:innen",
+      "age": "ab 10 Jahren",
+      "duration": "45 min",
+      "host": "Lars",
+      "room": "Session Raum 3",
+      "total": 4,
+      "image": "../img/programm/gilde-der-fahrenden-haendler.png",
+      "imageAlt": "Illustration zu Die Gilde der fahrenden Händler",
+      "link": "session.php?slug=die-gilde-der-fahrenden-haendler",
+      "detail": {
+        "quote": "In Die Gilde der fahrenden Händler schickt ihr eure Kundschafter in unbekannte Länder, um verlorene Gebiete zu erkunden, Schätze zu bergen und neue Handelswege zu etablieren. Vom Zentrum eurer Stadt aus brecht ihr auf, um Flüsse zu überqueren, Ruinen und Wracks zu untersuchen und Dörfer zu entdecken, die euch neue Ausgangspunkte für weitere Expeditionen bieten.\n\nJede Runde legt ihr fest, welche Landschaftstypen ihr erschließen dürft und platziert geschickt eure Würfel‐Kundschafter, um Regionen vollständig zu kartieren, Siedlungen zu gründen oder Handelsverbindungen zwischen Städten zu knüpfen. Je mehr ihr erkundet, desto weiterreichender werden eure Möglichkeiten – doch nur wer clever plant, kann die Gunst der Königin gewinnen.\n\nAm Ende siegt der Händler, der sein Territorium am geschicktesten ausgebaut, die wertvollsten Ziele erreicht und seinen Einfluss am weitesten in die Welt hinausgetragen hat.",
+        "paragraphs": [
+          "Die Gilde der fahrenden Händler ist ein strategisches Entdeckungs‑ und Gebietsausbau‑Spiel für 1–4 Spieler, in dem ihr als Mitglieder einer königlichen Gilde ferne Landstriche erforscht und wirtschaftliche Netzwerke errichtet.",
+          "Zu Beginn besitzt jede*r einen identischen Startplan, auf dem über Geländekarten bestimmt wird, welche Gebiete erforscht werden können. Eure Kundschafter platzieren ihr taktisch auf dem Spielbrett, um Regionen zu vervollständigen, neue Siedlungen zu errichten und Handelsrouten zwischen Städten herzustellen. Dabei gilt: Je mehr Orte ihr erschließt, desto größer ist euer Einflussbereich für spätere Expeditionen.",
+          "Gemeinsame Zielkarten schaffen zusätzliche Wettbewerbselemente, bei denen die erste Erfüllung höhere Belohnungen bringt. Mit strategischer Planung, cleverer Gebietserkundung und dem optimalen Einsatz eurer Ressourcen entsteht ein dynamisches Wettstreitspiel mit hohem Replay‑Wert."
+        ]
+      },
+      "id": "sess-022",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/comic time.png",
+        "url": "https://www.comic-time.de/de/",
+        "alt": "Comic Time"
+      }
+    },
+    {
+      "time": "Samstag, 14:00 Uhr",
+      "title": "Slay the Spire",
+      "eventType": "spielesession",
+      "slug": "slay-the-spire",
+      "players": "1-4 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "300 min",
+      "host": "Martin",
+      "room": "Session Raum 3",
+      "total": 4,
+      "image": "../img/programm/slay-the-spire.png",
+      "imageAlt": "Spielbox von Slay the Spire",
+      "link": "session.php?slug=slay-the-spire",
+      "detail": {
+        "quote": "In Slay the Spire wagt ihr euch gemeinsam in den düsteren, sich stets wandelnden Turm, dessen Ebenen voller bizarrer Kreaturen, tückischer Herausforderungen und mächtiger Relikte lauern. Jeder Aufstieg verlangt von euch kluge Entscheidungen: Welche Wege wählt ihr, welche Gegner stellt ihr euch und wie nutzt ihr eure Kartenkombinationen am effektivsten, um eure Überlebenschancen zu erhöhen?\n\nZu Beginn wählt jeder Heldin einen einzigartigen Charakter mit eigenem Startdeck und Spezialfähigkeiten. Im Verlauf der Partie wächst euer Deck stetig, neue Karten, mächtige Relikte und taktische Möglichkeiten eröffnen sich – doch ebenso steigen die Gefahren, je höher ihr im Spire voranschreitet.\n\nNur wenn ihr geschickt eure Decks aufbaut, kluge Entscheidungen trefft und euch gemeinsam den Schrecken des Spire stellt, könnt ihr den letzten Boss bezwingen und euren Namen als wahre Bezwinger*innen des Turms eintragen.",
+        "paragraphs": [
+          "Slay the Spire ist ein kooperatives Deck‑Building‑Abenteuer für 1–4 Spieler*innen, das die gefeierte Roguelike‑Deckbuilding‑Formel des digitalen Originals an den Spieltisch bringt.",
+          "Im Verlauf jeder Partie baut sich jeder Spielerin ein einzigartiges Kartendeck auf, indem sie Karten erwerben, verbessern oder anpassen, um in rundenbasierten Begegnungen gegen immer neue Gegner zu bestehen und mächtige Relikte zu entdecken. Eure Strategien müssen sich ständig an wechselnde Herausforderungen und Situationen anpassen, denn jeder Pfad im Spire ist anders und bringt neue Chancen wie Risiken mit sich.",
+          "Das Ziel ist einfach: eure Decks so stark zu machen, dass ihr dem Turm trotzen und den finalen Boss bezwingen könnt. Mit variierenden Held*innen, taktischer Tiefe, hohem Entscheidungsdruck und enormer Abwechslung bietet Slay the Spire ein intensives, strategisches Abenteuer mit starkem Wiederspielwert – ob allein oder im Team."
+        ]
+      },
+      "id": "sess-023"
+    },
+    {
+      "time": "Samstag, 21:00 Uhr",
+      "title": "Kingslayer [EN]",
+      "eventType": "penandpaper",
+      "slug": "kingslayer-en",
+      "players": "2-5 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "150 min",
+      "host": "Kilian",
+      "room": "Freie Spielfläche",
+      "total": 5,
+      "image": "../img/programm/daggerheart.png",
+      "imageAlt": "Illustration zu Kingslayer [EN]",
+      "link": "session.php?slug=kingslayer-en",
+      "detail": {
+        "infoBox": "Diese Session findet auf Englisch statt. Du musst aber kein perfektes Englisch sprechen – komm einfach dazu und hab Spaß am Spielen und gemeinsamen Üben!",
+        "quote": "King Eldric is dead — and his son, Prince Rorgard, has vanished without a trace during a hunting trip. You are sent to find the missing heir to the throne. Even the journey into this remote region is perilous. An overgrown forest path. A raging river. War beasts from an old conflict still roam the land — and they may see you as easy prey.\n\nAt last, you encounter survivors — but nothing is as it seems. Friend or foe? Truth or deception? Who deserves your trust, who will shape the future of the realm? This is a tough decision – and it’s yours to make.",
+        "paragraphs": [
+          "Kingslayer ist ein Pen-and-Paper-Abenteuer mit dem Rollenspielsystem Daggerheart für 2 bis 5 Spieler:innen und einer Dauer von etwa 2,5 Stunden.",
+          "Das gesamte Spielmaterial und die Spielleitung sind auf Englisch. Vorerfahrung mit Pen-and-Paper ist nicht erforderlich. Der Stil der Spielleitung ist eher regelleicht und klar auf Story und Atmosphäre ausgerichtet."
+        ]
+      },
+      "id": "sess-024"
+    },
+    {
+      "time": "Sonntag, 12:00 Uhr",
+      "title": "Nirvé",
+      "eventType": "penandpaper",
+      "slug": "nirve",
+      "players": "2-6 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "240 min",
+      "host": "Tom",
+      "room": "PnP Studio",
+      "total": 6,
+      "image": "../img/programm/nirve.webp",
+      "imageAlt": "Illustration zu Nirvé",
+      "link": "session.php?slug=nirve",
+      "detail": {
+        "quote": "Das Kaiserreich Luminantis sieht sich im Krieg gegen einen neuen Feind, einen Feind, den ihre Klingen nicht niederstrecken können: Vampire.\n\nUnter dem Vampirfürsten Zander fällt seit Jahren eine Provinz nach der anderen in die Kontrolle seiner Heeresschergen.\n\nUmgeben von Not, Leid und Hunger sind es einzig und allein die Helden der \"Blutboten\", die sich noch trauen, die Ländereien des Vampirfürstentums zu bewandern...",
+        "paragraphs": [
+          "Bei \"Nirvé\" handelt es sich um ein selbstkreiertes Fantasyrollenspiel eines jungen, aufstrebenden Autors aus Augsburg."
+        ]
+      },
+      "id": "sess-025",
+      "hostImage": "../img/hosts/Tom-Nerve.png",
+      "hostImageAlt": "Avatar von Tom"
+    },
+    {
+      "time": "Sonntag, 11:00 Uhr",
+      "title": "Superhelden in der Wüste",
+      "eventType": "penandpaper",
+      "slug": "superhelden-in-der-wueste-1",
+      "players": "4-8 Spieler:innen",
+      "age": "ab 10 Jahren",
+      "duration": "180 min",
+      "host": "Michel",
+      "room": "Freie Spielfläche",
+      "total": 8,
+      "image": "../img/programm/superhelden-in-der-wueste.png",
+      "imageAlt": "Illustration zu Superhelden in der Wüste",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/lorox-veranstaltungen.webp",
+        "url": "https://www.lorox-veranstaltungen.de/",
+        "alt": "Lorox Veranstaltungen"
+      },
+      "link": "session.php?slug=superhelden-in-der-wueste-1",
+      "detail": {
+        "quote": "Beeeep, Beeeep, Beeeep. Alarm im Avengers Tower. Wer ist gerade vor Ort und kann dem Notruf folgen? Ihr wolltet schon immer mal ein Superheld sein? Dann dürft ihr hier aus ein paar klassischen und nicht so klassischen Superhelden aus dem Marveluniversum auswählen, um die Schurken zu stoppen.",
+        "paragraphs": [
+          "Michel von Lorox Veranstaltungen lässt euch 3 Stunden lang den bösen Plan der Schurken durch Zusammenspiel und Ideenreichtum vereiteln. In einem leicht zugänglichen Rollenspielsystem auch für Anfänger dürft ihr in einem liebevoll gestalteten Setting die Welt retten."
+        ]
+      },
+      "id": "sess-026"
+    },
+    {
+      "time": "Sonntag, 12:30 Uhr",
+      "title": "Challengers",
+      "eventType": "turnier",
+      "slug": "challengers",
+      "players": "4-16 Spieler:innen",
+      "age": "ab 8 Jahren",
+      "duration": "120 min",
+      "host": "Andi",
+      "room": "Freie Spielfläche",
+      "total": 16,
+      "image": "../img/programm/challengers.png",
+      "imageAlt": "Spielbox von Challengers",
+      "link": "session.php?slug=challengers",
+      "detail": {
+        "quote": "In Challengers! tretet ihr in einem spektakulären Turnier gegeneinander an, bei dem jede Runde neue Herausforderungen und Duelle bringt: Mit euren Teams aus allerlei skurrilen Charakteren – von Aliens über Kraken bis hin zu mysteriösen Kreaturen – kämpft ihr um die begehrte Flagge und sammelt Trophäen und Fans.\n\nJede Runde trefft ihr auf ein anderes Gegenüber, stellt euch in packenden Begegnungen und wählt weise, welche Teammitglieder im Deck bleiben und welche Plätze räumen. Die beste Mischung aus Fähigkeiten, Combos und Strategien entscheidet darüber, wer im Finale um den Titel kämpft.\n\nWer am Ende des Sieben‑Runden‑Turniers die meisten Fans und Trophäen gesammelt hat und im großen Finale siegreich bleibt, wird Champion von Challengers!.",
+        "paragraphs": [
+          "Challengers! ist ein mitreißendes Deck‑Management‑ und Turnierspiel für 1 – 8 Spieler, das durch sein originelles Turnier‑Feeling und strategische Tiefe besticht.",
+          "In jeder Partie baut ihr euer Deck, indem ihr aus über 70 einzigartigen Charakteren wählt und so Teamkombos und Synergien schafft. In mehreren Runden trefft ihr in Duellen auf verschiedene Gegner, versucht die Flagge zu erobern und sammelt für Siege Trophäen und begeisterte Fans.",
+          "Nach sieben Matches steigen die beiden Spieler mit den meisten Fans ins große Finale auf – nur wer dieses Duell gewinnt, kann sich Champion von Challengers! nennen. Mit seiner Mischung aus Deckaufbau, schnellen Duellen und variablen Teams bietet das Spiel ein unterhaltsames, kompetitives Erlebnis mit hohem Wiederspielwert."
+        ]
+      },
+      "id": "sess-027",
+      "hostImage": "../img/hosts/Andi.webp",
+      "hostImageAlt": "Avatar von Andi"
+    },
+    {
+      "time": "Sonntag, 14:00 Uhr",
+      "title": "Superhelden in der Wüste",
+      "eventType": "penandpaper",
+      "slug": "superhelden-in-der-wueste-2",
+      "players": "4-8 Spieler:innen",
+      "age": "ab 10 Jahren",
+      "duration": "180 min",
+      "host": "Michel",
+      "room": "Freie Spielfläche",
+      "total": 8,
+      "image": "../img/programm/superhelden-in-der-wueste.png",
+      "imageAlt": "Illustration zu Superhelden in der Wüste",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/lorox-veranstaltungen.webp",
+        "url": "https://www.lorox-veranstaltungen.de/",
+        "alt": "Lorox Veranstaltungen"
+      },
+      "link": "session.php?slug=superhelden-in-der-wueste-2",
+      "detail": {
+        "quote": "Beeeep, Beeeep, Beeeep. Alarm im Avengers Tower. Wer ist gerade vor Ort und kann dem Notruf folgen? Ihr wolltet schon immer mal ein Superheld sein? Dann dürft ihr hier aus ein paar klassischen und nicht so klassischen Superhelden aus dem Marveluniversum auswählen, um die Schurken zu stoppen.",
+        "paragraphs": [
+          "Michel von Lorox Veranstaltungen lässt euch 3 Stunden lang den bösen Plan der Schurken durch Zusammenspiel und Ideenreichtum vereiteln. In einem leicht zugänglichen Rollenspielsystem auch für Anfänger dürft ihr in einem liebevoll gestalteten Setting die Welt retten."
+        ]
+      },
+      "id": "sess-028"
+    },
+    {
+      "time": "Sonntag, 12:00 Uhr",
+      "title": "Banditen von Unterholz",
+      "eventType": "penandpaper",
+      "slug": "banditen-von-unterholz",
+      "players": "3-6 Spieler:innen",
+      "age": "ab 12 Jahren",
+      "duration": "180 min",
+      "host": "David",
+      "room": "Session Raum 2",
+      "total": 6,
+      "image": "../img/programm/banditen-von-unterholz.jpeg",
+      "imageAlt": "Illustration zu Banditen von Unterholz",
+      "badge": {
+        "label": "Powered by",
+        "logo": "../img/lorox-veranstaltungen.webp",
+        "url": "https://www.lorox-veranstaltungen.de/",
+        "alt": "Lorox Veranstaltungen"
+      },
+      "link": "session.php?slug=banditen-von-unterholz",
+      "detail": {
+        "quote": "Im lauschigen Dörfchen Unterholz, gerade außerhalb der sicheren Grenzen des Imperiums, betreiben die Holzfäller ihr tägliches Geschäft. Für Abenteurer gibt es hier normalerweise nicht viel zu tun. Doch nun dringen Gerüchte von Brandschatzungen und Raubüberfällen aus dem Norden und Sorge macht sich im Dorf breit. Zu allem Überfluss ist letzter Nacht in Unterholz etwas geschehen, das gar nichts Gutes verheißt. Raub, Plünderung, die Täter verschwunden. Man flüstert, es gäbe Banditen in der Gegend. Die Zeit ist reif, dass die Mutigen der Stadt sich zusammentun, um der aufkommenden Bedrohung etwas entgegenzusetzen.\n\nWerdet ihr dem Ruf folgen?",
+        "paragraphs": [
+          "Willkommen beim beliebtesten Pen-and-Paper-Rollenspiel der Welt: Dungeons and Dragons. Dank der großartigen Figuren von Lorox Veranstaltungen wird die Geschichte vor euren Augen lebendig.",
+          "Ihr schlüpft in die Rolle großartiger Helden, die gemeinsam fantastische Abenteuer erleben. Der Spielleiter beschreibt, welche Situation es zu meistern gilt – ihr entscheidet, was eure Charaktere tun. Wird es brenzlig, müssen die Würfel über Erfolg oder Misserfolg entscheiden.",
+          "Im einsteiger:innenfreundlichen Abenteuer \"Die Banditen von Unterholz\" spielt ihr vorgefertigte Charaktere auf Level 1 bis 2. Die Session eignet sich besonders für alle, die noch nie Dungeons and Dragons gespielt haben.",
+          "Keine Vorkenntnisse oder Materialien notwendig. Nach einer kurzen Regelerklärung steigt ihr sofort ein. Abenteuerlustige willkommen!"
+        ]
+      },
+      "id": "sess-029"
+    }
+  ]
+}

@@ -28,6 +28,7 @@ export interface Session {
   status: string;
   title: string;
   total: number;
+  hasAvailabilityData?: boolean;
 }
 
 interface ProgramCardProps {

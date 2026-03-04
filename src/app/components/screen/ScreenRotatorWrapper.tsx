@@ -12,18 +12,12 @@ import {
   PlayerSearchByGame,
 } from '@context/PlayerSearchContext';
 import { EVENT_START, getCurrentEventReference } from '@lib/utils';
+import { loadProgramSessions, toProgramRecord } from '@lib/programData';
 import ScreenRotator from './Screenrotator';
 
 type TopGamesResponse = {
   games: Game[];
   total: number;
-};
-
-type ProgramResponse = {
-  ok: boolean;
-  generated_at: string;
-  count: number;
-  data: Record<string, Session>;
 };
 
 export type SlidesData = {
@@ -68,9 +62,7 @@ export default function ScreenRotatorWrapper() {
             { headers: { Authorization: `Bearer ${session.accessToken}` } },
           ).then((r) => r.json() as Promise<TopGamesResponse>),
 
-          fetch('https://spielviel.net/programm/api_availability.php').then(
-            (r) => r.json() as Promise<ProgramResponse>,
-          ),
+          loadProgramSessions().then((sessions) => toProgramRecord(sessions)),
 
           fetch(
             `${process.env.NEXT_PUBLIC_API_URL}/player_search/?expire_after_minutes=30`,
@@ -93,7 +85,7 @@ export default function ScreenRotatorWrapper() {
         topGamesResult.status === 'fulfilled' ? topGamesResult.value.games : [];
 
       const program =
-        programResult.status === 'fulfilled' ? programResult.value.data : {};
+        programResult.status === 'fulfilled' ? programResult.value : {};
 
       const openGames =
         openGamesResult.status === 'fulfilled'
