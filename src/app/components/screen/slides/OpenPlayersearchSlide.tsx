@@ -13,15 +13,15 @@ const OpenPlayersearchSlide = ({
   const [aspectRatio, setAspectRatio] = useState<number | null>(null);
 
   return (
-    <div className="container mx-auto mb-16 flex flex-col items-center p-6">
+    <div className="flex h-screen flex-col items-center overflow-hidden px-16 py-8">
       <RotatedTitle
         text="Partiesuche"
         tailwindBgColor="bg-tertiary"
-        className="mb-12 mt-12"
+        className="mb-16"
       />
-      <p className="mb-4 text-sm font-medium text-gray-500 md:mx-8">
+      <span className="mb-14 text-xl font-semibold">
         Hier findest du Leute, die bereits nach Mitspieler*innen suchen
-      </p>
+      </span>
       {data.map((search: FlatPlayerSearchWithGame, index: number) => {
         return (
           <OpenplayerSearchCard

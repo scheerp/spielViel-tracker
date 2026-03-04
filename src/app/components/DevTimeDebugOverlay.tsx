@@ -3,6 +3,7 @@
 import { useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useSession } from 'next-auth/react';
+import { useDevHudSetting } from '@hooks/useDevHudSettings';
 import {
   DAY_LABELS,
   EventPhase,
@@ -75,10 +76,10 @@ const readSnapshot = (
 };
 
 export default function DevTimeDebugOverlay() {
-  const isLocalDev = process.env.NODE_ENV !== 'production';
   const { data: session, status } = useSession();
   const isAdmin = status === 'authenticated' && session?.user?.role === 'admin';
-  const canShowHud = isLocalDev || isAdmin;
+  const [showTimeHud] = useDevHudSetting('timeHud');
+  const canShowHud = isAdmin && showTimeHud;
   const searchParams = useSearchParams();
 
   const snapshot = useMemo(() => {
@@ -94,13 +95,10 @@ export default function DevTimeDebugOverlay() {
     return `${start} – ${end}`;
   }, []);
 
-  const hasSimulatedValues =
-    snapshot.hasDayOverride || snapshot.hasTimeOverride;
-
-  if (!canShowHud || !hasSimulatedValues) return null;
+  if (!canShowHud) return null;
 
   return (
-    <aside className="fixed left-3 top-3 z-[1000] w-[22rem] max-w-[calc(100vw-1.5rem)] rounded bg-black/70 p-3 font-mono text-xs text-white">
+    <aside className="pointer-events-none fixed left-3 top-3 z-[1000] w-[22rem] max-w-[calc(100vw-1.5rem)] rounded bg-black/70 p-3 font-mono text-xs text-white">
       <div className="mb-2 font-bold">DEV-Zeitdebug</div>
 
       <div className="mb-2 border-b border-white/20 pb-2">

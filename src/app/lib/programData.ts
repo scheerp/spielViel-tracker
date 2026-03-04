@@ -10,6 +10,7 @@ type StaticProgramPayload = {
 
 const PROGRAM_API_URL = 'https://spielviel.net/programm/api_availability.php';
 const PROGRAM_JSON_URL = '/program/program.json';
+const PROGRAM_API_TIMEOUT_MS = 3500;
 
 export const mapStaticSessionsToProgramSessions = (
   staticSessions: Session['content'][],
@@ -41,7 +42,20 @@ const loadProgramSessionsFromStaticJson = async (): Promise<Session[]> => {
 
 export const loadProgramSessions = async (): Promise<Session[]> => {
   try {
-    const response = await fetch(PROGRAM_API_URL);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+    }, PROGRAM_API_TIMEOUT_MS);
+
+    let response: Response;
+
+    try {
+      response = await fetch(PROGRAM_API_URL, {
+        signal: controller.signal,
+      });
+    } finally {
+      clearTimeout(timeoutId);
+    }
 
     if (!response.ok) {
       throw new Error(`Fehler beim Laden des Programms: ${response.status}`);

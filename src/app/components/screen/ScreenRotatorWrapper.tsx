@@ -14,6 +14,7 @@ import {
 import { EVENT_START, getCurrentEventReference } from '@lib/utils';
 import { loadProgramSessions, toProgramRecord } from '@lib/programData';
 import ScreenRotator from './Screenrotator';
+import StartSlide from './slides/StartSlide';
 
 type TopGamesResponse = {
   games: Game[];
@@ -138,7 +139,7 @@ export default function ScreenRotatorWrapper() {
     init();
   }, [status, loadSlidesData, router, showNotification]);
 
-  if (!slidesData) return null;
+  if (!slidesData) return <StartSlide />;
 
   return (
     <ScreenRotator

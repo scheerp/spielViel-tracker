@@ -7,6 +7,7 @@ import UpcommingSessionsSlide from './slides/UpcommingSessionsSlide';
 import OpenPlayersearchSlide from './slides/OpenPlayersearchSlide';
 import TopGamesSlide from './slides/TopGamesSlide';
 import StaticInfoSlide from './slides/StaticInfoSlide';
+import StartSlide from './slides/StartSlide';
 import { SlidesData } from './ScreenRotatorWrapper';
 import { Game } from '@context/GamesContext';
 import { Session } from '@components/ProgramCard';
@@ -14,8 +15,10 @@ import { FlatPlayerSearchWithGame } from '@context/PlayerSearchContext';
 import { useNotification } from '@context/NotificationContext';
 import { useSession } from 'next-auth/react';
 import { getUpcomingSessionsForCurrentDay, isWithinEvent } from '@lib/utils';
+import { useDevHudSetting } from '@hooks/useDevHudSettings';
 
 type Slide =
+  | { id: 'start'; duration: number }
   | { id: 'program'; data: Record<string, Session>; duration: number }
   | { id: 'open-games'; data: FlatPlayerSearchWithGame[]; duration: number }
   | { id: 'top-games'; data: Game[]; duration: number }
@@ -37,12 +40,12 @@ const STATIC_SLIDES: Array<{
   imageAlt?: string;
   duration?: number;
 }> = [
-  {
+  /*   {
     key: 'welcome',
     title: 'Willkommen auf der Spiel Viel',
     imageSrc: 'logo.svg',
     imageAlt: 'Spielviel Logo',
-  },
+  }, */
 ];
 
 export default function ScreenRotator({
@@ -54,6 +57,7 @@ export default function ScreenRotator({
 }) {
   const { showNotification } = useNotification();
   const { data: session, status } = useSession();
+  const [showScreenHud] = useDevHudSetting('screenHud');
   const searchParams = useSearchParams();
 
   const [index, setIndex] = useState(0);
@@ -124,6 +128,8 @@ export default function ScreenRotator({
       }
     });
 
+    const startSlide: Slide = { id: 'start', duration: DEFAULT_DURATION };
+
     const staticSlides: Slide[] = STATIC_SLIDES.map((slide) => ({
       id: 'static',
       key: slide.key,
@@ -133,7 +139,7 @@ export default function ScreenRotator({
       duration: slide.duration ?? DEFAULT_DURATION,
     }));
 
-    return [...staticSlides, ...visibleDynamicSlides];
+    return [startSlide, ...staticSlides, ...visibleDynamicSlides];
   }, [searchParams, session?.user?.role, slidesData, status]);
 
   const currentSlide = slides[index];
@@ -260,8 +266,8 @@ export default function ScreenRotator({
     );
   }
 
-  const isLocalDev = process.env.NODE_ENV !== 'production';
-  const showDebugHud = isLocalDev;
+  const isAdmin = status === 'authenticated' && session?.user?.role === 'admin';
+  const showDebugHud = isAdmin && showScreenHud;
 
   return (
     <div className="relative h-full w-full">
@@ -282,6 +288,8 @@ export default function ScreenRotator({
             <UpcommingSessionsSlide data={currentSlide.data} />
           )}
 
+          {currentSlide.id === 'start' && <StartSlide />}
+
           {currentSlide.id === 'open-games' && (
             <OpenPlayersearchSlide data={currentSlide.data} />
           )}
@@ -300,7 +308,7 @@ export default function ScreenRotator({
           {/* TODO: remove progress bar? */}
           <motion.div
             key={`progress-${index}`}
-            className="progress-bar fixed bottom-0 left-0 h-1 w-full origin-left bg-primary"
+            className="progress-bar fixed bottom-0 left-0 h-1 w-full origin-right bg-primary"
             initial={{ scaleX: 1 }}
             animate={{ scaleX: 0 }}
             transition={{
@@ -312,7 +320,7 @@ export default function ScreenRotator({
       </AnimatePresence>
 
       {showDebugHud && (
-        <div className="fixed right-3 top-3 z-[1000] w-[22rem] max-w-[calc(100vw-1.5rem)] rounded bg-black/70 p-3 font-mono text-xs text-white">
+        <div className="pointer-events-none fixed right-3 top-3 z-[1000] w-[22rem] max-w-[calc(100vw-1.5rem)] rounded bg-black/70 p-3 font-mono text-xs text-white">
           <div className="mb-2 font-bold">DEV-Screen debug</div>
 
           <div className="mb-2 border-b border-white/20 pb-2">

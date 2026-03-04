@@ -46,16 +46,13 @@ const TopGamesSlide: React.FC<Props> = ({ data }) => {
   const top5 = ranked.slice(0, 5);
 
   return (
-    <div className="flex h-screen flex-col items-center overflow-hidden px-16 py-6">
-      {/* TITLE */}
-      <div className="col-span-2 flex justify-center">
-        <RotatedTitle
-          text="Top Spiele"
-          tailwindBgColor="bg-error"
-          className="mb-2"
-        />
-      </div>
-      <span className="mb-8 mt-20 text-xl font-semibold">
+    <div className="flex h-screen flex-col items-center overflow-hidden px-16 py-8">
+      <RotatedTitle
+        text="Top Spiele"
+        tailwindBgColor="bg-error"
+        className="mb-16"
+      />
+      <span className="mb-14 text-xl font-semibold">
         Diese Spiele wurden am häufigsten ausgeliehen.
       </span>
 
@@ -90,8 +87,8 @@ const TopGamesSlide: React.FC<Props> = ({ data }) => {
               }`}
               style={{ height: getPodiumHeight(game.borrows_count) }}
             ></div>
-            <div className="mt-8 flex h-96 flex-col items-center justify-start">
-              <div className="relative m-2 h-32 w-32 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground bg-white md:h-44 md:w-44">
+            <div className="flex h-96 flex-col items-center justify-start">
+              <div className="relative -top-6 m-1 h-44 w-44 flex-shrink-0 overflow-hidden truncate rounded-lg border-[3px] border-foreground bg-white">
                 <Image
                   src={game.img_url || '/placeholder.png'}
                   alt={game.name}
@@ -104,7 +101,7 @@ const TopGamesSlide: React.FC<Props> = ({ data }) => {
                 />
               </div>
 
-              <div className="text-lg font-semibold leading-tight">
+              <div className="relative -top-3 text-lg font-semibold leading-tight">
                 {game.name}
               </div>
             </div>
