@@ -8,6 +8,12 @@ const mainFont = localFont({
   preload: false,
 });
 
+const comicFont = localFont({
+  src: './fonts/Super_Comic.ttf',
+  variable: '--font-comic',
+  preload: false,
+});
+
 export const metadata = {
   manifest: '/manifest.json',
 
@@ -28,7 +34,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="de" className={`${mainFont.variable} font-main`}>
+    <html
+      lang="de"
+      className={`${mainFont.variable} ${comicFont.variable} font-main`}
+    >
       <body className="flex min-h-screen flex-col">
         <AppProviders>{children}</AppProviders>
       </body>

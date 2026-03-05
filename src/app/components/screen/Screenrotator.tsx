@@ -161,7 +161,7 @@ export default function ScreenRotator({
       }
     });
 
-    const startSlide: Slide = { id: 'start', duration: DEFAULT_DURATION };
+    const startSlide: Slide = { id: 'start', duration: DEFAULT_DURATION * 20 };
 
     const staticSlides: Slide[] = STATIC_SLIDES.map((slide) => ({
       id: 'static',
@@ -323,7 +323,9 @@ export default function ScreenRotator({
             <UpcommingSessionsSlide data={currentSlide.data} />
           )}
 
-          {currentSlide.id === 'start' && <StartSlide />}
+          {currentSlide.id === 'start' && (
+            <StartSlide animationNonce={roundsCompleted} />
+          )}
 
           {currentSlide.id === 'open-games' && (
             <OpenPlayersearchSlide data={currentSlide.data} />
