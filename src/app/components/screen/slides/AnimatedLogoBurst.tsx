@@ -1,13 +1,14 @@
 'use client';
 
 import Image from 'next/image';
+import { memo } from 'react';
 
 type AnimatedLogoBurstProps = {
   className?: string;
   logoSrc?: string;
 };
 
-export default function AnimatedLogoBurst({
+function AnimatedLogoBurst({
   className = '',
   logoSrc = '/logo.svg',
 }: AnimatedLogoBurstProps) {
@@ -24,3 +25,5 @@ export default function AnimatedLogoBurst({
     </div>
   );
 }
+
+export default memo(AnimatedLogoBurst);

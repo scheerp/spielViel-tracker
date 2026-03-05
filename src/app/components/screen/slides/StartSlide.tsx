@@ -17,13 +17,14 @@ export default function StartSlide({ animationNonce = 0 }: StartSlideProps) {
         alt="Hintergrund"
         fill
         priority
+        sizes="100vw"
         className="my-10 scale-[1.07]"
       />
       <Image
         src="/border.svg"
         alt="border"
         fill
-        priority
+        sizes="100vw"
         className="z-10 scale-[0.94]"
       />
       <div className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center">
@@ -32,7 +33,6 @@ export default function StartSlide({ animationNonce = 0 }: StartSlideProps) {
           alt="glow"
           width={1600}
           height={900}
-          priority
           sizes="80vw"
           className="animate-glow-pop w-[80vw] object-contain"
         />

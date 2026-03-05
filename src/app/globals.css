@@ -159,6 +159,7 @@ input[type='range']::-ms-thumb {
 }
 
 .animate-glow-pop {
+  will-change: transform, opacity;
   animation:
     glowPop 900ms cubic-bezier(0.2, 0.85, 0.2, 1) both,
     glowPulse 4.2s ease-in-out 1s infinite;
@@ -180,5 +181,15 @@ input[type='range']::-ms-thumb {
 }
 
 .animate-welcome-pop {
+  will-change: transform, opacity;
   animation: welcomePop 850ms cubic-bezier(0.2, 0.85, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-glow-pop,
+  .animate-welcome-pop {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
